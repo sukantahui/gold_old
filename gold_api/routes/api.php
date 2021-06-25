@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
@@ -24,8 +25,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-
-
+Route::get("backupDatabase",[AdminController::class,'backup_database']);
+Route::post("login",[UserController::class,'login']);
+Route::get("login",[UserController::class,'authenticationError'])->name('login');
 
 
 
