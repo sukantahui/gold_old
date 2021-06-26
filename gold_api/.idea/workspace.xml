@@ -21,10 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0224ae9c-f43c-4331-b77d-688c4c1202ec" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/app/mari_gold-2021-06-25-20-52-04.sql" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +214,7 @@
       <workItem from="1624613837717" duration="82000" />
       <workItem from="1624613935513" duration="15070000" />
       <workItem from="1624637814994" duration="1411000" />
-      <workItem from="1624641448927" duration="1964000" />
+      <workItem from="1624641448927" duration="3438000" />
     </task>
     <servers />
   </component>
