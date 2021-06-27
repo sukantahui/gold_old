@@ -30,6 +30,8 @@ const routes: Routes = [
                                     loadChildren: () => import('./child-pages/student/student.module')
                                         .then(mod => mod.StudentModule)
                                }
+
+
                             ]
                           },
                           // { path: '404', loadChildren: () => import('./home-not-found/home-not-found.module')

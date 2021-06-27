@@ -52,6 +52,8 @@ const routes: Routes = [
   { path: 'CalloutSection', loadChildren: () => import('./pages/home/callout-section/callout-section.module').then(m => m.CalloutSectionModule) },
 
   { path: 'PortfolioSection', loadChildren: () => import('./pages/home/portfolio-section/portfolio-section.module').then(m => m.PortfolioSectionModule) },
+
+  { path: 'SalesManager', loadChildren: () => import('./pages/home/child-pages/sales-manager/sales-manager.module').then(m => m.SalesManagerModule) },
   // { path: 'auth', loadChildren: () => import('./pages/home/auth/auth.module').then(m => m.AuthModule) },
   // { path: '404', loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) },
   // { path: '**', redirectTo: '/404'}
