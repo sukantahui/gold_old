@@ -25,11 +25,18 @@ const routes: Routes = [
                                     loadChildren: () => import('./child-pages/banking/banking.module')
                                         .then(mod => mod.BankingModule)
                                },
-                               {
-                                    path: 'student',
-                                    loadChildren: () => import('./child-pages/student/student.module')
-                                        .then(mod => mod.StudentModule)
-                               }
+                                {
+                                    path: 'SalesManager',
+                                    loadChildren: () => import('./child-pages/sales-manager/sales-manager.module')
+                                        .then(mod => mod.SalesManagerModule)
+                                },
+                                {
+                                    path: 'TransferToAgent',
+                                    loadChildren: () => import('./child-pages/sales-manager/transfer-to-agent/transfer-to-agent.module')
+                                        .then(mod => mod.TransferToAgentModule)
+                                }
+
+
                             ]
                           },
                           // { path: '404', loadChildren: () => import('./home-not-found/home-not-found.module')

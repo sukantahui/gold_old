@@ -8,7 +8,8 @@ import {MenuPublicModule} from './menu-public/menu-public.module';
 import {MenuOwnerModule} from './menu-owner/menu-owner.module';
 import {MatIconModule} from '@angular/material/icon';
 import {MenuDeveloperModule} from './menu-developer/menu-developer.module';
-import {MenuStudentModule} from './menu-student/menu-student.module';
+import {MenuSalesManagerModule} from './menu-sales-manager/menu-sales-manager.module';
+
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import {MenuStudentModule} from './menu-student/menu-student.module';
         MenuOwnerModule,
         MatIconModule,
         MenuDeveloperModule,
-        MenuStudentModule
+        MenuSalesManagerModule
     ]
 })
 export class MenuModule { }

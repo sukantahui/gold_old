@@ -9,12 +9,15 @@ import {environment} from '../../environments/environment';
 import {ErrorService} from './error.service';
 
 export interface AuthResponseData {
-  success: number;
+  status: boolean;
+  message: string;
   data: {
-    user: User;
+    uniqueId: number;
+    userName: string;
+    userTypeId: number;
+    userTypeName: string;
     token: string;
   };
-  message: string;
 }
 
 
@@ -48,13 +51,6 @@ export class AuthService {
       return false;
     }
   }
-  isAdmin(){
-    if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isAdmin){
-     return true;
-    }else{
-      return false;
-    }
-  }
   isDeveloper(): boolean{
     if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isDeveloper){
       return true;
@@ -62,13 +58,14 @@ export class AuthService {
       return false;
     }
   }
-  isStudent(): boolean{
-    if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isStudent){
+  isManagerSales(): boolean{
+    if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isManagerSales){
       return true;
     }else{
       return false;
     }
   }
+
 
   autoLogin(){
 
@@ -93,12 +90,13 @@ export class AuthService {
     return this.http.post<AuthResponseData>(this.BASE_API_URL + '/login', loginData)
         .pipe(catchError(this.errorService.serverError), tap(resData => {
           // tslint:disable-next-line:max-line-length
-          if (resData.success === 1){
-            const user = new User(resData.data.user.uniqueId,
-                resData.data.user.userName,
+          if (resData.status === true){
+            console.log('Login Success');
+            const user = new User(resData.data.uniqueId,
+                resData.data.userName,
                 resData.data.token,
-                resData.data.user.userTypeId,
-                resData.data.user.userTypeName);
+                resData.data.userTypeId,
+                resData.data.userTypeName);
             this.userBehaviorSubject.next(user);
             localStorage.setItem('user', JSON.stringify(user));
           }
@@ -108,7 +106,7 @@ export class AuthService {
 
   private serverError(err: any) {
     if (err instanceof Response) {
-      return throwError('backend server error');
+      return throwError('backend server error ');
       // if you're using lite-server, use the following line
       // instead of the line above:
       // return Observable.throw(err.text() || 'backend server error');

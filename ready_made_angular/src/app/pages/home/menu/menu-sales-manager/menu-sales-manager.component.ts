@@ -2,48 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import {NavItem} from '../menu-owner/menu-owner.component';
 
 @Component({
-  selector: 'app-menu-student',
-  templateUrl: './menu-student.component.html',
-  styleUrls: ['./menu-student.component.scss']
+  selector: 'app-menu-sales-manager',
+  templateUrl: './menu-sales-manager.component.html',
+  styleUrls: ['./menu-sales-manager.component.scss']
 })
-export class MenuStudentComponent implements OnInit {
+export class MenuSalesManagerComponent implements OnInit {
+
   navItems: NavItem[] = [
     {
-      displayName: 'Tutorial',
+      displayName: 'Transfer',
       iconName: 'close',
       children: [
         {
-          displayName: 'Java',
-          iconName: 'person',
-          children: [
-            {
-              displayName: 'Thread',
-              iconName: 'star_rate',
-              route: 'thread'
-            },
-            {
-              displayName: 'What\'s up with the Web?',
-              iconName: 'star_rate',
-              route: 'what-up-web'
-            }
-          ]
-        },
-        {
-          displayName: 'Stephen Fluin',
-          iconName: 'person',
-          route: 'stephen-fluin',
-          children: [
-            {
-              displayName: 'What\'s up with the Web?',
-              iconName: 'star_rate',
-              route: 'what-up-web'
-            }
-          ]
+          displayName: 'Transfer To Agent',
+          iconName: 'group',
+          route: 'TransferToAgent'
         },
       ]
     },
     {
-      displayName: 'Public 2',
+      displayName: 'Menu 2',
       iconName: 'close',
       children: [
         {
@@ -93,20 +71,87 @@ export class MenuStudentComponent implements OnInit {
             }
           ]
         },
+        {
+          displayName: 'Sessions',
+          iconName: 'speaker_notes',
+          children: [
+            {
+              displayName: 'Create Enterprise UIs',
+              iconName: 'star_rate',
+              route: 'material-design'
+            },
+            {
+              displayName: 'What\'s up with the Web?',
+              iconName: 'star_rate',
+              route: 'what-up-web'
+            },
+            {
+              displayName: 'My ally, the CLI',
+              iconName: 'star_rate',
+              route: 'my-ally-cli'
+            },
+            {
+              displayName: 'Become an Angular Tailor',
+              iconName: 'star_rate',
+              route: 'become-angular-tailer'
+            }
+          ]
+        },
+        {
+          displayName: 'Feedback',
+          iconName: 'feedback',
+          route: 'feedback'
+        }
       ]
     },
     {
-      displayName: 'Services',
+      displayName: 'Menu 3',
       iconName: 'close',
       children: [
         {
-          displayName: 'Banking',
+          displayName: 'Speakers',
           iconName: 'group',
           children: [
             {
-              displayName: 'Bank Details',
-              iconName: 'star_rate',
-              route: '/banking'
+              displayName: 'Michael Prentice',
+              iconName: 'person',
+              route: 'michael-prentice',
+              children: [
+                {
+                  displayName: 'Create Enterprise UIs',
+                  iconName: 'star_rate',
+                  route: 'material-design'
+                }
+              ]
+            },
+            {
+              displayName: 'Stephen Fluin',
+              iconName: 'person',
+              route: 'stephen-fluin',
+              children: [
+                {
+                  displayName: 'What\'s up with the Web?',
+                  iconName: 'star_rate',
+                  route: 'what-up-web'
+                }
+              ]
+            },
+            {
+              displayName: 'Mike Brocchi',
+              iconName: 'person',
+              route: 'mike-brocchi',
+              children: [
+                {
+                  displayName: 'My ally, the CLI',
+                  iconName: 'star_rate',
+                  route: 'my-ally-cli'
+                },
+                {
+                  displayName: 'Become an Angular Tailor',
+                  iconName: 'star_rate',
+                  route: 'become-angular-tailer'
+                }
+              ]
             }
           ]
         },
@@ -144,7 +189,7 @@ export class MenuStudentComponent implements OnInit {
       ]
     },
     {
-      displayName: 'Public 4',
+      displayName: 'Menu 4',
       disabled: true,
       iconName: 'close',
       children: [
@@ -194,12 +239,42 @@ export class MenuStudentComponent implements OnInit {
               ]
             }
           ]
+        },
+        {
+          displayName: 'Sessions',
+          iconName: 'speaker_notes',
+          children: [
+            {
+              displayName: 'Create Enterprise UIs',
+              iconName: 'star_rate',
+              route: 'material-design'
+            },
+            {
+              displayName: 'What\'s up with the Web?',
+              iconName: 'star_rate',
+              route: 'what-up-web'
+            },
+            {
+              displayName: 'My ally, the CLI',
+              iconName: 'star_rate',
+              route: 'my-ally-cli'
+            },
+            {
+              displayName: 'Become an Angular Tailor',
+              iconName: 'star_rate',
+              route: 'become-angular-tailer'
+            }
+          ]
+        },
+        {
+          displayName: 'Feedback',
+          iconName: 'feedback',
+          route: 'feedback'
         }
       ]
     }
   ];
   constructor() { }
-
   ngOnInit(): void {
   }
 

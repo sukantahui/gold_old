@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./banking.component.scss']
 })
 export class BankingComponent implements OnInit {
-  private bankingForm: FormGroup;
+  bankingForm: FormGroup;
   bankDetails: any;
   constructor(private http: HttpClient) {
     this.bankingForm = new FormGroup({
