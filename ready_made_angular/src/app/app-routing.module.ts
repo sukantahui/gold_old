@@ -54,10 +54,9 @@ const routes: Routes = [
   { path: 'PortfolioSection', loadChildren: () => import('./pages/home/portfolio-section/portfolio-section.module').then(m => m.PortfolioSectionModule) },
 
   { path: 'SalesManager', loadChildren: () => import('./pages/home/child-pages/sales-manager/sales-manager.module').then(m => m.SalesManagerModule) },
-<<<<<<< HEAD
 
-=======
->>>>>>> d8637a95635af2854c4f1ded536a7ac49755e283
+  { path: 'MenuSalesManager', loadChildren: () => import('./pages/home/menu/menu-sales-manager/menu-sales-manager.module').then(m => m.MenuSalesManagerModule) },
+
   // { path: 'auth', loadChildren: () => import('./pages/home/auth/auth.module').then(m => m.AuthModule) },
   // { path: '404', loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) },
   // { path: '**', redirectTo: '/404'}
