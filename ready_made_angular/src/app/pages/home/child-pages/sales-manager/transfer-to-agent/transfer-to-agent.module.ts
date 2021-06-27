@@ -11,6 +11,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatButtonModule} from "@angular/material/button";
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -28,15 +29,13 @@ import {MatButtonModule} from "@angular/material/button";
     MatSelectModule,
     MatSlideToggleModule,
     MatButtonModule,
+    MatCardModule,
   ]
 })
 export class TransferToAgentModule {
-  transferForm: FormGroup;
+  
   constructor(){
-    this.transferForm = new FormGroup({
-    agent_id: new FormControl(null),
-    agent_name: new FormControl(null)
-  });
+    
 }
  }
 

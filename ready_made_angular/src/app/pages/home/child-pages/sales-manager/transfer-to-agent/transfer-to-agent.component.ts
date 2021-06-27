@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import {TransferAgentService} from '../../../../../services/transfer-agent.service';
 
 @Component({
@@ -9,7 +10,14 @@ import {TransferAgentService} from '../../../../../services/transfer-agent.servi
 export class TransferToAgentComponent implements OnInit {
   agentList: any[];
   productList: any[];
-  constructor(public transferAgentService: TransferAgentService) { }
+  transferForm: FormGroup;
+  constructor(public transferAgentService: TransferAgentService) {
+
+    this.transferForm = new FormGroup({
+      agent_id: new FormControl(null),
+      short_name: new FormControl(null)
+    });
+   }
 
   ngOnInit(): void {
     this.transferAgentService.getAgentsUpdateListener().subscribe(response => {
