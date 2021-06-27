@@ -21,10 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0224ae9c-f43c-4331-b77d-688c4c1202ec" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/ApiResponser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/ApiResponser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/models/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/models/user.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/auth/auth.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/auth/auth.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/services/auth.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,9 +215,13 @@
       <workItem from="1624613935513" duration="15070000" />
       <workItem from="1624637814994" duration="1411000" />
       <workItem from="1624641448927" duration="3438000" />
+<<<<<<< HEAD
       <workItem from="1624728321467" duration="796000" />
       <workItem from="1624778649437" duration="647000" />
       <workItem from="1624787494213" duration="885000" />
+=======
+      <workItem from="1624732641528" duration="1002000" />
+>>>>>>> 337eb78ec3ceb09ee0c467a262e4857c343670cf
     </task>
     <servers />
   </component>
