@@ -20,34 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0224ae9c-f43c-4331-b77d-688c4c1202ec" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/gold_api.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/laravel-tinker-plugin.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/UserType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/app/login_part.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/ApiResponser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/ApiResponser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/app/mari_gold-2021-06-25-20-52-04.sql" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../ready_made_angular/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/models/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/models/user.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/auth/auth.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/auth/auth.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu-student/menu-student-routing.module.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu-student/menu-student.component.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu-student/menu-student.component.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu-student/menu-student.component.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu-student/menu-student.module.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/services/auth.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,6 +215,7 @@
       <workItem from="1624613837717" duration="82000" />
       <workItem from="1624613935513" duration="15070000" />
       <workItem from="1624797643916" duration="224000" />
+      <workItem from="1624798123500" duration="847000" />
     </task>
     <servers />
   </component>

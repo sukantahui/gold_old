@@ -9,7 +9,7 @@ import {NavItem} from '../menu-owner/menu-owner.component';
 })
 export class MenuPublicComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
     showLogin = false;
   navItems: NavItem[] = [
     {
