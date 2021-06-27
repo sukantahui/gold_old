@@ -13,7 +13,7 @@ trait ApiResponser{
     protected function successResponse($data, $message = null, $code = 200)
     {
         return response()->json([
-            'status'=> "true",
+            'status'=> true,
             'message' => $message,
             'data' => $data
         ], $code,[],JSON_NUMERIC_CHECK);

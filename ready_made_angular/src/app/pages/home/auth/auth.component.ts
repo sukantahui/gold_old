@@ -43,28 +43,16 @@ export class AuthComponent implements OnInit {
         this.isLoading = true;
         this.authService.login({loginId: this.loginForm.value.email, loginPassword: passwordMd5}).subscribe(response => {
             this.isLoading = false;
-            if (response.success === 1){
-                // tslint:disable-next-line:triple-equals
-                if (response.data.user.isOwner){
+            if (response.status === true){
+                if (this.authService.isOwner()){
                     this.router.navigate(['/owner']).then(r => {});
                 }
-                // tslint:disable-next-line:triple-equals
-                if (response.data.user.userTypeId == 2){
+                if (this.authService.isManagerSales){
                     this.router.navigate(['/developer']).then(r => {});
-                }
-                // tslint:disable-next-line:triple-equals
-                if (response.data.user.userTypeId == 3){
-                    this.router.navigate(['/stockistCPanel']).then(r => {});
-                }
-                // tslint:disable-next-line:triple-equals
-                if (response.data.user.userTypeId == 4){
-                    this.router.navigate(['/terminal']).then(r => {});
-                }
-                if (response.data.user.userTypeId === 8){
-                    this.router.navigate(['/student']).then(r => {});
                 }
             }
         }, (error) => {
+            console.log(error);
             this.isLoading = false;
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {

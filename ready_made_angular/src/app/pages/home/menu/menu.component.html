@@ -3,6 +3,5 @@
 <div *ngIf="authService.isAuthenticated()">
     <app-menu-owner *ngIf="authService.isOwner()"></app-menu-owner>
     <app-menu-developer *ngIf="authService.isDeveloper()"></app-menu-developer>
-    <app-menu-student *ngIf="authService.isStudent()"></app-menu-student>
 </div>
 <!--<a [routerLink] (click)="logout()">Logout <i class="icon-login"></i></a>-->

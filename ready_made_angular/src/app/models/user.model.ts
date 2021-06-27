@@ -29,33 +29,29 @@ export class User{
     // tslint:disable-next-line:triple-equals
     return this.userTypeId == 1;
   }
-  get isDeveloper(){
+  get isManager(){
     // tslint:disable-next-line:triple-equals
     return this.userTypeId == 2;
   }
-  get isAdmin(){
+  get isManagerSales(){
     // tslint:disable-next-line:triple-equals
-     return this.userTypeId == 3;
+    return this.userTypeId == 3;
   }
-
-  get isManager(){
+  get isManagerAccounts(){
     // tslint:disable-next-line:triple-equals
     return this.userTypeId == 4;
   }
-  get isWorker(){
+  get isOfficeStaff(){
     // tslint:disable-next-line:triple-equals
     return this.userTypeId == 5;
   }
-  get isAccountant(){
+  get isWorker(){
     // tslint:disable-next-line:triple-equals
     return this.userTypeId == 6;
   }
-  get isOfficeStaff(){
+  get isDeveloper(){
     // tslint:disable-next-line:triple-equals
     return this.userTypeId == 7;
   }
-  get isStudent(){
-    // tslint:disable-next-line:triple-equals
-    return this.userTypeId == 8;
-  }
+
 }

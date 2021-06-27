@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
@@ -24,10 +25,28 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
+Route::get("backupDatabase",[AdminController::class,'backup_database']);
+Route::post("login",[UserController::class,'login']);
+Route::get("login",[UserController::class,'authenticationError'])->name('login');
+
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::get('/me', function(Request $request) {
+        return auth()->user();
+    });
+    Route::put("user",[UserController::class,'updatePassword']);
+
+    Route::get("revokeAll",[UserController::class,'revoke_all']);
+    //All secure URL's
+    Route::get("user",[UserController::class,'getCurrentUser']);
 
 
 
+    Route::get("logout",[UserController::class,'logout']);
 
+    //get all users
+    Route::get("users",[UserController::class,'getAllUsers']);
+
+});
 
 
 Route::group(array('prefix' => 'dev'), function() {

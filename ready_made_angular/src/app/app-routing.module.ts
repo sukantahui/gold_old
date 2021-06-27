@@ -45,8 +45,6 @@ const routes: Routes = [
 
   { path: 'Student', loadChildren: () => import('./pages/home/child-pages/student/student.module').then(m => m.StudentModule) },
 
-  { path: 'MenuStudent', loadChildren: () => import('./pages/home/menu/menu-student/menu-student.module').then(m => m.MenuStudentModule) },
-
   { path: 'TestSection', loadChildren: () => import('./pages/home/test-section/test-section.module').then(m => m.TestSectionModule) },
 
   { path: 'OfferSection', loadChildren: () => import('./pages/home/offer-section/offer-section.module').then(m => m.OfferSectionModule) },
