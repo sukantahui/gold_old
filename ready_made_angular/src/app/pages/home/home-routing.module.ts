@@ -25,11 +25,7 @@ const routes: Routes = [
                                     loadChildren: () => import('./child-pages/banking/banking.module')
                                         .then(mod => mod.BankingModule)
                                },
-                                {
-                                    path: 'SalesManager',
-                                    loadChildren: () => import('./child-pages/sales-manager/sales-manager.module')
-                                        .then(mod => mod.SalesManagerModule)
-                                },
+
 
                             ]
                           },
