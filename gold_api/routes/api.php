@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\AgentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 //this api will backup database and will store in storage\app folder
+
 
 
 
@@ -45,7 +47,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     //get all users
     Route::get("users",[UserController::class,'getAllUsers']);
-
+    //for transferring products to agents
+    Route::get("agentsExceptCounterAgent",[AgentController::class,'getAgentsExceptCounterAgent']);
+    Route::get("getProductsForTransfer",[AgentController::class,'getProductsForTransfer']);
 });
 
 
@@ -57,5 +61,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("stocks/agent/{agentId}",[StockController::class,'get_all_instock_items']);
     Route::put("stocks/{tag}",[StockController::class,'update']);
     Route::post("stocks",[StockController::class,'store']);
+    Route::get("agentsExceptCounterAgent",[AgentController::class,'getAgentsExceptCounterAgent']);
+    Route::get("getProductsForTransfer",[AgentController::class,'getProductsForTransfer']);
 });
 

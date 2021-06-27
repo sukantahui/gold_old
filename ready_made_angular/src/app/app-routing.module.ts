@@ -57,6 +57,8 @@ const routes: Routes = [
 
   { path: 'MenuSalesManager', loadChildren: () => import('./pages/home/menu/menu-sales-manager/menu-sales-manager.module').then(m => m.MenuSalesManagerModule) },
 
+  { path: 'TransferToAgent', loadChildren: () => import('./pages/home/child-pages/sales-manager/transfer-to-agent/transfer-to-agent.module').then(m => m.TransferToAgentModule) },
+
   // { path: 'auth', loadChildren: () => import('./pages/home/auth/auth.module').then(m => m.AuthModule) },
   // { path: '404', loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) },
   // { path: '**', redirectTo: '/404'}

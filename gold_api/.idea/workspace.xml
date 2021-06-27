@@ -19,7 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0224ae9c-f43c-4331-b77d-688c4c1202ec" name="Default Changelist" comment="" />
+    <list default="true" id="0224ae9c-f43c-4331-b77d-688c4c1202ec" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/home-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/home-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu-sales-manager/menu-sales-manager-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/menu/menu-sales-manager/menu-sales-manager-routing.module.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -213,7 +219,7 @@
       <workItem from="1624613837717" duration="82000" />
       <workItem from="1624613935513" duration="15070000" />
       <workItem from="1624797643916" duration="224000" />
-      <workItem from="1624798123500" duration="1438000" />
+      <workItem from="1624798123500" duration="5379000" />
     </task>
     <servers />
   </component>
