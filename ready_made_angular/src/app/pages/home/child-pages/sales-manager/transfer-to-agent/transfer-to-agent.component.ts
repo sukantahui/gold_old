@@ -16,6 +16,12 @@ export class TransferToAgentComponent implements OnInit {
   searchTerm: any;
   pageSize = 50;
   currentPage = 1;
+  searchTermSelectedProducts: any;
+  pageSizeSelectedProducts = 50;
+  currentPageSelectedProducts = 1;
+  color = 'accent';
+  checked = false;
+  checkedSelectAllProducts = false;
   constructor(public transferAgentService: TransferAgentService) {
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
@@ -32,21 +38,20 @@ export class TransferToAgentComponent implements OnInit {
     });
   }
 
-  test() {
-    var newArray = this.products.filter(function (el)
-    {
-      return el.is_selected;
-    });
-    console.log(newArray);
+  selectForTransfer() {
+    const newArray = this.products.filter((el) => el.is_selected);
     this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.selectedProducts.push(...newArray);
-    console.log(this.selectedProducts);
   }
 
   sendProduct(selectedProduct: any) {
     const index = this.products.findIndex(x => x.tag === selectedProduct.tag);
     const product = this.products[index];
     this.selectedProducts.unshift(product);
-    this.products.splice(index,1);
+    this.products.splice(index, 1);
+  }
+
+  changedProductSlideToggle() {
+    this.checkedSelectAllProducts = !this.checkedSelectAllProducts;
   }
 }

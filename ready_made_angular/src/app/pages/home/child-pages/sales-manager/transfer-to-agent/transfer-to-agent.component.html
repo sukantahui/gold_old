@@ -11,20 +11,35 @@
                            placeholder="Select Agent">
                 </ng-select>
             </form>
+
+        </div>
+        <div class="col-6">
+
+        </div>
+    </div>
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="col-6 flex-column">
             <div  id="product-table-div">
                 <form class="example-form">
                     <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
-                        <mat-form-field class="example-full-width">
+                        <mat-slide-toggle
+                                [(ngModel)]="checkedSelectAllProducts"
+                                class="example-margin"
+                                [color]="color"
+                                (change)="changedProductSlideToggle()">
+                            Slide me! {{checkedSelectAllProducts}}
+                        </mat-slide-toggle>
+                        <mat-form-field fxFlex="15">
                             <input matInput placeholder="Search..." [(ngModel)]="searchTerm" name="search" type="text" autofocus>
                         </mat-form-field>
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field fxFlex="10">
                             <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">
                         </mat-form-field>
                     </div>
                 </form>
                 <table class="table table-bordered table-responsive" style="border: none !important;">
 
-                <thead>
+                    <thead>
                     <tr>
                         <td>Select</td>
                         <td>Index</td>
@@ -36,8 +51,8 @@
                         <td>LC</td>
                         <td>Selected</td>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr *ngFor="let product of products | filter:searchTerm | paginate: { itemsPerPage: pageSize, currentPage: currentPage };let indexOfElement=index">
                         <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
                         <td>{{(currentPage-1)*10+indexOfElement+1}}</td>
@@ -54,11 +69,11 @@
                             </button>
                         </td>
                     </tr>
-                </tbody>
+                    </tbody>
 
-            </table>
-                <button (click)="test()">Test</button>
-            <div fxLayout.xs="column" fxLayout="column" fxFlexFill>
+                </table>
+                <button (click)="selectForTransfer()">Test</button>
+                <div fxLayout.xs="column" fxLayout="column" fxFlexFill>
                     <!--    https://www.npmjs.com/package/ngx-pagination-->
                     <!--    npm i ngx-pagination-->
                     <pagination-controls (pageChange)="currentPage = $event" responsive="true" autoHide="true" previousLabel="আগে" nextLabel="পরে" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" directionLinks="true">
@@ -66,8 +81,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
-            <table class="table table-bordered table-responsive" style="border: none !important;">
+        <div class="col-6 flex-column">
+            <div  id="selected-product-table-div">
+                <form class="example-form">
+                    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Search..." [(ngModel)]="searchTermSelectedProducts" name="search" type="text" autofocus>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Items per page" [(ngModel)]="pageSizeSelectedProducts" name="PageSize" type="text">
+                        </mat-form-field>
+                    </div>
+                </form>
+                <table class="table table-bordered table-responsive" style="border: none !important;">
 
                 <thead>
                 <tr>
@@ -83,7 +109,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let product of selectedProducts;let indexOfElement=index">
+                <tr *ngFor="let product of selectedProducts| filter:searchTermSelectedProducts | paginate: { itemsPerPage: pageSizeSelectedProducts, currentPage: currentPageSelectedProducts };let indexOfElement=index">
                     <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
                     <td>{{(currentPage-1)*10+indexOfElement+1}}</td>
                     <td>{{product.tag}}</td>
@@ -95,8 +121,14 @@
                     <td>{{product.is_selected}}</td>
                 </tr>
                 </tbody>
-
             </table>
+            <div fxLayout.xs="column" fxLayout="column" fxFlexFill>
+                    <!--    https://www.npmjs.com/package/ngx-pagination-->
+                    <!--    npm i ngx-pagination-->
+                    <pagination-controls (pageChange)="currentPage = $event" responsive="true" autoHide="true" previousLabel="আগে" nextLabel="পরে" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" directionLinks="true">
+                    </pagination-controls>
+                </div>
+            </div>
         </div>
     </div>
 </div>
