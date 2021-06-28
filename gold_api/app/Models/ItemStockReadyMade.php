@@ -70,5 +70,11 @@ class ItemStockReadyMade extends Model
      * @var mixed
      */
     private $job_id;
+    protected $appends = ['is_selected'];
+
+    public function getIsSelectedAttribute()
+    {
+        return true;
+    }
 
 }

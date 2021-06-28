@@ -20,16 +20,19 @@
                         <td>Quantity</td>
                         <td>Gold</td>
                         <td>LC</td>
+                        <td>Selected</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let product of products">
+                        <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
                         <td>{{product.tag}}</td>
                         <td>{{product.model_no}}</td>
                         <td>{{product.model_size}}</td>
                         <td>{{product.qty}}</td>
                         <td>{{product.gold}}</td>
                         <td>{{product.labour_charge}}</td>
+                        <td>{{product.is_selected}}</td>
                     </tr>
                 </tbody>
 

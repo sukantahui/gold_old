@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ItemStockReadyMadeResource;
 use App\Models\ItemStockReadyMade;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -15,7 +16,7 @@ class StockController extends ApiController
     }
     public function stock_by_agent_id($agentId){
         $result = ItemStockReadyMade::whereInStockAndAgentId(1,$agentId)->get();
-        return $this->successResponse($result);
+        return $this->successResponse(ItemStockReadyMadeResource::collection($result));
     }
     public function store(Request $request)
     {

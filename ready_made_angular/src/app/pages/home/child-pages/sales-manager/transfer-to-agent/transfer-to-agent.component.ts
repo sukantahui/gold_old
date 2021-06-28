@@ -11,6 +11,7 @@ export class TransferToAgentComponent implements OnInit {
   agents: any[];
   products: any[];
   transferForm: FormGroup;
+  disabled: any;
   constructor(public transferAgentService: TransferAgentService) {
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
