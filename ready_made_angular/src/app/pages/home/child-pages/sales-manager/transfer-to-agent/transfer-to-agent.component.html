@@ -1,9 +1,9 @@
 <div id="transfer-to-agent-div">
     <h3>Transfer to Agent</h3>
     <div class="d-flex flex-row bd-highlight mb-3">
-        <div class="col-6">
+        <div class="col-6 flex-column">
             <form [formGroup]=transferForm class="row g-3" fxFlex="30">
-                <ng-select [items]="agentList"
+                <ng-select [items]="agents"
                            bindLabel="short_name"
                            class="custom"
                            bindValue="agent_id"
@@ -11,6 +11,29 @@
                            placeholder="Select Agent">
                 </ng-select>
             </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Tag</td>
+                        <td>Model</td>
+                        <td>Size</td>
+                        <td>Quantity</td>
+                        <td>Gold</td>
+                        <td>LC</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products">
+                        <td>{{product.tag}}</td>
+                        <td>{{product.model_no}}</td>
+                        <td>{{product.model_size}}</td>
+                        <td>{{product.qty}}</td>
+                        <td>{{product.gold}}</td>
+                        <td>{{product.labour_charge}}</td>
+                    </tr>
+                </tbody>
+
+            </table>
         </div>
         <div class="col-6">Flex item 2</div>
     </div>

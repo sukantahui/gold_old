@@ -8,11 +8,10 @@ import {TransferAgentService} from '../../../../../services/transfer-agent.servi
   styleUrls: ['./transfer-to-agent.component.scss']
 })
 export class TransferToAgentComponent implements OnInit {
-  agentList: any[];
-  productList: any[];
+  agents: any[];
+  products: any[];
   transferForm: FormGroup;
   constructor(public transferAgentService: TransferAgentService) {
-
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
       short_name: new FormControl(null)
@@ -21,10 +20,10 @@ export class TransferToAgentComponent implements OnInit {
 
   ngOnInit(): void {
     this.transferAgentService.getAgentsUpdateListener().subscribe(response => {
-      this.agentList = response;
+      this.agents = response;
     });
     this.transferAgentService.getProductsUpdateListener().subscribe(response => {
-      this.productList = response;
+      this.products = response;
     });
   }
 }
