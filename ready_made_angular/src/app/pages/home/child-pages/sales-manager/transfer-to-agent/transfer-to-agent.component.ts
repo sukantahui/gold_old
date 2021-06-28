@@ -10,8 +10,12 @@ import {TransferAgentService} from '../../../../../services/transfer-agent.servi
 export class TransferToAgentComponent implements OnInit {
   agents: any[];
   products: any[];
+  selectedProducts: any[] = [];
   transferForm: FormGroup;
   disabled: any;
+  searchTerm: any;
+  pageSize = 50;
+  currentPage = 1;
   constructor(public transferAgentService: TransferAgentService) {
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
@@ -26,5 +30,20 @@ export class TransferToAgentComponent implements OnInit {
     this.transferAgentService.getProductsUpdateListener().subscribe(response => {
       this.products = response;
     });
+  }
+
+  test() {
+    var newArray = this.products.filter(function (el)
+    {
+      return el.is_selected;
+    });
+    console.log(newArray);
+    this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
+    this.selectedProducts.push(...newArray);
+    console.log(this.selectedProducts);
+  }
+
+  sendProduct(product: any) {
+    
   }
 }

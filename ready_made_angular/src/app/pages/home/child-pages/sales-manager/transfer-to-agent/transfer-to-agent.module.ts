@@ -15,6 +15,8 @@ import { MatCardModule } from '@angular/material/card';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {FlexModule} from '@angular/flex-layout';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {Ng2SearchPipeModule} from "ng2-search-filter";
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         FlexModule,
         MatCheckboxModule,
         FormsModule,
+        Ng2SearchPipeModule,
+        NgxPaginationModule,
     ]
 })
 export class TransferToAgentModule {

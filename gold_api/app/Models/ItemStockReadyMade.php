@@ -74,7 +74,7 @@ class ItemStockReadyMade extends Model
 
     public function getIsSelectedAttribute()
     {
-        return true;
+        return false;
     }
 
 }

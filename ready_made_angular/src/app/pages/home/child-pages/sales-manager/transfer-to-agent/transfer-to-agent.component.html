@@ -11,9 +11,23 @@
                            placeholder="Select Agent">
                 </ng-select>
             </form>
-            <table class="table">
+            <div  id="product-table-div">
+                <form class="example-form">
+                    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Search..." [(ngModel)]="searchTerm" name="search" type="text" autofocus>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">
+                        </mat-form-field>
+                    </div>
+                </form>
+                <table class="table table-bordered table-responsive" style="border: none !important;">
+
                 <thead>
                     <tr>
+                        <td>Select</td>
+                        <td>Index</td>
                         <td>Tag</td>
                         <td>Model</td>
                         <td>Size</td>
@@ -24,8 +38,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of products">
+                    <tr *ngFor="let product of products | filter:searchTerm | paginate: { itemsPerPage: pageSize, currentPage: currentPage };let indexOfElement=index">
                         <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
+                        <td>{{(currentPage-1)*10+indexOfElement+1}}</td>
                         <td>{{product.tag}}</td>
                         <td>{{product.model_no}}</td>
                         <td>{{product.model_size}}</td>
@@ -33,12 +48,56 @@
                         <td>{{product.gold}}</td>
                         <td>{{product.labour_charge}}</td>
                         <td>{{product.is_selected}}</td>
+                        <td>
+                            <button (click)="sendProduct(product)" mat-mini-fab aria-label="Example icon button with a home icon">
+                                <i class="ri-send-plane-2-fill"></i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
 
             </table>
+                <button (click)="test()">Test</button>
+            <div fxLayout.xs="column" fxLayout="column" fxFlexFill>
+                    <!--    https://www.npmjs.com/package/ngx-pagination-->
+                    <!--    npm i ngx-pagination-->
+                    <pagination-controls (pageChange)="currentPage = $event" responsive="true" autoHide="true" previousLabel="আগে" nextLabel="পরে" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" directionLinks="true">
+                    </pagination-controls>
+                </div>
+            </div>
         </div>
-        <div class="col-6">Flex item 2</div>
+        <div class="col-6">
+            <table class="table table-bordered table-responsive" style="border: none !important;">
+
+                <thead>
+                <tr>
+                    <td>Select</td>
+                    <td>Index</td>
+                    <td>Tag</td>
+                    <td>Model</td>
+                    <td>Size</td>
+                    <td>Quantity</td>
+                    <td>Gold</td>
+                    <td>LC</td>
+                    <td>Selected</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let product of selectedProducts;let indexOfElement=index">
+                    <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
+                    <td>{{(currentPage-1)*10+indexOfElement+1}}</td>
+                    <td>{{product.tag}}</td>
+                    <td>{{product.model_no}}</td>
+                    <td>{{product.model_size}}</td>
+                    <td>{{product.qty}}</td>
+                    <td>{{product.gold}}</td>
+                    <td>{{product.labour_charge}}</td>
+                    <td>{{product.is_selected}}</td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
     </div>
 </div>
 
