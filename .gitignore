@@ -8,6 +8,8 @@
 /bazel-out
 /gold_api/vendor
 /gold_api/vendor/*
+/gold_api/.env
+gold_api/.env
 # dependencies
 /node_modules
 

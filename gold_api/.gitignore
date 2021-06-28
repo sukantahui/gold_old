@@ -10,7 +10,8 @@
 
 .env
 /.env
-
+.env
+.env.backup
 # dependencies
 /node_modules
 
