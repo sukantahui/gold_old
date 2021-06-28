@@ -17,7 +17,7 @@ export class TransferToAgentComponent implements OnInit {
       agent_id: new FormControl(null),
       short_name: new FormControl(null)
     });
-   }
+  }
 
   ngOnInit(): void {
     this.transferAgentService.getAgentsUpdateListener().subscribe(response => {
@@ -27,5 +27,4 @@ export class TransferToAgentComponent implements OnInit {
       this.productList = response;
     });
   }
-
 }

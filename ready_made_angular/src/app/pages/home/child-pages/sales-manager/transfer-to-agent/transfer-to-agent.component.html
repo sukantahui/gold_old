@@ -1,40 +1,19 @@
 <div id="transfer-to-agent-div">
-
-    <div class="d-flex">
+    <h3>Transfer to Agent</h3>
+    <div class="d-flex flex-row bd-highlight mb-3">
         <div class="col-6">
-            <div>
-                <mat-card class="ml-2 mt-2">
-                    <form [formGroup]=transferForm class="row g-3">                        
-                        <div class="col-md-4">
-                            <mat-label>Agent Name</mat-label>
-                            <mat-select  formControlName="agent_id">
-                                <mat-option  *ngFor="let agent of agentList" [value]="agent.agent_id">
-                                {{agent.short_name}}
-                                </mat-option>
-                            </mat-select>
-                          
-                        </div>
-                        
-                        
-                        
-                      </form>
-                </mat-card>
-                
-                
-                  <div>
-
-                  </div>
-            </div>
-            
-              
+            <form [formGroup]=transferForm class="row g-3" fxFlex="30">
+                <ng-select [items]="agentList"
+                           bindLabel="short_name"
+                           class="custom"
+                           bindValue="agent_id"
+                           formControlName="agent_id"
+                           placeholder="Select Agent">
+                </ng-select>
+            </form>
         </div>
-        <div class="col-6"></div>
+        <div class="col-6">Flex item 2</div>
     </div>
-
-    <p>transfer-to-agent works!</p>
-    <pre>{{agentList | json}}</pre>
-
-
 </div>
 
 

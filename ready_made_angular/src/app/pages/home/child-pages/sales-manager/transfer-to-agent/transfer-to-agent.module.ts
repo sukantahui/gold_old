@@ -12,25 +12,29 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatButtonModule} from "@angular/material/button";
 import { MatCardModule } from '@angular/material/card';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {FlexModule} from '@angular/flex-layout';
 
 
 @NgModule({
   declarations: [
     TransferToAgentComponent
   ],
-  imports: [
-    CommonModule,
-    TransferToAgentRoutingModule,
-    MaterialModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-    MatCardModule,
-  ]
+    imports: [
+        CommonModule,
+        TransferToAgentRoutingModule,
+        MaterialModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        MatSlideToggleModule,
+        MatButtonModule,
+        MatCardModule,
+        NgSelectModule,
+        FlexModule,
+    ]
 })
 export class TransferToAgentModule {
   
