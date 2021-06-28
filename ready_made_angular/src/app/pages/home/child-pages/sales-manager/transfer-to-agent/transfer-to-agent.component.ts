@@ -43,8 +43,10 @@ export class TransferToAgentComponent implements OnInit {
     console.log(this.selectedProducts);
   }
 
-  sendProduct(product: any) {
-    const index = this.products.findIndex(x => x.tag === product.tag);
+  sendProduct(selectedProduct: any) {
+    const index = this.products.findIndex(x => x.tag === selectedProduct.tag);
+    const product = this.products[index];
+    this.selectedProducts.unshift(product);
     this.products.splice(index,1);
   }
 }
