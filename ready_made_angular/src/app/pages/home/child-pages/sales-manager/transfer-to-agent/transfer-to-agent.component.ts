@@ -88,4 +88,7 @@ export class TransferToAgentComponent implements OnInit {
     const count = this.products.filter(obj => obj.is_selected).length
     return count > 0;
   }
+  countSelectedAvailableProduct(){
+    return this.products.filter(obj => obj.is_selected).length
+  }
 }

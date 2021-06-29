@@ -39,7 +39,7 @@
                         <mat-form-field fxFlex="10">
                             <input matInput placeholder="Total Products" [disabled]="true" [value]="products.length" name="totalProducts" >
                         </mat-form-field>
-                        <button (click)="selectForTransfer()" [disabled]="!isAnyAvailableProductSelected()"   mat-mini-fab aria-label="Send all">
+                        <button (click)="selectForTransfer()" [disabled]="!isAnyAvailableProductSelected()"   mat-mini-fab aria-label="Send all"  [matBadge]="countSelectedAvailableProduct()" matBadgePosition="before" matBadgeColor="primary">
                             <i class="ri-send-plane-2-fill"></i>
                         </button>
 

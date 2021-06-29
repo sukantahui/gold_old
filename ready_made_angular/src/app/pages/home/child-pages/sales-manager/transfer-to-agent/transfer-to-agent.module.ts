@@ -17,6 +17,7 @@ import {FlexModule} from '@angular/flex-layout';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {Ng2SearchPipeModule} from "ng2-search-filter";
 import {NgxPaginationModule} from "ngx-pagination";
+import {MatBadgeModule} from "@angular/material/badge";
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import {NgxPaginationModule} from "ngx-pagination";
         FormsModule,
         Ng2SearchPipeModule,
         NgxPaginationModule,
+        MatBadgeModule,
     ]
 })
 export class TransferToAgentModule {
