@@ -1,7 +1,7 @@
 
 
 export class ServerResponse{
-  success?: number;
+  status?: boolean;
   data: any;
   error?: any;
   message?: any;

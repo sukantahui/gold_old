@@ -64,7 +64,7 @@ export class TransferToAgentComponent implements OnInit {
   }
 
   changeProductSlideToggle() {
-    if(this.checkedAvailableAllProducts) {
+    if (this.checkedAvailableAllProducts) {
       this.sortedProducts = this.sortedProducts.map(item => {
         item.is_selected = true;
         return item;
@@ -118,7 +118,7 @@ export class TransferToAgentComponent implements OnInit {
         default: return 0;
       }
     });
-  }//end of sortData
+  }// end of sortData
 
   getSelectedAgentName(){
     const agent_id = this.transferForm.get('agent_id').value;
@@ -134,12 +134,23 @@ export class TransferToAgentComponent implements OnInit {
     const tags = this.selectedProducts.map(t => t.tag.toString());
     this.transferAgentService.transferProduct(agent_id, tags).subscribe((response: {status: any, data: any}) => {
       if (response.status === true){
-        Swal.fire({
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: true
+        });
+        swalWithBootstrapButtons.fire({
+          timer: 2000,
+          // timerProgressBar: true,
           title: 'Transferred',
           text: 'Product transferred successfully',
           icon: 'success',
-          showConfirmButton: false,
-          timer: 2000
+          showCancelButton: false,
+          confirmButtonColor: '#1661a0',
+          cancelButtonColor: '#d33',
+          background: 'rgba(38,39,47,0.95)'
         });
         this.selectedProducts = [];
       }
@@ -149,7 +160,8 @@ export class TransferToAgentComponent implements OnInit {
         text: 'Product is not transferred',
         icon: 'error',
         showConfirmButton: false,
-        timer: 2000
+        background: 'rgba(38,39,47,0.95)',
+        timer: 3000
       });
     });
   }
@@ -160,7 +172,7 @@ export class TransferToAgentComponent implements OnInit {
     item.is_selected = false;
     this.sortedProducts.unshift(item);
   }
-}//end of class
+}// end of class
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);

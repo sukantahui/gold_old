@@ -3,8 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Subject, throwError} from 'rxjs';
 import {Product} from '../models/product.model';
-import {catchError} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {ErrorService} from './error.service';
+import {ServerResponse} from '../models/ServerResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +41,11 @@ export class TransferAgentService {
     return this.productsInCounter;
   }
   transferProduct(agentId, tagData){
-    return this.http.put(this.BASE_API_URL + '/stockToAgent' , {agent_id: agentId , tags: tagData})
-        .pipe(catchError(this.errorService.serverError));
+    return this.http.put<ServerResponse>(this.BASE_API_URL + '/stockToAgent' , {agent_id: agentId , tags: tagData})
+        .pipe(catchError(this.errorService.serverError), tap(resData => {
+          this.productsInCounter = this.productsInCounter.filter(ar => !resData.data.find(rm => (ar.tag === rm) ));
+          this.productsInCounterSubject.next([...this.productsInCounter]);
+        }));
   }
   private serverError(err: any) {
     if (err instanceof Response) {
