@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {TransferAgentService} from '../../../../../services/transfer-agent.service';
-import {Product} from "../../../../../models/product.model";
-import {Sort} from "@angular/material/sort";
+import {Product} from '../../../../../models/product.model';
+import {Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-transfer-to-agent',
@@ -25,7 +25,7 @@ export class TransferToAgentComponent implements OnInit {
   checked = false;
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
-  private sortedProducts: Product[] = [];
+  public sortedProducts: Product[] = [];
   constructor(public transferAgentService: TransferAgentService) {
     this.products = this.transferAgentService.getProductsInCounter();
     this.sortedProducts = this.products.slice();
@@ -50,6 +50,7 @@ export class TransferToAgentComponent implements OnInit {
     this.sortedProducts = this.sortedProducts.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.selectedProducts.push(...newArray);
+    console.log(this.selectedProducts);
   }
 
   sendProduct(selectedProduct: any) {
@@ -92,11 +93,11 @@ export class TransferToAgentComponent implements OnInit {
   }
 
   isAnyAvailableProductSelected() {
-    const count = this.sortedProducts.filter(obj => obj.is_selected).length
+    const count = this.sortedProducts.filter(obj => obj.is_selected).length;
     return count > 0;
   }
   countSelectedAvailableProduct(){
-    return this.sortedProducts.filter(obj => obj.is_selected).length
+    return this.sortedProducts.filter(obj => obj.is_selected).length;
   }
 
   sortData(sort: Sort) {
@@ -121,7 +122,7 @@ export class TransferToAgentComponent implements OnInit {
 
   getSelectedAgentName(){
     const agent_id = this.transferForm.get('agent_id').value;
-    if(agent_id==null){
+    if (agent_id === null){
       return '';
     }
     const agent = this.agents.find(x => x.agent_id === agent_id);
@@ -131,7 +132,8 @@ export class TransferToAgentComponent implements OnInit {
   transferToAgent() {
     const agent_id = this.transferForm.get('agent_id').value;
     const tags = this.selectedProducts.map(t => t.tag);
-    console.log(agent_id);
+   // console.log(agent_id);
+    this.transferAgentService.transferProduct(agent_id, tags);
   }
 }//end of class
 

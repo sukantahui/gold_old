@@ -37,4 +37,7 @@ export class TransferAgentService {
   getProductsInCounter(){
     return this.productsInCounter;
   }
+  transferProduct(agent_id, tags){
+    this.http.post(this.BASE_API_URL + '/transferProduct' , {agentId: agent_id , productTag: tags}).subscribe();
+  }
 }
