@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import {TransferAgentService} from '../../../../../services/transfer-agent.service';
 import {Product} from '../../../../../models/product.model';
 import {Sort} from '@angular/material/sort';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-transfer-to-agent',
@@ -50,7 +51,6 @@ export class TransferToAgentComponent implements OnInit {
     this.sortedProducts = this.sortedProducts.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.selectedProducts.push(...newArray);
-    console.log(this.selectedProducts);
   }
 
   sendProduct(selectedProduct: any) {
@@ -131,9 +131,27 @@ export class TransferToAgentComponent implements OnInit {
 
   transferToAgent() {
     const agent_id = this.transferForm.get('agent_id').value;
-    const tags = this.selectedProducts.map(t => t.tag);
-   // console.log(agent_id);
-    this.transferAgentService.transferProduct(agent_id, tags);
+    const tags = this.selectedProducts.map(t => t.tag.toString());
+    this.transferAgentService.transferProduct(agent_id, tags).subscribe((response: {status: any, data: any}) => {
+      if (response.status === true){
+        Swal.fire({
+          title: 'Transferred',
+          text: 'Product transferred successfully',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        this.selectedProducts = [];
+      }
+    }, (error) => {
+      Swal.fire({
+        title: error.message,
+        text: 'Product is not transferred',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    });
   }
 }//end of class
 

@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     //for transferring products to agents
     Route::get("agentsExceptCounterAgent",[AgentController::class,'getAgentsExceptCounterAgent']);
     Route::get("getProductsForTransfer",[AgentController::class,'getProductsForTransfer']);
+    Route::put("stockToAgent",[StockController::class,'transfer_stock_to_agent']);
 });
 
 
