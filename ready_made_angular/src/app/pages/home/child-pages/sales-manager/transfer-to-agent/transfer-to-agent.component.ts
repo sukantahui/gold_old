@@ -153,6 +153,13 @@ export class TransferToAgentComponent implements OnInit {
       });
     });
   }
+
+  deleteFromSelectedProducts(item){
+    const index =  this.selectedProducts.findIndex(x => x.tag === item.tag);
+    this.selectedProducts.splice(index, 1);
+    item.is_selected = false;
+    this.sortedProducts.unshift(item);
+  }
 }//end of class
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
