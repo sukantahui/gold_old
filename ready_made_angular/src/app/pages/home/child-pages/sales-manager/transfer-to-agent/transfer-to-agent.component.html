@@ -4,7 +4,7 @@
         <div class="col-6 flex-column">
             <form [formGroup]=transferForm class="row g-3" fxFlex="30">
                 <ng-select [items]="agents"
-                           bindLabel="short_name"
+                           bindLabel="agent_name"
                            class="custom"
                            bindValue="agent_id"
                            formControlName="agent_id"
@@ -37,7 +37,7 @@
                             <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">
                         </mat-form-field>
                         <mat-form-field fxFlex="10">
-                            <input matInput placeholder="Total Products" [disabled]="true" [value]="products.length" name="totalProducts" >
+                            <input type="text" matInput placeholder="Total Products" [disabled]="true" value="{{countSelectedAvailableProduct()}}/{{products.length}}" name="totalProducts" >
                         </mat-form-field>
                         <button (click)="selectForTransfer()" [disabled]="!isAnyAvailableProductSelected()"   mat-mini-fab aria-label="Send all"  [matBadge]="countSelectedAvailableProduct()" matBadgePosition="before" matBadgeColor="primary">
                             <i class="ri-send-plane-2-fill"></i>
@@ -143,7 +143,10 @@
                     <!--    npm i ngx-pagination-->
                     <pagination-controls id='pagination2' (pageChange)="currentPageSelectedProducts = $event" responsive="true" autoHide="true" previousLabel="আগে" nextLabel="পরে" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" directionLinks="true">
                     </pagination-controls>
-                </div>
+            </div>
+
+                <button *ngIf="getSelectedAgentName().length>1 && selectedProducts.length>0" mat-button color="primary" (click)="transferToAgent()">Send to {{getSelectedAgentName()}}</button>
+
             </div>
         </div>
     </div>

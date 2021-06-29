@@ -25,7 +25,7 @@ export class TransferToAgentComponent implements OnInit {
   checked = false;
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
-  private sortedProducts: Product[];
+  private sortedProducts: Product[] = [];
   constructor(public transferAgentService: TransferAgentService) {
     this.products = this.transferAgentService.getProductsInCounter();
     this.sortedProducts = this.products.slice();
@@ -63,7 +63,6 @@ export class TransferToAgentComponent implements OnInit {
   }
 
   changeProductSlideToggle() {
-    this.checkedAvailableAllProducts = !this.checkedAvailableAllProducts;
     if(this.checkedAvailableAllProducts) {
       this.sortedProducts = this.sortedProducts.map(item => {
         item.is_selected = true;
@@ -120,6 +119,20 @@ export class TransferToAgentComponent implements OnInit {
     });
   }//end of sortData
 
+  getSelectedAgentName(){
+    const agent_id = this.transferForm.get('agent_id').value;
+    if(agent_id==null){
+      return '';
+    }
+    const agent = this.agents.find(x => x.agent_id === agent_id);
+    return agent.agent_name;
+  }
+
+  transferToAgent() {
+    const agent_id = this.transferForm.get('agent_id').value;
+    const tags = this.selectedProducts.map(t => t.tag);
+    console.log(agent_id);
+  }
 }//end of class
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {

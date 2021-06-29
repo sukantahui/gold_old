@@ -68,4 +68,7 @@ class StockController extends ApiController
         $stock->update();
         return $this->successResponse($stock);
     }
+    public function transfer_stock_to_agent(Request $request){
+        return $this->successResponse($request);
+    }
 }
