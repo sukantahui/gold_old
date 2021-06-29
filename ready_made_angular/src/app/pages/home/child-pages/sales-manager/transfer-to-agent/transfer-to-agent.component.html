@@ -23,11 +23,12 @@
                 <form class="example-form">
                     <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
                         <mat-slide-toggle
-                                [(ngModel)]="checkedSelectAllProducts"
+                                [(ngModel)]="checkedAvailableAllProducts"
                                 class="example-margin"
                                 [color]="color"
-                                (change)="changedProductSlideToggle()">
-                            Slide me! {{checkedSelectAllProducts}}
+                                (change)="changeProductSlideToggle()"
+                                [ngModelOptions]="{standalone: true}">
+                                {{checkedAvailableAllProducts?'Deselect':'Select All'}}
                         </mat-slide-toggle>
                         <mat-form-field fxFlex="15">
                             <input matInput placeholder="Search..." [(ngModel)]="searchTerm" name="search" type="text" autofocus>
@@ -35,6 +36,13 @@
                         <mat-form-field fxFlex="10">
                             <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">
                         </mat-form-field>
+                        <mat-form-field fxFlex="10">
+                            <input matInput placeholder="Total Products" [disabled]="true" [value]="products.length" name="totalProducts" >
+                        </mat-form-field>
+                        <button [disabled]="!isAnyAvailableProductSelected()"   mat-mini-fab aria-label="Send all">
+                            <i class="ri-send-plane-2-fill"></i>
+                        </button>
+
                     </div>
                 </form>
                 <table class="table table-bordered table-responsive" style="border: none !important;">
@@ -53,9 +61,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let product of products | filter:searchTerm | paginate: { itemsPerPage: pageSize, currentPage: currentPage };let indexOfElement=index">
+                    <tr *ngFor="let product of products | filter:searchTerm | paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts };let indexOfElement=index">
                         <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
-                        <td>{{(currentPage-1)*10+indexOfElement+1}}</td>
+                        <td>{{(currentPageProducts-1)*10+indexOfElement+1}}</td>
                         <td>{{product.tag}}</td>
                         <td>{{product.model_no}}</td>
                         <td>{{product.model_size}}</td>
@@ -64,7 +72,7 @@
                         <td>{{product.labour_charge}}</td>
                         <td>{{product.is_selected}}</td>
                         <td>
-                            <button (click)="sendProduct(product)" mat-mini-fab aria-label="Example icon button with a home icon">
+                            <button (click)="sendProduct(product)" [disabled]="!product.is_selected" mat-mini-fab aria-label="Example icon button with a home icon">
                                 <i class="ri-send-plane-2-fill"></i>
                             </button>
                         </td>
@@ -72,11 +80,11 @@
                     </tbody>
 
                 </table>
-                <button (click)="selectForTransfer()">Test</button>
+
                 <div fxLayout.xs="column" fxLayout="column" fxFlexFill>
                     <!--    https://www.npmjs.com/package/ngx-pagination-->
                     <!--    npm i ngx-pagination-->
-                    <pagination-controls (pageChange)="currentPage = $event" responsive="true" autoHide="true" previousLabel="আগে" nextLabel="পরে" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" directionLinks="true">
+                    <pagination-controls id='pagination1' (pageChange)="currentPageProducts = $event" responsive="true" autoHide="true" previousLabel="আগে" nextLabel="পরে" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" directionLinks="true">
                     </pagination-controls>
                 </div>
             </div>
@@ -85,6 +93,14 @@
             <div  id="selected-product-table-div">
                 <form class="example-form">
                     <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
+                        <mat-slide-toggle
+                                [(ngModel)]="checkedTransferableAllProducts"
+                                class="example-margin"
+                                [color]="color"
+                                (change)="changeTransferableProductSlideToggle()"
+                                [ngModelOptions]="{standalone: true}">
+                            {{checkedTransferableAllProducts?'Deselect':'Select All'}}
+                        </mat-slide-toggle>
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Search..." [(ngModel)]="searchTermSelectedProducts" name="search" type="text" autofocus>
                         </mat-form-field>
@@ -109,9 +125,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let product of selectedProducts| filter:searchTermSelectedProducts | paginate: { itemsPerPage: pageSizeSelectedProducts, currentPage: currentPageSelectedProducts };let indexOfElement=index">
+                <tr *ngFor="let product of selectedProducts| filter:searchTermSelectedProducts | paginate: {id: 'pagination2', itemsPerPage: pageSizeSelectedProducts, currentPage: currentPageSelectedProducts };let indexOfElement=index">
                     <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
-                    <td>{{(currentPage-1)*10+indexOfElement+1}}</td>
+                    <td>{{(currentPageSelectedProducts-1)*10+indexOfElement+1}}</td>
                     <td>{{product.tag}}</td>
                     <td>{{product.model_no}}</td>
                     <td>{{product.model_size}}</td>
@@ -125,7 +141,7 @@
             <div fxLayout.xs="column" fxLayout="column" fxFlexFill>
                     <!--    https://www.npmjs.com/package/ngx-pagination-->
                     <!--    npm i ngx-pagination-->
-                    <pagination-controls (pageChange)="currentPage = $event" responsive="true" autoHide="true" previousLabel="আগে" nextLabel="পরে" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" directionLinks="true">
+                    <pagination-controls id='pagination2' (pageChange)="currentPageSelectedProducts = $event" responsive="true" autoHide="true" previousLabel="আগে" nextLabel="পরে" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" directionLinks="true">
                     </pagination-controls>
                 </div>
             </div>

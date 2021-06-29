@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Subject, throwError} from 'rxjs';
+import {Product} from "../models/product.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransferAgentService {
 
-  agentsWithoutCounter: any[];
-  productsInCounter: any[];
+  agentsWithoutCounter: any[] = [];
+  productsInCounter: Product[] = [];
   agentsWithoutCounterSubject = new Subject <any[]>();
-  productsInCounterSubject = new Subject <any[]>();
+  productsInCounterSubject = new Subject <Product[]>();
   private BASE_API_URL = environment.BASE_API_URL;
 
   constructor(private  http: HttpClient) {
@@ -19,7 +20,7 @@ export class TransferAgentService {
       this.agentsWithoutCounter =  response.data;
       this.agentsWithoutCounterSubject.next([...this.agentsWithoutCounter]);
     });
-    this.http.get(this.BASE_API_URL + '/getProductsForTransfer').subscribe((response: {success: number , data: any[]}) => {
+    this.http.get(this.BASE_API_URL + '/getProductsForTransfer').subscribe((response: {success: number , data: Product[]}) => {
       this.productsInCounter =  response.data;
       this.productsInCounterSubject.next([...this.productsInCounter]);
     });
