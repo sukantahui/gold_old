@@ -69,6 +69,9 @@ class StockController extends ApiController
         return $this->successResponse($stock);
     }
     public function transfer_stock_to_agent(Request $request){
-        return $this->successResponse($request);
+        $agent_id = $request->input('agent_id');
+        $tags = $request->input('tags');
+        $result = ItemStockReadyMade::whereIn('tag', $tags)->update(['agent_id'=>$agent_id]);
+        return $this->successResponse($tags);
     }
 }
