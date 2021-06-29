@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {TransferAgentService} from '../../../../../services/transfer-agent.service';
 import {Product} from "../../../../../models/product.model";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-transfer-to-agent',
@@ -24,8 +25,10 @@ export class TransferToAgentComponent implements OnInit {
   checked = false;
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
+  private sortedProducts: Product[];
   constructor(public transferAgentService: TransferAgentService) {
     this.products = this.transferAgentService.getProductsInCounter();
+    this.sortedProducts = this.products.slice();
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
       short_name: new FormControl(null)
@@ -38,31 +41,36 @@ export class TransferToAgentComponent implements OnInit {
     });
     this.transferAgentService.getProductsUpdateListener().subscribe(response => {
       this.products = response;
+      this.sortedProducts = this.products.slice();
     });
   }
 
   selectForTransfer() {
-    const newArray = this.products.filter((el) => el.is_selected);
+    const newArray = this.sortedProducts.filter((el) => el.is_selected);
+    this.sortedProducts = this.sortedProducts.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.selectedProducts.push(...newArray);
   }
 
   sendProduct(selectedProduct: any) {
-    const index = this.products.findIndex(x => x.tag === selectedProduct.tag);
-    const product = this.products[index];
+    const indexSortedProducts = this.sortedProducts.findIndex(x => x.tag === selectedProduct.tag);
+    const product = this.sortedProducts[indexSortedProducts];
     this.selectedProducts.unshift(product);
-    this.products.splice(index, 1);
+    this.sortedProducts.splice(indexSortedProducts, 1);
+
+    const indexProducts = this.products.findIndex(x => x.tag === selectedProduct.tag);
+    this.products.splice(indexProducts, 1);
   }
 
   changeProductSlideToggle() {
     this.checkedAvailableAllProducts = !this.checkedAvailableAllProducts;
     if(this.checkedAvailableAllProducts) {
-      this.products = this.products.map(item => {
+      this.sortedProducts = this.sortedProducts.map(item => {
         item.is_selected = true;
         return item;
       });
     }else{
-      this.products = this.products.map(item => {
+      this.sortedProducts = this.sortedProducts.map(item => {
         item.is_selected = false;
         return item;
       });
@@ -85,10 +93,35 @@ export class TransferToAgentComponent implements OnInit {
   }
 
   isAnyAvailableProductSelected() {
-    const count = this.products.filter(obj => obj.is_selected).length
+    const count = this.sortedProducts.filter(obj => obj.is_selected).length
     return count > 0;
   }
   countSelectedAvailableProduct(){
-    return this.products.filter(obj => obj.is_selected).length
+    return this.sortedProducts.filter(obj => obj.is_selected).length
   }
+
+  sortData(sort: Sort) {
+    const data = this.products.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedProducts = data;
+      return;
+    }
+    this.sortedProducts = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      const isDesc = sort.direction === 'desc';
+      switch (sort.active) {
+        case 'tag': return compare(a.tag, b.tag, isAsc);
+        case 'model': return compare(a.model_no, b.model_no, isAsc);
+        case 'selected': return compare(String(a.is_selected), String(b.is_selected), isDesc);
+        case 'size': return compare(a.model_size, b.model_size, isAsc);
+        case 'quantity': return compare(a.qty, b.qty, isAsc);
+        default: return 0;
+      }
+    });
+  }//end of sortData
+
+}//end of class
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

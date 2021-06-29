@@ -18,6 +18,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {Ng2SearchPipeModule} from "ng2-search-filter";
 import {NgxPaginationModule} from "ngx-pagination";
 import {MatBadgeModule} from "@angular/material/badge";
+import {MatSortModule} from "@angular/material/sort";
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import {MatBadgeModule} from "@angular/material/badge";
         Ng2SearchPipeModule,
         NgxPaginationModule,
         MatBadgeModule,
+        MatSortModule,
     ]
 })
 export class TransferToAgentModule {

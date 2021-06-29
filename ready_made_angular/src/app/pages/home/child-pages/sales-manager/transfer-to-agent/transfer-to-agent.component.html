@@ -45,23 +45,23 @@
 
                     </div>
                 </form>
-                <table class="table table-bordered table-responsive" style="border: none !important;">
+                <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive" style="border: none !important;">
 
                     <thead>
                     <tr>
-                        <td>Select</td>
-                        <td>Index</td>
-                        <td>Tag</td>
-                        <td>Model</td>
-                        <td>Size</td>
-                        <td>Quantity</td>
-                        <td>Gold</td>
-                        <td>LC</td>
-                        <td>Selected</td>
+                        <th mat-sort-header="selected">Select</th>
+                        <th>Index</th>
+                        <th mat-sort-header="tag">Tag</th>
+                        <th mat-sort-header="model">Model</th>
+                        <th mat-sort-header="size">Size</th>
+                        <th mat-sort-header="quantity">Quantity</th>
+                        <th>Gold</th>
+                        <th>LC</th>
+                        <th>Selected</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let product of products | filter:searchTerm | paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts };let indexOfElement=index">
+                    <tr *ngFor="let product of sortedProducts | filter:searchTerm | paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts };let indexOfElement=index">
                         <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
                         <td>{{(currentPageProducts-1)*10+indexOfElement+1}}</td>
                         <td>{{product.tag}}</td>
