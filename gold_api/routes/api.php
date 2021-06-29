@@ -63,5 +63,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::post("stocks",[StockController::class,'store']);
     Route::get("agentsExceptCounterAgent",[AgentController::class,'getAgentsExceptCounterAgent']);
     Route::get("getProductsForTransfer",[AgentController::class,'getProductsForTransfer']);
+
+    Route::put("stockToAgent",[StockController::class,'transfer_stock_to_agent']);
 });
 
