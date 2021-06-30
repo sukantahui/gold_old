@@ -4,6 +4,7 @@ import {TransferAgentService} from '../../../../../services/transfer-agent.servi
 import {Product} from '../../../../../models/product.model';
 import {Sort} from '@angular/material/sort';
 import Swal from 'sweetalert2';
+import { BaseRowDef } from '@angular/cdk/table';
 
 @Component({
   selector: 'app-transfer-to-agent',
@@ -142,17 +143,54 @@ export class TransferToAgentComponent implements OnInit {
           },
           buttonsStyling: true,
         });
-        swalWithBootstrapButtons.fire({
-          timer: 2000,
+
+
+        Swal.fire({  
+          title: 'Transfer',  
+          text: 'Are you sure to transfer?',  
+          icon: 'warning',  
+          showCancelButton: true,  
+          confirmButtonText: 'Yes, transfer',  
+          cancelButtonText: 'No!',
+          background: 'rgba(38,39,47,0.95)'  
+        }).then((result) => {  
+          if (result.value) {  
+            Swal.fire({  
+              timer: 2000,
+          
+              title: 'Transferred',
+              text: 'Product transferred successfully',
+              icon: 'success',
+              showCancelButton: true,
+              confirmButtonColor: '#1661a0',
+              cancelButtonColor: '#d33',
+              background: 'rgba(38,39,47,0.95)'
+            })  
+          } else if (result.dismiss === Swal.DismissReason.cancel) {  
+            Swal.fire(  
+              'Cancelled',  
+              'Your imaginary file is safe :)',  
+              'error'  
+            )  
+          }  
+        })  
+
+
+
+        // swalWithBootstrapButtons.fire({
+          
           // timerProgressBar: true,
-          title: 'Transferred',
-          text: 'Product transferred successfully',
-          icon: 'success',
-          showCancelButton: false,
-          confirmButtonColor: '#1661a0',
-          cancelButtonColor: '#d33',
-          background: 'rgba(38,39,47,0.95)'
-        });
+          // timer: 2000,
+          
+          // title: 'Transferred',
+          // text: 'Product transferred successfully',
+          // icon: 'success',
+          // showCancelButton: false,
+          // confirmButtonColor: '#1661a0',
+          // cancelButtonColor: '#d33',
+          // background: 'rgba(38,39,47,0.95)'
+          
+        // });
         this.selectedProducts = [];
       }
     }, (error) => {

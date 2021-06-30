@@ -86,7 +86,7 @@ export class TransferFromAgentsComponent implements OnInit {
     const count = this.productByAgentList.filter(obj => obj.is_selected).length;
     return count > 0;
   }
-  transferToAgent() {
+  transferFromAgent() {
     const agent_id = this.counterAgentId;
     const tags = this.selectedProducts.map(t => t.tag.toString());
     this.transferAgentService.transferProduct(agent_id, tags).subscribe((response: {status: any, data: any}) => {
@@ -99,17 +99,49 @@ export class TransferFromAgentsComponent implements OnInit {
           },
           buttonsStyling: true,
         });
-        swalWithBootstrapButtons.fire({
-          timer: 2000,
-          // timerProgressBar: true,
-          title: 'Transferred',
-          text: 'Product transferred successfully',
-          icon: 'success',
-          showCancelButton: false,
-          confirmButtonColor: '#1661a0',
-          cancelButtonColor: '#d33',
-          background: 'rgba(38,39,47,0.95)'
-        });
+
+        Swal.fire({  
+          title: 'Transfer',  
+          text: 'Are you sure to transfer?',  
+          icon: 'warning',  
+          showCancelButton: true,  
+          confirmButtonText: 'Yes, transfer',  
+          cancelButtonText: 'No!',
+          background: 'rgba(38,39,47,0.95)'  
+        }).then((result) => {  
+          if (result.value) {  
+            Swal.fire({  
+              timer: 2000,
+          
+              title: 'Transferred',
+              text: 'Product transferred successfully',
+              icon: 'success',
+              showCancelButton: true,
+              confirmButtonColor: '#1661a0',
+              cancelButtonColor: '#d33',
+              background: 'rgba(38,39,47,0.95)'
+            })  
+          } else if (result.dismiss === Swal.DismissReason.cancel) {  
+            Swal.fire(  
+              'Cancelled',  
+              'Your imaginary file is safe :)',  
+              'error'  
+            )  
+          }  
+        })  
+
+
+        // swalWithBootstrapButtons.fire({
+        //   timer: 2000,
+        //   // timerProgressBar: true,
+        //   title: 'Transferred',
+        //   text: 'Product transferred successfully',
+        //   icon: 'success',
+        //   showCancelButton: false,
+        //   confirmButtonColor: '#1661a0',
+        //   cancelButtonColor: '#d33',
+        //   background: 'rgba(38,39,47,0.95)'
+        // });
         this.selectedProducts = [];
       }
     }, (error) => {
