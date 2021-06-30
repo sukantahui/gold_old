@@ -137,9 +137,10 @@ export class TransferToAgentComponent implements OnInit {
         const swalWithBootstrapButtons = Swal.mixin({
           customClass: {
             confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
+            cancelButton: 'btn btn-danger',
+            title: 'text-white',
           },
-          buttonsStyling: true
+          buttonsStyling: true,
         });
         swalWithBootstrapButtons.fire({
           timer: 2000,
@@ -171,6 +172,7 @@ export class TransferToAgentComponent implements OnInit {
     this.selectedProducts.splice(index, 1);
     item.is_selected = false;
     this.sortedProducts.unshift(item);
+
   }
 }// end of class
 
