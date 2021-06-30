@@ -61,7 +61,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let product of sortedProducts | filter:searchTerm | paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts };let indexOfElement=index">
+                    <tr [ngClass]="{selectedRow: product.is_selected}" *ngFor="let product of sortedProducts | filter:searchTerm | paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts };let indexOfElement=index">
                         <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
                         <td>{{(currentPageProducts-1)*10+indexOfElement+1}}</td>
                         <td>{{product.tag}}</td>
