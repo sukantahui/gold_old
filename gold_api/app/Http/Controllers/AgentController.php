@@ -25,4 +25,8 @@ class AgentController extends ApiController
         return $this->successResponse($products);
 
     }
+    public function get_counter_agent_id(){
+        $result = Agent::where('agent_name','Counter Agent')->first();
+        return $this->successResponse($result);
+    }
 }

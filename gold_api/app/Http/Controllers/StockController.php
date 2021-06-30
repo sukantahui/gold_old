@@ -74,4 +74,10 @@ class StockController extends ApiController
         $result = ItemStockReadyMade::whereIn('tag', $tags)->update(['agent_id'=>$agent_id]);
         return $this->successResponse($tags);
     }
+    public function get_stock_by_agent($id){
+
+        $result = ItemStockReadyMade::where('agent_id',$id)->get();
+
+        return $this->successResponse($result);
+    }
 }

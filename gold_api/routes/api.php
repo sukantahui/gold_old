@@ -51,6 +51,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("agentsExceptCounterAgent",[AgentController::class,'getAgentsExceptCounterAgent']);
     Route::get("getProductsForTransfer",[AgentController::class,'getProductsForTransfer']);
     Route::put("stockToAgent",[StockController::class,'transfer_stock_to_agent']);
+
+    //for transferring products from agents
+    Route::get("getStockByAgent/{id}",[StockController::class,'get_stock_by_agent']);
+    Route::get("getCounterAgent",[AgentController::class,'get_counter_agent_id']);
 });
 
 
@@ -66,5 +70,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("getProductsForTransfer",[AgentController::class,'getProductsForTransfer']);
 
     Route::put("stockToAgent",[StockController::class,'transfer_stock_to_agent']);
+    Route::get("getStockByAgent/{id}",[StockController::class,'get_stock_by_agent']);
+    Route::get("getCounterAgent",[StockController::class,'get_counter_agent_id']);
 });
 

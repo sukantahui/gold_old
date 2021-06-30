@@ -14,6 +14,8 @@ export class TransferAgentService {
 
   agentsWithoutCounter: any[] = [];
   productsInCounter: Product[] = [];
+  productsByAgent: Product[] = [];
+  productsByAgentSub = new Subject<any[]>();
   agentsWithoutCounterSubject = new Subject <any[]>();
   productsInCounterSubject = new Subject <Product[]>();
   private BASE_API_URL = environment.BASE_API_URL;
@@ -40,12 +42,25 @@ export class TransferAgentService {
   getProductsInCounter(){
     return this.productsInCounter;
   }
+  getProductByAgentUpdateListener(){
+    return this.productsByAgentSub.asObservable();
+  }
   transferProduct(agentId, tagData){
     return this.http.put<ServerResponse>(this.BASE_API_URL + '/stockToAgent' , {agent_id: agentId , tags: tagData})
         .pipe(catchError(this.errorService.serverError), tap(resData => {
           this.productsInCounter = this.productsInCounter.filter(ar => !resData.data.find(rm => (ar.tag === rm) ));
           this.productsInCounterSubject.next([...this.productsInCounter]);
         }));
+  }
+  getProductsByAgentId(agentId){
+    return this.http.get(this.BASE_API_URL + '/getStockByAgent/' + agentId)
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: Product[] }) => {
+      this.productsByAgent = response.data;
+      this.productsByAgentSub.next([...this.productsByAgent]);
+    }));
+  }
+  getCounterAgentData(){
+    return this.http.get(this.BASE_API_URL + '/getCounterAgent');
   }
   private serverError(err: any) {
     if (err instanceof Response) {
