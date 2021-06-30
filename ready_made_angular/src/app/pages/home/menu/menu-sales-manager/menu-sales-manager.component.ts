@@ -18,6 +18,11 @@ export class MenuSalesManagerComponent implements OnInit {
           iconName: 'group',
           route: 'TransferToAgent'
         },
+        {
+          displayName: 'Transfer From Agents',
+          iconName: 'group',
+          route: 'TransferFromAgents'
+        },
       ]
     },
     {

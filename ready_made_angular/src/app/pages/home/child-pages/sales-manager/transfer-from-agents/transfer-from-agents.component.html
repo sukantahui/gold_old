@@ -1,0 +1,21 @@
+<div id="transfer-from-agents-div">
+    <h3>Transfer from Agents</h3>
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="col-6 flex-column">
+
+            <form [formGroup]=transferForm class="row g-3" fxFlex="30">
+                <ng-select [items]="agents"
+                           bindLabel="agent_name"
+                           class="custom"
+                           bindValue="agent_id"
+                           formControlName="agent_id"
+                           placeholder="Select Agent">
+                </ng-select>
+            </form>
+
+        </div>
+        <div class="col-6">
+
+        </div>
+    </div>
+</div>

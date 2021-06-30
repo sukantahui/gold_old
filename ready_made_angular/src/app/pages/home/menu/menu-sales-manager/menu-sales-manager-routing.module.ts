@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuSalesManagerComponent } from './menu-sales-manager.component';
 import {TransferToAgentComponent} from '../../child-pages/sales-manager/transfer-to-agent/transfer-to-agent.component';
+import {TransferFromAgentsComponent} from '../../child-pages/sales-manager/transfer-from-agents/transfer-from-agents.component';
 
 const routes: Routes = [{ path: '', component: MenuSalesManagerComponent },
-                        { path: 'TransferToAgent', component: TransferToAgentComponent }];
+                        { path: 'TransferToAgent', component: TransferToAgentComponent},
+                        { path: 'TransferFromAgents', component: TransferFromAgentsComponent}];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
