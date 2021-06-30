@@ -123,9 +123,7 @@ export class TransferFromAgentsComponent implements OnInit {
             })  
           } else if (result.dismiss === Swal.DismissReason.cancel) {  
             Swal.fire(  
-              'Cancelled',  
-              'Your imaginary file is safe :)',  
-              'error'  
+              'Cancelled',                  
             )  
           }  
         })  
