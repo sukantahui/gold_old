@@ -208,7 +208,7 @@ export class TransferToAgentComponent implements OnInit {
     this.selectedProducts.splice(index, 1);
     item.is_selected = false;
     this.sortedProducts.unshift(item);
-
+    this.products.unshift(item);
   }
 }// end of class
 
