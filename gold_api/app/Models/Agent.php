@@ -24,4 +24,15 @@ class Agent extends Model
     private $inforce;
     private $max_gold_limit;
 
+    public function customers()    {
+        return $this->hasManyThrough(
+            Customer::class,
+            AgentToCustomer::class, // middle table
+            'agent_id', // Foreign key on agent_to_customer table...
+            'cust_id', // Foreign key on customer_master table...
+            'agent_id', // Local key on agent_master table...
+            'cust_id' // Local key on AgentToCustomer table...
+        );
+    }
+
 }

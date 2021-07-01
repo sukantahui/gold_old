@@ -32,11 +32,16 @@ class AgentController extends ApiController
         return $this->successResponse($result);
     }
 
+//    public  function get_customers_by_agent($id){
+//        $ressult = AgentToCustomer::select('customer_master.cust_id','customer_master.cust_name','agent_to_customer.agent_id')
+//                   ->join('customer_master','agent_to_customer.cust_id','customer_master.cust_id')
+//                   ->where('agent_to_customer.agent_id',$id)
+//                   ->get();
+//        return $this->successResponse($ressult);
+//    }
+
     public  function get_customers_by_agent($id){
-        $ressult = AgentToCustomer::select('customer_master.cust_id','customer_master.cust_name','agent_to_customer.agent_id')
-                   ->join('customer_master','agent_to_customer.cust_id','customer_master.cust_id')
-                   ->where('agent_to_customer.agent_id',$id)
-                   ->get();
-        return $this->successResponse($ressult);
+        $result = Agent::findOrFail($id)->customers;
+        return $this->successResponse($result);
     }
 }

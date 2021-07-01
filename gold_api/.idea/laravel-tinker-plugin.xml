@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="laravelTinkerProject">
-    <option name="lastCode" value="&lt;?php&#10;//Tinker away!&#10;//use App\Models\UserType;&#10;//UserType::find(1);&#10;&#10;\App\Models\ItemStockReadyMade::get()-&gt;take(10);" />
+    <option name="lastCode" value="&lt;?php&#10;//Tinker away!&#10;//use App\Models\UserType;&#10;//UserType::find(1);&#10;&#10;//\App\Models\ItemStockReadyMade::get()-&gt;take(10);&#10;&#10;use App\Models\Agent;&#10;Agent::find('AG2010')-&gt;customers;" />
   </component>
 </project>
