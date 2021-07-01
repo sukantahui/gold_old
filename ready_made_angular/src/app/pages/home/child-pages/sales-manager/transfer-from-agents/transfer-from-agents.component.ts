@@ -14,6 +14,7 @@ export class TransferFromAgentsComponent implements OnInit {
 
   agents: any[] = [];
   productByAgentList: Product[] = [];
+  customerByAgentList: any[] = [];
   selectedProducts: Product[] = [];
   transferForm: FormGroup;
   searchTerm: any;
@@ -27,6 +28,7 @@ export class TransferFromAgentsComponent implements OnInit {
   checked = false;
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
+  showSelectedProductDiv = false;
   sortedProductByAgentList: Product[] = [];
   constructor(private transferAgentService: TransferAgentService) {
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
@@ -36,6 +38,7 @@ export class TransferFromAgentsComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.showSelectedProductDiv = false;
     this.transferAgentService.getAgentsUpdateListener().subscribe((response) => {
       this.agents = response;
     });
@@ -48,6 +51,11 @@ export class TransferFromAgentsComponent implements OnInit {
         .subscribe((response: {status: any , data: Product[]}) => {
           this.productByAgentList = response.data;
           this.sortedProductByAgentList = response.data;
+          if (this.productByAgentList.length > 0){
+            this.customerByAgentList = [];
+            this.selectedProducts = [];
+            this.showSelectedProductDiv = false;
+          }
     });
   }
   changeProductSlideToggle() {
@@ -90,7 +98,8 @@ export class TransferFromAgentsComponent implements OnInit {
     this.productByAgentList = this.productByAgentList.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.selectedProducts.push(...newArray);
     // also removing from sortedArray
-    this.sortedProductByAgentList = this.sortedProductByAgentList.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
+    this.productByAgentList = this.productByAgentList.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
+    this.showSelectedProductDiv = true;
   }
   isAnyAvailableProductSelected() {
     // const count = this.productByAgentList.filter(obj => obj.is_selected).length;
@@ -148,6 +157,11 @@ export class TransferFromAgentsComponent implements OnInit {
             'Cancelled',
         );
       }
+    });
+  }
+  transferToSales(){
+    this.transferAgentService.getCustomersByAgent(this.transferForm.value.agent_id).subscribe((response:{success: number , data: any[]}) => {
+      this.customerByAgentList = response.data;
     });
   }
 

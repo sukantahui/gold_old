@@ -61,6 +61,8 @@ const routes: Routes = [
 
   { path: 'TransferFromAgents', loadChildren: () => import('./pages/home/child-pages/sales-manager/transfer-from-agents/transfer-from-agents.module').then(m => m.TransferFromAgentsModule) },
 
+  { path: 'stockEntry', loadChildren: () => import('./pages/home/child-pages/sales-manager/stock-entry/stock-entry.module').then(m => m.StockEntryModule) },
+
   // { path: 'auth', loadChildren: () => import('./pages/home/auth/auth.module').then(m => m.AuthModule) },
   // { path: '404', loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) },
   // { path: '**', redirectTo: '/404'}

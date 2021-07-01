@@ -62,6 +62,9 @@ export class TransferAgentService {
   getCounterAgentData(){
     return this.http.get(this.BASE_API_URL + '/getCounterAgent');
   }
+  getCustomersByAgent(agentId){
+   return this.http.get(this.BASE_API_URL + '/getCustomersByAgent/' + agentId);
+  }
   private serverError(err: any) {
     if (err instanceof Response) {
       return throwError('backend server error ');
