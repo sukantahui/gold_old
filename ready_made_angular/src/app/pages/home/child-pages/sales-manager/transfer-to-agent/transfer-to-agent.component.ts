@@ -145,14 +145,14 @@ export class TransferToAgentComponent implements OnInit {
         });
 
 
-        Swal.fire({  
-          title: 'Transfer',  
-          text: 'Are you sure to transfer?',  
-          icon: 'warning',  
-          showCancelButton: true,  
-          confirmButtonText: 'Yes, transfer',  
+        Swal.fire({
+          title: 'Transfer',
+          text: 'Are you sure to transfer?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, transfer',
           cancelButtonText: 'No!',
-          background: 'rgba(38,39,47,0.95)'  
+          background: 'rgba(38,39,47,0.95)'
         }).then((result) => {  
           if (result.value) {  
             Swal.fire({  
@@ -176,7 +176,7 @@ export class TransferToAgentComponent implements OnInit {
 
 
         // swalWithBootstrapButtons.fire({
-          
+
           // timerProgressBar: true,
           // timer: 2000,
           
@@ -187,7 +187,7 @@ export class TransferToAgentComponent implements OnInit {
           // confirmButtonColor: '#1661a0',
           // cancelButtonColor: '#d33',
           // background: 'rgba(38,39,47,0.95)'
-          
+
         // });
         this.selectedProducts = [];
       }

@@ -3,7 +3,7 @@ import {TransferAgentService} from '../../../../../services/transfer-agent.servi
 import {FormControl, FormGroup} from '@angular/forms';
 import {Product} from '../../../../../models/product.model';
 import {Sort} from '@angular/material/sort';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-transfer-from-agents',
@@ -27,6 +27,7 @@ export class TransferFromAgentsComponent implements OnInit {
   checked = false;
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
+  sortedProductByAgentList: Product[] = [];
   constructor(private transferAgentService: TransferAgentService) { }
 
   ngOnInit(): void {
@@ -36,7 +37,6 @@ export class TransferFromAgentsComponent implements OnInit {
     });
     this.transferAgentService.getAgentsUpdateListener().subscribe((response) => {
       this.agents = response;
-      console.log(this.agents);
     });
     this.transferAgentService.getCounterAgentData().subscribe((response: {status: any , data: any}) => {
       this.counterAgentId =  response.data.agent_id;
@@ -46,6 +46,7 @@ export class TransferFromAgentsComponent implements OnInit {
     this.transferAgentService.getProductsByAgentId(this.transferForm.value.agent_id)
         .subscribe((response: {status: any , data: Product[]}) => {
           this.productByAgentList = response.data;
+          this.sortedProductByAgentList = response.data;
     });
   }
   changeProductSlideToggle(){
@@ -57,29 +58,30 @@ export class TransferFromAgentsComponent implements OnInit {
     // return this.productByAgentList.filter(obj => obj.is_selected).length;
   }
   sortData(sort: Sort) {
-    // const data = this.products.slice();
-    // if (!sort.active || sort.direction === '') {
-    //   this.sortedProducts = data;
-    //   return;
-    // }
-    // this.sortedProducts = data.sort((a, b) => {
-    //   const isAsc = sort.direction === 'asc';
-    //   const isDesc = sort.direction === 'desc';
-    //   switch (sort.active) {
-    //     case 'tag': return compare(a.tag, b.tag, isAsc);
-    //     case 'model': return compare(a.model_no, b.model_no, isAsc);
-    //     case 'selected': return compare(String(a.is_selected), String(b.is_selected), isDesc);
-    //     case 'size': return compare(a.model_size, b.model_size, isAsc);
-    //     case 'quantity': return compare(a.qty, b.qty, isAsc);
-    //     default: return 0;
-    //   }
-    // });
+    const data = this.productByAgentList.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedProductByAgentList = data;
+      return;
+    }
+    this.sortedProductByAgentList = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      const isDesc = sort.direction === 'desc';
+      switch (sort.active) {
+        case 'tag': return compare(a.tag, b.tag, isAsc);
+        case 'model': return compare(a.model_no, b.model_no, isAsc);
+        case 'selected': return compare(String(a.is_selected), String(b.is_selected), isDesc);
+        case 'size': return compare(a.model_size, b.model_size, isAsc);
+        case 'quantity': return compare(a.qty, b.qty, isAsc);
+        default: return 0;
+      }
+    });
   }
   selectForTransfer(){
     const newArray = this.productByAgentList.filter((el) => el.is_selected);
     this.productByAgentList = this.productByAgentList.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.selectedProducts.push(...newArray);
-    console.log(this.selectedProducts);
+    // also removing from sortedArray
+    this.sortedProductByAgentList = this.sortedProductByAgentList.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
   }
   isAnyAvailableProductSelected() {
     // const count = this.productByAgentList.filter(obj => obj.is_selected).length;
@@ -100,19 +102,19 @@ export class TransferFromAgentsComponent implements OnInit {
           buttonsStyling: true,
         });
 
-        Swal.fire({  
-          title: 'Transfer',  
-          text: 'Are you sure to transfer?',  
-          icon: 'warning',  
-          showCancelButton: true,  
-          confirmButtonText: 'Yes, transfer',  
+        Swal.fire({
+          title: 'Transfer',
+          text: 'Are you sure to transfer?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, transfer',
           cancelButtonText: 'No!',
-          background: 'rgba(38,39,47,0.95)'  
-        }).then((result) => {  
-          if (result.value) {  
-            Swal.fire({  
+          background: 'rgba(38,39,47,0.95)'
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire({
               timer: 2000,
-          
+
               title: 'Transferred',
               text: 'Product transferred successfully',
               icon: 'success',
@@ -120,13 +122,13 @@ export class TransferFromAgentsComponent implements OnInit {
               confirmButtonColor: '#1661a0',
               cancelButtonColor: '#d33',
               background: 'rgba(38,39,47,0.95)'
-            })  
-          } else if (result.dismiss === Swal.DismissReason.cancel) {  
-            Swal.fire(  
-              'Cancelled',                  
-            )  
-          }  
-        })  
+            });
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+              'Cancelled',
+            );
+          }
+        });
 
 
         // swalWithBootstrapButtons.fire({
@@ -153,4 +155,19 @@ export class TransferFromAgentsComponent implements OnInit {
       });
     });
   }
+
+  sendProduct(selectedProduct: Product) {
+    const indexSortedProducts = this.sortedProductByAgentList.findIndex(x => x.tag === selectedProduct.tag);
+    const product = this.sortedProductByAgentList[indexSortedProducts];
+    this.selectedProducts.unshift(product);
+    this.sortedProductByAgentList.splice(indexSortedProducts, 1);
+
+    const indexProducts = this.productByAgentList.findIndex(x => x.tag === selectedProduct.tag);
+    this.productByAgentList.splice(indexProducts, 1);
+  }
+} // end of class
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
+
