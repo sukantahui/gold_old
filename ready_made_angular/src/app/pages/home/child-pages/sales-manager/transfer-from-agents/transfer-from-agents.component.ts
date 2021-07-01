@@ -28,13 +28,14 @@ export class TransferFromAgentsComponent implements OnInit {
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
   sortedProductByAgentList: Product[] = [];
-  constructor(private transferAgentService: TransferAgentService) { }
-
-  ngOnInit(): void {
+  constructor(private transferAgentService: TransferAgentService) {
+    this.agents = this.transferAgentService.getAgentsWithoutCounter();
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
       short_name: new FormControl(null)
     });
+  }
+  ngOnInit(): void {
     this.transferAgentService.getAgentsUpdateListener().subscribe((response) => {
       this.agents = response;
     });
@@ -49,13 +50,21 @@ export class TransferFromAgentsComponent implements OnInit {
           this.sortedProductByAgentList = response.data;
     });
   }
-  changeProductSlideToggle(){
-
+  changeProductSlideToggle() {
+    if (this.checkedAvailableAllProducts) {
+      this.productByAgentList = this.productByAgentList.map(item => {
+        item.is_selected = true;
+        return item;
+      });
+    }else{
+      this.productByAgentList = this.productByAgentList.map(item => {
+        item.is_selected = false;
+        return item;
+      });
+    }
   }
   countSelectedAvailableProduct(){
-    // return this.productByAgentList.filter(obj => obj.is_selected).length;
-    // @ts-ignore
-    // return this.productByAgentList.filter(obj => obj.is_selected).length;
+    return this.productByAgentList.filter(obj => obj.is_selected).length;
   }
   sortData(sort: Sort) {
     const data = this.productByAgentList.slice();
@@ -91,68 +100,54 @@ export class TransferFromAgentsComponent implements OnInit {
   transferFromAgent() {
     const agent_id = this.counterAgentId;
     const tags = this.selectedProducts.map(t => t.tag.toString());
-    this.transferAgentService.transferProduct(agent_id, tags).subscribe((response: {status: any, data: any}) => {
-      if (response.status === true){
-        const swalWithBootstrapButtons = Swal.mixin({
-          customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger',
-            title: 'text-white',
-          },
-          buttonsStyling: true,
-        });
-
-        Swal.fire({
-          title: 'Transfer',
-          text: 'Are you sure to transfer?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, transfer',
-          cancelButtonText: 'No!',
-          background: 'rgba(38,39,47,0.95)'
-        }).then((result) => {
-          if (result.value) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+        title: 'text-white',
+      },
+      buttonsStyling: true,
+    });
+    Swal.fire({
+      title: 'Transfer',
+      text: 'Are you sure to transfer?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, transfer',
+      cancelButtonText: 'No!',
+      background: 'rgba(38,39,47,0.95)'
+    }).then((result) => {
+      if (result.value) {
+        this.transferAgentService.transferProduct(agent_id, tags).subscribe((response: {status: any, data: any}) => {
+          if (response.status === true){
             Swal.fire({
               timer: 2000,
-
               title: 'Transferred',
               text: 'Product transferred successfully',
               icon: 'success',
-              showCancelButton: true,
+              showCancelButton: false,
               confirmButtonColor: '#1661a0',
               cancelButtonColor: '#d33',
               background: 'rgba(38,39,47,0.95)'
             });
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire(
-              'Cancelled',
-            );
+            this.selectedProducts = [];
           }
+        }, (error) => {
+        Swal.fire({
+          title: error.message,
+          text: 'Product is not transferred',
+          icon: 'error',
+          showConfirmButton: false,
+          background: 'rgba(38,39,47,0.95)',
+          timer: 3000
         });
-
-
-        // swalWithBootstrapButtons.fire({
-        //   timer: 2000,
-        //   // timerProgressBar: true,
-        //   title: 'Transferred',
-        //   text: 'Product transferred successfully',
-        //   icon: 'success',
-        //   showCancelButton: false,
-        //   confirmButtonColor: '#1661a0',
-        //   cancelButtonColor: '#d33',
-        //   background: 'rgba(38,39,47,0.95)'
-        // });
-        this.selectedProducts = [];
-      }
-    }, (error) => {
-      Swal.fire({
-        title: error.message,
-        text: 'Product is not transferred',
-        icon: 'error',
-        showConfirmButton: false,
-        background: 'rgba(38,39,47,0.95)',
-        timer: 3000
       });
+      }
+      else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+            'Cancelled',
+        );
+      }
     });
   }
 
@@ -172,6 +167,21 @@ export class TransferFromAgentsComponent implements OnInit {
     item.is_selected = false;
     this.sortedProductByAgentList.unshift(item);
     this.productByAgentList.unshift(item);
+  }
+
+  changeTransferableProductSlideToggle() {
+    this.checkedTransferableAllProducts = !this.checkedTransferableAllProducts;
+    if(this.checkedTransferableAllProducts) {
+      this.productByAgentList = this.productByAgentList.map(item => {
+        item.is_selected = true;
+        return item;
+      });
+    }else{
+      this.productByAgentList = this.productByAgentList.map(item => {
+        item.is_selected = false;
+        return item;
+      });
+    }
   }
 } // end of class
 

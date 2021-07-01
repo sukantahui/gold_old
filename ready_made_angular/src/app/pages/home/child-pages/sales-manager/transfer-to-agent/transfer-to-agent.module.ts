@@ -18,7 +18,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {Ng2SearchPipeModule} from "ng2-search-filter";
 import {NgxPaginationModule} from "ngx-pagination";
 import {MatBadgeModule} from "@angular/material/badge";
-import {MatSortModule} from "@angular/material/sort";
+// import {MatSortModule} from "@angular/material/sort";
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {MatIconHarness} from '@angular/material/icon/testing';
 
@@ -46,15 +46,10 @@ import {MatIconHarness} from '@angular/material/icon/testing';
         Ng2SearchPipeModule,
         NgxPaginationModule,
         MatBadgeModule,
-        MatSortModule,
+        // MatSortModule,
         MatIconModule
     ]
 })
-export class TransferToAgentModule {
-  
-  constructor(){
-    
-}
- }
+export class TransferToAgentModule {}
 
 

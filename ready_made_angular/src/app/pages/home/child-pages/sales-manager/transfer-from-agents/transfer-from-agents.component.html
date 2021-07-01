@@ -23,14 +23,14 @@
             <div  id="product-table-div">
                 <form class="example-form">
                     <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
-<!--                        <mat-slide-toggle-->
-<!--                                [(ngModel)]="checkedAvailableAllProducts"-->
-<!--                                class="example-margin"-->
-<!--                                [color]="color"-->
-<!--                                (change)="changeProductSlideToggle()"-->
-<!--                                [ngModelOptions]="{standalone: true}">-->
-<!--                            {{checkedAvailableAllProducts?'Deselect':'Select All'}}-->
-<!--                        </mat-slide-toggle>-->
+                        <mat-slide-toggle
+                                [(ngModel)]="checkedAvailableAllProducts"
+                                class="example-margin"
+                                [color]="color"
+                                (change)="changeProductSlideToggle()"
+                                [ngModelOptions]="{standalone: true}">
+                            {{checkedAvailableAllProducts?'Deselect':'Select All'}}
+                        </mat-slide-toggle>
                         <mat-form-field fxFlex="15">
                             <input matInput placeholder="Search..." [(ngModel)]="searchTerm" name="search" type="text" autofocus>
                         </mat-form-field>
@@ -40,9 +40,15 @@
                         <mat-form-field fxFlex="10">
                             <input type="text" matInput placeholder="Total Products" [disabled]="true" value="{{countSelectedAvailableProduct()}}/{{productByAgentList.length}}" name="totalProducts" >
                         </mat-form-field>
-                        <button (click)="selectForTransfer()" [disabled]="!isAnyAvailableProductSelected()"   mat-mini-fab aria-label="Send all"  [matBadge]="countSelectedAvailableProduct()" matBadgePosition="before" matBadgeColor="primary">
-                            <i class="ri-send-plane-2-fill"></i>
+<!--                        <button (click)="selectForTransfer()" [disabled]="!isAnyAvailableProductSelected()"   mat-mini-fab aria-label="Send all"  [matBadge]="countSelectedAvailableProduct()" matBadgePosition="before" matBadgeColor="primary">-->
+<!--                            Send To Counter Agent-->
+<!--                            <i class="ri-send-plane-2-fill"></i>-->
+<!--                        </button>-->
+                        <button class="btn btn-info" (click)="selectForTransfer()" [disabled]="!isAnyAvailableProductSelected()" aria-label="Send all"  [matBadge]="countSelectedAvailableProduct()" matBadgePosition="before" matBadgeColor="primary">
+                            Send To Counter Agent
+<!--                            <i class="ri-send-plane-2-fill"></i>-->
                         </button>
+
 
                     </div>
                 </form>
@@ -94,14 +100,14 @@
             <div  id="selected-product-table-div">
                 <form class="example-form">
                     <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
-<!--                        <mat-slide-toggle-->
-<!--                                [(ngModel)]="checkedTransferableAllProducts"-->
-<!--                                class="example-margin"-->
-<!--                                [color]="color"-->
-<!--                                (change)="changeTransferableProductSlideToggle()"-->
-<!--                                [ngModelOptions]="{standalone: true}">-->
-<!--                            {{checkedTransferableAllProducts?'Deselect':'Select All'}}-->
-<!--                        </mat-slide-toggle>-->
+                        <mat-slide-toggle
+                                [(ngModel)]="checkedTransferableAllProducts"
+                                class="example-margin"
+                                [color]="color"
+                                (change)="changeTransferableProductSlideToggle()"
+                                [ngModelOptions]="{standalone: true}">
+                            {{checkedTransferableAllProducts?'Deselect':'Select All'}}
+                        </mat-slide-toggle>
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Search..." [(ngModel)]="searchTermSelectedProducts" name="search" type="text" autofocus>
                         </mat-form-field>

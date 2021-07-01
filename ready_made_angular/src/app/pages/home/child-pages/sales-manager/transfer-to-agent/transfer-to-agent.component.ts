@@ -30,6 +30,7 @@ export class TransferToAgentComponent implements OnInit {
   public sortedProducts: Product[] = [];
   constructor(public transferAgentService: TransferAgentService) {
     this.products = this.transferAgentService.getProductsInCounter();
+    this.agents = this.transferAgentService.getAgentsWithoutCounter();
     this.sortedProducts = this.products.slice();
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
@@ -40,6 +41,7 @@ export class TransferToAgentComponent implements OnInit {
   ngOnInit(): void {
     this.transferAgentService.getAgentsUpdateListener().subscribe(response => {
       this.agents = response;
+      console.log(response);
     });
     this.transferAgentService.getProductsUpdateListener().subscribe(response => {
       this.products = response;
@@ -54,15 +56,15 @@ export class TransferToAgentComponent implements OnInit {
     this.selectedProducts.push(...newArray);
   }
 
-  sendProduct(selectedProduct: any) {
-    const indexSortedProducts = this.sortedProducts.findIndex(x => x.tag === selectedProduct.tag);
-    const product = this.sortedProducts[indexSortedProducts];
-    this.selectedProducts.unshift(product);
-    this.sortedProducts.splice(indexSortedProducts, 1);
-
-    const indexProducts = this.products.findIndex(x => x.tag === selectedProduct.tag);
-    this.products.splice(indexProducts, 1);
-  }
+  // sendProduct(selectedProduct: any) {
+  //   const indexSortedProducts = this.sortedProducts.findIndex(x => x.tag === selectedProduct.tag);
+  //   const product = this.sortedProducts[indexSortedProducts];
+  //   this.selectedProducts.unshift(product);
+  //   this.sortedProducts.splice(indexSortedProducts, 1);
+  //
+  //   const indexProducts = this.products.findIndex(x => x.tag === selectedProduct.tag);
+  //   this.products.splice(indexProducts, 1);
+  // }
 
   changeProductSlideToggle() {
     if (this.checkedAvailableAllProducts) {
@@ -80,7 +82,7 @@ export class TransferToAgentComponent implements OnInit {
 
   changeTransferableProductSlideToggle() {
     this.checkedTransferableAllProducts = !this.checkedTransferableAllProducts;
-    if(this.checkedTransferableAllProducts) {
+    if (this.checkedTransferableAllProducts) {
       this.selectedProducts = this.selectedProducts.map(item => {
         item.is_selected = true;
         return item;
