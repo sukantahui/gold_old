@@ -21,34 +21,36 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatSortModule} from '@angular/material/sort';
 import {MatIconModule} from '@angular/material/icon';
+import {PopoverModule} from 'ngx-smart-popover';
 
 
 @NgModule({
   declarations: [
     TransferFromAgentsComponent
   ],
-  imports: [
-    CommonModule,
-    TransferFromAgentsRoutingModule,
-    MaterialModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-    MatCardModule,
-    NgSelectModule,
-    FlexModule,
-    MatCheckboxModule,
-    FormsModule,
-    Ng2SearchPipeModule,
-    NgxPaginationModule,
-    MatBadgeModule,
-    MatSortModule,
-    MatIconModule
+    imports: [
+        CommonModule,
+        TransferFromAgentsRoutingModule,
+        MaterialModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        MatSlideToggleModule,
+        MatButtonModule,
+        MatCardModule,
+        NgSelectModule,
+        FlexModule,
+        MatCheckboxModule,
+        FormsModule,
+        Ng2SearchPipeModule,
+        NgxPaginationModule,
+        MatBadgeModule,
+        MatSortModule,
+        MatIconModule,
+        PopoverModule
 
-  ]
+    ]
 })
 export class TransferFromAgentsModule { }

@@ -92,8 +92,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 flex-column" [hidden]="!showSelectedProductDiv">
-            <div  id="selected-product-table-div">
+        <div class="col-6 flex-column" *ngIf="selectedProducts.length>0">
+            <div  id="selected-product-table-div" >
                 <form class="example-form">
                     <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
                         <mat-slide-toggle
@@ -153,14 +153,31 @@
 
                 <button  *ngIf ="selectedProducts.length>0" mat-button color="primary" (click)="transferFromAgent()">Send to Counter Agent</button>
                 <button  *ngIf ="selectedProducts.length>0" mat-button color="primary" (click)="transferToSales()">Send to Sales</button>
-                <div [hidden]="customerByAgentList.length === 0" class="col-8">
-                    <ng-select [items]="customerByAgentList"
-                               bindLabel="cust_name"
-                               class="custom"
-                               bindValue="cust_id"
-                               formControlName="cust_id"
-                               placeholder="Select Customer">
-                    </ng-select>
+                <div class="d-flex" *ngIf="customerByAgentList.length>0">
+                    <div class="col-3">
+                        <ng-select [items]="customerByAgentList"
+                                   bindLabel="cust_name"
+                                   class="custom"
+                                   bindValue="cust_id"
+                                   formControlName="cust_id"
+                                   placeholder="Select Customer">
+                        </ng-select>
+                        <popover-content #popoverCustomer
+                                         title="Customer"
+                                         placement="right"
+                                         [animation]="true"
+                                         [closeOnClickOutside]="true">
+                            <div>Poopover Test</div>
+                        </popover-content>
+                    </div>
+                    <div class="col-3">
+                        <button mat-mini-fab color="primary"
+                                [popover]="popoverCustomer"
+                                [popoverOnHover]="true"
+                                aria-label="Customer Details">
+                            <mat-icon>menu</mat-icon>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

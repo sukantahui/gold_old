@@ -28,7 +28,6 @@ export class TransferFromAgentsComponent implements OnInit {
   checked = false;
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
-  showSelectedProductDiv = false;
   sortedProductByAgentList: Product[] = [];
   constructor(private transferAgentService: TransferAgentService) {
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
@@ -38,7 +37,6 @@ export class TransferFromAgentsComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.showSelectedProductDiv = false;
     this.transferAgentService.getAgentsUpdateListener().subscribe((response) => {
       this.agents = response;
     });
@@ -54,7 +52,6 @@ export class TransferFromAgentsComponent implements OnInit {
           if (this.productByAgentList.length > 0){
             this.customerByAgentList = [];
             this.selectedProducts = [];
-            this.showSelectedProductDiv = false;
           }
     });
   }
@@ -94,12 +91,11 @@ export class TransferFromAgentsComponent implements OnInit {
     });
   }
   selectForTransfer(){
-    const newArray = this.productByAgentList.filter((el) => el.is_selected);
-    this.productByAgentList = this.productByAgentList.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
+    const newArray = this.sortedProductByAgentList.filter((el) => el.is_selected);
+    this.sortedProductByAgentList = this.sortedProductByAgentList.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.selectedProducts.push(...newArray);
     // also removing from sortedArray
     this.productByAgentList = this.productByAgentList.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
-    this.showSelectedProductDiv = true;
   }
   isAnyAvailableProductSelected() {
     // const count = this.productByAgentList.filter(obj => obj.is_selected).length;
@@ -160,6 +156,7 @@ export class TransferFromAgentsComponent implements OnInit {
     });
   }
   transferToSales(){
+    // tslint:disable-next-line:max-line-length
     this.transferAgentService.getCustomersByAgent(this.transferForm.value.agent_id).subscribe((response:{success: number , data: any[]}) => {
       this.customerByAgentList = response.data;
     });
