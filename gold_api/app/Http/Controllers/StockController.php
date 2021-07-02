@@ -7,6 +7,7 @@ use App\Models\ItemStockReadyMade;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Product;
 
 class StockController extends ApiController
 {
@@ -24,12 +25,12 @@ class StockController extends ApiController
             'tag' => ['required',Rule::unique('item_stock_ready_made','tag')],
             'model_no' => 'required|exists:product_master,product_code',
             'model_size' => 'required',
-            'qty' => ['required','integer','gte:1'],
+            'quantity' => ['required','integer','gte:1'],
             'agent_id' => ['required','exists:agent_master,agent_id'],
             'employee_id' => ['required','exists:employees,emp_id']
         );
         $messsages = array(
-            'model_no.exists'=>"This model is already exist"
+            'model_no.exists'=>"This model does not exist"
         );
 
         $validator = Validator::make($request->all(),$rules,$messsages );
@@ -41,7 +42,7 @@ class StockController extends ApiController
             $stock->tag = $request->input("tag");
             $stock->model_no=$request->input("model_no");
             $stock->model_size=$request->input("model_size");
-            $stock->qty=$request->input("qty");
+            $stock->qty=$request->input("quantity");
             $stock->gold=$request->input("gold");
             $stock->labour_charge=$request->input("labour_charge");
             $stock->gross_weight=$request->input("gross_weight");
@@ -78,6 +79,10 @@ class StockController extends ApiController
 
         $result = ItemStockReadyMade::where('agent_id',$id)->get();
 
+        return $this->successResponse($result);
+    }
+    public  function get_model_numbers(){
+        $result = Product::select()->get();
         return $this->successResponse($result);
     }
 }
