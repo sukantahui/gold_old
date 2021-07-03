@@ -15,10 +15,15 @@ export class StockEntryComponent implements OnInit {
   stockForm: FormGroup;
   productList: Product[] = [];
   stockList: Stock[] = [];
+  jobList: any[] = [];
   labourCharge: any;
+  model_number: any;
+  model_size: any;
+  bill_no: any;
   constructor(private stockService: StockService) {
     this.productList = this.stockService.getProductList();
     this.stockList =  this.stockService.getStockList();
+    this.jobList =  this.stockService.getJobList();
   }
 
   ngOnInit(): void {
@@ -28,7 +33,9 @@ export class StockEntryComponent implements OnInit {
     });
     this.stockService.getStocksUpdateListener().subscribe((response) => {
       this.stockList = response;
-      console.log(this.stockList);
+    });
+    this.stockService.getJobsUpdateListener().subscribe((response) => {
+      this.jobList = response;
     });
   }
   getLabourCharge(){
@@ -88,6 +95,17 @@ export class StockEntryComponent implements OnInit {
         Swal.fire(
             'Cancelled',
         );
+      }
+    });
+  }
+  getDetails(){
+    this.stockService.getDetailsByJobId().subscribe((response: {status: any , data: any}) => {
+      if (response.status === true){
+          this.model_number =  response.data.product_code;
+          this.model_size =  response.data.product_size;
+          this.labourCharge =  response.data.price;
+          this.bill_no = response.data.bill_no;
+          this.stockForm.patchValue({model_no: this.model_number, model_size: this.model_size, labour_charge: this.labourCharge, bill_no: this.bill_no});
       }
     });
   }

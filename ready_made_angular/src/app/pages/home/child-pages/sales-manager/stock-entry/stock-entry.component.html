@@ -10,24 +10,37 @@
                     <mat-form-field fxFlex="10" >
                         <input   class="p-1" type="text" formControlName="bill_no" matInput placeholder="Bill No" style="border-radius: 5px;">
                     </mat-form-field>
-                    <mat-form-field fxFlex="10" >
-                        <input   class="p-1" type="text" formControlName="job_id" matInput placeholder="Job Id" style="border-radius: 5px;">
-                    </mat-form-field>
+<!--                    <mat-form-field fxFlex="10" >-->
+<!--                        <input   class="p-1" type="text" formControlName="job_id" matInput placeholder="Job Id" style="border-radius: 5px;">-->
+                        <div class="col-2">
+                            <ng-select [items]="jobList"
+                                       bindLabel="job_id"
+                                       class="custom"
+                                       bindValue="job_id"
+                                       formControlName="job_id"
+                                       placeholder="Job Id"
+                                       (change)="getDetails()">
+                            </ng-select>
+                        </div>
+<!--                    </mat-form-field>-->
                 </div>
                 <div fxLayoutGap="15px" style="padding-left: 50px">
                     <mat-form-field fxFlex="10">
                         <input   class="p-1" type="text" formControlName="tag" matInput placeholder="Tag" style="border-radius: 5px;">
                     </mat-form-field>
-                    <div class="col-2">
-                        <ng-select [items]="productList"
-                                   bindLabel="product_code"
-                                   class="custom"
-                                   bindValue="product_code"
-                                   formControlName="model_no"
-                                   placeholder="Model Number"
-                                   (change)="getLabourCharge()">
-                        </ng-select>
-                    </div>
+<!--                    <div class="col-2">-->
+<!--                        <ng-select [items]="productList"-->
+<!--                                   bindLabel="product_code"-->
+<!--                                   class="custom"-->
+<!--                                   bindValue="product_code"-->
+<!--                                   formControlName="model_no"-->
+<!--                                   placeholder="Model Number"-->
+<!--                                   (blur)="getLabourCharge()">-->
+<!--                        </ng-select>-->
+<!--                    </div>-->
+                    <mat-form-field fxFlex="10">
+                        <input   class="p-1" type="text" formControlName="model_no" matInput placeholder="Model Number" style="border-radius: 5px;">
+                    </mat-form-field>
                     <mat-form-field fxFlex="10">
                         <input   class="p-1" type="text" formControlName="model_size" matInput placeholder="Model Size" style="border-radius: 5px;">
                     </mat-form-field>

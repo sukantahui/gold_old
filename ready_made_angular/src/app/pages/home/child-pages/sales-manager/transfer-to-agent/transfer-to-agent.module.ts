@@ -21,6 +21,7 @@ import {MatBadgeModule} from "@angular/material/badge";
 // import {MatSortModule} from "@angular/material/sort";
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {MatIconHarness} from '@angular/material/icon/testing';
+import {MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import {MatIconHarness} from '@angular/material/icon/testing';
         Ng2SearchPipeModule,
         NgxPaginationModule,
         MatBadgeModule,
-        // MatSortModule,
+        MatSortModule,
         MatIconModule
     ]
 })

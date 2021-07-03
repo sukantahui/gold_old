@@ -15,7 +15,9 @@ export class StockService {
   stockForm: FormGroup;
   productData: Product[] = [];
   stockData: Stock[] = [];
+  jobData: any[] = [];
   productsSub = new Subject<any[]>();
+  jobsSub = new Subject<any[]>();
   stocksSub = new Subject<any[]>();
   private BASE_API_URL = environment.BASE_API_URL;
   constructor(private  http: HttpClient , private  errorService: ErrorService) {
@@ -26,6 +28,10 @@ export class StockService {
     this.http.get(this.BASE_API_URL + '/stocks').subscribe((response: {status: any , data: Stock[]}) => {
       this.stockData = response.data;
       this.stocksSub.next([...this.stockData]);
+    });
+    this.http.get(this.BASE_API_URL + '/jobs').subscribe((response: {status: any , data: Stock[]}) => {
+      this.jobData = response.data;
+      this.jobsSub.next([...this.jobData]);
     });
     this.stockForm = new FormGroup({
       tag:  new FormControl(null, [Validators.required]),
@@ -50,6 +56,9 @@ export class StockService {
   getStocksUpdateListener(){
     return this.stocksSub.asObservable();
   }
+  getJobsUpdateListener(){
+    return this.jobsSub.asObservable();
+  }
   getStockList(){
     return this.stockData;
   }
@@ -63,6 +72,12 @@ export class StockService {
   }
   getProductList(){
     return this.productData;
+  }
+  getJobList(){
+    return this.jobData;
+  }
+  getDetailsByJobId(){
+    return this.http.get(this.BASE_API_URL + '/getDetailsByJobId/' + this.stockForm.value.job_id);
   }
   private serverError(err: any) {
     if (err instanceof Response) {

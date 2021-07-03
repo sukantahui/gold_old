@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
+use App\Models\Job;
 
 class StockController extends ApiController
 {
@@ -90,6 +91,19 @@ class StockController extends ApiController
                   ->join("price_master","product_master.price_code","=","price_master.price_code")
                   ->where("price_master.price_cat",1)
                   ->where("product_master.product_code",$id)
+                  ->first();
+        return $this->successResponse($result);
+    }
+    public function get_job_id(){
+        $result = Job::select()->get();
+        return $this->successResponse($result);
+    }
+    public function get_details_by_job_id($id){
+        $result = Job::select('job_master.job_id','job_master.product_code','job_master.product_size','price_master.price_id','price_master.price_code','price_master.price','bill_master.bill_no')
+                  ->join("product_master","product_master.product_code","=","job_master.product_code")
+                  ->join("price_master","price_master.price_code","=","product_master.price_code")
+                  ->join("bill_master","bill_master.order_id","=","job_master.order_id")
+                  ->where('job_master.job_id',$id)
                   ->first();
         return $this->successResponse($result);
     }

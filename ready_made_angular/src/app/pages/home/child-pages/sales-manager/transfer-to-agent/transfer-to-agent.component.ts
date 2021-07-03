@@ -167,11 +167,11 @@ export class TransferToAgentComponent implements OnInit {
               cancelButtonColor: '#d33',
               background: 'rgba(38,39,47,0.95)'
             }) ;
-          } else if (result.dismiss === Swal.DismissReason.cancel) {  
-            Swal.fire(  
-              'Cancelled',  
-            )  
-          }  
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+              'Cancelled',
+            );
+          }
         });
 
 

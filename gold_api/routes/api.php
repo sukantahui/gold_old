@@ -62,6 +62,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("stocks",[StockController::class,'store']);
     Route::get("getModelNumbers",[StockController::class,'get_model_numbers']);
     Route::get("getPriceByModelNumber/{id}",[StockController::class,'get_price_by_model_number']);
+    Route::get("jobs",[StockController::class,'get_job_id']);
+    Route::get("getDetailsByJobId/{id}",[StockController::class,'get_details_by_job_id']);
 });
 
 
@@ -82,5 +84,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("getCustomersByAgent/{id}",[AgentController::class,'get_customers_by_agent']);
     Route::get("getModelNumbers",[StockController::class,'get_model_numbers']);
     Route::get("getPriceByModelNumber/{id}",[StockController::class,'get_price_by_model_number']);
+    Route::get("jobs",[StockController::class,'get_job_id']);
+    Route::get("getDetailsByJobId/{id}",[StockController::class,'get_details_by_job_id']);
 });
 
