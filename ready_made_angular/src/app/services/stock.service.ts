@@ -31,7 +31,7 @@ export class StockService {
       package_weight:  new FormControl(null),
       in_stock:  new FormControl(1),
       agent_id:  new FormControl('AG2018'),
-      employee_id:  new FormControl(null),
+      employee_id:  new FormControl(46),
       reference:  new FormControl(null),
       bill_no:  new FormControl(null),
       job_id:  new FormControl(null),
@@ -44,6 +44,9 @@ export class StockService {
     return this.http.post(this.BASE_API_URL + '/stocks', this.stockForm.value)
         .pipe(catchError(this.errorService.serverError), tap(response => {
         }));
+  }
+  getPriceByModelNumber(){
+    return this.http.get(this.BASE_API_URL + '/getPriceByModelNumber/' + this.stockForm.value.model_no);
   }
   private serverError(err: any) {
     if (err instanceof Response) {

@@ -85,4 +85,12 @@ class StockController extends ApiController
         $result = Product::select()->get();
         return $this->successResponse($result);
     }
+    public function get_price_by_model_number($id){
+        $result = Product::select("product_master.product_code","price_master.price_id","price_master.price_code","price_master.price")
+                  ->join("price_master","product_master.price_code","=","price_master.price_code")
+                  ->where("price_master.price_cat",1)
+                  ->where("product_master.product_code",$id)
+                  ->first();
+        return $this->successResponse($result);
+    }
 }

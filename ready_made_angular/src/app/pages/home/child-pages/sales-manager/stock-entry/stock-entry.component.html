@@ -5,6 +5,17 @@
             <form [formGroup] = stockForm>
                 <div fxLayoutGap="15px" style="padding-left: 50px">
                     <mat-form-field fxFlex="10">
+                        <input   class="p-1" type="text" formControlName="reference" matInput placeholder="Reference" style="border-radius: 5px;">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="10" >
+                        <input   class="p-1" type="text" formControlName="bill_no" matInput placeholder="Bill No" style="border-radius: 5px;">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="10" >
+                        <input   class="p-1" type="text" formControlName="job_id" matInput placeholder="Job Id" style="border-radius: 5px;">
+                    </mat-form-field>
+                </div>
+                <div fxLayoutGap="15px" style="padding-left: 50px">
+                    <mat-form-field fxFlex="10">
                         <input   class="p-1" type="text" formControlName="tag" matInput placeholder="Tag" style="border-radius: 5px;">
                     </mat-form-field>
                     <div class="col-2">
@@ -13,7 +24,8 @@
                                    class="custom"
                                    bindValue="product_code"
                                    formControlName="model_no"
-                                   placeholder="Model Number">
+                                   placeholder="Model Number"
+                                   (change)="getLabourCharge()">
                         </ng-select>
                     </div>
                     <mat-form-field fxFlex="10">
@@ -32,22 +44,10 @@
                 </div>
                 <div fxLayoutGap="15px" style="padding-left: 50px">
                     <mat-form-field fxFlex="15" >
-                        <input   class="p-1" type="text" formControlName="labour_charge" matInput placeholder="Labour Charge" style="border-radius: 5px;">
+                        <input   class="p-1" type="text" formControlName="labour_charge" matInput placeholder="Labour Charge" readonly="true" style="border-radius: 5px;">
                     </mat-form-field>
                     <mat-form-field fxFlex="15" >
                         <input   class="p-1" type="text" formControlName="package_weight" matInput placeholder="Package Weight" style="border-radius: 5px;">
-                    </mat-form-field>
-                    <mat-form-field fxFlex="10" >
-                        <input   class="p-1" type="text" formControlName="employee_id" matInput placeholder="Employee id" style="border-radius: 5px;">
-                    </mat-form-field>
-                    <mat-form-field fxFlex="10">
-                        <input   class="p-1" type="text" formControlName="reference" matInput placeholder="Reference" style="border-radius: 5px;">
-                    </mat-form-field>
-                    <mat-form-field fxFlex="10" >
-                        <input   class="p-1" type="text" formControlName="bill_no" matInput placeholder="Bill No" style="border-radius: 5px;">
-                    </mat-form-field>
-                    <mat-form-field fxFlex="10" >
-                        <input   class="p-1" type="text" formControlName="job_id" matInput placeholder="Job Id" style="border-radius: 5px;">
                     </mat-form-field>
                 </div>
                 <div fxLayoutGap="15px">
@@ -61,10 +61,9 @@
                 </div>
             </form>
             <div style="text-align: center">
-                <button mat-raised-button style="color: steelblue" (click)="onSubmit()">Save Stock</button>
+                <button mat-button color="primary" (click)="onSubmit()">Save Stock</button>
             </div>
         </mat-card>
-
     </div>
 </div>
 

@@ -14,12 +14,21 @@ import {Product} from '../../../../../models/product.model';
 export class StockEntryComponent implements OnInit {
   stockForm: FormGroup;
   productList: Product[] = [];
+  labourCharge: any;
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
     this.stockForm = this.stockService.stockForm;
     this.stockService.getProductsUpdateListener().subscribe((response) =>{
       this.productList = response;
+    });
+  }
+  getLabourCharge(){
+    this.stockService.getPriceByModelNumber().subscribe((response: {status: any , data: any}) => {
+      if (response.status === true){
+        this.labourCharge =  response.data.price;
+        this.stockForm.patchValue({labour_charge: this.labourCharge});
+      }
     });
   }
   onSubmit(){
@@ -56,6 +65,15 @@ export class StockEntryComponent implements OnInit {
             this.stockForm.reset();
             this.stockForm.patchValue({in_stock: 1 , agent_id: 'AG2018'});
           }
+        }, error => {
+          Swal.fire({
+            title: error.message,
+            text: 'Stock is not added',
+            icon: 'error',
+            showConfirmButton: false,
+            background: 'rgba(38,39,47,0.95)',
+            timer: 3000
+          });
         });
       }
       else if (result.dismiss === Swal.DismissReason.cancel) {
