@@ -6,6 +6,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {ErrorService} from './error.service';
 import {Subject, throwError} from 'rxjs';
 import {Product} from '../models/product.model';
+import {Stock} from '../models/stock.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,18 @@ import {Product} from '../models/product.model';
 export class StockService {
   stockForm: FormGroup;
   productData: Product[] = [];
+  stockData: Stock[] = [];
   productsSub = new Subject<any[]>();
+  stocksSub = new Subject<any[]>();
   private BASE_API_URL = environment.BASE_API_URL;
   constructor(private  http: HttpClient , private  errorService: ErrorService) {
     this.http.get(this.BASE_API_URL + '/getModelNumbers').subscribe((response: {status: any , data: Product[]}) => {
       this.productData =  response.data;
       this.productsSub.next([...this.productData]);
+    });
+    this.http.get(this.BASE_API_URL + '/stocks').subscribe((response: {status: any , data: Stock[]}) => {
+      this.stockData = response.data;
+      this.stocksSub.next([...this.stockData]);
     });
     this.stockForm = new FormGroup({
       tag:  new FormControl(null, [Validators.required]),
@@ -39,6 +46,12 @@ export class StockService {
   }
   getProductsUpdateListener(){
     return this.productsSub.asObservable();
+  }
+  getStocksUpdateListener(){
+    return this.stocksSub.asObservable();
+  }
+  getStockList(){
+    return this.stockData;
   }
   saveStock(){
     return this.http.post(this.BASE_API_URL + '/stocks', this.stockForm.value)

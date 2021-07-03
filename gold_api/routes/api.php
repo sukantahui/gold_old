@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("getCustomersByAgent/{id}",[AgentController::class,'get_customers_by_agent']);
 
     //for stock
+    Route::get("stocks",[StockController::class,'get_all_instock_items']);
     Route::post("stocks",[StockController::class,'store']);
     Route::get("getModelNumbers",[StockController::class,'get_model_numbers']);
     Route::get("getPriceByModelNumber/{id}",[StockController::class,'get_price_by_model_number']);

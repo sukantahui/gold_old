@@ -155,11 +155,10 @@ export class TransferToAgentComponent implements OnInit {
           confirmButtonText: 'Yes, transfer',
           cancelButtonText: 'No!',
           background: 'rgba(38,39,47,0.95)'
-        }).then((result) => {  
-          if (result.value) {  
-            Swal.fire({  
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire({
               timer: 2000,
-          
               title: 'Transferred',
               text: 'Product transferred successfully',
               icon: 'success',
@@ -167,13 +166,13 @@ export class TransferToAgentComponent implements OnInit {
               confirmButtonColor: '#1661a0',
               cancelButtonColor: '#d33',
               background: 'rgba(38,39,47,0.95)'
-            })  
+            }) ;
           } else if (result.dismiss === Swal.DismissReason.cancel) {  
             Swal.fire(  
               'Cancelled',  
             )  
           }  
-        })  
+        });
 
 
 

@@ -64,6 +64,38 @@
                 <button mat-button color="primary"  [disabled]="!stockForm.valid" (click)="onSubmit()">Save Stock</button>
             </div>
         </mat-card>
+        <mat-card id ="stock-list-div">
+           <table class="table table-hover">
+               <thead>
+                    <th>Tag</th>
+                    <th>Model Number</th>
+                    <th>Model Size</th>
+                    <th>Gold</th>
+                    <th>Labour Charge</th>
+                    <th>Gross Weight</th>
+                    <th>Package Weight</th>
+                    <th>Agent Id</th>
+                    <th>Employee Id</th>
+                    <th>Bill No</th>
+                    <th>Job Id</th>
+               </thead>
+               <tbody>
+                    <tr *ngFor = "let stock of stockList">
+                        <td>{{stock.tag}}</td>
+                        <td>{{stock.model_no}}</td>
+                        <td>{{stock.model_size}}</td>
+                        <td>{{stock.gold}}</td>
+                        <td>{{stock.labour_charge}}</td>
+                        <td>{{stock.gross_weight}}</td>
+                        <td>{{stock.package_weight}}</td>
+                        <td>{{stock.agent_id}}</td>
+                        <td>{{stock.employee_id}}</td>
+                        <td>{{stock.bill_no}}</td>
+                        <td>{{stock.job_id}}</td>
+                    </tr>
+               </tbody>
+           </table>
+        </mat-card>
     </div>
 </div>
 

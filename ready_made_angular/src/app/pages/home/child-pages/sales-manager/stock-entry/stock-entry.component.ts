@@ -14,15 +14,21 @@ import {Product} from '../../../../../models/product.model';
 export class StockEntryComponent implements OnInit {
   stockForm: FormGroup;
   productList: Product[] = [];
+  stockList: Stock[] = [];
   labourCharge: any;
   constructor(private stockService: StockService) {
     this.productList = this.stockService.getProductList();
+    this.stockList =  this.stockService.getStockList();
   }
 
   ngOnInit(): void {
     this.stockForm = this.stockService.stockForm;
-    this.stockService.getProductsUpdateListener().subscribe((response) =>{
+    this.stockService.getProductsUpdateListener().subscribe((response) => {
       this.productList = response;
+    });
+    this.stockService.getStocksUpdateListener().subscribe((response) => {
+      this.stockList = response;
+      console.log(this.stockList);
     });
   }
   getLabourCharge(){

@@ -45,7 +45,42 @@
 
                     </div>
                 </form>
-                <table  class="table table-bordered table-responsive" style="border: none !important;">
+<!--                <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive" style="border: none !important;">-->
+
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th mat-sort-header="selected">Select</th>-->
+<!--                        <th>Index</th>-->
+<!--                        <th mat-sort-header="tag">Tag</th>-->
+<!--                        <th mat-sort-header="model">Model</th>-->
+<!--                        <th mat-sort-header="size">Size</th>-->
+<!--                        <th mat-sort-header="quantity">Quantity</th>-->
+<!--                        <th>Gold</th>-->
+<!--                        <th>LC</th>-->
+<!--                        <th>Selected</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr [ngClass]="{selectedRow: product.is_selected}" *ngFor="let product of sortedProducts | filter:searchTerm | paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts };let indexOfElement=index">-->
+<!--                        <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>-->
+<!--                        <td>{{(currentPageProducts-1)*10+indexOfElement+1}}</td>-->
+<!--                        <td>{{product.tag}}</td>-->
+<!--                        <td>{{product.model_no}}</td>-->
+<!--                        <td>{{product.model_size}}</td>-->
+<!--                        <td>{{product.qty}}</td>-->
+<!--                        <td>{{product.gold}}</td>-->
+<!--                        <td>{{product.labour_charge}}</td>-->
+<!--                        <td>{{product.is_selected}}</td>-->
+<!--&lt;!&ndash;                        <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <button (click)="sendProduct(product)" [disabled]="!product.is_selected" mat-mini-fab aria-label="Example icon button with a home icon">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <i class="ri-send-plane-2-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </td>&ndash;&gt;-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+
+<!--                </table>-->
+                <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive" style="border: none !important;">
 
                     <thead>
                     <tr>
@@ -71,15 +106,16 @@
                         <td>{{product.gold}}</td>
                         <td>{{product.labour_charge}}</td>
                         <td>{{product.is_selected}}</td>
-<!--                        <td>-->
-<!--                            <button (click)="sendProduct(product)" [disabled]="!product.is_selected" mat-mini-fab aria-label="Example icon button with a home icon">-->
+                        <td>
+<!--                            <button (click)="sendProduct(product)" [disabled]="!product.is_selected" mat-mini-fab aria-label="Select Product">-->
 <!--                                <i class="ri-send-plane-2-fill"></i>-->
 <!--                            </button>-->
-<!--                        </td>-->
+                        </td>
                     </tr>
                     </tbody>
 
                 </table>
+
 
                 <div fxLayout.xs="column" fxLayout="column" fxFlexFill>
                     <!--    https://www.npmjs.com/package/ngx-pagination-->
