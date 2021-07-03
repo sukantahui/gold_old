@@ -61,7 +61,7 @@
                 </div>
             </form>
             <div style="text-align: center">
-                <button mat-button color="primary" (click)="onSubmit()">Save Stock</button>
+                <button mat-button color="primary"  [disabled]="!stockForm.valid" (click)="onSubmit()">Save Stock</button>
             </div>
         </mat-card>
     </div>

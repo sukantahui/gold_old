@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {environment} from '../../environments/environment';
 import {catchError, tap} from 'rxjs/operators';
 import {ErrorService} from './error.service';
@@ -21,19 +21,19 @@ export class StockService {
       this.productsSub.next([...this.productData]);
     });
     this.stockForm = new FormGroup({
-      tag:  new FormControl(null),
-      model_no:  new FormControl(null),
-      model_size:  new FormControl(null),
-      quantity:  new FormControl(null),
-      gold:  new FormControl(null),
-      labour_charge:  new FormControl(null),
-      gross_weight:  new FormControl(null),
-      package_weight:  new FormControl(null),
+      tag:  new FormControl(null, [Validators.required]),
+      model_no:  new FormControl(null, [Validators.required]),
+      model_size:  new FormControl(null, [Validators.required]),
+      quantity:  new FormControl(null, [Validators.required]),
+      gold:  new FormControl(null , [Validators.required]),
+      labour_charge:  new FormControl(null, [Validators.required]),
+      gross_weight:  new FormControl(null, [Validators.required]),
+      package_weight:  new FormControl(null, [Validators.required]),
       in_stock:  new FormControl(1),
       agent_id:  new FormControl('AG2018'),
       employee_id:  new FormControl(46),
       reference:  new FormControl(null),
-      bill_no:  new FormControl(null),
+      bill_no:  new FormControl(null, [Validators.required]),
       job_id:  new FormControl(null),
     });
   }
@@ -47,6 +47,9 @@ export class StockService {
   }
   getPriceByModelNumber(){
     return this.http.get(this.BASE_API_URL + '/getPriceByModelNumber/' + this.stockForm.value.model_no);
+  }
+  getProductList(){
+    return this.productData;
   }
   private serverError(err: any) {
     if (err instanceof Response) {

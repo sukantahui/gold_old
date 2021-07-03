@@ -15,7 +15,9 @@ export class StockEntryComponent implements OnInit {
   stockForm: FormGroup;
   productList: Product[] = [];
   labourCharge: any;
-  constructor(private stockService: StockService) { }
+  constructor(private stockService: StockService) {
+    this.productList = this.stockService.getProductList();
+  }
 
   ngOnInit(): void {
     this.stockForm = this.stockService.stockForm;
