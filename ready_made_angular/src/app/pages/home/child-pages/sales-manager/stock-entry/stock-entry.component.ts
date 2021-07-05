@@ -20,6 +20,12 @@ export class StockEntryComponent implements OnInit {
   model_number: any;
   model_size: any;
   bill_no: any;
+  searchTerm: any;
+  pageSize = 5;
+  currentPageProducts = 1;
+  searchTermSelectedProducts: any;
+  pageSizeSelectedProducts = 50;
+  currentPageSelectedProducts = 1;
   constructor(private stockService: StockService) {
     this.productList = this.stockService.getProductList();
     this.stockList =  this.stockService.getStockList();
@@ -77,6 +83,7 @@ export class StockEntryComponent implements OnInit {
             background: 'rgba(38,39,47,0.95)'
           });
           if (response.status === true){
+            // this.stockList.unshift(response.data);
             this.stockForm.reset();
             this.stockForm.patchValue({in_stock: 1 , agent_id: 'AG2018'});
           }

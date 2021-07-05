@@ -64,7 +64,11 @@ export class StockService {
   }
   saveStock(){
     return this.http.post(this.BASE_API_URL + '/stocks', this.stockForm.value)
-        .pipe(catchError(this.errorService.serverError), tap(response => {
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: Stock}) => {
+          if (response.status === true){
+            this.stockData.unshift(response.data);
+            this.stocksSub.next([...this.stockData]);
+          }
         }));
   }
   getPriceByModelNumber(){
