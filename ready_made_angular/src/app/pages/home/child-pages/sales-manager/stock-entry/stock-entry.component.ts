@@ -34,22 +34,11 @@ export class StockEntryComponent implements OnInit {
 
   ngOnInit(): void {
     this.stockForm = this.stockService.stockForm;
-    this.stockService.getProductsUpdateListener().subscribe((response) => {
-      this.productList = response;
-    });
     this.stockService.getStocksUpdateListener().subscribe((response) => {
       this.stockList = response;
     });
     this.stockService.getJobsUpdateListener().subscribe((response) => {
       this.jobList = response;
-    });
-  }
-  getLabourCharge(){
-    this.stockService.getPriceByModelNumber().subscribe((response: {status: any , data: any}) => {
-      if (response.status === true){
-        this.labourCharge =  response.data.price;
-        this.stockForm.patchValue({labour_charge: this.labourCharge});
-      }
     });
   }
   onSubmit(){

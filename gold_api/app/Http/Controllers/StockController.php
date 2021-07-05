@@ -14,7 +14,7 @@ class StockController extends ApiController
 {
     public function get_all_instock_items(){
         $result = ItemStockReadyMade::whereInStock(1)->get();
-        return $this->successResponse($result);
+        return $this->successResponse(ItemStockReadyMadeResource::collection($result));
     }
     public function stock_by_agent_id($agentId){
         $result = ItemStockReadyMade::whereInStockAndAgentId(1,$agentId)->get();
@@ -55,7 +55,7 @@ class StockController extends ApiController
             $stock->bill_no=$request->input("bill_no");
             $stock->job_id =$request->input("job_id");
             $stock->saveOrFail();
-            return $this->successResponse($stock);
+            return $this->successResponse(new ItemStockReadyMadeResource($stock));
         }catch(\Exception $e){
             return $this->errorResponse($e->getMessage(),500);
         }
@@ -76,22 +76,10 @@ class StockController extends ApiController
         $result = ItemStockReadyMade::whereIn('tag', $tags)->update(['agent_id'=>$agent_id]);
         return $this->successResponse($tags);
     }
-    public function get_stock_by_agent($id){
+    public function get_stock_by_agent($agentId){
 
-        $result = ItemStockReadyMade::where('agent_id',$id)->get();
+        $result = ItemStockReadyMade::whereAgentId($agentId)->get();
 
-        return $this->successResponse($result);
-    }
-    public  function get_model_numbers(){
-        $result = Product::select()->get();
-        return $this->successResponse($result);
-    }
-    public function get_price_by_model_number($id){
-        $result = Product::select("product_master.product_code","price_master.price_id","price_master.price_code","price_master.price")
-                  ->join("price_master","product_master.price_code","=","price_master.price_code")
-                  ->where("price_master.price_cat",1)
-                  ->where("product_master.product_code",$id)
-                  ->first();
         return $this->successResponse($result);
     }
     public function get_job_id(){
@@ -100,9 +88,9 @@ class StockController extends ApiController
     }
     public function get_details_by_job_id($id){
         $result = Job::select('job_master.job_id','job_master.product_code','job_master.product_size','price_master.price_id','price_master.price_code','price_master.price','bill_master.bill_no')
-                  ->join("product_master","product_master.product_code","=","job_master.product_code")
-                  ->join("price_master","price_master.price_code","=","product_master.price_code")
-                  ->join("bill_master","bill_master.order_id","=","job_master.order_id")
+                  ->join('product_master','product_master.product_code','=','job_master.product_code')
+                  ->join('price_master','price_master.price_code','=','product_master.price_code')
+                  ->join('bill_master','bill_master.order_id','=','job_master.order_id')
                   ->where('job_master.job_id',$id)
                   ->first();
         return $this->successResponse($result);

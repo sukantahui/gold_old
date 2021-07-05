@@ -21,10 +21,7 @@ export class StockService {
   stocksSub = new Subject<any[]>();
   private BASE_API_URL = environment.BASE_API_URL;
   constructor(private  http: HttpClient , private  errorService: ErrorService) {
-    this.http.get(this.BASE_API_URL + '/getModelNumbers').subscribe((response: {status: any , data: Product[]}) => {
-      this.productData =  response.data;
-      this.productsSub.next([...this.productData]);
-    });
+
     this.http.get(this.BASE_API_URL + '/stocks').subscribe((response: {status: any , data: Stock[]}) => {
       this.stockData = response.data;
       this.stocksSub.next([...this.stockData]);
@@ -50,9 +47,7 @@ export class StockService {
       job_id:  new FormControl(null),
     });
   }
-  getProductsUpdateListener(){
-    return this.productsSub.asObservable();
-  }
+  
   getStocksUpdateListener(){
     return this.stocksSub.asObservable();
   }
@@ -70,9 +65,6 @@ export class StockService {
             this.stocksSub.next([...this.stockData]);
           }
         }));
-  }
-  getPriceByModelNumber(){
-    return this.http.get(this.BASE_API_URL + '/getPriceByModelNumber/' + this.stockForm.value.model_no);
   }
   getProductList(){
     return this.productData;
