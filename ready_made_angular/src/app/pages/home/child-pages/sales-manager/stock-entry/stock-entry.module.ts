@@ -44,7 +44,7 @@ import {MatIconModule} from '@angular/material/icon';
     Ng2SearchPipeModule,
     NgxPaginationModule,
     MatBadgeModule,
-    MatIconModule
+    MatIconModule,
   ]
 })
 export class StockEntryModule { }

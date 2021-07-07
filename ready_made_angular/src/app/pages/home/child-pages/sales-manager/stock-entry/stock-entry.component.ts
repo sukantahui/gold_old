@@ -61,20 +61,20 @@ export class StockEntryComponent implements OnInit {
     }).then((result) => {
       if (result.value){
         this.stockService.saveStock().subscribe((response: {status: any , data: Stock}) => {
-          Swal.fire({
-            timer: 2000,
-            title: 'Saved',
-            text: 'Stock added successfully',
-            icon: 'success',
-            showCancelButton: false,
-            confirmButtonColor: '#1661a0',
-            cancelButtonColor: '#d33',
-            background: 'rgba(38,39,47,0.95)'
-          });
-          if (response.status === true){
-            // this.stockList.unshift(response.data);
-            this.stockForm.reset();
-            this.stockForm.patchValue({in_stock: 1 , agent_id: 'AG2018'});
+          if (response.status === true) {
+            Swal.fire({
+              timer: 2000,
+              title: 'Saved',
+              text: 'Stock added successfully',
+              icon: 'success',
+              showCancelButton: false,
+              confirmButtonColor: '#1661a0',
+              cancelButtonColor: '#d33',
+              background: 'rgba(38,39,47,0.95)'
+            });
+            // this.stockForm.reset();
+            // this.stockForm.patchValue({in_stock: 1 , agent_id: 'AG2018'});
+            this.stockForm.patchValue({tag: 'Test1500'});
           }
         }, error => {
           Swal.fire({
@@ -104,5 +104,12 @@ export class StockEntryComponent implements OnInit {
           this.stockForm.patchValue({model_no: this.model_number, model_size: this.model_size, labour_charge: this.labourCharge, bill_no: this.bill_no});
       }
     });
+  }
+  increaseTag(){
+    const newArr =  this.stockForm.value.tag.toArray();
+    console.log(newArr);
+    const newTag = this.stockForm.value.tag.slice(-2);
+    const increasedTag = (Number)(newTag) + 1;
+    console.log(increasedTag);
   }
 }

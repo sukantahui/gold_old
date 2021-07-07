@@ -29,6 +29,9 @@ export class ErrorService {
       // tslint:disable-next-line:label-position
       return throwError ({status: err.status, message: 'Data saving error', statusText: err.statusText});
     }
+    if (err.status === 406){
+      return  throwError({status: err.status , message: 'Duplicate entry', statusText: err.statusText});
+    }
     return throwError(err);
   }
   handleError(errorResponse: HttpErrorResponse){
