@@ -72,8 +72,6 @@ export class StockEntryComponent implements OnInit {
               cancelButtonColor: '#d33',
               background: 'rgba(38,39,47,0.95)'
             });
-            // this.stockForm.reset();
-            // this.stockForm.patchValue({in_stock: 1 , agent_id: 'AG2018'});
             this.stockForm.patchValue({tag: 'Test1500'});
           }
         }, error => {
@@ -101,15 +99,20 @@ export class StockEntryComponent implements OnInit {
           this.model_size =  response.data.product_size;
           this.labourCharge =  response.data.price;
           this.bill_no = response.data.bill_no;
+        // tslint:disable-next-line:max-line-length
           this.stockForm.patchValue({model_no: this.model_number, model_size: this.model_size, labour_charge: this.labourCharge, bill_no: this.bill_no});
       }
     });
   }
   increaseTag(){
-    const newArr =  this.stockForm.value.tag.toArray();
-    console.log(newArr);
-    const newTag = this.stockForm.value.tag.slice(-2);
-    const increasedTag = (Number)(newTag) + 1;
-    console.log(increasedTag);
+    const tagLength = this.stockForm.value.tag.length;
+    const increasedValue = (Number)(this.stockForm.value.tag.slice(1, tagLength )) + 1;
+    const remTag = this.stockForm.value.tag.slice(0, 1);
+    const newTag = remTag + increasedValue ;
+    this.stockForm.patchValue({tag: newTag});
+  }
+  clear(){
+    this.stockForm.reset();
+    this.stockForm.patchValue({in_stock: 1 , agent_id: 'AG2018', employee_id: 46});
   }
 }

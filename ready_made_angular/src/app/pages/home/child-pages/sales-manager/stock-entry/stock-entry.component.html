@@ -26,7 +26,7 @@
                 </div>
                 <div fxLayoutGap="15px" style="padding-left: 50px">
                     <div style="padding-top: 10px">
-                        <button mat-raised-button class="btn btn-info" (click)="increaseTag()">test</button>
+                        <button mat-raised-button class="btn btn-info" (click)="increaseTag()">Tag Change</button>
                     </div>
                     <mat-form-field fxFlex="10">
                         <input   class="p-1" type="text" formControlName="tag" matInput placeholder="Tag" style="border-radius: 5px;">
@@ -67,8 +67,9 @@
                     </mat-form-field>
                 </div>
             </form>
-            <div style="text-align: center">
+            <div style="text-align: center"  fxLayoutGap="15px">
                 <button mat-raised-button class="btn-info"  [disabled]="!stockForm.valid" (click)="onSubmit()">Save Stock</button>
+                <button mat-raised-button class="btn-info"  [disabled]="stockForm.pristine" (click)="clear()">Clear</button>
             </div>
         </mat-card>
         <mat-card id ="stock-list-div">
