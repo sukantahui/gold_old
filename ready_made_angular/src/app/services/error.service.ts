@@ -30,6 +30,11 @@ export class ErrorService {
       return throwError ({status: err.status, message: 'Data saving error', statusText: err.statusText});
     }
     if (err.status === 406){
+      // console.log(err.error);
+      // console.log(err.error.message.tag[0]);
+      if (err.error.message.tag){
+        return  throwError({status: err.status , message: err.error.message.tag[0], statusText: err.statusText});
+      }
       return  throwError({status: err.status , message: 'Duplicate entry', statusText: err.statusText});
     }
     return throwError(err);

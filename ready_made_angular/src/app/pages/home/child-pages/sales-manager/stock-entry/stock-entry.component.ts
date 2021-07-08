@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {StockService} from '../../../../../services/stock.service';
 import {FormGroup} from '@angular/forms';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 import {Stock} from '../../../../../models/stock.model';
 import {Product} from '../../../../../models/product.model';
 
@@ -26,6 +26,7 @@ export class StockEntryComponent implements OnInit {
   searchTermSelectedProducts: any;
   pageSizeSelectedProducts = 50;
   currentPageSelectedProducts = 1;
+  isSaveEnabled = true;
   constructor(private stockService: StockService) {
     this.productList = this.stockService.getProductList();
     this.stockList =  this.stockService.getStockList();
@@ -34,6 +35,8 @@ export class StockEntryComponent implements OnInit {
 
   ngOnInit(): void {
     this.stockForm = this.stockService.stockForm;
+    this.isSaveEnabled = true;
+    console.log(this.isSaveEnabled);
     this.stockService.getStocksUpdateListener().subscribe((response) => {
       this.stockList = response;
     });
@@ -72,7 +75,7 @@ export class StockEntryComponent implements OnInit {
               cancelButtonColor: '#d33',
               background: 'rgba(38,39,47,0.95)'
             });
-            this.stockForm.patchValue({tag: 'Test1500'});
+            this.isSaveEnabled = false;
           }
         }, error => {
           Swal.fire({
@@ -110,9 +113,11 @@ export class StockEntryComponent implements OnInit {
     const remTag = this.stockForm.value.tag.slice(0, 1);
     const newTag = remTag + increasedValue ;
     this.stockForm.patchValue({tag: newTag});
+    this.isSaveEnabled = true;
   }
   clear(){
     this.stockForm.reset();
     this.stockForm.patchValue({in_stock: 1 , agent_id: 'AG2018', employee_id: 46});
+    this.isSaveEnabled = true;
   }
 }

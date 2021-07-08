@@ -26,7 +26,9 @@
                 </div>
                 <div fxLayoutGap="15px" style="padding-left: 50px">
                     <div style="padding-top: 10px">
-                        <button mat-raised-button class="btn btn-info" (click)="increaseTag()">Tag Change</button>
+                        <button mat-raised-button  mat-mini-fab [disabled]="!stockForm.value.tag" (click)="increaseTag()">
+                            <mat-icon>arrow_upward</mat-icon>
+                        </button>
                     </div>
                     <mat-form-field fxFlex="10">
                         <input   class="p-1" type="text" formControlName="tag" matInput placeholder="Tag" style="border-radius: 5px;">
@@ -68,7 +70,7 @@
                 </div>
             </form>
             <div style="text-align: center"  fxLayoutGap="15px">
-                <button mat-raised-button class="btn-info"  [disabled]="!stockForm.valid" (click)="onSubmit()">Save Stock</button>
+                <button mat-raised-button class="btn-info"  [disabled]="!stockForm.valid || !isSaveEnabled" (click)="onSubmit()">Save Stock</button>
                 <button mat-raised-button class="btn-info"  [disabled]="stockForm.pristine" (click)="clear()">Clear</button>
             </div>
         </mat-card>
@@ -80,6 +82,8 @@
                 <mat-form-field fxFlex="10">
                     <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">
                 </mat-form-field>
+                <pre>isSaveEnabled : {{isSaveEnabled}}</pre>
+                <pre>valid: {{stockForm.valid}}</pre>
             </div>
            <table class="table table-bordered table-responsive" style="border: none !important; padding-left: 30px">
                <thead>
