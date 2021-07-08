@@ -36,7 +36,6 @@ export class StockEntryComponent implements OnInit {
   ngOnInit(): void {
     this.stockForm = this.stockService.stockForm;
     this.isSaveEnabled = true;
-    console.log(this.isSaveEnabled);
     this.stockService.getStocksUpdateListener().subscribe((response) => {
       this.stockList = response;
     });
