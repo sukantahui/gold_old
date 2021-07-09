@@ -101,7 +101,7 @@
                 </tr>
                </thead>
                <tbody>
-                    <tr *ngFor = "let stock of stockList| filter: searchTerm |paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts }; let indexOfelement = index">
+                    <tr *ngFor = "let stock of stockList| filter: searchTerm |paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts }; let indexOfelement = index" [ngClass]="stock.date === formattedCurrentDate ? 'dark' : 'light'">
                         <td>{{indexOfelement+1}}</td>
                         <td>{{stock.tag}}</td>
                         <td>{{stock.model_no}}</td>

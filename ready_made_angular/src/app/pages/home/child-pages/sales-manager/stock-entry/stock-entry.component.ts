@@ -4,6 +4,8 @@ import {FormGroup} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {Stock} from '../../../../../models/stock.model';
 import {Product} from '../../../../../models/product.model';
+import {DateFormat} from '../../../../../date-format';
+import {formatDate} from '@angular/common';
 
 
 @Component({
@@ -27,6 +29,9 @@ export class StockEntryComponent implements OnInit {
   pageSizeSelectedProducts = 50;
   currentPageSelectedProducts = 1;
   isSaveEnabled = true;
+  currDate = new Date();
+  resultDate = [];
+  formattedCurrentDate = formatDate(this.currDate , 'yyyy-MM-dd', 'en');
   constructor(private stockService: StockService) {
     this.productList = this.stockService.getProductList();
     this.stockList =  this.stockService.getStockList();
@@ -38,6 +43,8 @@ export class StockEntryComponent implements OnInit {
     this.isSaveEnabled = true;
     this.stockService.getStocksUpdateListener().subscribe((response) => {
       this.stockList = response;
+      this.resultDate = this.stockList.filter(x => x.date === this.formattedCurrentDate);
+      console.log(this.resultDate);
     });
     this.stockService.getJobsUpdateListener().subscribe((response) => {
       this.jobList = response;
@@ -74,6 +81,7 @@ export class StockEntryComponent implements OnInit {
               cancelButtonColor: '#d33',
               background: 'rgba(38,39,47,0.95)'
             });
+            response.data.date = this.formattedCurrentDate;
             this.isSaveEnabled = false;
           }
         }, error => {

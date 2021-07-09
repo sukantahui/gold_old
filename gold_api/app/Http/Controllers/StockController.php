@@ -9,13 +9,22 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use App\Models\Job;
+use Illuminate\Support\Facades\DB;
 
 class StockController extends ApiController
 {
-    public function get_all_instock_items(){
-        $result = ItemStockReadyMade::whereInStock(1)->get();
-        return $this->successResponse(ItemStockReadyMadeResource::collection($result));
+//    public function get_all_instock_items(){
+//        $result = ItemStockReadyMade::whereInStock(1)->get();
+//        return $this->successResponse(ItemStockReadyMadeResource::collection($result));
+//    }
+    public function  get_all_instock_items(){
+        $result = ItemStockReadyMade::select('tag','item_inward_detail_id','model_no','model_size','qty','gold','labour_charge','gross_weight','package_weight','agent_id','employee_id','bill_no','job_id',DB::raw("DATE(record_time) as date"))
+                  ->where('in_stock',1)
+                  ->get();
+//        return $this->successResponse(ItemStockReadyMadeResource::collection($result));
+        return response()->json(['success'=>1 , 'data'=>$result],200,[],JSON_NUMERIC_CHECK);
     }
+
     public function stock_by_agent_id($agentId){
         $result = ItemStockReadyMade::whereInStockAndAgentId(1,$agentId)->get();
         return $this->successResponse(ItemStockReadyMadeResource::collection($result));

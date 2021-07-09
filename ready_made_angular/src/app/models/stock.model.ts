@@ -14,4 +14,6 @@ export interface Stock {
     reference: string;
     bill_no: string;
     job_id: number;
+    date: string;
+
 }
