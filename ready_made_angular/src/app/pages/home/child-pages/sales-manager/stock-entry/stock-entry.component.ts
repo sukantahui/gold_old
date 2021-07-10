@@ -6,6 +6,7 @@ import {Stock} from '../../../../../models/stock.model';
 import {Product} from '../../../../../models/product.model';
 import {DateFormat} from '../../../../../date-format';
 import {formatDate} from '@angular/common';
+import {Sort} from '@angular/material/sort';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class StockEntryComponent implements OnInit {
   stockForm: FormGroup;
   productList: Product[] = [];
   stockList: Stock[] = [];
+  sortedStockList: any[] = [];
   jobList: any[] = [];
   labourCharge: any;
   model_number: any;
@@ -43,8 +45,8 @@ export class StockEntryComponent implements OnInit {
     this.isSaveEnabled = true;
     this.stockService.getStocksUpdateListener().subscribe((response) => {
       this.stockList = response;
+      this.sortedStockList =  this.stockList.slice();
       this.resultDate = this.stockList.filter(x => x.date === this.formattedCurrentDate);
-      console.log(this.resultDate);
     });
     this.stockService.getJobsUpdateListener().subscribe((response) => {
       this.jobList = response;
@@ -127,4 +129,25 @@ export class StockEntryComponent implements OnInit {
     this.stockForm.patchValue({in_stock: 1 , agent_id: 'AG2018', employee_id: 46});
     this.isSaveEnabled = true;
   }
+  sortData(sort: Sort){
+    const data = this.stockList.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedStockList = data;
+      return;
+    }
+    this.sortedStockList = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      const isDesc = sort.direction === 'desc';
+      switch (sort.active) {
+        case 'tag': return compare(a.tag, b.tag, isAsc);
+        // case 'model_no': return compare(a.model_no, b.model_no, isAsc);
+        case 'model_size': return compare(a.model_size, b.model_size, isAsc);
+        case 'quantity': return compare(a.quantity, b.quantity, isAsc);
+        default: return 0;
+      }
+    });
+  }
+}
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

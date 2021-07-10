@@ -83,13 +83,13 @@
                     <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">
                 </mat-form-field>
             </div>
-           <table class="table table-bordered table-responsive" style="border: none !important; padding-left: 30px">
+           <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive" style="border: none !important; padding-left: 30px">
                <thead>
                 <tr>
                     <th>SL No.</th>
-                    <th>Tag</th>
+                    <th mat-sort-header="tag">Tag</th>
                     <th>Model Number</th>
-                    <th>Model Size</th>
+                    <th mat-sort-header="model">Model Size</th>
                     <th>Gold</th>
                     <th>Labour Charge</th>
                     <th>Gross Weight</th>
@@ -101,7 +101,7 @@
                 </tr>
                </thead>
                <tbody>
-                    <tr *ngFor = "let stock of stockList| filter: searchTerm |paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts }; let indexOfelement = index" [ngClass]="stock.date === formattedCurrentDate ? 'dark' : 'light'">
+                    <tr *ngFor = "let stock of sortedStockList| filter: searchTerm |paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts }; let indexOfelement = index" [ngClass]="stock.date === formattedCurrentDate ? 'dark' : 'light'">
                         <td>{{indexOfelement+1}}</td>
                         <td>{{stock.tag}}</td>
                         <td>{{stock.model_no}}</td>

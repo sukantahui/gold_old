@@ -19,6 +19,7 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import {MatIconModule} from '@angular/material/icon';
     NgxPaginationModule,
     MatBadgeModule,
     MatIconModule,
+    MatSortModule
   ]
 })
 export class StockEntryModule { }
