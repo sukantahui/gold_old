@@ -142,6 +142,7 @@ export class StockEntryComponent implements OnInit {
         case 'tag': return compare(a.tag, b.tag, isAsc);
         // case 'model_no': return compare(a.model_no, b.model_no, isAsc);
         case 'model_size': return compare(a.model_size, b.model_size, isAsc);
+        case 'gold': return compare(a.gold, b.gold, isAsc);
         case 'labour_charge': return compare(a.labour_charge, b.labour_charge, isAsc);
         case 'gross_weight': return compare(a.gross_weight, b.gross_weight, isAsc);
         case 'quantity': return compare(a.quantity, b.quantity, isAsc);
