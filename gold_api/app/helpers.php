@@ -20,7 +20,10 @@ if (! function_exists('get_age')) {
 }
 
 if (! function_exists('get_accounting_year')) {
-    function get_accounting_year($entry_date) {
+    function get_accounting_year($entry_date = "") {
+        if($entry_date == ""){
+            $entry_date = Carbon::now()->format('Y-m-d');
+        }
         $temp_date = explode("-",$entry_date);
         if($temp_date[1]>3){
             $x = $temp_date[0]%100;
