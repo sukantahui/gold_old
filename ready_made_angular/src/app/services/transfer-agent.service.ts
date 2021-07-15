@@ -65,21 +65,4 @@ export class TransferAgentService {
   getCustomersByAgent(agentId){
    return this.http.get(this.BASE_API_URL + '/getCustomersByAgent/' + agentId);
   }
-  private serverError(err: any) {
-    if (err instanceof Response) {
-      return throwError('backend server error ');
-      // if you're using lite-server, use the following line
-      // instead of the line above:
-      // return Observable.throw(err.text() || 'backend server error');
-    }
-    if (err.status === 0){
-      // tslint:disable-next-line:label-position
-      return throwError ({status: err.status, message: 'Backend Server is not Working', statusText: err.statusText});
-    }
-    if (err.status === 401){
-      // tslint:disable-next-line:label-position
-      return throwError ({status: err.status, message: 'Your are not authorised', statusText: err.statusText});
-    }
-    return throwError(err);
-  }
 }
