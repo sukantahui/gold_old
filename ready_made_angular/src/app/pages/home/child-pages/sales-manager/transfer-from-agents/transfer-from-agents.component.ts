@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Product} from '../../../../../models/product.model';
 import {Sort} from '@angular/material/sort';
 import Swal from 'sweetalert2';
+import {CommonService} from '../../../../../services/common.service';
 
 @Component({
   selector: 'app-transfer-from-agents',
@@ -17,6 +18,7 @@ export class TransferFromAgentsComponent implements OnInit {
   customerByAgentList: any[] = [];
   selectedProducts: Product[] = [];
   transferForm: FormGroup;
+  salesForm: FormGroup;
   searchTerm: any;
   counterAgentId: any;
   pageSize = 50;
@@ -29,11 +31,14 @@ export class TransferFromAgentsComponent implements OnInit {
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
   sortedProductByAgentList: Product[] = [];
-  constructor(private transferAgentService: TransferAgentService) {
+  constructor(private transferAgentService: TransferAgentService , private commonService: CommonService) {
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
-      short_name: new FormControl(null)
+      short_name: new FormControl(null),
+    });
+    this.salesForm =  new FormGroup({
+      cust_id: new FormControl(null)
     });
   }
   ngOnInit(): void {
@@ -81,11 +86,11 @@ export class TransferFromAgentsComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       const isDesc = sort.direction === 'desc';
       switch (sort.active) {
-        case 'tag': return compare(a.tag, b.tag, isAsc);
-        case 'model': return compare(a.model_no, b.model_no, isAsc);
-        case 'selected': return compare(String(a.is_selected), String(b.is_selected), isDesc);
-        case 'size': return compare(a.model_size, b.model_size, isAsc);
-        case 'quantity': return compare(a.qty, b.qty, isAsc);
+        case 'tag': return this.commonService.compare(a.tag, b.tag, isAsc);
+        case 'model': return this.commonService.compare(a.model_no, b.model_no, isAsc);
+        case 'selected': return this.commonService.compare(String(a.is_selected), String(b.is_selected), isDesc);
+        case 'size': return this.commonService.compare(a.model_size, b.model_size, isAsc);
+        case 'quantity': return this.commonService.compare(a.qty, b.qty, isAsc);
         default: return 0;
       }
     });
@@ -157,7 +162,7 @@ export class TransferFromAgentsComponent implements OnInit {
   }
   transferToSales(){
     // tslint:disable-next-line:max-line-length
-    this.transferAgentService.getCustomersByAgent(this.transferForm.value.agent_id).subscribe((response:{success: number , data: any[]}) => {
+    this.transferAgentService.getCustomersByAgent(this.transferForm.value.agent_id).subscribe((response: {success: number , data: any[]}) => {
       this.customerByAgentList = response.data;
     });
   }
@@ -182,7 +187,7 @@ export class TransferFromAgentsComponent implements OnInit {
 
   changeTransferableProductSlideToggle() {
     this.checkedTransferableAllProducts = !this.checkedTransferableAllProducts;
-    if(this.checkedTransferableAllProducts) {
+    if (this.checkedTransferableAllProducts) {
       this.productByAgentList = this.productByAgentList.map(item => {
         item.is_selected = true;
         return item;
@@ -194,9 +199,23 @@ export class TransferFromAgentsComponent implements OnInit {
       });
     }
   }
+
+  billCreate(){
+    Swal.fire({
+        title: 'Bill Create',
+        text: 'Do you want to create bill',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, create',
+        cancelButtonText: 'No!',
+        background: 'rgba(38,39,47,0.95)'
+    }).then((result) => {
+      if (result.value){
+        alert('bill');
+      }
+    });
+  }
 } // end of class
 
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
+
 

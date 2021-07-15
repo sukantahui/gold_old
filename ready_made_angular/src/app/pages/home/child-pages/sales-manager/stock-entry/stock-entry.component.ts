@@ -7,6 +7,7 @@ import {Product} from '../../../../../models/product.model';
 import {DateFormat} from '../../../../../date-format';
 import {formatDate} from '@angular/common';
 import {Sort} from '@angular/material/sort';
+import {CommonService} from '../../../../../services/common.service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class StockEntryComponent implements OnInit {
   currDate = new Date();
   resultDate = [];
   formattedCurrentDate = formatDate(this.currDate , 'yyyy-MM-dd', 'en');
-  constructor(private stockService: StockService) {
+  constructor(private stockService: StockService, private  commonService: CommonService) {
     this.productList = this.stockService.getProductList();
     this.stockList =  this.stockService.getStockList();
     this.jobList =  this.stockService.getJobList();
@@ -129,6 +130,29 @@ export class StockEntryComponent implements OnInit {
     this.stockForm.patchValue({in_stock: 1 , agent_id: 'AG2018', employee_id: 46});
     this.isSaveEnabled = true;
   }
+  // sortData(sort: Sort){
+  //   const data = this.stockList.slice();
+  //   if (!sort.active || sort.direction === '') {
+  //     this.sortedStockList = data;
+  //     return;
+  //   }
+  //   this.sortedStockList = data.sort((a, b) => {
+  //     const isAsc = sort.direction === 'asc';
+  //     const isDesc = sort.direction === 'desc';
+  //     switch (sort.active) {
+  //       case 'tag': return compare(a.tag, b.tag, isAsc);
+  //       // case 'model_no': return compare(a.model_no, b.model_no, isAsc);
+  //       case 'model_size': return compare(a.model_size, b.model_size, isAsc);
+  //       case 'gold': return compare(a.gold, b.gold, isAsc);
+  //       case 'labour_charge': return compare(a.labour_charge, b.labour_charge, isAsc);
+  //       case 'gross_weight': return compare(a.gross_weight, b.gross_weight, isAsc);
+  //       case 'quantity': return compare(a.quantity, b.quantity, isAsc);
+  //       case 'package_weight': return compare(a.package_weight, b.package_weight, isAsc);
+  //       default: return 0;
+  //     }
+  //   });
+  // }
+
   sortData(sort: Sort){
     const data = this.stockList.slice();
     if (!sort.active || sort.direction === '') {
@@ -139,19 +163,19 @@ export class StockEntryComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       const isDesc = sort.direction === 'desc';
       switch (sort.active) {
-        case 'tag': return compare(a.tag, b.tag, isAsc);
-        // case 'model_no': return compare(a.model_no, b.model_no, isAsc);
-        case 'model_size': return compare(a.model_size, b.model_size, isAsc);
-        case 'gold': return compare(a.gold, b.gold, isAsc);
-        case 'labour_charge': return compare(a.labour_charge, b.labour_charge, isAsc);
-        case 'gross_weight': return compare(a.gross_weight, b.gross_weight, isAsc);
-        case 'quantity': return compare(a.quantity, b.quantity, isAsc);
-        case 'package_weight': return compare(a.package_weight, b.package_weight, isAsc);
+        case 'tag': return this.commonService.compare(a.tag, b.tag, isAsc);
+          // case 'model_no': return compare(a.model_no, b.model_no, isAsc);
+        case 'model_size': return this.commonService.compare(a.model_size, b.model_size, isAsc);
+        case 'gold': return this.commonService.compare(a.gold, b.gold, isAsc);
+        case 'labour_charge': return this.commonService.compare(a.labour_charge, b.labour_charge, isAsc);
+        case 'gross_weight': return this.commonService.compare(a.gross_weight, b.gross_weight, isAsc);
+        case 'quantity': return this.commonService.compare(a.quantity, b.quantity, isAsc);
+        case 'package_weight': return this.commonService.compare(a.package_weight, b.package_weight, isAsc);
         default: return 0;
       }
     });
   }
 }
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
+// function compare(a: number | string, b: number | string, isAsc: boolean) {
+//   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+// }

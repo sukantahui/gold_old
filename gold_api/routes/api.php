@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\BillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("stocks",[StockController::class,'store']);
     Route::get("jobs",[StockController::class,'get_job_id']);
     Route::get("getDetailsByJobId/{id}",[StockController::class,'get_details_by_job_id']);
+
+    //for bill
+    Route::post("createBill",[BillController::class,'create_ready_made_bill']);
 });
 
 
@@ -82,5 +86,6 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("getCustomersByAgent/{id}",[AgentController::class,'get_customers_by_agent']);
     Route::get("jobs",[StockController::class,'get_job_id']);
     Route::get("getDetailsByJobId/{id}",[StockController::class,'get_details_by_job_id']);
+    Route::post("createBill",[BillController::class,'create_ready_made_bill']);
 });
 

@@ -155,20 +155,22 @@
                 <button  *ngIf ="selectedProducts.length>0" mat-button color="primary" (click)="transferToSales()">Send to Sales</button>
                 <div class="d-flex" *ngIf="customerByAgentList.length>0">
                     <div class="col-3">
-                        <ng-select [items]="customerByAgentList"
-                                   bindLabel="cust_name"
-                                   class="custom"
-                                   bindValue="cust_id"
-                                   formControlName="cust_id"
-                                   placeholder="Select Customer">
-                        </ng-select>
-                        <popover-content #popoverCustomer
-                                         title="Customer"
-                                         placement="right"
-                                         [animation]="true"
-                                         [closeOnClickOutside]="true">
-                            <div>Poopover Test</div>
-                        </popover-content>
+                        <form [formGroup] = salesForm>
+                            <ng-select [items]="customerByAgentList"
+                                       bindLabel="cust_name"
+                                       class="custom"
+                                       bindValue="cust_id"
+                                       formControlName="cust_id"
+                                       placeholder="Select Customer">
+                            </ng-select>
+                            <popover-content #popoverCustomer
+                                             title="Customer"
+                                             placement="right"
+                                             [animation]="true"
+                                             [closeOnClickOutside]="true">
+                                <div>Poopover Test</div>
+                            </popover-content>
+                        </form>
                     </div>
                     <div class="col-3">
                         <button mat-mini-fab color="primary"
@@ -179,6 +181,10 @@
                         </button>
                     </div>
                 </div>
+                <div  *ngIf="salesForm.value.cust_id">
+                    <button mat-button color="primary" (click)="billCreate()">Create Bill</button>
+                </div>
+
             </div>
         </div>
     </div>
