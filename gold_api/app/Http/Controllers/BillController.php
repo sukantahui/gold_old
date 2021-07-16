@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Maxtable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use mysql_xdevapi\Exception;
 use App\Models\BillMaster;
 
@@ -14,6 +15,20 @@ use App\Models\BillMaster;
 class BillController extends ApiController
 {
     public function create_ready_made_bill(Request $request){
+        $input=($request->json()->all());
+        //****************** Validation Part, First Validation **********************
+        $validator = Validator::make($input,[
+            'billMaster' => 'required',
+            'billDetails' => ['required']]);
+        if($validator->fails()){
+            return $this->errorResponse($validator->messages(),406);
+        }
+        //****************** End of Validation ********************
+        $billMaster=(object)($input['billMaster']);
+        $billDetails=($input['billDetails']);
+
+
+
         DB::beginTransaction();
         try{
             $return_array = array();
