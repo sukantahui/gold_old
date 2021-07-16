@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\BillDetails;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Maxtable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use mysql_xdevapi\Exception;
 use App\Models\BillMaster;
 
@@ -34,13 +36,27 @@ class BillController extends ApiController
         );
         $messages= array(
             'customerId.required'=> 'Customer id is required !!',
-            'customerId.exists' => 'Customer id does not exists !!',
+            'customerId.exists' => 'Customer id does not exist !!',
             'agentId.required' => 'Agent id is required !!',
-            'agentId.exists' => 'Agent id does not exists !!',
+            'agentId.exists' => 'Agent id does not exist !!',
             'employeeId.required' => 'Employee id is required !!',
-            'employeeId.exists' => 'Employee id does not exists !!'
+            'employeeId.exists' => 'Employee id does not exist !!'
         );
         $validator = Validator::make($input['billMaster'],$rules,$messages );
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->messages(),406);
+        }
+
+        $rules = array(
+            'tag'=> ['required',Rule::unique('bill_details','tag')],
+            'modelNo' => ['required']
+        );
+        $messages = array(
+            'tag.required' => 'Tag is required !!',
+            'modelNo.required' => 'Model Number is required !!'
+        );
+
+        $validator = Validator::make($input['billDetails'],$rules,$messages );
         if ($validator->fails()) {
             return $this->errorResponse($validator->messages(),406);
         }
@@ -71,22 +87,52 @@ class BillController extends ApiController
             $bill_master =  new BillMaster();
             $bill_master->bill_no = $bill_number;
             $bill_master->bill_date = 41640;
-            $bill_master->cust_id = 'S101';
-            $bill_master->order_id = 200;
-            $bill_master->bill_gold = 21.03;
-            $bill_master->gold_cleared = 21.03;
-            $bill_master->gold_completed = 21.03;
-            $bill_master->bill_labour_charge = 21.03;
-            $bill_master->Cash_cleared = 21.03;
-            $bill_master->cash_completed = 21.03;
-            $bill_master->agent_id = 'AG2004';
+            $bill_master->cust_id = $billMaster->customerId;
+            $bill_master->bill_gold = 0;
+            $bill_master->gold_cleared = 0;
+            $bill_master->gold_completed = 0;
+            $bill_master->bill_labour_charge = 0;
+            $bill_master->Cash_cleared = 0;
+            $bill_master->cash_completed = 0;
+            $bill_master->agent_id = $billMaster->agentId;
             $bill_master->comments = 'Ready Made Bill';
 //            $bill_number->tr_time = bill_date;
-            $bill_master->emp_id = 33;
-            $bill_master->total_lc_inward = 21.03;
-            $bill_master->discount = 21.03;
+            $bill_master->emp_id = $billMaster->employeeId;
+            $bill_master->total_lc_inward = 0;
+            $bill_master->discount = 0;
             $bill_master->save();
+
             $return_array['billMaster']=$bill_master;
+
+            $x = 1;
+            foreach ($billDetails as $item){
+                $bill_details =  new BillDetails();
+                $bill_details->bill_details_id = $bill_master->bill_no.'-'.($x++);
+                $bill_details->bill_no =  $bill_master->bill_no;
+                $bill_details->job_id = $item['jobId']  ;
+                $bill_details->tag =  $item['tag'];
+                $bill_details->model_no =  $item['modelNo'];
+                $bill_details->price_code =  $item['priceCode'];
+                $bill_details->gold_wt =  $item['goldWeight'];
+                $bill_details->gross_wt =  $item['grossWeight'];
+                $bill_details->price_method =  'Regular';
+                $bill_details->wastage_percentage =  0;
+                $bill_details->wastage =  0;
+                $bill_details->total_gold =  $item['totalGold'];
+                $bill_details->gold_quality = 92;
+                $bill_details->fine_gold =  $item['fineGold'];
+                $bill_details->qty =   $item['quanity'];
+                $bill_details->size = $item['size'];
+                $bill_details->ploss =  0;
+                $bill_details->labour_charge =  $item['labourCharge'];
+                $bill_details->markup_value =  0;
+                $bill_details->save();
+                $return_array['billDetails'] = $bill_details;
+            }
+
+
+
+
             DB::commit();
             return $this->successResponse($return_array);
 

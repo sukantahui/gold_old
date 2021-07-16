@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class BillDetails extends Model
+{
+    use HasFactory;
+    protected $table = 'bill_details';
+    protected $primaryKey = 'bill_details_id'; // or null
+    public $timestamps = false;
+    public $incrementing = false;
+    // In Laravel 6.0+ make sure to also set $keyType
+    protected $keyType = 'string';
+}
