@@ -38,7 +38,9 @@ export class TransferFromAgentsComponent implements OnInit {
       short_name: new FormControl(null),
     });
     this.salesForm =  new FormGroup({
-      cust_id: new FormControl(null)
+      customerId: new FormControl(null),
+      agentId: new FormControl(null),
+      employeeId: new FormControl(null)
     });
   }
   ngOnInit(): void {

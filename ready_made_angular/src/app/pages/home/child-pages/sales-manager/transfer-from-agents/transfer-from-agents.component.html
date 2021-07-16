@@ -160,7 +160,7 @@
                                        bindLabel="cust_name"
                                        class="custom"
                                        bindValue="cust_id"
-                                       formControlName="cust_id"
+                                       formControlName="customerId"
                                        placeholder="Select Customer">
                             </ng-select>
                             <popover-content #popoverCustomer
@@ -181,7 +181,7 @@
                         </button>
                     </div>
                 </div>
-                <div  *ngIf="salesForm.value.cust_id">
+                <div  *ngIf="salesForm.value.customerId">
                     <button mat-button color="primary" (click)="billCreate()">Create Bill</button>
                 </div>
 

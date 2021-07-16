@@ -27,7 +27,23 @@ class BillController extends ApiController
         $billMaster=(object)($input['billMaster']);
         $billDetails=($input['billDetails']);
 
-
+        $rules = array(
+            'customerId' => ['required','exists:customer_master,cust_id'],
+            'agentId' => ['required', 'exists:agent_master,agent_id'],
+            'employeeId'=> ['required','exists:employees,emp_id']
+        );
+        $messages= array(
+            'customerId.required'=> 'Customer id is required !!',
+            'customerId.exists' => 'Customer id does not exists !!',
+            'agentId.required' => 'Agent id is required !!',
+            'agentId.exists' => 'Agent id does not exists !!',
+            'employeeId.required' => 'Employee id is required !!',
+            'employeeId.exists' => 'Employee id does not exists !!'
+        );
+        $validator = Validator::make($input['billMaster'],$rules,$messages );
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->messages(),406);
+        }
 
         DB::beginTransaction();
         try{
