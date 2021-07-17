@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BillResource;
 use App\Models\BillDetails;
+use App\Models\CustomerBalance;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Maxtable;
@@ -132,13 +133,19 @@ class BillController extends ApiController
                 $return_array['billDetails'] = $bill_details;
             }
             $total_fine_gold = BillDetails::whereBillNo($bill_master->bill_no)->sum('fine_gold');
-            $total_labour_charge =  BillDetails::whereLabourCharge($bill_master->bill_no)->sum('labour_charge');
+            $total_labour_charge =  BillDetails::whereBillNo($bill_master->bill_no)->sum('labour_charge');
             $return_array['totalGold'] = $total_fine_gold;
             $return_array['totalLabourCharge'] = $total_labour_charge;
 
+            $customer_balance = CustomerBalance::whereCustId($bill_master->cust_id)->first();
+            $customer_balance->billed_gold = $customer_balance->billed_gold + $total_fine_gold;
+            $customer_balance->billed_lc = $customer_balance->billed_lc + $total_labour_charge;
+            $customer_balance->update();
+            $return_array['customerBalance'] = $customer_balance;
+
             DB::commit();
-            return  $this->successResponse($return_array);
-//            return $this->successResponse(new BillResource($bill_master));
+//            return  $this->successResponse($return_array);
+            return $this->successResponse(new BillResource($bill_master));
 
         }catch (\Exception $e){
             DB::rollBack();
