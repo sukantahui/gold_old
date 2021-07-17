@@ -100,7 +100,7 @@ class BillController extends ApiController
             $bill_master->cash_completed = 0;
             $bill_master->agent_id = $billMaster->agentId;
             $bill_master->comments = 'Ready Made Bill';
-            $bill_master->emp_id = $billMaster->employeeId;
+            $bill_master->emp_id = auth('sanctum')->user()->emp_id;
             $bill_master->total_lc_inward = 0;
             $bill_master->discount = 0;
             $bill_master->save();

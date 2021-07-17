@@ -45,6 +45,7 @@ class UserController extends ApiController
     }
 
     function getCurrentUser(Request $request){
+//        return auth('sanctum')->user()->emp_id;
 //        $user = $request->user();
         $user=auth()->user();
         if(!$user){
