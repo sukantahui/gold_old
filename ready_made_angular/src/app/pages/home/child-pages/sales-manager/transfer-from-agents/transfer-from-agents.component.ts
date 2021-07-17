@@ -217,6 +217,7 @@ export class TransferFromAgentsComponent implements OnInit {
       }
     });
   }
+  
 } // end of class
 
 

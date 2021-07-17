@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BillResource;
 use App\Models\BillDetails;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -48,12 +49,14 @@ class BillController extends ApiController
         }
 
         $rules = array(
-            'tag'=> ['required',Rule::unique('bill_details','tag')],
-            'modelNo' => ['required']
+            '*.tag'=> ['required',Rule::unique('bill_details','tag')],
+            '*.modelNo' => ['required','exists:item_stock_ready_made,model_no']
         );
         $messages = array(
-            'tag.required' => 'Tag is required !!',
-            'modelNo.required' => 'Model Number is required !!'
+            '*.tag.required' => 'Tag is required !!',
+            '*.tag.unique' => 'Tag is already taken !!',
+            '*.modelNo.required' => 'Model Number is required !!',
+            '*.modelNo.exists' => 'Model Number does not exist !!'
         );
 
         $validator = Validator::make($input['billDetails'],$rules,$messages );
@@ -96,7 +99,6 @@ class BillController extends ApiController
             $bill_master->cash_completed = 0;
             $bill_master->agent_id = $billMaster->agentId;
             $bill_master->comments = 'Ready Made Bill';
-//            $bill_number->tr_time = bill_date;
             $bill_master->emp_id = $billMaster->employeeId;
             $bill_master->total_lc_inward = 0;
             $bill_master->discount = 0;
@@ -109,7 +111,7 @@ class BillController extends ApiController
                 $bill_details =  new BillDetails();
                 $bill_details->bill_details_id = $bill_master->bill_no.'-'.($x++);
                 $bill_details->bill_no =  $bill_master->bill_no;
-                $bill_details->job_id = $item['jobId']  ;
+                $bill_details->job_id = $item['jobId'] ;
                 $bill_details->tag =  $item['tag'];
                 $bill_details->model_no =  $item['modelNo'];
                 $bill_details->price_code =  $item['priceCode'];
@@ -129,12 +131,14 @@ class BillController extends ApiController
                 $bill_details->save();
                 $return_array['billDetails'] = $bill_details;
             }
-
-
-
+            $total_fine_gold = BillDetails::whereBillNo($bill_master->bill_no)->sum('fine_gold');
+            $total_labour_charge =  BillDetails::whereLabourCharge($bill_master->bill_no)->sum('labour_charge');
+            $return_array['totalGold'] = $total_fine_gold;
+            $return_array['totalLabourCharge'] = $total_labour_charge;
 
             DB::commit();
-            return $this->successResponse($return_array);
+            return  $this->successResponse($return_array);
+//            return $this->successResponse(new BillResource($bill_master));
 
         }catch (\Exception $e){
             DB::rollBack();

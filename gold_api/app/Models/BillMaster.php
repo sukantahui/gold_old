@@ -74,4 +74,8 @@ class BillMaster extends Model
      * @var float|mixed
      */
     private $discount;
+
+    public function bill_details() {
+        return $this->hasMany(BillDetails::class, 'bill_no');
+    }
 }
