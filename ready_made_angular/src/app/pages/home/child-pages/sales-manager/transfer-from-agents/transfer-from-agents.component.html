@@ -68,12 +68,12 @@
                         <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
                         <td>{{(currentPageProducts-1)*10+indexOfElement+1}}</td>
                         <td>{{product.tag}}</td>
-                        <td>{{product.model_no}}</td>
-                        <td>{{product.model_size}}</td>
-                        <td>{{product.qty}}</td>
+                        <td>{{product.modelNo}}</td>
+                        <td>{{product.modelSize}}</td>
+                        <td>{{product.quantity}}</td>
                         <td>{{product.gold}}</td>
-                        <td>{{product.labour_charge}}</td>
-                        <td>{{product.is_selected}}</td>
+                        <td>{{product.labourCharge}}</td>
+                        <td>{{product.isSelected}}</td>
                         <td>
                             <button (click)="sendProduct(product)" [disabled]="!product.is_selected" mat-mini-fab aria-label="Select Product">
                                 <i class="ri-send-plane-2-fill"></i>
@@ -132,12 +132,12 @@
                         <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>
                         <td>{{(currentPageSelectedProducts-1)*10+indexOfElement+1}}</td>
                         <td>{{product.tag}}</td>
-                        <td>{{product.model_no}}</td>
-                        <td>{{product.model_size}}</td>
-                        <td>{{product.qty}}</td>
+                        <td>{{product.modelNo}}</td>
+                        <td>{{product.modelSize}}</td>
+                        <td>{{product.quantity}}</td>
                         <td>{{product.gold}}</td>
-                        <td>{{product.labour_charge}}</td>
-                        <td>{{product.is_selected}}</td>
+                        <td>{{product.labourCharge}}</td>
+                        <td>{{product.isSelected}}</td>
                         <td>
                             <button mat-button (click)="deleteFromSelectedProducts(product)" style="color: red"><mat-icon>delete</mat-icon></button>
                         </td>

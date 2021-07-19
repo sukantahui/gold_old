@@ -5,6 +5,8 @@ import {Product} from '../../../../../models/product.model';
 import {Sort} from '@angular/material/sort';
 import Swal from 'sweetalert2';
 import {CommonService} from '../../../../../services/common.service';
+import {BillService} from '../../../../../services/bill.service';
+import {BillMaster} from '../../../../../models/billMaster.model';
 
 @Component({
   selector: 'app-transfer-from-agents',
@@ -17,6 +19,8 @@ export class TransferFromAgentsComponent implements OnInit {
   productByAgentList: Product[] = [];
   customerByAgentList: any[] = [];
   selectedProducts: Product[] = [];
+  billMaster: any ;
+  billDetails: any[] = [];
   transferForm: FormGroup;
   salesForm: FormGroup;
   searchTerm: any;
@@ -31,7 +35,7 @@ export class TransferFromAgentsComponent implements OnInit {
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
   sortedProductByAgentList: Product[] = [];
-  constructor(private transferAgentService: TransferAgentService , private commonService: CommonService) {
+  constructor(private transferAgentService: TransferAgentService , private commonService: CommonService , private billService: BillService) {
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
@@ -44,6 +48,7 @@ export class TransferFromAgentsComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.billMaster = {};
     this.transferAgentService.getAgentsUpdateListener().subscribe((response) => {
       this.agents = response;
     });
@@ -202,22 +207,47 @@ export class TransferFromAgentsComponent implements OnInit {
     }
   }
 
-  billCreate(){
+  billCreate() {
     Swal.fire({
-        title: 'Bill Create',
-        text: 'Do you want to create bill',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, create',
-        cancelButtonText: 'No!',
-        background: 'rgba(38,39,47,0.95)'
+      title: 'Bill Create',
+      text: 'Do you want to create bill',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, create',
+      cancelButtonText: 'No!',
+      background: 'rgba(38,39,47,0.95)'
     }).then((result) => {
-      if (result.value){
-        alert('bill');
+      if (result.value) {
+        this.billDetails = this.selectedProducts;
+        this.billMaster.customerId = this.salesForm.value.customerId;
+        this.billMaster.agentId = this.transferForm.value.agent_id;
+        this.billService.saveBill(this.billMaster , this.billDetails)
+            .subscribe((response: {status: any , data: any}) => {
+              if (response.status === true){
+                    Swal.fire({
+                      timer: 2000,
+                      title: 'Saved',
+                      text: 'Bill created successfully',
+                      icon: 'success',
+                      showCancelButton: false,
+                      confirmButtonColor: '#1661a0',
+                      cancelButtonColor: '#d33',
+                      background: 'rgba(38,39,47,0.95)'
+                });
+              }
+            }, (error) => {
+                   Swal.fire({
+                    title: error.message,
+                    text: 'Bill is not created',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    background: 'rgba(38,39,47,0.95)',
+                    timer: 3000
+                  });
+            });
       }
     });
   }
-  
 } // end of class
 
 

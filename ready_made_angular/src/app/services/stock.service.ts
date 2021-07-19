@@ -32,22 +32,21 @@ export class StockService {
     });
     this.stockForm = new FormGroup({
       tag:  new FormControl(null, [Validators.required]),
-      model_no:  new FormControl(null, [Validators.required]),
-      model_size:  new FormControl(null, [Validators.required]),
+      modelNo:  new FormControl(null, [Validators.required]),
+      modelSize:  new FormControl(null, [Validators.required]),
       quantity:  new FormControl(null, [Validators.required]),
       gold:  new FormControl(null , [Validators.required]),
-      labour_charge:  new FormControl(null, [Validators.required]),
-      gross_weight:  new FormControl(null, [Validators.required]),
-      package_weight:  new FormControl(null, [Validators.required]),
-      in_stock:  new FormControl(1),
-      agent_id:  new FormControl('AG2018'),
-      employee_id:  new FormControl(46),
+      labourCharge:  new FormControl(null, [Validators.required]),
+      grossWeight:  new FormControl(null, [Validators.required]),
+      packageWeight:  new FormControl(null, [Validators.required]),
+      inStock:  new FormControl(1),
+      agentId:  new FormControl('AG2018'),
+      employeeId:  new FormControl(46),
       reference:  new FormControl(null),
-      bill_no:  new FormControl(null, [Validators.required]),
-      job_id:  new FormControl(null),
+      billNo:  new FormControl(null, [Validators.required]),
+      jobId:  new FormControl(null),
     });
   }
-  
   getStocksUpdateListener(){
     return this.stocksSub.asObservable();
   }

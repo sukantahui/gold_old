@@ -36,23 +36,23 @@ class ItemStockReadyMadeResource extends JsonResource
     {
         return [
          'tag'=> $this->tag,
-         'item_inward_detail_id'=> $this->item_inward_detail_id,
-         'model_no'=> $this->model_no,
-         'model_size'=> $this->model_size,
-         'qty'=> $this->qty,
+         'itemInwardDetailId'=> $this->item_inward_detail_id,
+         'modelNo'=> $this->model_no,
+         'modelSize'=> $this->model_size,
+         'quantity'=> $this->qty,
          'gold'=> $this->gold,
-         'labour_charge'=> $this->labour_charge,
-         'gross_weight'=> $this->gross_weight,
-         'package_weight'=> $this->package_weight,
-         'in_stock'=> $this->in_stock,
-         'agent_id'=> $this->agent_id,
-         'record_time'=> $this->record_time,
-         'employee_id'=> $this->employee_id,
+         'labourCharge'=> $this->labour_charge,
+         'grossWeight'=> $this->gross_weight,
+         'packageWeight'=> $this->package_weight,
+         'inStock'=> $this->in_stock,
+         'agentId'=> $this->agent_id,
+         'recordTime'=> $this->record_time,
+         'employeeId'=> $this->employee_id,
          'inforce'=> $this->inforce,
          'reference'=> $this->reference,
-         'bill_no'=> $this->bill_no,
-         'job_id'=> $this->job_id,
-         'is_selected'=>$this->is_selected
+         'billNo'=> $this->bill_no,
+         'jobId'=> $this->job_id,
+         'isSelected'=>$this->is_selected
         ];
     }
 }

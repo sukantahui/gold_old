@@ -89,7 +89,7 @@ class StockController extends ApiController
 
         $result = ItemStockReadyMade::whereAgentId($agentId)->get();
 
-        return $this->successResponse($result);
+        return $this->successResponse(ItemStockReadyMadeResource::collection($result));
     }
     public function get_job_id(){
         $result = Job::select()->get();

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BillResource;
 use App\Models\BillDetails;
 use App\Models\CustomerBalance;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Maxtable;
@@ -33,16 +34,13 @@ class BillController extends ApiController
 
         $rules = array(
             'customerId' => ['required','exists:customer_master,cust_id'],
-            'agentId' => ['required', 'exists:agent_master,agent_id'],
-            'employeeId'=> ['required','exists:employees,emp_id']
+            'agentId' => ['required', 'exists:agent_master,agent_id']
         );
         $messages= array(
             'customerId.required'=> 'Customer id is required !!',
             'customerId.exists' => 'Customer id does not exist !!',
             'agentId.required' => 'Agent id is required !!',
             'agentId.exists' => 'Agent id does not exist !!',
-            'employeeId.required' => 'Employee id is required !!',
-            'employeeId.exists' => 'Employee id does not exist !!'
         );
         $validator = Validator::make($input['billMaster'],$rules,$messages );
         if ($validator->fails()) {
@@ -50,12 +48,11 @@ class BillController extends ApiController
         }
 
         $rules = array(
-            '*.tag'=> ['required',Rule::unique('bill_details','tag')],
+            '*.tag'=> ['required'],
             '*.modelNo' => ['required','exists:item_stock_ready_made,model_no']
         );
         $messages = array(
             '*.tag.required' => 'Tag is required !!',
-            '*.tag.unique' => 'Tag is already taken !!',
             '*.modelNo.required' => 'Model Number is required !!',
             '*.modelNo.exists' => 'Model Number does not exist !!'
         );
@@ -109,23 +106,25 @@ class BillController extends ApiController
 
             $x = 1;
             foreach ($billDetails as $item){
+                $product = Product::whereProductCode($item['modelNo'])->first();
+
                 $bill_details =  new BillDetails();
                 $bill_details->bill_details_id = $bill_master->bill_no.'-'.($x++);
                 $bill_details->bill_no =  $bill_master->bill_no;
                 $bill_details->job_id = $item['jobId'] ;
                 $bill_details->tag =  $item['tag'];
                 $bill_details->model_no =  $item['modelNo'];
-                $bill_details->price_code =  $item['priceCode'];
-                $bill_details->gold_wt =  $item['goldWeight'];
+                $bill_details->price_code =  $product->price_code;
+                $bill_details->gold_wt =  $item['gold'];
                 $bill_details->gross_wt =  $item['grossWeight'];
                 $bill_details->price_method =  'Regular';
                 $bill_details->wastage_percentage =  0;
                 $bill_details->wastage =  0;
-                $bill_details->total_gold =  $item['totalGold'];
+                $bill_details->total_gold =  $item['gold'];
                 $bill_details->gold_quality = 92;
-                $bill_details->fine_gold =  $item['fineGold'];
-                $bill_details->qty =   $item['quanity'];
-                $bill_details->size = $item['size'];
+                $bill_details->fine_gold =  $item['gold'] * 0.92;
+                $bill_details->qty =   $item['quantity'];
+                $bill_details->size = $item['modelSize'];
                 $bill_details->ploss =  0;
                 $bill_details->labour_charge =  $item['labourCharge'];
                 $bill_details->markup_value =  0;
