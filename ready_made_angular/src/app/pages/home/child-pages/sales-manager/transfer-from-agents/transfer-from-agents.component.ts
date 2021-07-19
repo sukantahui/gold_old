@@ -208,6 +208,7 @@ export class TransferFromAgentsComponent implements OnInit {
   }
 
   billCreate() {
+    this.billDetails = [];
     Swal.fire({
       title: 'Bill Create',
       text: 'Do you want to create bill',
