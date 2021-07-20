@@ -150,7 +150,7 @@ class BillController extends ApiController
             DB::rollBack();
             return $this->errorResponse($e->getMessage(),500);
         }
-        return $this->successResponse($data);
+
     }
 
 }

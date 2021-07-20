@@ -161,14 +161,21 @@
                                        class="custom"
                                        bindValue="cust_id"
                                        formControlName="customerId"
-                                       placeholder="Select Customer">
+                                       placeholder="Select Customer"
+                                       (change)="getCustomerData()" >
                             </ng-select>
                             <popover-content #popoverCustomer
                                              title="Customer"
                                              placement="right"
                                              [animation]="true"
                                              [closeOnClickOutside]="true">
-                                <div>Poopover Test</div>
+<!--                                <div>Poopover Test</div>-->
+                                <div>
+                                    <p>{{customerData.cust_name}}</p>
+<!--                                    <p>{{customerData.mailing_name}}</p>-->
+<!--                                    <p>{{customerData.city}}</p>-->
+                                    <p>{{customerData.cust_address}}</p>
+                                </div>
                             </popover-content>
                         </form>
                     </div>
@@ -184,7 +191,6 @@
                 <div  *ngIf="salesForm.value.customerId">
                     <button mat-button color="primary" (click)="billCreate()">Create Bill</button>
                 </div>
-
             </div>
         </div>
     </div>

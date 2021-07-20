@@ -18,6 +18,7 @@ export class TransferFromAgentsComponent implements OnInit {
   agents: any[] = [];
   productByAgentList: Product[] = [];
   customerByAgentList: any[] = [];
+  customerData: any ;
   selectedProducts: Product[] = [];
   billMaster: any ;
   billDetails: any[] = [];
@@ -49,6 +50,7 @@ export class TransferFromAgentsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.billMaster = {};
+    this.customerData = {};
     this.transferAgentService.getAgentsUpdateListener().subscribe((response) => {
       this.agents = response;
     });
@@ -248,6 +250,13 @@ export class TransferFromAgentsComponent implements OnInit {
             });
       }
     });
+  }
+  getCustomerData(){
+    if (this.salesForm.value.customerId != null){
+      const index = this.customerByAgentList.findIndex(x => x.cust_id === this.salesForm.value.customerId);
+      this.customerData = this.customerByAgentList[index];
+      console.log(this.customerData);
+    }
   }
 } // end of class
 
