@@ -92,8 +92,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 flex-column" *ngIf="selectedProducts.length>0">
-            <div  id="selected-product-table-div" >
+        <div class="col-6 flex-column" >
+            <div  id="selected-product-table-div" *ngIf="selectedProducts.length>0" >
                 <form class="example-form">
                     <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
                         <mat-slide-toggle
@@ -191,6 +191,9 @@
                 <div  *ngIf="salesForm.value.customerId">
                     <button mat-button color="primary" (click)="billCreate()">Create Bill</button>
                 </div>
+            </div>
+            <div *ngIf="billNumber">
+                <a href="">{{ipAddress}}/{{billNumber}}</a>
             </div>
         </div>
     </div>

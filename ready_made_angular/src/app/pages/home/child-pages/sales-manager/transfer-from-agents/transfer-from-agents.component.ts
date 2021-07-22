@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import {CommonService} from '../../../../../services/common.service';
 import {BillService} from '../../../../../services/bill.service';
 import {BillMaster} from '../../../../../models/billMaster.model';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-transfer-from-agents',
@@ -21,6 +22,7 @@ export class TransferFromAgentsComponent implements OnInit {
   customerData: any ;
   selectedProducts: Product[] = [];
   billMaster: any ;
+  billNumber: any;
   billDetails: any[] = [];
   transferForm: FormGroup;
   salesForm: FormGroup;
@@ -33,11 +35,13 @@ export class TransferFromAgentsComponent implements OnInit {
   currentPageSelectedProducts = 1;
   color = 'accent';
   checked = false;
+  ipAddress: any;
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
   sortedProductByAgentList: Product[] = [];
-  constructor(private transferAgentService: TransferAgentService , private commonService: CommonService , private billService: BillService) {
+  constructor(private transferAgentService: TransferAgentService , private commonService: CommonService , private billService: BillService , private http: HttpClient) {
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
+    this.ipAddress = window.location.host.split(':')[0];
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
       short_name: new FormControl(null),
@@ -221,7 +225,7 @@ export class TransferFromAgentsComponent implements OnInit {
       background: 'rgba(38,39,47,0.95)'
     }).then((result) => {
       if (result.value) {
-        this.billDetails = this.selectedProducts;
+        this.billDetails = this.selectedProducts.filter((el) => el.is_selected);
         this.billMaster.customerId = this.salesForm.value.customerId;
         this.billMaster.agentId = this.transferForm.value.agent_id;
         this.billService.saveBill(this.billMaster , this.billDetails)
@@ -237,7 +241,8 @@ export class TransferFromAgentsComponent implements OnInit {
                       cancelButtonColor: '#d33',
                       background: 'rgba(38,39,47,0.95)'
                 });
-                    this.selectedProducts = [];
+                    this.billNumber = response.data.billNo;
+                    this.selectedProducts = this.selectedProducts.filter(ar => !this.billDetails.find(rm => (rm.tag === ar.tag )));
               }
             }, (error) => {
                    Swal.fire({
