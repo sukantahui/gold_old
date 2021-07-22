@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ItemStockReadyMade;
 
 class BillDetails extends Model
 {
@@ -90,4 +91,8 @@ class BillDetails extends Model
      * @var int|mixed
      */
     private $markup_value;
+
+    public function stock_details() {
+        return $this->belongsTo(ItemStockReadyMade::class , 'tag');
+    }
 }

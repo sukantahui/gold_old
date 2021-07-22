@@ -34,6 +34,7 @@ class BillDetailsResource extends JsonResource
             'ploss'=>$this->ploss,
             'labourCharge'=>$this->labour_charge,
             'markupValue'=>$this->markup_value,
+            'stock'=>new ItemStockReadyMadeResource($this->stock_details)
         ];
     }
 }

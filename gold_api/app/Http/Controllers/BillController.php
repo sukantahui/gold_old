@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BillResource;
+use App\Http\Resources\ItemStockReadyMadeResource;
 use App\Models\BillDetails;
 use App\Models\CustomerBalance;
+use App\Models\ItemStockReadyMade;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -48,7 +50,7 @@ class BillController extends ApiController
         }
 
         $rules = array(
-            '*.tag'=> ['required'],
+            '*.tag'=> ['required',Rule::unique('bill_details','tag')],
             '*.modelNo' => ['required','exists:item_stock_ready_made,model_no']
         );
         $messages = array(
@@ -129,7 +131,13 @@ class BillController extends ApiController
                 $bill_details->labour_charge =  $item['labourCharge'];
                 $bill_details->markup_value =  0;
                 $bill_details->save();
+
+                $stock = ItemStockReadyMade::whereTag($bill_details->tag)->first();
+                $stock->in_stock = 0;
+                $stock->update();
+
                 $return_array['billDetails'] = $bill_details;
+                $return_array['stock'] = $stock;
             }
             $total_fine_gold = BillDetails::whereBillNo($bill_master->bill_no)->sum('fine_gold');
             $total_labour_charge =  BillDetails::whereBillNo($bill_master->bill_no)->sum('labour_charge');
@@ -141,6 +149,8 @@ class BillController extends ApiController
             $customer_balance->billed_lc = $customer_balance->billed_lc + $total_labour_charge;
             $customer_balance->update();
             $return_array['customerBalance'] = $customer_balance;
+
+
 
             DB::commit();
 //            return  $this->successResponse($return_array);

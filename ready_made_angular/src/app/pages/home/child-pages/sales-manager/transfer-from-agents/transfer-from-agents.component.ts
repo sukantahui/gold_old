@@ -237,6 +237,7 @@ export class TransferFromAgentsComponent implements OnInit {
                       cancelButtonColor: '#d33',
                       background: 'rgba(38,39,47,0.95)'
                 });
+                    this.selectedProducts = [];
               }
             }, (error) => {
                    Swal.fire({

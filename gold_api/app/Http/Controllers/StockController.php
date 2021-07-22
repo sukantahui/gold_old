@@ -87,7 +87,7 @@ class StockController extends ApiController
     }
     public function get_stock_by_agent($agentId){
 
-        $result = ItemStockReadyMade::whereAgentId($agentId)->get();
+        $result = ItemStockReadyMade::whereAgentIdAndInStock($agentId,1)->get();
 
         return $this->successResponse(ItemStockReadyMadeResource::collection($result));
     }
