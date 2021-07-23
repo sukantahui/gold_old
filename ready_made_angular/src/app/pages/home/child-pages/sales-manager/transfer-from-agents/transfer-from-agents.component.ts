@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import {CommonService} from '../../../../../services/common.service';
 import {BillService} from '../../../../../services/bill.service';
 import {BillMaster} from '../../../../../models/billMaster.model';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 @Component({
   selector: 'app-transfer-from-agents',
@@ -41,7 +41,8 @@ export class TransferFromAgentsComponent implements OnInit {
   sortedProductByAgentList: Product[] = [];
   constructor(private transferAgentService: TransferAgentService , private commonService: CommonService , private billService: BillService , private http: HttpClient) {
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
-    this.ipAddress = window.location.host.split(':')[0];
+    this.ipAddress = window.location.origin.split(':');
+    console.log(window.location.origin.split(':'));
     this.transferForm = new FormGroup({
       agent_id: new FormControl(null),
       short_name: new FormControl(null),

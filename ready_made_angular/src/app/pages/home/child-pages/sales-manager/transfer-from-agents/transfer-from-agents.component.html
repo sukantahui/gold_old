@@ -154,7 +154,7 @@
                 <button  *ngIf ="selectedProducts.length>0" mat-button color="primary" (click)="transferFromAgent()">Send to Counter Agent</button>
                 <button  *ngIf ="selectedProducts.length>0" mat-button color="primary" (click)="transferToSales()">Send to Sales</button>
                 <div class="d-flex" *ngIf="customerByAgentList.length>0">
-                    <div class="col-3">
+                    <div class="col-6">
                         <form [formGroup] = salesForm>
                             <ng-select [items]="customerByAgentList"
                                        bindLabel="cust_name"
@@ -179,7 +179,7 @@
                             </popover-content>
                         </form>
                     </div>
-                    <div class="col-3">
+                    <div class="col-6">
                         <button mat-mini-fab color="primary"
                                 [popover]="popoverCustomer"
                                 [popoverOnHover]="true"
@@ -193,7 +193,7 @@
                 </div>
             </div>
             <div *ngIf="billNumber">
-                <a href="">{{ipAddress}}/{{billNumber}}</a>
+                <a href="">{{ipAddress[0]}}:{{ipAddress[1]}}/ses_diamond2/index.php/bill_controller/display_bill?bill_no={{billNumber}}</a>
             </div>
         </div>
     </div>
