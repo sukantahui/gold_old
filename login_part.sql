@@ -194,6 +194,8 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (1,'Arindam Ghosh','arindam',46,'$2y$10$45O4TD0dHvbDz7vE2.d36uqqt.mjbvvVaKld2W9p4/5tPRUrAfkDq',NULL,'9836444999','100',3,1,'2021-06-26 18:53:44','2021-06-26 18:53:44');
+INSERT INTO `users` VALUES (2,'vivekkananda Ghosh','vivek',28,'$2y$10$45O4TD0dHvbDz7vE2.d36uqqt.mjbvvVaKld2W9p4/5tPRUrAfkDq',NULL,'9836444999','100',3,1,'2021-06-26 18:53:44','2021-06-26 18:53:44');
+
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
