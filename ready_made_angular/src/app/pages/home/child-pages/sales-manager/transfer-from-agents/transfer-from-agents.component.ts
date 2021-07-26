@@ -244,6 +244,8 @@ export class TransferFromAgentsComponent implements OnInit {
                 });
                     this.billNumber = response.data.billNo;
                     this.selectedProducts = this.selectedProducts.filter(ar => !this.billDetails.find(rm => (rm.tag === ar.tag )));
+                    this.salesForm.value.customerId = null;
+                    console.log(this.salesForm.value);
               }
             }, (error) => {
                    Swal.fire({

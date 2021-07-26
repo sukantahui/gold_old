@@ -108,12 +108,13 @@ export class StockEntryComponent implements OnInit {
   getDetails(){
     this.stockService.getDetailsByJobId().subscribe((response: {status: any , data: any}) => {
       if (response.status === true){
+          console.log(response.data.product_code);
           this.model_number =  response.data.product_code;
           this.model_size =  response.data.product_size;
           this.labourCharge =  response.data.price;
           this.bill_no = response.data.bill_no;
         // tslint:disable-next-line:max-line-length
-          this.stockForm.patchValue({model_no: this.model_number, model_size: this.model_size, labour_charge: this.labourCharge, bill_no: this.bill_no});
+          this.stockForm.patchValue({modelNo: this.model_number, modelSize: this.model_size, labourCharge: this.labourCharge, billNo: this.bill_no});
       }
     });
   }

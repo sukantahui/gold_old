@@ -33,8 +33,8 @@ export class TransferToAgentComponent implements OnInit {
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
     this.sortedProducts = this.products.slice();
     this.transferForm = new FormGroup({
-      agent_id: new FormControl(null),
-      short_name: new FormControl(null)
+      agentId: new FormControl(null),
+      shortName: new FormControl(null)
     });
   }
 
@@ -124,7 +124,7 @@ export class TransferToAgentComponent implements OnInit {
   }// end of sortData
 
   getSelectedAgentName(){
-    const agent_id = this.transferForm.get('agent_id').value;
+    const agent_id = this.transferForm.get('agentId').value;
     if (agent_id === null){
       return '';
     }
@@ -133,7 +133,7 @@ export class TransferToAgentComponent implements OnInit {
   }
 
   transferToAgent() {
-    const agent_id = this.transferForm.get('agent_id').value;
+    const agent_id = this.transferForm.get('agentId').value;
     const tags = this.selectedProducts.map(t => t.tag.toString());
     this.transferAgentService.transferProduct(agent_id, tags).subscribe((response: {status: any, data: any}) => {
       if (response.status === true){

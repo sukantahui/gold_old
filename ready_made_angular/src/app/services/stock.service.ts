@@ -72,7 +72,7 @@ export class StockService {
     return this.jobData;
   }
   getDetailsByJobId(){
-    return this.http.get(this.BASE_API_URL + '/getDetailsByJobId/' + this.stockForm.value.job_id);
+    return this.http.get(this.BASE_API_URL + '/getDetailsByJobId/' + this.stockForm.value.jobId);
   }
 
 }

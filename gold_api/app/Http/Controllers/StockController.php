@@ -33,14 +33,14 @@ class StockController extends ApiController
     {
         $rules = array(
             'tag' => ['required',Rule::unique('item_stock_ready_made','tag')],
-            'model_no' => 'required|exists:product_master,product_code',
-            'model_size' => 'required',
+            'modelNo' => 'required|exists:product_master,product_code',
+            'modelSize' => 'required',
             'quantity' => ['required','integer','gte:1'],
-            'agent_id' => ['required','exists:agent_master,agent_id'],
-            'employee_id' => ['required','exists:employees,emp_id']
+            'agentId' => ['required','exists:agent_master,agent_id'],
+            'employeeId' => ['required','exists:employees,emp_id']
         );
         $messsages = array(
-            'model_no.exists'=>"This model does not exist"
+            'modelNo.exists'=>"This model does not exist"
         );
 
         $validator = Validator::make($request->all(),$rules,$messsages );
@@ -50,19 +50,19 @@ class StockController extends ApiController
         try{
             $stock = new ItemStockReadyMade();
             $stock->tag = $request->input("tag");
-            $stock->model_no=$request->input("model_no");
-            $stock->model_size=$request->input("model_size");
+            $stock->model_no=$request->input("modelNo");
+            $stock->model_size=$request->input("modelSize");
             $stock->qty=$request->input("quantity");
             $stock->gold=$request->input("gold");
-            $stock->labour_charge=$request->input("labour_charge");
-            $stock->gross_weight=$request->input("gross_weight");
-            $stock->package_weight=$request->input("package_weight");
+            $stock->labour_charge=$request->input("labourCharge");
+            $stock->gross_weight=$request->input("grossWeight");
+            $stock->package_weight=$request->input("packageWeight");
             $stock->in_stock=$request->input("in_stock");
-            $stock->agent_id=$request->input("agent_id");
-            $stock->employee_id=$request->input("employee_id");
+            $stock->agent_id=$request->input("agentId");
+            $stock->employee_id=$request->input("employeeId");
             $stock->reference=$request->input("reference");
-            $stock->bill_no=$request->input("bill_no");
-            $stock->job_id =$request->input("job_id");
+            $stock->bill_no=$request->input("billNo");
+            $stock->job_id =$request->input("jobId");
             $stock->saveOrFail();
             return $this->successResponse(new ItemStockReadyMadeResource($stock));
         }catch(\Exception $e){
