@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\MaterialTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     //for bill
     Route::post("createBill",[BillController::class,'create_ready_made_bill']);
+
+    Route::get("getOwnerOutwardData",[MaterialTransactionController::class ,'getOwnerOutward']);
+    Route::get("getDataByDate",[MaterialTransactionController::class ,'getDataByDate']);
 });
 
 
@@ -87,5 +91,8 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("jobs",[StockController::class,'get_job_id']);
     Route::get("getDetailsByJobId/{id}",[StockController::class,'get_details_by_job_id']);
     Route::post("createBill",[BillController::class,'create_ready_made_bill']);
+
+    Route::get("getOwnerOutwardData",[MaterialTransactionController::class ,'getOwnerOutward']);
+    Route::get("getDataByDate",[MaterialTransactionController::class ,'getDataByDate']);
 });
 
