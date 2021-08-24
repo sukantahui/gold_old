@@ -69,7 +69,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("createBill",[BillController::class,'create_ready_made_bill']);
 
     Route::get("getOwnerOutwardData",[MaterialTransactionController::class ,'getOwnerOutward']);
-    Route::get("getDataByDate",[MaterialTransactionController::class ,'getDataByDate']);
+    Route::post("getMaterialReceivedFromOwner",[MaterialTransactionController::class ,'getMaterialReceivedFromOwner']);
+    Route::post("getTotalMaterialReceivedFromOwner",[MaterialTransactionController::class ,'getTotalMaterialReceivedFromOwner']);
+    Route::post("getMaterialReceivedFromOwnerWithinDates",[MaterialTransactionController::class ,'getMaterialReceivedFromOwnerWithinDates']);
+    Route::post("getTotalMaterialReceivedFromOwnerWithinDates",[MaterialTransactionController::class ,'getTotalMaterialReceivedFromOwnerWithinDates']);
 });
 
 
@@ -93,6 +96,9 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::post("createBill",[BillController::class,'create_ready_made_bill']);
 
     Route::get("getOwnerOutwardData",[MaterialTransactionController::class ,'getOwnerOutward']);
-    Route::get("getDataByDate",[MaterialTransactionController::class ,'getDataByDate']);
+    Route::post("getMaterialReceivedFromOwner",[MaterialTransactionController::class ,'getMaterialReceivedFromOwner']);
+    Route::post("getTotalMaterialReceivedFromOwner",[MaterialTransactionController::class ,'getTotalMaterialReceivedFromOwner']);
+    Route::post("getMaterialReceivedFromOwnerWithinDates",[MaterialTransactionController::class ,'getMaterialReceivedFromOwnerWithinDates']);
+    Route::post("getTotalMaterialReceivedFromOwnerWithinDates",[MaterialTransactionController::class ,'getTotalMaterialReceivedFromOwnerWithinDates']);
 });
 
