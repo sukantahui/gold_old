@@ -9,6 +9,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\MaterialToEmployeeBalanceController;
 use App\Http\Controllers\MaterialTransactionController;
+use App\Http\Controllers\JobMasterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("getTotalMaterialReceivedFromOwner",[MaterialTransactionController::class ,'getTotalMaterialReceivedFromOwner']);
     Route::post("getMaterialReceivedFromOwnerWithinDates",[MaterialTransactionController::class ,'getMaterialReceivedFromOwnerWithinDates']);
     Route::post("getTotalMaterialReceivedFromOwnerWithinDates",[MaterialTransactionController::class ,'getTotalMaterialReceivedFromOwnerWithinDates']);
+
+    Route::get("getJobIdByJobMaster",[JobMasterController::class, 'getJobIdByJobMaster']);
 });
 
 
@@ -104,6 +107,8 @@ Route::group(array('prefix' => 'dev'), function() {
 
 
     Route::get("getClosingBalannceByEmpIdAndRmId/{empId}/{rmId}",[MaterialToEmployeeBalanceController::class, 'getClosingBalannceByEmpIdAndRmId']);
+
+    Route::get("getJobIdByJobMaster",[JobMasterController::class, 'getJobIdByJobMaster']);
 
 });
 
