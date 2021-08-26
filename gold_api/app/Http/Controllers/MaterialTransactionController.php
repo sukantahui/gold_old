@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MaterialTransactionResource;
+use App\Models\MaterialToEmployeeBalance;
 use App\Models\MaterialTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -82,6 +83,8 @@ class MaterialTransactionController extends ApiController
                   ->where('record_time','<',$date2)
                   ->where('transaction_type_id',1)
                   ->sum('inward');
+
+
 
         return $this->successResponse($result);
     }

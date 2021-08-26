@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\MaterialToEmployeeBalanceController;
 use App\Http\Controllers\MaterialTransactionController;
 
 /*
@@ -100,5 +101,9 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::post("getTotalMaterialReceivedFromOwner",[MaterialTransactionController::class ,'getTotalMaterialReceivedFromOwner']);
     Route::post("getMaterialReceivedFromOwnerWithinDates",[MaterialTransactionController::class ,'getMaterialReceivedFromOwnerWithinDates']);
     Route::post("getTotalMaterialReceivedFromOwnerWithinDates",[MaterialTransactionController::class ,'getTotalMaterialReceivedFromOwnerWithinDates']);
+
+
+    Route::get("getClosingBalannceByEmpIdAndRmId/{empId}/{rmId}",[MaterialToEmployeeBalanceController::class, 'getClosingBalannceByEmpIdAndRmId']);
+
 });
 
