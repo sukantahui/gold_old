@@ -28,17 +28,19 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         //person_types table data
-        UserType::create(['user_type_name' => 'Owner']);
-        UserType::create(['user_type_name' => 'Manager']);
-        UserType::create(['user_type_name' => 'Manager Sales']);
-        UserType::create(['user_type_name' => 'Manager Accounts']);
-        UserType::create(['user_type_name' => 'Office Staff']);
-        UserType::create(['user_type_name' => 'Worker']);
-        UserType::create(['user_type_name' => 'Developer']);
-        UserType::create(['user_type_name' => 'Customer']);
+        UserType::create(['user_type_name' => 'Owner']); //1
+        UserType::create(['user_type_name' => 'Manager']); //2
+        UserType::create(['user_type_name' => 'Manager Sales']); //3
+        UserType::create(['user_type_name' => 'Manager Accounts']); //4
+        UserType::create(['user_type_name' => 'Office Staff']); //5
+        UserType::create(['user_type_name' => 'Worker']); //6
+        UserType::create(['user_type_name' => 'Developer']); //7
+        UserType::create(['user_type_name' => 'Customer']); //8
         $this->command->info('User Type creation Finished');
 
+        User::create(['user_name'=>'Vivekananda Ghosh','mobile1'=>'9836444999','mobile2'=>'100','email'=>'vivek','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>1]);
         User::create(['user_name'=>'Arindam Ghosh','mobile1'=>'9836444999','mobile2'=>'100','email'=>'arindam','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>3]);
+        User::create(['user_name'=>'Vivekananda User','mobile1'=>'9836444999','mobile2'=>'100','email'=>'bile','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>5]);
 
 
 
