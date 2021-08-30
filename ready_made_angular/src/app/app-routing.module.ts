@@ -61,7 +61,9 @@ const routes: Routes = [
 
   { path: 'TransferFromAgents', loadChildren: () => import('./pages/home/child-pages/sales-manager/transfer-from-agents/transfer-from-agents.module').then(m => m.TransferFromAgentsModule) },
 
-  { path: 'stockEntry', loadChildren: () => import('./pages/home/child-pages/sales-manager/stock-entry/stock-entry.module').then(m => m.StockEntryModule) }
+  { path: 'stockEntry', loadChildren: () => import('./pages/home/child-pages/sales-manager/stock-entry/stock-entry.module').then(m => m.StockEntryModule) },
+
+  { path: 'production_manger', loadChildren: () => import('./pages/home/child-pages/production-manger/production-manger.module').then(m => m.ProductionMangerModule) }
 
 
 

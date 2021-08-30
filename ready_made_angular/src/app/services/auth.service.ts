@@ -66,6 +66,14 @@ export class AuthService {
     }
   }
 
+  isProductionSales(): boolean{
+    if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isManagerSales){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   autoLogin(){
 

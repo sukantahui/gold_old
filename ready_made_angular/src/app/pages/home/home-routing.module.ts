@@ -31,6 +31,11 @@ const routes: Routes = [
                                         .then(mod => mod.SalesManagerModule)
                                 },
                                 {
+                                    path: 'ProductionManager',
+                                    loadChildren: () => import('./child-pages/production-manger/production-manger.module')
+                                        .then(mod => mod.ProductionMangerModule)
+                                },
+                                {
                                     path: 'TransferToAgent',
                                     loadChildren: () => import('./child-pages/sales-manager/transfer-to-agent/transfer-to-agent.module')
                                         .then(mod => mod.TransferToAgentModule)
