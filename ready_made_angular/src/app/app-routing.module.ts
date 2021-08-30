@@ -61,7 +61,13 @@ const routes: Routes = [
 
   { path: 'TransferFromAgents', loadChildren: () => import('./pages/home/child-pages/sales-manager/transfer-from-agents/transfer-from-agents.module').then(m => m.TransferFromAgentsModule) },
 
-  { path: 'stockEntry', loadChildren: () => import('./pages/home/child-pages/sales-manager/stock-entry/stock-entry.module').then(m => m.StockEntryModule) }
+  { path: 'stockEntry', loadChildren: () => import('./pages/home/child-pages/sales-manager/stock-entry/stock-entry.module').then(m => m.StockEntryModule) },
+
+  { path: 'OfficeStaff', loadChildren: () => import('./pages/home/child-pages/office-staff/office-staff.module').then(m => m.OfficeStaffModule) },
+
+  { path: 'MenuOfficeStaff', loadChildren: () => import('./pages/home/menu/menu-office-staff/menu-office-staff.module').then(m => m.MenuOfficeStaffModule) },
+
+  { path: 'StatusReport', loadChildren: () => import('./pages/home/child-pages/office-staff/status-report/status-report.module').then(m => m.StatusReportModule) }
 
 
 

@@ -4,5 +4,7 @@
     <app-menu-owner *ngIf="authService.isOwner()"></app-menu-owner>
     <app-menu-developer *ngIf="authService.isDeveloper()"></app-menu-developer>
     <app-menu-sales-manager *ngIf="authService.isManagerSales()"></app-menu-sales-manager>
+    <app-menu-office-staff *ngIf="authService.isOfficeStaff()"></app-menu-office-staff>
+
 </div>
 <!--<a [routerLink] (click)="logout()">Logout <i class="icon-login"></i></a>-->

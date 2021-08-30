@@ -31,6 +31,11 @@ const routes: Routes = [
                                         .then(mod => mod.SalesManagerModule)
                                 },
                                 {
+                                    path: 'OfficeStaff',
+                                    loadChildren: () => import('./child-pages/office-staff/office-staff.module')
+                                        .then(mod => mod.OfficeStaffModule)
+                                },
+                                {
                                     path: 'TransferToAgent',
                                     loadChildren: () => import('./child-pages/sales-manager/transfer-to-agent/transfer-to-agent.module')
                                         .then(mod => mod.TransferToAgentModule)
@@ -44,6 +49,11 @@ const routes: Routes = [
                                     path: 'StockEntry',
                                     loadChildren: () => import('./child-pages/sales-manager/stock-entry/stock-entry.module')
                                         .then(mod => mod.StockEntryModule)
+                                },
+                                {
+                                    path: 'StaffReport',
+                                    loadChildren: () => import('./child-pages/office-staff/status-report/status-report.module')
+                                        .then(mod => mod.StatusReportModule)
                                 }
 
 

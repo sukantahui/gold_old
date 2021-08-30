@@ -66,6 +66,14 @@ export class AuthService {
     }
   }
 
+  isOfficeStaff(): boolean{
+    if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isOfficeStaff){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   autoLogin(){
 
@@ -91,7 +99,6 @@ export class AuthService {
         .pipe(catchError(this.errorService.serverError), tap(resData => {
           // tslint:disable-next-line:max-line-length
           if (resData.status === true){
-            console.log('Login Success');
             const user = new User(resData.data.uniqueId,
                 resData.data.userName,
                 resData.data.token,
