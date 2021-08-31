@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {formatDate} from '@angular/common';
+import {OfficeStaffStatusReportService} from "../../../../../services/office-staff-status-report.service";
 
 @Component({
   selector: 'app-status-report',
@@ -11,7 +12,7 @@ export class StatusReportComponent implements OnInit {
   statusReportForm: FormGroup;
   startDate: string;
   endDate: string;
-  constructor() {
+  constructor(private statusReportService: OfficeStaffStatusReportService) {
 
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');

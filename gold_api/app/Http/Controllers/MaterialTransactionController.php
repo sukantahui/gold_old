@@ -89,5 +89,27 @@ class MaterialTransactionController extends ApiController
         return $this->successResponse($result);
     }
 
+    public function getMaterialReceivedTransactionsByDates($startDate,$endDate,$rmId, $employeeId,$transactionTypeId){
+        $result = MaterialTransaction::where('rm_id',$rmId)
+            ->where('record_time','>=',$startDate)
+            ->where('record_time','<=',$endDate)
+            ->where('employee_id','=',$employeeId)
+            ->where('transaction_type_id',$transactionTypeId)
+            ->where('inward','>',0)
+            ->get();
+
+        return $this->successResponse($result);
+    }
+
+    public function getMaterialReceivedTransactionsTotalByDates($startDate,$endDate,$rmId, $employeeId,$transactionTypeId){
+        $result = MaterialTransaction::where('rm_id',$rmId)
+            ->where('record_time','>=',$startDate)
+            ->where('record_time','<=',$endDate)
+            ->where('employee_id','=',$employeeId)
+            ->where('transaction_type_id',$transactionTypeId)
+            ->where('inward','>',0)
+            ->sum('inward');
+        return $this->successResponse($result);
+    }
 
 }
