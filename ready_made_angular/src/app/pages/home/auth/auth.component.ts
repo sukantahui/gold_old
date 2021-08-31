@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Md5} from 'ts-md5';
-import {AuthResponseData, AuthService} from "../../../services/auth.service";
-import {Observable} from "rxjs";
+import {AuthResponseData, AuthService} from '../../../services/auth.service';
+import {Observable} from 'rxjs';
 import Swal from 'sweetalert2';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ErrorService} from '../../../services/error.service';
@@ -50,13 +50,9 @@ export class AuthComponent implements OnInit {
                 if (this.authService.isManagerSales){
                     this.router.navigate(['/SalesManager']).then(r => {});
                 }
-<<<<<<< HEAD
-                if (this.authService.isManagerSales){
-                  this.router.navigate(['/ProductionManager']).then(r => {});
-=======
                 if (this.authService.isOfficeStaff()){
                     this.router.navigate(['/OfficeStaff']).then(r => {});
->>>>>>> 87d83fb0f5329c0f1ee27f3edf0223520594ce21
+
                 }
             }
         }, (error) => {

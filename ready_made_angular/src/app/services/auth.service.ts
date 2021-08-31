@@ -66,13 +66,9 @@ export class AuthService {
     }
   }
 
-<<<<<<< HEAD
-  isProductionSales(): boolean{
-    if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isManagerSales){
-=======
+
   isOfficeStaff(): boolean{
     if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isOfficeStaff){
->>>>>>> 87d83fb0f5329c0f1ee27f3edf0223520594ce21
       return true;
     }else{
       return false;

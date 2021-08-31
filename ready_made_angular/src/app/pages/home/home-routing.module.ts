@@ -31,15 +31,10 @@ const routes: Routes = [
                                         .then(mod => mod.SalesManagerModule)
                                 },
                                 {
-<<<<<<< HEAD
-                                    path: 'ProductionManager',
-                                    loadChildren: () => import('./child-pages/production-manger/production-manger.module')
-                                        .then(mod => mod.ProductionMangerModule)
-=======
+
                                     path: 'OfficeStaff',
                                     loadChildren: () => import('./child-pages/office-staff/office-staff.module')
                                         .then(mod => mod.OfficeStaffModule)
->>>>>>> 87d83fb0f5329c0f1ee27f3edf0223520594ce21
                                 },
                                 {
                                     path: 'TransferToAgent',
