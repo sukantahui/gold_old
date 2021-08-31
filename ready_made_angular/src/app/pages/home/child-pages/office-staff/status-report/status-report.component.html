@@ -11,7 +11,7 @@
                 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
                     <mat-form-field class="example-full-width" fxFlex="30">
                         <mat-label>Start date (dd/mm/yyyy)</mat-label>
-                        <input matInput [matDatepicker]="startDatePicker" formControlName="start_date" placeholder="dd/mm/yyyy">
+                        <input matInput [matDatepicker]="startDatePicker" formControlName="start_date" placeholder="dd/mm/yyyy" (dateChange)="startDateChangeEvent($event)">
                         <mat-datepicker-toggle matSuffix [for]="startDatePicker">
                             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                         </mat-datepicker-toggle>
@@ -19,7 +19,7 @@
                     </mat-form-field>
                     <mat-form-field class="example-full-width" fxFlex="30">
                         <mat-label>End date (dd/mm/yyyy)</mat-label>
-                        <input matInput [matDatepicker]="endDatePicker" formControlName="end_date" placeholder="dd/mm/yyyy" (dateInput)="dateInputEvent($event)" (dateChange)="dateChangeEvent($event)">
+                        <input matInput [matDatepicker]="endDatePicker" formControlName="end_date" placeholder="dd/mm/yyyy" (dateInput)="dateInputEvent($event)" (dateChange)="endDateChangeEvent($event)">
                         <mat-datepicker-toggle matSuffix [for]="endDatePicker">
                             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                         </mat-datepicker-toggle>
@@ -35,6 +35,10 @@
 <div *ngIf="true" id="developer-div">
     <pre>
         statusReportForm = {{statusReportForm.value | json}}
+    </pre>
+    <pre>
+        startDate = {{startDate | json}}
+        endDate = {{endDate | json}}
     </pre>
 </div>
 

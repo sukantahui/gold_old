@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {formatDate} from "@angular/common";
+import {FormControl, FormGroup} from '@angular/forms';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-status-report',
@@ -9,9 +9,15 @@ import {formatDate} from "@angular/common";
 })
 export class StatusReportComponent implements OnInit {
   statusReportForm: FormGroup;
+  startDate: string;
+  endDate: string;
   constructor() {
+
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
+    this.startDate = formatDate(now, 'yyyy-MM-dd', 'en');
+    this.endDate = formatDate(now, 'yyyy-MM-dd', 'en');
+
     this.statusReportForm =  new FormGroup({
       start_date: new FormControl(currentSQLDate),
       end_date: new FormControl(currentSQLDate),
@@ -22,10 +28,14 @@ export class StatusReportComponent implements OnInit {
   }
 
   dateInputEvent($event: any) {
-    
+
   }
 
-  dateChangeEvent($event: any) {
-    
+  startDateChangeEvent($event: any) {
+    this.startDate = formatDate(new Date($event.value), 'yyyy-MM-dd', 'en');
+  }
+
+  endDateChangeEvent($event: any) {
+    this.endDate = formatDate(new Date($event.value), 'yyyy-MM-dd', 'en');
   }
 }
