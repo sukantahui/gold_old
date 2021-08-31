@@ -13,7 +13,7 @@ export class MenuOfficeStaffComponent implements OnInit {
       iconName: 'close',
       children: [
         {
-          displayName: 'Staff Report',
+          displayName: 'Status Report',
           iconName: 'group',
           route: 'StaffReport'
         },
