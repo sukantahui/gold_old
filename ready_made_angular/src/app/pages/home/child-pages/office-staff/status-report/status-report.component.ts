@@ -38,4 +38,8 @@ export class StatusReportComponent implements OnInit {
   endDateChangeEvent($event: any) {
     this.endDate = formatDate(new Date($event.value), 'yyyy-MM-dd', 'en');
   }
+
+  getGoldReceived() {
+    console.log('goldReceived');
+  }
 }

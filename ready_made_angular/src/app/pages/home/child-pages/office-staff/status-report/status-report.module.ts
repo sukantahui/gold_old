@@ -10,6 +10,8 @@ import {FormControlName, FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from '@angular/material/button';
+import {FlexModule} from '@angular/flex-layout';
 
 
 
@@ -17,18 +19,20 @@ import {MatIconModule} from "@angular/material/icon";
   declarations: [
     StatusReportComponent
   ],
-  imports: [
-    CommonModule,
-    StatusReportRoutingModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatIconModule
-  ],
+    imports: [
+        CommonModule,
+        StatusReportRoutingModule,
+        MatCardModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        FlexModule
+    ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
 export class StatusReportModule { }
