@@ -21,4 +21,11 @@ export class StatusReportComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  dateInputEvent($event: any) {
+    
+  }
+
+  dateChangeEvent($event: any) {
+    
+  }
 }
