@@ -63,7 +63,15 @@ const routes: Routes = [
 
   { path: 'stockEntry', loadChildren: () => import('./pages/home/child-pages/sales-manager/stock-entry/stock-entry.module').then(m => m.StockEntryModule) },
 
+<<<<<<< HEAD
   { path: 'production_manger', loadChildren: () => import('./pages/home/child-pages/production-manger/production-manger.module').then(m => m.ProductionMangerModule) }
+=======
+  { path: 'OfficeStaff', loadChildren: () => import('./pages/home/child-pages/office-staff/office-staff.module').then(m => m.OfficeStaffModule) },
+
+  { path: 'MenuOfficeStaff', loadChildren: () => import('./pages/home/menu/menu-office-staff/menu-office-staff.module').then(m => m.MenuOfficeStaffModule) },
+
+  { path: 'StatusReport', loadChildren: () => import('./pages/home/child-pages/office-staff/status-report/status-report.module').then(m => m.StatusReportModule) }
+>>>>>>> 87d83fb0f5329c0f1ee27f3edf0223520594ce21
 
 
 

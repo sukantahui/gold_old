@@ -50,8 +50,13 @@ export class AuthComponent implements OnInit {
                 if (this.authService.isManagerSales){
                     this.router.navigate(['/SalesManager']).then(r => {});
                 }
+<<<<<<< HEAD
                 if (this.authService.isManagerSales){
                   this.router.navigate(['/ProductionManager']).then(r => {});
+=======
+                if (this.authService.isOfficeStaff()){
+                    this.router.navigate(['/OfficeStaff']).then(r => {});
+>>>>>>> 87d83fb0f5329c0f1ee27f3edf0223520594ce21
                 }
             }
         }, (error) => {
