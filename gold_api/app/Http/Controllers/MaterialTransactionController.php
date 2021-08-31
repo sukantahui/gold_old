@@ -109,7 +109,11 @@ class MaterialTransactionController extends ApiController
             ->where('transaction_type_id',$transactionTypeId)
             ->where('inward','>',0)
             ->sum('inward');
-        return $this->successResponse($result);
+        if ( is_null($result) ) {
+            return $this->successResponse(0,'No Record find');
+        }else{
+            return $this->successResponse($result);
+        }
     }
 
 }

@@ -33,6 +33,28 @@
             </div>
         </mat-card-content>
     </mat-card>
+    <div id="report-area">
+        <div class="d-flex flex-row bd-highlight mb-3">
+            <div class="p-2 bd-highlight col-8">
+                <table class="table">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Gold Received Between {{startDate | date: 'dd/MM/yyyy'}} and {{endDate | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{totalGoldReceived}} g</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex col-4 flex-row bd-highlight mb-3">
+
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
 <div *ngIf="true" id="developer-div">
@@ -42,6 +64,9 @@
     <pre>
         startDate = {{startDate | json}}
         endDate = {{endDate | json}}
+    </pre>
+    <pre>
+        totalGoldReceived = {{totalGoldReceived | json}}
     </pre>
 </div>
 

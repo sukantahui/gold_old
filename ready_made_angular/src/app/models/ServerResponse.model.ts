@@ -1,7 +1,7 @@
-export interface ServerRespons {
-    status: boolean,
-    message: null,
-    "data": [],
-    "total": number
+export interface ServerResponse {
+    status?: boolean,
+    message?: null,
+    data?: any,
+    error?: any
 
 }

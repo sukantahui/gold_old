@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ErrorService} from "./error.service";
 import {NgxFancyLoggerService} from "ngx-fancy-logger";
-import {ServerRespons} from "../models/ServerResponse.model";
-import {tap} from "rxjs/operators";
+import {ServerResponse} from "../models/ServerResponse.model";
+import {catchError, tap} from "rxjs/operators";
+import {environment} from "../../environments/environment";
 
 
 @Injectable({
@@ -11,14 +12,13 @@ import {tap} from "rxjs/operators";
 })
 // @ts-ignore
 export class OfficeStaffStatusReportService {
-
+  private BASE_API_URL = environment.BASE_API_URL;
   constructor(private http: HttpClient, private errorService: ErrorService, private logger: NgxFancyLoggerService) { }
-  getMaterialReceivedByDate(){
-    return this.http.get<ServerRespons>('http://127.0.0.1:8000/api/dev/products', product)
-        .pipe(catchError(this.serverError), tap((response: ServerRespons) => {
-          if (response.success === 1){
-            this.products.unshift(response.data);
-            this.productSubject.next([...this.products]);
+  getMaterialReceivedByDate(startDate: string,endDate: string){
+    return this.http.get<ServerResponse>(this.BASE_API_URL + '/dev/materialReceivedTransactions/total/'+startDate+'/'+endDate+'/48/70/1')
+        .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+          if (response.status === true){
+
           }
 
         }));

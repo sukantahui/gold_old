@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {formatDate} from '@angular/common';
 import {OfficeStaffStatusReportService} from "../../../../../services/office-staff-status-report.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-status-report',
@@ -12,6 +13,7 @@ export class StatusReportComponent implements OnInit {
   statusReportForm: FormGroup;
   startDate: string;
   endDate: string;
+  totalGoldReceived: number;
   constructor(private statusReportService: OfficeStaffStatusReportService) {
 
     const now = new Date();
@@ -41,6 +43,12 @@ export class StatusReportComponent implements OnInit {
   }
 
   getGoldReceived() {
-    console.log('goldReceived');
+    this.statusReportService.getMaterialReceivedByDate( this.startDate,this.endDate).subscribe(response=>{
+      this.totalGoldReceived = response.data;
+      console.log(response)
+    }, (error) => {
+      // when error occured
+      console.log(error);
+    });
   }
 }
