@@ -18,12 +18,15 @@ export class StatusReportComponent implements OnInit {
   totalGoldReceivedFromJob: number
   totalNitricReceivedFromJob: number
   reportCount=0;
+  billTotal: {ploss: number, lc: number, mv: number, fine_gold: number, guinea_gold: number}={ploss: 0,lc: 0, mv: 0, fine_gold: 0, guinea_gold: 0};
+
   constructor(private statusReportService: OfficeStaffStatusReportService) {
 
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
     this.startDate = formatDate(now, 'yyyy-MM-dd', 'en');
     this.endDate = formatDate(now, 'yyyy-MM-dd', 'en');
+
 
     this.statusReportForm =  new FormGroup({
       start_date: new FormControl(currentSQLDate),
@@ -80,6 +83,16 @@ export class StatusReportComponent implements OnInit {
       this.totalNitricReceivedFromJob = response.data;
       this.reportCount++;
       console.log('Nitric Received from Job',response)
+    }, (error) => {
+      // when error occured
+      console.log(error);
+    });
+
+    //Bill Total
+    this.statusReportService.getBillTotalByDate( this.startDate,this.endDate).subscribe(response=>{
+      this.billTotal = response.data;
+      this.reportCount++;
+      console.log('Bill Total',response)
     }, (error) => {
       // when error occured
       console.log(error);

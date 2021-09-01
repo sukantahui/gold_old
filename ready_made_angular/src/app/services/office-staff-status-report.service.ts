@@ -46,6 +46,7 @@ export class OfficeStaffStatusReportService {
 
             }));
   }
+
   //nitric received from job
   getNitricReceivedFromJobByDateAndEmployee(startDate: string,endDate: string, rmId: number,employeeId: number){
         return this.http.get<ServerResponse>(this.BASE_API_URL + '/dev/nitricReceivedFromJobs/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId)
@@ -56,4 +57,17 @@ export class OfficeStaffStatusReportService {
 
             }));
   }
+  //Bill Total by Date
+  getBillTotalByDate(startDate: string,endDate: string){
+        return this.http.get<ServerResponse>(this.BASE_API_URL + '/dev/billTotal/total/'+startDate+'/'+endDate)
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+  }
+
+
+
 }

@@ -175,7 +175,6 @@ class MaterialTransactionController extends ApiController
 
         $query = BillDetails::whereIn('bill_no',$bills);
 
-
         $ploss = $query->sum('ploss');
         $returnArray['ploss'] = round($ploss,3);
 
@@ -183,7 +182,13 @@ class MaterialTransactionController extends ApiController
         $returnArray['lc'] = round($lc,2);
 
         $mv = $query->sum('markup_value');
-        $returnArray['mv'] = round($mv,2);
+        $returnArray['mv'] = round($mv,3);
+
+        $fine_gold = $query->sum('fine_gold');
+        $returnArray['fine_gold'] = round($fine_gold,3);
+
+        $guinea_gold = $query->sum('gold_wt');
+        $returnArray['guinea_gold'] = round($guinea_gold,3);
 
         return $this->successResponse($returnArray);
     }

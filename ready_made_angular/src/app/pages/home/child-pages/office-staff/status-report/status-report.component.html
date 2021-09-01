@@ -43,18 +43,45 @@
                         <th>{{totalGoldReceived}} gm.</th>
                     </tr>
                     <tr>
-                        <th>Send to Job</th>
-                        <th>Mathakata</th>
-                        <th>Nitric</th>
-                        <th>Blank</th>
+                        <th>Particulars</th>
+                        <th>Value</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>{{totalGoldSendToJob}} gm.</td>
-                        <td>{{totalGoldReceivedFromJob}} gm.</td>
-                        <td>{{totalNitricReceivedFromJob}} gm</td>
-                    </tr>
+                        <tr>
+                            <th colspan="2" class="text-center">JOB Details</th>
+                        </tr>
+                        <tr>
+                            <th>Send to Job</th>
+                            <td class="text-right">{{totalGoldSendToJob}} gm.</td>
+                        </tr>
+                        <tr>
+                            <th>Mathakata</th>
+                            <td class="text-right">{{totalGoldReceivedFromJob}} gm.</td>
+                        </tr>
+                        <tr>
+                            <th>Nitric</th>
+                            <td class="text-right">{{totalNitricReceivedFromJob}} gm.</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-center">Bill Details</th>
+                        </tr>
+                        <tr>
+                            <th>P Loss</th>
+                            <td class="text-right">{{billTotal.ploss}} gm.</td>
+                        </tr>
+                        <tr>
+                            <th>Labour Charge</th>
+                            <td class="text-right">{{billTotal.lc | currency:'INR':true}}</td>
+                        </tr>
+                        <tr>
+                            <th>Guinea Gold</th>
+                            <td class="text-right">{{billTotal.guinea_gold}}</td>
+                        </tr>
+                        <tr>
+                            <th>Fine Gold</th>
+                            <td class="text-right">{{billTotal.fine_gold}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -67,7 +94,7 @@
     </div>
 </div>
 
-<div *ngIf="true" id="developer-div">
+<div *ngIf="false" id="developer-div">
     <pre>
         statusReportForm = {{statusReportForm.value | json}}
     </pre>
