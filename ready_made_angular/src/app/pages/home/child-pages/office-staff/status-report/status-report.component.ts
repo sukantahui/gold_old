@@ -14,6 +14,10 @@ export class StatusReportComponent implements OnInit {
   startDate: string;
   endDate: string;
   totalGoldReceived: number;
+  totalGoldSendToJob: number
+  totalGoldReceivedFromJob: number
+  totalNitricReceivedFromJob: number
+  reportCount=0;
   constructor(private statusReportService: OfficeStaffStatusReportService) {
 
     const now = new Date();
@@ -42,13 +46,45 @@ export class StatusReportComponent implements OnInit {
     this.endDate = formatDate(new Date($event.value), 'yyyy-MM-dd', 'en');
   }
 
-  getGoldReceived() {
-    this.statusReportService.getMaterialReceivedByDate( this.startDate,this.endDate).subscribe(response=>{
+  getReport() {
+    this.statusReportService.getMaterialReceivedByDate( this.startDate,this.endDate,48,70).subscribe(response=>{
       this.totalGoldReceived = response.data;
-      console.log(response)
+      this.reportCount++;
+      console.log('Total Received Gold',response)
+    }, (error) => {
+      // when error occured
+      console.log(error);
+    });
+
+    //Gold send to job
+    this.statusReportService.getGoldSendToJobByDateAndEmployee( this.startDate,this.endDate,48,70).subscribe(response=>{
+      this.totalGoldSendToJob = response.data;
+      this.reportCount++;
+      console.log('Total Gold Send to job',response)
+    }, (error) => {
+      // when error occured
+      console.log(error);
+    });
+
+    //Gold Received from job
+    this.statusReportService.getGoldReceivedFromJobByDateAndEmployee( this.startDate,this.endDate,48,70).subscribe(response=>{
+      this.totalGoldReceivedFromJob = response.data;
+      this.reportCount++;
+      console.log('Total Gold Received from job',response)
+    }, (error) => {
+      // when error occured
+      console.log(error);
+    });
+    //Nitric Received from job
+    this.statusReportService.getNitricReceivedFromJobByDateAndEmployee( this.startDate,this.endDate,45,70).subscribe(response=>{
+      this.totalNitricReceivedFromJob = response.data;
+      this.reportCount++;
+      console.log('Nitric Received from Job',response)
     }, (error) => {
       // when error occured
       console.log(error);
     });
   }
+
+
 }

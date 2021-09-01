@@ -14,13 +14,46 @@ import {environment} from "../../environments/environment";
 export class OfficeStaffStatusReportService {
   private BASE_API_URL = environment.BASE_API_URL;
   constructor(private http: HttpClient, private errorService: ErrorService, private logger: NgxFancyLoggerService) { }
-  getMaterialReceivedByDate(startDate: string,endDate: string){
-    return this.http.get<ServerResponse>(this.BASE_API_URL + '/dev/materialReceivedTransactions/total/'+startDate+'/'+endDate+'/48/70/1')
+
+  // gold received from owner
+  getMaterialReceivedByDate(startDate: string,endDate: string, rmId: number,employeeId: number){
+    return this.http.get<ServerResponse>(this.BASE_API_URL + '/dev/materialReceivedTransactions/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId+'/1')
         .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
           if (response.status === true){
 
           }
 
         }));
+  }
+  //gold send to job
+  getGoldSendToJobByDateAndEmployee(startDate: string,endDate: string, rmId: number,employeeId: number){
+        return this.http.get<ServerResponse>(this.BASE_API_URL + '/dev/goldSendToJobs/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId)
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+  }
+
+  //gold received from job
+  getGoldReceivedFromJobByDateAndEmployee(startDate: string,endDate: string, rmId: number,employeeId: number){
+        return this.http.get<ServerResponse>(this.BASE_API_URL + '/dev/goldReceivedFromJobs/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId)
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+  }
+  //nitric received from job
+  getNitricReceivedFromJobByDateAndEmployee(startDate: string,endDate: string, rmId: number,employeeId: number){
+        return this.http.get<ServerResponse>(this.BASE_API_URL + '/dev/nitricReceivedFromJobs/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId)
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
   }
 }

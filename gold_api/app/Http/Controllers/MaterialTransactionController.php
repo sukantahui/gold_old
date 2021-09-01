@@ -114,13 +114,13 @@ class MaterialTransactionController extends ApiController
         if ( is_null($result) ) {
             return $this->successResponse(0,'No Record find');
         }else{
-            return $this->successResponse($result);
+            return $this->successResponse(round($result,3));
         }
     }
 
 
 
-    //http://127.0.0.1/gold_old/gold_api/public/api/dev/test/total/2019-04-13/2022-05-30/48/70
+    //http://127.0.0.1/gold_old/gold_api/public/api/dev/goldSendToJobs/total/total/2019-04-13/2022-05-30/48/70
     public function getGoldSendToJobByDatesAndEmployee($startDate,$endDate,$rmId,$employeeId){
         //run the following command first
         //ALTER TABLE inventory_day_book CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -130,9 +130,36 @@ class MaterialTransactionController extends ApiController
             ->whereRmId($rmId)
             ->whereComment('Gold send to Job')
             ->whereEmployeeId($employeeId)
+            ->whereTransactionType(-1)
             ->sum('rm_value');
         return $this->successResponse(round($result,3));
+    }
 
+    //http://127.0.0.1/gold_old/gold_api/public/api/dev/goldReceivedFromJobs/total/total/2019-04-13/2022-05-30/48/70
+    public function getGoldReceivedFromJobByDatesAndEmployee($startDate,$endDate,$rmId,$employeeId){
+        //run the following command first
+        //ALTER TABLE inventory_day_book CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+        $result = InventoryDayBook::where('timestamp','>=',$startDate)
+            ->where('timestamp','<=',$endDate)
+            ->whereRmId($rmId)
+            ->whereComment('Mathakata Returned from Job')
+            ->whereEmployeeId($employeeId)
+            ->whereTransactionType(1)
+            ->sum('rm_value');
+        return $this->successResponse(round($result,3));
+    }
+    //http://127.0.0.1/gold_old/gold_api/public/api/dev/nitricReceivedFromJobs/total/total/2019-04-13/2022-05-30/45/70
+    public function getNitricReceivedFromJobByDatesAndEmployee($startDate,$endDate,$rmId,$employeeId){
+        //run the following command first
+        //ALTER TABLE inventory_day_book CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+        $result = InventoryDayBook::where('timestamp','>=',$startDate)
+            ->where('timestamp','<=',$endDate)
+            ->whereRmId($rmId)
+            ->whereComment('Nitric returned from job Job')
+            ->whereEmployeeId($employeeId)
+            ->whereTransactionType(1)
+            ->sum('rm_value');
+        return $this->successResponse(round($result,3));
     }
 
 }

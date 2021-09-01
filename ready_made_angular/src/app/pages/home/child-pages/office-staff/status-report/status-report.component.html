@@ -26,24 +26,34 @@
                         <mat-datepicker #endDatePicker></mat-datepicker>
                     </mat-form-field>
                     <div class="example-button-row" fxFlex="30">
-                        <button mat-button color="primary" (click)="getGoldReceived()">Search</button>
+                        <button mat-button color="primary" (click)="getReport()">Search</button>
                     </div>
                 </div>
             </form>
             </div>
         </mat-card-content>
     </mat-card>
-    <div id="report-area">
+    <div id="report-area" *ngIf = "reportCount>0">
         <div class="d-flex flex-row bd-highlight mb-3">
             <div class="p-2 bd-highlight col-8">
                 <table class="table">
                     <thead>
+                    <tr>
+                        <th colspan="3">Gold Received Between {{startDate | date: 'dd/MM/yyyy'}} and {{endDate | date: 'dd/MM/yyyy'}}</th>
+                        <th>{{totalGoldReceived}} gm.</th>
+                    </tr>
+                    <tr>
+                        <th>Send to Job</th>
+                        <th>Mathakata</th>
+                        <th>Nitric</th>
+                        <th>Blank</th>
+                    </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Gold Received Between {{startDate | date: 'dd/MM/yyyy'}} and {{endDate | date: 'dd/MM/yyyy'}}</td>
-                        <td>{{totalGoldReceived}} g</td>
-                        <td></td>
+                        <td>{{totalGoldSendToJob}} gm.</td>
+                        <td>{{totalGoldReceivedFromJob}} gm.</td>
+                        <td>{{totalNitricReceivedFromJob}} gm</td>
                     </tr>
                     </tbody>
                 </table>
