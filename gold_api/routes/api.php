@@ -110,6 +110,8 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("materialReceivedTransactions/total/{startDate}/{endDate}/{rmId}/{employeeId}/{transactionTypeId}",[MaterialTransactionController::class ,'getMaterialReceivedTransactionsTotalByDates']);
     Route::get("materialReceivedTransactions/{startDate}/{endDate}/{rmId}/{employeeId}/{transactionTypeId}",[MaterialTransactionController::class ,'getMaterialReceivedTransactionsByDates']);
 
+    Route::get("test/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getGoldSendToJobByDatesAndEmployee']);
+
 
 
 

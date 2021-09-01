@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MaterialTransactionResource;
+use App\Models\InventoryDayBook;
+use App\Models\JobMaster;
 use App\Models\MaterialToEmployeeBalance;
 use App\Models\MaterialTransaction;
 use Illuminate\Http\Request;
@@ -114,6 +116,23 @@ class MaterialTransactionController extends ApiController
         }else{
             return $this->successResponse($result);
         }
+    }
+
+
+
+    //http://127.0.0.1/gold_old/gold_api/public/api/dev/test/total/2019-04-13/2022-05-30/48/70
+    public function getGoldSendToJobByDatesAndEmployee($startDate,$endDate,$rmId,$employeeId){
+        //run the following command first
+        //ALTER TABLE inventory_day_book CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+        //$jobs = JobMaster::whereIn('status',[2,3,4,5,6,7,51])->pluck('job_id');
+        $result = InventoryDayBook::where('timestamp','>=',$startDate)
+            ->where('timestamp','<=',$endDate)
+            ->whereRmId($rmId)
+            ->whereComment('Gold send to Job')
+            ->whereEmployeeId($employeeId)
+            ->sum('rm_value');
+        return $this->successResponse(round($result,3));
+
     }
 
 }
