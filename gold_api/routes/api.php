@@ -115,6 +115,7 @@ Route::group(array('prefix' => 'dev'), function() {
 
     //http://127.0.0.1/gold_old/gold_api/public/api/dev/nitricReceivedFromJobs/total/total/2019-04-13/2022-05-30/45/70
     Route::get("nitricReceivedFromJobs/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getNitricReceivedFromJobByDatesAndEmployee']);
+    Route::get("billTotal/{startDate}/{endDate}",[MaterialTransactionController::class ,'getBillTotalByDate']);
 
 
 

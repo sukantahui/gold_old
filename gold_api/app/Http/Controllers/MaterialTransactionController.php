@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MaterialTransactionResource;
+use App\Models\BillDetails;
+use App\Models\BillMaster;
 use App\Models\InventoryDayBook;
 use App\Models\JobMaster;
 use App\Models\MaterialToEmployeeBalance;
@@ -160,6 +162,30 @@ class MaterialTransactionController extends ApiController
             ->whereTransactionType(1)
             ->sum('rm_value');
         return $this->successResponse(round($result,3));
+    }
+
+    public function getBillTotalByDate($startDate,$endDate){
+        //run the following command first
+        //ALTER TABLE inventory_day_book CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+        $returnArray=array();
+        $bills = BillMaster::where('tr_time','>=',$startDate)
+            ->where('tr_time','<=',$endDate)
+            ->where('comments','<>','Ready Made Bill')->pluck('bill_no');
+
+
+        $query = BillDetails::whereIn('bill_no',$bills);
+
+
+        $ploss = $query->sum('ploss');
+        $returnArray['ploss'] = round($ploss,3);
+
+        $lc = $query->sum('labour_charge');
+        $returnArray['lc'] = round($lc,2);
+
+        $mv = $query->sum('markup_value');
+        $returnArray['mv'] = round($mv,2);
+
+        return $this->successResponse($returnArray);
     }
 
 }
