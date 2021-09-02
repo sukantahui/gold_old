@@ -18,6 +18,7 @@ class ReportController extends ApiController
         $ids =implode("','",$customers);
 //
         $queries = DB::select("SELECT cust_id
+                , mailing_name
                 , get_customer_sale_qty_by_date(cust_id,'$startDate', '$endDate') as qty
                 , get_customer_sale_gold_total_by_date(cust_id,'$startDate', '$endDate') as fine_gold
                 , get_customer_sale_lc_total_by_date(cust_id,'$startDate', '$endDate') as lc

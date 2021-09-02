@@ -2,7 +2,7 @@
     <mat-card class="example-card">
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Agent wise Sale Report</mat-card-title>
+            <mat-card-title>Working Status Report</mat-card-title>
         </mat-card-header>
         <mat-card-content>
 
@@ -26,7 +26,7 @@
                             <mat-datepicker #endDatePicker></mat-datepicker>
                         </mat-form-field>
                         <div class="example-button-row" fxFlex="30">
-                            <button mat-button color="primary">Search</button>
+                            <button mat-button color="primary" (click)="getReport()">Search</button>
                         </div>
                     </div>
                 </form>

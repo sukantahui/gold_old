@@ -55,6 +55,11 @@ const routes: Routes = [
                                     path: 'StaffReport',
                                     loadChildren: () => import('./child-pages/office-staff/status-report/status-report.module')
                                         .then(mod => mod.StatusReportModule)
+                                },
+                                {
+                                    path: 'AgentWiseSaleReport',
+                                    loadChildren: () => import('./child-pages/sales-manager/agent-wise-sale-report/agent-wise-sale-report.module')
+                                        .then(mod => mod.AgentWiseSaleReportModule)
                                 }
 
 
