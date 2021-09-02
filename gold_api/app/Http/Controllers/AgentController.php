@@ -44,4 +44,9 @@ class AgentController extends ApiController
         $result = Agent::findOrFail($id)->customers;
         return $this->successResponse($result);
     }
+    public function getAgents(){
+        $agent = Agent::select()->get();
+
+        return $this->successResponse($agent);
+    }
 }

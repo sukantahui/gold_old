@@ -78,6 +78,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("getTotalMaterialReceivedFromOwnerWithinDates",[MaterialTransactionController::class ,'getTotalMaterialReceivedFromOwnerWithinDates']);
 
     Route::get("getJobIdByJobMaster",[JobMasterController::class, 'getJobIdByJobMaster']);
+
+    Route::get("agents",[AgentController::class, 'getAgents']);
 });
 
 
@@ -126,6 +128,8 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("getClosingBalannceByEmpIdAndRmId/{empId}/{rmId}",[MaterialToEmployeeBalanceController::class, 'getClosingBalannceByEmpIdAndRmId']);
 
     Route::get("getJobIdByJobMaster",[JobMasterController::class, 'getJobIdByJobMaster']);
+
+    Route::get("agents",[AgentController::class, 'getAgents']);
 
 });
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {formatDate} from '@angular/common';
 import {FormControl, FormGroup} from '@angular/forms';
+import {AgentWiseSalesReportService} from '../../../../../services/agent-wise-sales-report.service';
 
 @Component({
   selector: 'app-agent-wise-sale-report',
@@ -11,7 +12,8 @@ export class AgentWiseSaleReportComponent implements OnInit {
   agentWiseSaleReportForm: FormGroup;
   startDate: string;
   endDate: string;
-  constructor() {
+  agentList: any[];
+  constructor(private agentWiseSalesReportService: AgentWiseSalesReportService) {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
     this.startDate = formatDate(now, 'yyyy-MM-dd', 'en');
@@ -24,6 +26,9 @@ export class AgentWiseSaleReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.agentWiseSalesReportService.getAgentsUpdateListener().subscribe((response)=>{
+      this.agentList = response;
+    });
   }
   startDateChangeEvent($event: any) {
     this.startDate = formatDate(new Date($event.value), 'yyyy-MM-dd', 'en');
