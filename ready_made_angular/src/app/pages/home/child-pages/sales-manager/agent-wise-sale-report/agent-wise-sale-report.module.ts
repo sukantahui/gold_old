@@ -31,9 +31,9 @@ import {FlexModule} from '@angular/flex-layout';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    FlexModule,
+    FlexModule
 
   ],
-  // providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
 export class AgentWiseSaleReportModule { }

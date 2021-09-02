@@ -36,4 +36,7 @@ export class AgentWiseSaleReportComponent implements OnInit {
 
   }
 
+  getReport() {
+
+  }
 }
