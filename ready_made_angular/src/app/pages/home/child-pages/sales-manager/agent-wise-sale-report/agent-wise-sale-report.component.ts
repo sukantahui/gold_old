@@ -22,6 +22,7 @@ export class AgentWiseSaleReportComponent implements OnInit {
     this.agentWiseSaleReportForm = new FormGroup({
       start_date: new FormControl(currentSQLDate),
       end_date: new FormControl(currentSQLDate),
+      agent_id: new FormControl(null)
     });
   }
 

@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@angular/flex-layout';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 
@@ -32,6 +33,7 @@ import {FlexModule} from '@angular/flex-layout';
     MatIconModule,
     MatButtonModule,
     FlexModule,
+    NgSelectModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
