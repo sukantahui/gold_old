@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends ApiController
 {
-    public function test($startDate,$endDate,$agentId){
+    public function getSaleReportByDatesAndAgent($startDate,$endDate,$agentId){
 
         $customers = AgentToCustomer::whereAgentId($agentId)->pluck('cust_id')->toArray();
 

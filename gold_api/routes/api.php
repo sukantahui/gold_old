@@ -121,7 +121,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("billTotal/total/{startDate}/{endDate}",[MaterialTransactionController::class ,'getBillTotalByDate']);
 
 
-    Route::get("test/{startDate}/{endDate}/{agentId}",[ReportController::class ,'test']);
+    Route::get("SalesReport/agent/{startDate}/{endDate}/{agentId}",[ReportController::class ,'getSaleReportByDatesAndAgent']);
 
 
 
