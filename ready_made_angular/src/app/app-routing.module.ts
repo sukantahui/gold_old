@@ -67,7 +67,9 @@ const routes: Routes = [
 
   { path: 'MenuOfficeStaff', loadChildren: () => import('./pages/home/menu/menu-office-staff/menu-office-staff.module').then(m => m.MenuOfficeStaffModule) },
 
-  { path: 'StatusReport', loadChildren: () => import('./pages/home/child-pages/office-staff/status-report/status-report.module').then(m => m.StatusReportModule) }
+  { path: 'StatusReport', loadChildren: () => import('./pages/home/child-pages/office-staff/status-report/status-report.module').then(m => m.StatusReportModule) },
+
+  { path: 'AgentWiseSaleReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/agent-wise-sale-report/agent-wise-sale-report.module').then(m => m.AgentWiseSaleReportModule) }
 
 
 

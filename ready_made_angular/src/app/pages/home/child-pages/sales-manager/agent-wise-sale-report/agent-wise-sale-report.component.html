@@ -1,0 +1,36 @@
+<div id="agent-wise-sale-report-div">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Agent wise Sale Report</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                <form [formGroup]="agentWiseSaleReportForm">
+                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                        <mat-form-field class="example-full-width" fxFlex="30">
+                            <mat-label>Start date (dd/mm/yyyy)</mat-label>
+                            <input matInput [matDatepicker]="startDatePicker" formControlName="start_date" placeholder="dd/mm/yyyy" (dateChange)="startDateChangeEvent($event)">
+                            <mat-datepicker-toggle matSuffix [for]="startDatePicker">
+                                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #startDatePicker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width" fxFlex="30">
+                            <mat-label>End date (dd/mm/yyyy)</mat-label>
+                            <input matInput [matDatepicker]="endDatePicker" formControlName="end_date" placeholder="dd/mm/yyyy" (dateInput)="dateInputEvent($event)" (dateChange)="endDateChangeEvent($event)">
+                            <mat-datepicker-toggle matSuffix [for]="endDatePicker">
+                                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #endDatePicker></mat-datepicker>
+                        </mat-form-field>
+                        <div class="example-button-row" fxFlex="30">
+                            <button mat-button color="primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
