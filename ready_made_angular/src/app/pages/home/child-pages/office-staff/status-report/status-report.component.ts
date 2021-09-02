@@ -69,20 +69,20 @@ export class StatusReportComponent implements OnInit {
       console.log(error);
     });
 
-    //Gold Received from job
-    this.statusReportService.getGoldReceivedFromJobByDateAndEmployee( this.startDate,this.endDate,48,70).subscribe(response=>{
+    // Gold Received from job
+    this.statusReportService.getGoldReceivedFromJobByDateAndEmployee( this.startDate, this.endDate, 48, 70).subscribe(response=>{
       this.totalGoldReceivedFromJob = response.data;
       this.reportCount++;
-      console.log('Total Gold Received from job',response)
+      console.log('Total Gold Received from job', response);
     }, (error) => {
       // when error occured
       console.log(error);
     });
-    //Nitric Received from job
+    // Nitric Received from job
     this.statusReportService.getNitricReceivedFromJobByDateAndEmployee( this.startDate,this.endDate,45,70).subscribe(response=>{
       this.totalNitricReceivedFromJob = response.data;
       this.reportCount++;
-      console.log('Nitric Received from Job',response)
+      console.log('Nitric Received from Job', response);
     }, (error) => {
       // when error occured
       console.log(error);
