@@ -1,0 +1,76 @@
+DROP FUNCTION IF EXISTS ses_gold.get_customer_sale_gold_total_by_date;
+CREATE FUNCTION ses_gold.`get_customer_sale_gold_total_by_date`(customer_id varchar(255), in_start_date varchar(20),in_end_date varchar(20)) RETURNS double
+    DETERMINISTIC
+BEGIN
+	DECLARE total_gold_sold double;
+  set total_gold_sold=0;
+  select round(sum(fine_gold),3) into total_gold_sold from bill_details
+  inner join bill_master ON bill_master.bill_no = bill_details.bill_no
+  where bill_master.cust_id=customer_id and date(bill_master.tr_time)>=in_start_date and date(bill_master.tr_time)<=in_end_date;
+  IF isnull(total_gold_sold) then
+    set total_gold_sold=0;
+  END IF;
+	RETURN total_gold_sold;
+END;
+
+
+
+
+
+DROP FUNCTION IF EXISTS ses_gold.get_customer_sale_qty_by_date;
+CREATE FUNCTION ses_gold.`get_customer_sale_qty_by_date`(in_customer_id varchar(255), in_start_date varchar(20),in_end_date varchar(20)) RETURNS double
+    DETERMINISTIC
+BEGIN
+	DECLARE total_qty double;
+  set total_qty=0;
+  select sum(qty) into total_qty from bill_details inner join bill_master ON bill_master.bill_no = bill_details.bill_no 
+      where bill_master.cust_id=in_customer_id and date(bill_master.tr_time)>=in_start_date and date(bill_master.tr_time)<=in_end_date;
+  IF isnull(total_qty) then
+    set total_qty=0;
+  END IF;
+	RETURN total_qty;
+END;
+
+
+
+CREATE FUNCTION ses_gold.`get_customer_sale_lc_total_by_date`(customer_id varchar(255),in_start_date varchar(20),in_end_date varchar(20)) RETURNS double
+    DETERMINISTIC
+BEGIN
+	DECLARE total_lc_sold double;
+  select sum(labour_charge) into total_lc_sold from bill_details
+  inner join bill_master ON bill_master.bill_no = bill_details.bill_no
+  where bill_master.cust_id=customer_id and date(bill_master.tr_time)>=in_start_date and date(bill_master.tr_time)<=in_end_date;
+  IF isnull(total_lc_sold) then
+    set total_lc_sold=0;
+  END IF;
+	RETURN total_lc_sold;
+END;
+
+
+DROP FUNCTION IF EXISTS ses_gold.get_customer_gold_received_total_by_date;
+CREATE FUNCTION ses_gold.`get_customer_gold_received_total_by_date`(customer_id varchar(255),in_start_date varchar(20),in_end_date varchar(20)) RETURNS double
+    DETERMINISTIC
+BEGIN
+	DECLARE total_gold_received double;
+  set total_gold_received=0;
+  select round(sum(gold_value),3) into total_gold_received from gold_receipt_master where cust_id=customer_id and date(gold_receipt_master.tr_date)>=in_start_date and date(gold_receipt_master.tr_date)<=in_end_date;
+  IF isnull(total_gold_received) then
+    set total_gold_received=0;
+  END IF;
+	RETURN total_gold_received;
+END;
+
+
+
+DROP FUNCTION IF EXISTS ses_gold.get_customer_lc_received_total_by_date;
+CREATE FUNCTION ses_gold.`get_customer_lc_received_total_by_date`(customer_id varchar(255),in_start_date varchar(20),in_end_date varchar(20)) RETURNS double
+    DETERMINISTIC
+BEGIN
+	DECLARE total_lc_received double;
+  set total_lc_received=0;
+  select sum(amount) into total_lc_received  from lc_receipt_master where cust_id=customer_id and date(lc_receipt_master.lc_receipt_date)>=in_start_date and date(lc_receipt_master.lc_receipt_date)<=in_end_date;
+  IF isnull(total_lc_received) then
+    set total_lc_received=0;
+  END IF;
+	RETURN total_lc_received;
+END;

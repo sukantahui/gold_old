@@ -13,8 +13,22 @@ class ReportController extends ApiController
 {
     public function test($startDate,$endDate,$agentId){
 
-//        $customers = AgentToCustomer::whereAgentId($agentId)->pluck('cust_id');
-        $queries = DB::select("SELECT cust_id, get_customer_sale_qty_by_date(cust_id,'2021-01-01', '2021-08-30') from customer_master");
+        $customers = AgentToCustomer::whereAgentId($agentId)->pluck('cust_id')->toArray();
+
+        $ids =implode("','",$customers);
+//
+        $queries = DB::select("SELECT cust_id
+                , get_customer_sale_qty_by_date(cust_id,'$startDate', '$endDate') as qty
+                , get_customer_sale_gold_total_by_date(cust_id,'$startDate', '$endDate') as fine_gold
+                , get_customer_sale_lc_total_by_date(cust_id,'$startDate', '$endDate') as lc
+                , get_customer_gold_received_total_by_date(cust_id,'$startDate', '$endDate') as gold_received
+                , get_customer_lc_received_total_by_date(cust_id,'$startDate', '$endDate') as lc_received
+                  from customer_master where cust_id in('$ids')");
+//        $queries=DB::table('customer_master')
+//                ->selectRaw("get_customer_sale_qty_by_date(cust_id,$startDate, $endDate)")
+//                ->whereIn('cust_id', $customers)
+//                ->get();
+//        get_customer_sale_qty_by_date(cust_id,$startDate, $endDate)
         return $this->successResponse($queries);
     }
 }
