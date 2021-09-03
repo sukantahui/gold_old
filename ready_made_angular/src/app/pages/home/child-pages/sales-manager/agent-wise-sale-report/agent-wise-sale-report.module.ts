@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@angular/flex-layout';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {MatSortModule} from "@angular/material/sort";
 
 
 
@@ -33,7 +34,9 @@ import {NgSelectModule} from '@ng-select/ng-select';
     MatIconModule,
     MatButtonModule,
     FlexModule,
-    NgSelectModule
+    NgSelectModule,
+    MatIconModule,
+    MatSortModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })

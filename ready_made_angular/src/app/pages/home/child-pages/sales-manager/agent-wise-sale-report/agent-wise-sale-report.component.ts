@@ -3,6 +3,7 @@ import {formatDate} from '@angular/common';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AgentWiseSalesReportService} from '../../../../../services/agent-wise-sales-report.service';
 import {ReportService} from "../../../../../services/report.service";
+import {CommonService} from "../../../../../services/common.service";
 
 @Component({
   selector: 'app-agent-wise-sale-report',
@@ -16,7 +17,12 @@ export class AgentWiseSaleReportComponent implements OnInit {
   agentList: any[];
   sortedAgentList: any[];
   agentWiseSale: any[];
-  constructor(private agentWiseSalesReportService: AgentWiseSalesReportService, private reportService: ReportService ) {
+  qtyTotal: number;
+  billedGoldTotal: number;
+  billedLcTotal: number;
+  goldReceivedTotal: number;
+  lcReceivedTotal: number;
+  constructor(private agentWiseSalesReportService: AgentWiseSalesReportService, private reportService: ReportService, private commonService: CommonService ) {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
     this.startDate = formatDate(now, 'yyyy-MM-dd', 'en');
@@ -49,7 +55,12 @@ export class AgentWiseSaleReportComponent implements OnInit {
     this.reportService.getAgentWiseSaleReport( this.startDate,this.endDate,this.agentWiseSaleReportForm.get('agent_id').value).subscribe(response=>{
       this.agentWiseSale = response.data;
       this.agentWiseSale =  this.agentWiseSale.filter(ag => ag.qty !== 0 || ag.gold_received !== 0  || ag.lc_received !== 0);
-      console.log(this.agentWiseSale);
+      this.qtyTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.qty,0);
+      this.billedGoldTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.fine_gold,0);
+      this.billedLcTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.lc,0);
+      this.goldReceivedTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.gold_received,0);
+      this.lcReceivedTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.lc_received,0);
+
     }, (error) => {
       // when error occured
       console.log(error);
