@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let row of agentWiseSale; let i = index">
-                        <ng-container *ngIf="row.qty>0 || row.gold_received>0 || row.lc_received>0">
+                        <ng-container *ngIf="true">
                             <th scope="row">{{i+1}}</th>
                             <td class="text-left">{{row.cust_name}}</td>
                             <td class="text-right">{{row.qty}} pcs</td>
