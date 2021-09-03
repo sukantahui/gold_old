@@ -14,6 +14,7 @@ export class AgentWiseSaleReportComponent implements OnInit {
   startDate: string;
   endDate: string;
   agentList: any[];
+  sortedAgentList: any[];
   agentWiseSale: any[];
   constructor(private agentWiseSalesReportService: AgentWiseSalesReportService, private reportService: ReportService ) {
     const now = new Date();
@@ -47,6 +48,7 @@ export class AgentWiseSaleReportComponent implements OnInit {
   getReport() {
     this.reportService.getAgentWiseSaleReport( this.startDate,this.endDate,this.agentWiseSaleReportForm.get('agent_id').value).subscribe(response=>{
       this.agentWiseSale = response.data;
+      this.agentWiseSale =  this.agentWiseSale.filter(ag => ag.qty !== 0 || ag.gold_received !== 0  || ag.lc_received !== 0);
       console.log(this.agentWiseSale);
     }, (error) => {
       // when error occured
