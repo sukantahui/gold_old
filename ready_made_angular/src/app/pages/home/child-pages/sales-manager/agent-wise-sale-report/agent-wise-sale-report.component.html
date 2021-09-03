@@ -46,4 +46,51 @@
             </div>
         </mat-card-content>
     </mat-card>
+
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Agent Wise Sale Report</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Qty</th>
+                    <th>Billed Gold</th>
+                    <th>Billed LC</th>
+                    <th>Gold Received</th>
+                    <th>LC Received</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let row of agentWiseSale; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td class="text-left">{{row.cust_name}}</td>
+                    <td class="text-right">{{row.qty}} pcs</td>
+                    <td class="text-right">{{row.fine_gold}} gm.</td>
+                    <td class="text-right">{{row.lc}}</td>
+                    <td class="text-right">{{row.gold_received}} gm.</td>
+                    <td class="text-right">{{row.lc_received}} gm.</td>
+                </tr>
+                </tbody>
+            </table>
+        </mat-card-content>
+    </mat-card>
+
+</div>
+
+
+<div *ngIf="false" id="developer-div">
+    <pre>
+
+    </pre>
+    <pre>
+        startDate = {{startDate | json}}
+        endDate = {{endDate | json}}
+    </pre>
+    <pre>
+
+    </pre>
 </div>
