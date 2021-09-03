@@ -53,16 +53,16 @@
             <mat-card-title class="text-center">Sales Report for Agent: {{agentWiseSaleReportForm.get('agent_id').value}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <table class="table table-bordered table-responsive">
+            <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive">
                 <thead>
                 <tr>
                     <th class="text-center">SL</th>
-                    <th class="text-center">Customer</th>
-                    <th class="text-center">Qty</th>
-                    <th class="text-center">Billed Gold</th>
-                    <th class="text-center">Billed LC</th>
-                    <th class="text-center">Gold Received</th>
-                    <th class="text-center">LC Received</th>
+                    <th class="text-center" mat-sort-header="cust_name">Customer</th>
+                    <th class="text-center" mat-sort-header="qty">Qty</th>
+                    <th class="text-center" mat-sort-header="fine_gold">Billed Gold</th>
+                    <th class="text-center" mat-sort-header="lc">Billed LC</th>
+                    <th class="text-center" mat-sort-header="gold_received">Gold Received</th>
+                    <th class="text-center" mat-sort-header="lc_received">LC Received</th>
                 </tr>
                 </thead>
                 <tbody>

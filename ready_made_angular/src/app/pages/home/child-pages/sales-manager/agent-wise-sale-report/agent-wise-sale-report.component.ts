@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {AgentWiseSalesReportService} from '../../../../../services/agent-wise-sales-report.service';
 import {ReportService} from "../../../../../services/report.service";
 import {CommonService} from "../../../../../services/common.service";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-agent-wise-sale-report',
@@ -66,4 +67,27 @@ export class AgentWiseSaleReportComponent implements OnInit {
       console.log(error);
     });
   }
+
+  sortData(sort: Sort){
+    const data = this.agentWiseSale.slice();
+    if (!sort.active || sort.direction === '') {
+      this.agentWiseSale = data;
+      return;
+    }
+    this.agentWiseSale = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      const isDesc = sort.direction === 'desc';
+      switch (sort.active) {
+        case 'cust_name': return this.commonService.compare(a.cust_name, b.cust_name, isAsc);
+          // case 'model_no': return compare(a.model_no, b.model_no, isAsc);
+        case 'qty': return this.commonService.compare(a.qty, b.qty, isAsc);
+        case 'fine_gold': return this.commonService.compare(a.fine_gold, b.fine_gold, isAsc);
+        case 'lc': return this.commonService.compare(a.lc, b.lc, isAsc);
+        case 'gold_received': return this.commonService.compare(a.gold_received, b.gold_received, isAsc);
+        case 'lc_received': return this.commonService.compare(a.lc_received, b.lc_received, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
 }
