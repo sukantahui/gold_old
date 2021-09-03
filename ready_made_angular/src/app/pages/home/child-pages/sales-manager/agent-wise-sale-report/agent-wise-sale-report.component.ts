@@ -45,7 +45,7 @@ export class AgentWiseSaleReportComponent implements OnInit {
   }
 
   getReport() {
-    this.reportService.getAgentWiseSaleReport( this.startDate,this.endDate,this.agentWiseSaleReportForm.get('').value).subscribe(response=>{
+    this.reportService.getAgentWiseSaleReport( this.startDate,this.endDate,this.agentWiseSaleReportForm.get('agent_id').value).subscribe(response=>{
       this.agentWiseSale = response.data;
       console.log(this.agentWiseSale);
     }, (error) => {

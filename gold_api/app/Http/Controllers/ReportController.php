@@ -24,7 +24,7 @@ class ReportController extends ApiController
                 , get_customer_sale_lc_total_by_date(cust_id,'$startDate', '$endDate') as lc
                 , get_customer_gold_received_total_by_date(cust_id,'$startDate', '$endDate') as gold_received
                 , get_customer_lc_received_total_by_date(cust_id,'$startDate', '$endDate') as lc_received
-                  from customer_master where cust_id in('$ids')");
+                  from customer_master where cust_id in('$ids') order by qty desc");
 //        $queries=DB::table('customer_master')
 //                ->selectRaw("get_customer_sale_qty_by_date(cust_id,$startDate, $endDate)")
 //                ->whereIn('cust_id', $customers)

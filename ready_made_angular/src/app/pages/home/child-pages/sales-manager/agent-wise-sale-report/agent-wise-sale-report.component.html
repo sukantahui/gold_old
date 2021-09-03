@@ -50,30 +50,34 @@
     <mat-card class="example-card">
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Agent Wise Sale Report</mat-card-title>
+            <mat-card-title class="text-center">Sales Report for Agent: {{agentWiseSaleReportForm.get('agent_id').value}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Customer</th>
-                    <th>Qty</th>
-                    <th>Billed Gold</th>
-                    <th>Billed LC</th>
-                    <th>Gold Received</th>
-                    <th>LC Received</th>
+                    <th class="text-center">SL</th>
+                    <th class="text-center">Customer</th>
+                    <th class="text-center">Qty</th>
+                    <th class="text-center">Billed Gold</th>
+                    <th class="text-center">Billed LC</th>
+                    <th class="text-center">Gold Received</th>
+                    <th class="text-center">LC Received</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let row of agentWiseSale; let i = index">
-                    <th scope="row">{{i+1}}</th>
-                    <td class="text-left">{{row.cust_name}}</td>
-                    <td class="text-right">{{row.qty}} pcs</td>
-                    <td class="text-right">{{row.fine_gold}} gm.</td>
-                    <td class="text-right">{{row.lc}}</td>
-                    <td class="text-right">{{row.gold_received}} gm.</td>
-                    <td class="text-right">{{row.lc_received}} gm.</td>
-                </tr>
+                    <tr *ngFor="let row of agentWiseSale; let i = index">
+                        <ng-container *ngIf="row.qty>0 || row.gold_received>0 || row.lc_received>0">
+                            <th scope="row">{{i+1}}</th>
+                            <td class="text-left">{{row.cust_name}}</td>
+                            <td class="text-right">{{row.qty}} pcs</td>
+                            <td class="text-right">{{row.fine_gold}} gm.</td>
+                            <td class="text-right">{{row.lc}}</td>
+                            <td class="text-right">{{row.gold_received}} gm.</td>
+                            <td class="text-right">{{row.lc_received}} gm.</td>
+                        </ng-container>
+                    </tr>
+
                 </tbody>
             </table>
         </mat-card-content>
