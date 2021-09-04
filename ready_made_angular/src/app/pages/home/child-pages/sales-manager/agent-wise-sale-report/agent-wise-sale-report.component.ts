@@ -23,6 +23,9 @@ export class AgentWiseSaleReportComponent implements OnInit {
   billedLcTotal: number;
   goldReceivedTotal: number;
   lcReceivedTotal: number;
+  isAllCustomers = false;
+  color = 'accent';
+  private agentWiseSalemaster: any[];
   constructor(private agentWiseSalesReportService: AgentWiseSalesReportService, private reportService: ReportService, private commonService: CommonService ) {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
@@ -54,6 +57,7 @@ export class AgentWiseSaleReportComponent implements OnInit {
 
   getReport() {
     this.reportService.getAgentWiseSaleReport( this.startDate,this.endDate,this.agentWiseSaleReportForm.get('agent_id').value).subscribe(response=>{
+      this.agentWiseSalemaster = response.data;
       this.agentWiseSale = response.data;
       this.agentWiseSale =  this.agentWiseSale.filter(ag => ag.qty !== 0 || ag.gold_received !== 0  || ag.lc_received !== 0);
       this.qtyTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.qty,0);
@@ -90,4 +94,12 @@ export class AgentWiseSaleReportComponent implements OnInit {
     });
   }
 
+  isAllCustomersChanged() {
+    this.isAllCustomers=!this.isAllCustomers;
+    if(this.isAllCustomers){
+      this.agentWiseSale=this.agentWiseSalemaster;
+    }else{
+      this.agentWiseSale =  this.agentWiseSalemaster.filter(ag => ag.qty !== 0 || ag.gold_received !== 0  || ag.lc_received !== 0);
+    }
+  }
 }

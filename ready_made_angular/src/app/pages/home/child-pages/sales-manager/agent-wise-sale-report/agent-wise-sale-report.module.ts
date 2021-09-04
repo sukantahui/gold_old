@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from '@angular/flex-layout';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {MatSortModule} from "@angular/material/sort";
+import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 
@@ -36,7 +37,8 @@ import {MatSortModule} from "@angular/material/sort";
     FlexModule,
     NgSelectModule,
     MatIconModule,
-    MatSortModule
+    MatSortModule,
+    MatSlideToggleModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })

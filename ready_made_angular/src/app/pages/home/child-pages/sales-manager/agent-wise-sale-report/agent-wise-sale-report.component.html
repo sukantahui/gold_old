@@ -53,6 +53,15 @@
             <mat-card-title class="text-center">Sales Report for Agent: {{agentWiseSaleReportForm.get('agent_id').value}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
+
+
+
+            <mat-slide-toggle
+                    [(ngModel)]="isAllCustomers"
+                    class="example-margin"
+                    (change)="isAllCustomersChanged()">
+                    {{isAllCustomers? "All Customers":"Active Customers for selected period"}}
+            </mat-slide-toggle>
             <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive">
                 <thead>
                 <tr>
