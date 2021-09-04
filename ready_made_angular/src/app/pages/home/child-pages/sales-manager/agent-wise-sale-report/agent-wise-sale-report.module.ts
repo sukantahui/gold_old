@@ -15,6 +15,9 @@ import {FlexModule} from '@angular/flex-layout';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {MatSortModule} from "@angular/material/sort";
 import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {NgxPrinterModule} from 'ngx-printer';
+import {NgxPrintModule} from 'ngx-print';
+import {LayoutModule} from '@angular/cdk/layout';
 
 
 
@@ -38,7 +41,10 @@ import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-togg
     NgSelectModule,
     MatIconModule,
     MatSortModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgxPrinterModule,
+    NgxPrintModule,
+    LayoutModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
