@@ -43,7 +43,7 @@ export class AgentWiseSaleReportComponent implements OnInit {
     label:{'width': '100%'},
     th: {border: '1px  solid black' , 'fontSize' : 'small'},
     td: {border: '1px  solid black' , 'fontSize' : 'small'},
-  
+
 };
 
 
@@ -64,7 +64,13 @@ export class AgentWiseSaleReportComponent implements OnInit {
   }
 
   getReport() {
-    this.reportService.getAgentWiseSaleReport( this.startDate,this.endDate,this.agentWiseSaleReportForm.get('agent_id').value).subscribe(response=>{
+    let agentId = '1';
+    if (this.agentWiseSaleReportForm.get('agent_id').value != null){
+      agentId = this.agentWiseSaleReportForm.get('agent_id').value;
+
+    }
+    this.reportService.getAgentWiseSaleReport( this.startDate, this.endDate, agentId).subscribe(response=>{
+
       this.agentWiseSalemaster = response.data;
       this.agentWiseSale = response.data;
       this.agentWiseSale =  this.agentWiseSale.filter(ag => ag.qty !== 0 || ag.gold_received !== 0  || ag.lc_received !== 0);

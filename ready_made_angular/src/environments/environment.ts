@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  BASE_API_URL: 'http://127.0.0.1/gold_old/gold_api/public/api',
+  BASE_API_URL: 'http://192.168.1.178/gold_old/gold_api/public/api',
 };
 
 /*

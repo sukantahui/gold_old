@@ -13,6 +13,21 @@ class ReportController extends ApiController
 {
     public function getSaleReportByDatesAndAgent($startDate,$endDate,$agentId){
 
+
+        if($agentId=='1'){
+            $queries = DB::select("SELECT cust_id
+                , cust_name
+                , get_customer_sale_qty_by_date(cust_id,'$startDate', '$endDate') as qty
+                , get_customer_sale_gold_total_by_date(cust_id,'$startDate', '$endDate') as fine_gold
+                , get_customer_sale_lc_total_by_date(cust_id,'$startDate', '$endDate') as lc
+                , get_customer_gold_received_total_by_date(cust_id,'$startDate', '$endDate') as gold_received
+                , get_customer_lc_received_total_by_date(cust_id,'$startDate', '$endDate') as lc_received
+                  from customer_master  order by qty desc");
+            return $this->successResponse($queries);
+        }
+
+
+        //if agent selected
         $customers = AgentToCustomer::whereAgentId($agentId)->pluck('cust_id')->toArray();
 
         $ids =implode("','",$customers);

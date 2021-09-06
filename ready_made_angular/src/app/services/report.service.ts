@@ -17,6 +17,7 @@ export class ReportService {
 
   }
   getAgentWiseSaleReport(startDate: string,endDate: string,agentId: string){
+      console.log(agentId);
     return this.http.get<ServerResponse>(this.BASE_API_URL + '/dev/SalesReport/agent/'+startDate+'/'+endDate+'/'+agentId)
         .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
           if (response.status === true){
