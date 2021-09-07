@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
@@ -130,6 +132,12 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("getJobIdByJobMaster",[JobMasterController::class, 'getJobIdByJobMaster']);
 
     Route::get("agents",[AgentController::class, 'getAgents']);
+
+
+    //Customers
+    Route::get("customers",[CustomerController::class, 'index']);
+    Route::get("customers/agent/{agentId}",[CustomerController::class, 'getCustomerByAgent']);
+    Route::get("customers/agent/{agentId}/inforced",[CustomerController::class, 'getInforcedCustomerByAgent']);
 
 });
 

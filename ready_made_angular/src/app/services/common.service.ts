@@ -6,6 +6,7 @@ import {formatDate} from '@angular/common';
 import {ServerResponse} from '../models/ServerResponse.model';
 import {environment} from '../../environments/environment';
 import {concatMap, tap} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 
 @Injectable({
@@ -24,6 +25,7 @@ export class CommonService {
   projectDataSubject = new Subject<ProjectData>();
   private pictures: any;
   private BASE_API_URL = environment.BASE_API_URL;
+  route: string;
   constructor() {
 
     setInterval(() => {
@@ -31,6 +33,7 @@ export class CommonService {
       this.value$.next(this.currentValue);
       // just testing if it is working
     }, 1000);
+
   }
   getProjectData(){
     return {...this.projectData};
