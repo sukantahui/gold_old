@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Models\Customer;
@@ -138,6 +139,10 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("customers",[CustomerController::class, 'index']);
     Route::get("customers/agent/{agentId}",[CustomerController::class, 'getCustomerByAgent']);
     Route::get("customers/agent/{agentId}/inforced",[CustomerController::class, 'getInforcedCustomerByAgent']);
+
+
+    //Products
+    Route::get("products",[ProductController::class, 'getProducts']);
 
 });
 

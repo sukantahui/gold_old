@@ -1,24 +1,65 @@
 <div id="create-order-div">
-    <div class="d-flex bd-highlight">
-        <div class="p-2 flex-fill">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Order Entry</h5>
-                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
-                        <form [formGroup]="orderForm">
-
-                        </form>
+    <div fxLayout="row" fxLayout.xs="column">
+        <div class="child-1" fxFlex="50">
+            <mat-card id="stock-form-div">
+                <form [formGroup] = orderForm>
+                    <div fxLayoutGap="15px" style="padding-left: 50px">
+                        <div class="col-8">
+                            <ng-select [items]="agents"
+                                       bindLabel="agent_name"
+                                       class="custom"
+                                       (change)="agentSelected()"
+                                       bindValue="agent_id"
+                                       formControlName="agent_id"
+                                       placeholder="Select Agent">
+                            </ng-select>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <div fxLayoutGap="15px" style="padding-left: 50px">
+                        <div class="col-8">
+                            <ng-select [items]="customers"
+                                       bindLabel="cust_name"
+                                       class="custom"
+                                       (change)="customerSelected()"
+                                       bindValue="cust_id"
+                                       formControlName="cust_id"
+                                       placeholder="Select Customer">
+                            </ng-select>
+                        </div>
+                    </div>
+
+                    <div fxLayoutGap="15px" style="padding-left: 50px">
+                        <div class="col-3">
+                            <ng-select [items]="products"
+                                       bindLabel="product_code"
+                                       class="custom"
+                                       (change)="productSelected()"
+                                       bindValue="product_code"
+                                       formControlName="product_code"
+                                       placeholder="Select Product">
+                            </ng-select>
+                        </div>
+                    </div>
+
+                </form>
+            </mat-card>
         </div>
-        <div class="p-2 flex-fill">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Order Details</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
+        <div class="child-2" fxFlex="50">
+            <mat-card id="stock-form-div">
+                This is right side
+            </mat-card>
         </div>
     </div>
+</div>
+
+
+<div *ngIf="true" id="developer-div">
+
+    <pre>
+<!--        agents = {{agents | json}}-->
+    </pre>
+    <pre>
+        products = {{products | json}}
+    </pre>
+
 </div>
