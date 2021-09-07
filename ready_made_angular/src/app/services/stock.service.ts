@@ -7,6 +7,7 @@ import {ErrorService} from './error.service';
 import {Subject, throwError} from 'rxjs';
 import {Product} from '../models/product.model';
 import {Stock} from '../models/stock.model';
+import {CommonService} from "./common.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +20,14 @@ export class StockService {
   productsSub = new Subject<any[]>();
   jobsSub = new Subject<any[]>();
   stocksSub = new Subject<any[]>();
-  private BASE_API_URL = environment.BASE_API_URL;
-  constructor(private  http: HttpClient , private  errorService: ErrorService) {
 
-    this.http.get(this.BASE_API_URL + '/stocks').subscribe((response: {status: any , data: Stock[]}) => {
+  constructor(private commonService:CommonService, private  http: HttpClient , private  errorService: ErrorService) {
+
+    this.http.get(this.commonService.getAPI() + '/stocks').subscribe((response: {status: any , data: Stock[]}) => {
       this.stockData = response.data;
       this.stocksSub.next([...this.stockData]);
     });
-    this.http.get(this.BASE_API_URL + '/jobs').subscribe((response: {status: any , data: Stock[]}) => {
+    this.http.get(this.commonService.getAPI() + '/jobs').subscribe((response: {status: any , data: Stock[]}) => {
       this.jobData = response.data;
       this.jobsSub.next([...this.jobData]);
     });
@@ -57,7 +58,7 @@ export class StockService {
     return this.stockData;
   }
   saveStock(){
-    return this.http.post(this.BASE_API_URL + '/stocks', this.stockForm.value)
+    return this.http.post(this.commonService.getAPI() + '/stocks', this.stockForm.value)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: Stock}) => {
           if (response.status === true){
             this.stockData.unshift(response.data);
@@ -72,7 +73,7 @@ export class StockService {
     return this.jobData;
   }
   getDetailsByJobId(){
-    return this.http.get(this.BASE_API_URL + '/getDetailsByJobId/' + this.stockForm.value.jobId);
+    return this.http.get(this.commonService.getAPI() + '/getDetailsByJobId/' + this.stockForm.value.jobId);
   }
 
 }

@@ -10,6 +10,8 @@ import {CanonicalService} from './services/canonical.service';
 import {CommonService} from './services/common.service';
 import {AuthService} from './services/auth.service';
 import * as AOS from 'aos';
+import {Router} from "@angular/router";
+import {LocationStrategy} from "@angular/common";
 
 @Component({
   selector: 'app-root',

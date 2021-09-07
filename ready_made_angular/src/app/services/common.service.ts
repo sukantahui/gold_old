@@ -26,6 +26,7 @@ export class CommonService {
   private pictures: any;
   private BASE_API_URL = environment.BASE_API_URL;
   route: string;
+  actual_base_api_url="";
   constructor() {
 
     setInterval(() => {
@@ -33,7 +34,13 @@ export class CommonService {
       this.value$.next(this.currentValue);
       // just testing if it is working
     }, 1000);
-
+    let project_url =window.location.origin;
+    let firstArray =  project_url.split("/");
+    let secondArray =  firstArray[2].split(":");
+    this.actual_base_api_url = (firstArray[0]+"//"+secondArray[0]+this.BASE_API_URL);
+  }
+  getAPI(){
+    return this.actual_base_api_url;
   }
   getProjectData(){
     return {...this.projectData};
@@ -74,7 +81,6 @@ export class CommonService {
   loadValue(i) {
     this.currentValue += i;
     this.value$.next(this.currentValue);
-    console.log(this.currentValue);
   }
   compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);

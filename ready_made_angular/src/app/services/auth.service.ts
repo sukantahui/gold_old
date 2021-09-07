@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {User} from '../models/user.model';
 import {environment} from '../../environments/environment';
 import {ErrorService} from './error.service';
+import {CommonService} from "./common.service";
 
 export interface AuthResponseData {
   status: boolean;
@@ -28,7 +29,7 @@ export interface AuthResponseData {
 export class AuthService {
   private BASE_API_URL = environment.BASE_API_URL;
   userBehaviorSubject = new BehaviorSubject<User>(null);
-  constructor(private  http: HttpClient, private router: Router, private errorService: ErrorService) { }
+  constructor(private commonService:CommonService ,private  http: HttpClient, private router: Router, private errorService: ErrorService) { }
 
   isAuthenticated(){
     if (this.userBehaviorSubject.value){
@@ -83,7 +84,7 @@ export class AuthService {
       return;
     }else{
       // tslint:disable-next-line:max-line-length
-      this.http.get(this.BASE_API_URL + '/me').subscribe(response => {
+      this.http.get(this.commonService.getAPI() + '/me').subscribe(response => {
         console.log(response);
       });
       const loadedUser = new User(userData.uniqueId, userData.userName, userData._authKey, userData.userTypeId, userData.userTypeName);
@@ -96,7 +97,7 @@ export class AuthService {
 
 
   login(loginData){
-    return this.http.post<AuthResponseData>(this.BASE_API_URL + '/login', loginData)
+    return this.http.post<AuthResponseData>(this.commonService.getAPI() + '/login', loginData)
         .pipe(catchError(this.errorService.serverError), tap(resData => {
           // tslint:disable-next-line:max-line-length
           if (resData.status === true){
@@ -148,7 +149,7 @@ export class AuthService {
   logout(){
     // this.userBehaviorSubject.next(null);
     // localStorage.removeItem('user');
-    this.http.get<any>(this.BASE_API_URL + '/logout').subscribe( response => {
+    this.http.get<any>(this.commonService.getAPI() + '/logout').subscribe( response => {
       this.userBehaviorSubject.next(null);
       localStorage.removeItem('user');
       this.router.navigate(['/']).then(r => {
@@ -172,7 +173,7 @@ export class AuthService {
     logoutAll() {
       // this.userBehaviorSubject.next(null);
       // localStorage.removeItem('user');
-      this.http.get<any>(this.BASE_API_URL + '/revokeAll').subscribe( response => {
+      this.http.get<any>(this.commonService.getAPI() + '/revokeAll').subscribe( response => {
         this.userBehaviorSubject.next(null);
         localStorage.removeItem('user');
         this.router.navigate(['/']).then(r => {
