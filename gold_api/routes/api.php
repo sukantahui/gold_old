@@ -155,6 +155,8 @@ Route::group(array('prefix' => 'dev'), function() {
     //Price Master
     //http://127.0.0.1/gold_old/gold_api/public/api/dev/customerCategories
     Route::get("priceMasters",[PriceMasterController::class, 'getPriceMasters']);
+    //http://127.0.0.1/gold_old/gold_api/public/api/dev/priceMasters/{priceCode}/{priceCat}
+    Route::get("priceMasters/{priceCode}/{priceCat}",[PriceMasterController::class, 'getPriceMastersByCodeNCat']);
 
 });
 

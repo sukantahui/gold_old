@@ -53,6 +53,9 @@
 
                             </ng-select>
                         </div>
+                        <div cfxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px">
+                            <span *ngIf="selectedPriceMaster"></span>
+                        </div>
                     </div>
 
                 </form>
@@ -70,7 +73,7 @@
 <div *ngIf="true" id="developer-div">
 
     <pre>
-        selectedCustomerCategory = {{selectedCustomerCategory | json}}
+        selectedPriceMaster = {{selectedPriceMaster | json}}
     </pre>
     <pre>
         products = {{products | json}}

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {CommonService} from "../../../../../services/common.service";
-import {formatDate} from "@angular/common";
-import {AgentService} from "../../../../../services/agent.service";
-import {HttpClient} from "@angular/common/http";
-import {ProductService} from "../../../../../services/product.service";
-import {CustomerCategoryService} from "../../../../../services/customer-category.service";
+import {FormControl, FormGroup} from '@angular/forms';
+import {CommonService} from '../../../../../services/common.service';
+import {formatDate} from '@angular/common';
+import {AgentService} from '../../../../../services/agent.service';
+import {HttpClient} from '@angular/common/http';
+import {ProductService} from '../../../../../services/product.service';
+import {CustomerCategoryService} from '../../../../../services/customer-category.service';
 
 @Component({
   selector: 'app-order',
@@ -20,6 +20,7 @@ export class OrderComponent implements OnInit {
   selectedProduct: any;
   customerCategories: any[];
   selectedCustomerCategory: any;
+  selectedPriceMaster: any[];
 
   constructor(private commonService: CommonService, private agentService: AgentService, private http: HttpClient, private productService: ProductService, private customerCategoryService: CustomerCategoryService) {
     this.agents = this.agentService.getAgents();
@@ -53,6 +54,7 @@ export class OrderComponent implements OnInit {
 
 
   agentSelected() {
+    // tslint:disable-next-line:max-line-length
     this.http.get(this.commonService.getAPI() + '/dev/customers/agent/AG2006/inforced').subscribe((response: {success: number , data: any[]}) => {
       this.customers =  response.data;
     });
@@ -68,5 +70,9 @@ export class OrderComponent implements OnInit {
 
   customerCategorySelected($event: any) {
     this.selectedCustomerCategory = $event;
+    // tslint:disable-next-line:max-line-length
+    this.http.get(this.commonService.getAPI() + '/dev/priceMasters/' + this.selectedProduct.price_code + '/' + this.selectedCustomerCategory.ID).subscribe((response: {success: number , data: any[]}) => {
+      this.selectedPriceMaster =  response.data;
+    });
   }
 }
