@@ -6,6 +6,17 @@ import {AgentService} from '../../../../../services/agent.service';
 import {HttpClient} from '@angular/common/http';
 import {ProductService} from '../../../../../services/product.service';
 import {CustomerCategoryService} from '../../../../../services/customer-category.service';
+import {PriceMaster} from "../../../../../models/price-master.model";
+
+export interface Item{
+  product_code: string;
+  cust_category: any;
+  lc: number;
+  ploss: number;
+  product_mv: number;
+  cust_mv: number;
+  qty: number;
+}
 
 @Component({
   selector: 'app-order',
@@ -20,7 +31,12 @@ export class OrderComponent implements OnInit {
   selectedProduct: any;
   customerCategories: any[];
   selectedCustomerCategory: any;
-  selectedPriceMaster: any[];
+  selectedPriceMaster: PriceMaster;
+  selectedCustomer: any;
+  orderMaster={cust_id: ''};
+  item: Item;
+  orderDetails: Item[] = [];
+
 
   constructor(private commonService: CommonService, private agentService: AgentService, private http: HttpClient, private productService: ProductService, private customerCategoryService: CustomerCategoryService) {
     this.agents = this.agentService.getAgents();
@@ -33,8 +49,13 @@ export class OrderComponent implements OnInit {
       delivery_date: new FormControl(currentSQLDate),
       agent_id: new FormControl(null),
       cust_id: new FormControl(null),
+      cust_mv: new FormControl(null),
       product_code: new FormControl(null),
-      customer_category_id: new FormControl(null)
+      customer_category_id: new FormControl(null),
+      lc: new FormControl(null),
+      ploss: new FormControl(null),
+      product_mv: new FormControl(null),
+      qty: new FormControl(null)
     });
   }
 
@@ -60,19 +81,49 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  customerSelected() {
-
+  customerSelected($event) {
+    this.selectedCustomer = $event;
+    this.orderMaster.cust_id=this.selectedCustomer.cust_id;
+    this.orderForm.get('cust_mv').patchValue(this.selectedCustomer.markup_value, { onlySelf: true });
   }
 
   productSelected(val) {
     this.selectedProduct = val;
+    this.orderForm.get('customer_category_id').patchValue(null, { onlySelf: true });
+    this.orderForm.get('lc').patchValue(null, { onlySelf: true });
+    this.orderForm.get('ploss').patchValue(null, { onlySelf: true });
+    this.orderForm.get('product_mv').patchValue(null, { onlySelf: true });
   }
 
   customerCategorySelected($event: any) {
-    this.selectedCustomerCategory = $event;
-    // tslint:disable-next-line:max-line-length
-    this.http.get(this.commonService.getAPI() + '/dev/priceMasters/' + this.selectedProduct.price_code + '/' + this.selectedCustomerCategory.ID).subscribe((response: {success: number , data: any[]}) => {
-      this.selectedPriceMaster =  response.data;
-    });
+    if($event != null){
+        this.selectedCustomerCategory = $event;
+        // tslint:disable-next-line:max-line-length
+        this.http.get(this.commonService.getAPI() + '/dev/priceMasters/' + this.selectedProduct.price_code + '/' + this.selectedCustomerCategory.ID).subscribe((response: {success: number , data: PriceMaster}) => {
+          this.selectedPriceMaster =  response.data;
+          this.orderForm.get('lc').patchValue(this.selectedPriceMaster.price, { onlySelf: true });
+          this.orderForm.get('ploss').patchValue(this.selectedPriceMaster.p_loss, { onlySelf: true });
+          this.orderForm.get('product_mv').patchValue(this.selectedPriceMaster.price_master_mv, { onlySelf: true });
+        });
+    }else{
+      this.selectedCustomerCategory = $event;
+      this.orderForm.get('lc').patchValue(null, { onlySelf: true });
+      this.orderForm.get('ploss').patchValue(null, { onlySelf: true });
+      this.orderForm.get('product_mv').patchValue(null, { onlySelf: true });
+    }
+
+  }
+
+  addItem() {
+    this.item={
+                product_code: this.orderForm.get('product_code').value,
+                cust_category: this.selectedCustomerCategory,
+                lc: this.orderForm.get('lc').value,
+                ploss: this.orderForm.get('ploss').value,
+                product_mv: this.orderForm.get('product_mv').value,
+                cust_mv: this.orderForm.get('cust_mv').value,
+                qty: this.orderForm.get('qty').value
+              };
+    this.orderDetails.unshift(this.item);
   }
 }

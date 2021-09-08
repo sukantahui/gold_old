@@ -15,7 +15,8 @@ class PriceMasterController extends ApiController
     }
     //http://127.0.0.1/gold_old/gold_api/public/api/dev/priceMasters/{priceCode}/{priceCat}
     public function getPriceMastersByCodeNCat($priceCode, $priceCat){
-        $result = PriceMaster::wherePriceCode($priceCode)->wherePriceCat($priceCat)->first();
+
+        $result = PriceMaster::select('price_id','price_code','price_cat','price','p_loss','price_master_mv')->wherePriceCode($priceCode)->wherePriceCat($priceCat)->first();
         return $this->successResponse($result);
     }
 }

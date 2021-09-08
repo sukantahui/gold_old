@@ -15,17 +15,21 @@
                             </ng-select>
                         </div>
                     </div>
-                    <div fxLayoutGap="15px" style="padding-left: 50px">
+                    <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
                         <div class="col-8">
                             <ng-select [items]="customers"
                                        bindLabel="cust_name"
                                        class="custom"
-                                       (change)="customerSelected()"
+                                       (change)="customerSelected($event)"
                                        bindValue="cust_id"
                                        formControlName="cust_id"
                                        placeholder="Select Customer">
                             </ng-select>
                         </div>
+                        <mat-form-field fxFlex="10">
+                            <mat-label>MV</mat-label>
+                            <input type="number" class="text-right" matInput formControlName="cust_mv" placeholder="MV">
+                        </mat-form-field>
                     </div>
 
                     <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
@@ -53,17 +57,65 @@
 
                             </ng-select>
                         </div>
-                        <div cfxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px">
-                            <span *ngIf="selectedPriceMaster"></span>
+                        <mat-form-field fxFlex="10">
+                            <mat-label>LC</mat-label>
+                            <input type="number" class="text-right" matInput formControlName="lc" placeholder="LC">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="10">
+                            <mat-label>Ploss</mat-label>
+                            <input type="number" class="text-right" matInput formControlName="ploss" placeholder="LC">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="10">
+                            <mat-label>Pr. MV</mat-label>
+                            <input type="number" class="text-right" matInput formControlName="product_mv" placeholder="MV">
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
+                        <mat-form-field fxFlex="10">
+                            <mat-label>Qty</mat-label>
+                            <input type="number" class="text-right" matInput formControlName="qty" placeholder="Qty">
+                        </mat-form-field>
+                        <div class="example-button-row" fxFlex="40">
+                            <button mat-raised-button color="accent" (click)="addItem()">Add</button>
                         </div>
                     </div>
-
                 </form>
             </mat-card>
         </div>
         <div class="child-2" fxFlex="50">
             <mat-card id="stock-form-div">
-                This is right side
+                <table  class="table table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th class="text-center">SL</th>
+                        <th class="text-center" >Customer</th>
+                        <th class="text-center" >Qty</th>
+                        <th class="text-center" >Billed Gold</th>
+                        <th class="text-center" >Billed LC</th>
+                        <th class="text-center" >Gold Received</th>
+                        <th class="text-center" >LC Received</th>
+                        <th class="text-center" >Net Gold</th>
+                        <th class="text-center" >Net LC</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let row of orderDetails; let i = index">
+                        <ng-container *ngIf="true">
+                            <th scope="row">{{i+1}}</th>
+                            <td class="text-left">{{row.product_code}}</td>
+                            <td class="text-right">{{row.qty}}</td>
+                            <td class="text-right" >{{row.cust_category.category }}</td>
+                            <td class="text-right">{{row.ploss}}</td>
+                            <td class="text-right">{{row.lc}}</td>
+
+                        </ng-container>
+                    </tr>
+
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
             </mat-card>
         </div>
     </div>
@@ -73,10 +125,13 @@
 <div *ngIf="true" id="developer-div">
 
     <pre>
-        selectedPriceMaster = {{selectedPriceMaster | json}}
+        orderDetails = {{orderDetails | json}}
     </pre>
     <pre>
-        products = {{products | json}}
+        item = {{item | json}}
     </pre>
+<!--    <pre>-->
+<!--        products = {{products | json}}-->
+<!--    </pre>-->
 
 </div>

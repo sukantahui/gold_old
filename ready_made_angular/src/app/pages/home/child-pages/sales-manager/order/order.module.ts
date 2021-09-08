@@ -9,6 +9,8 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import {MatBadgeModule} from "@angular/material/badge";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import {MatBadgeModule} from "@angular/material/badge";
     NgSelectModule,
     MatIconModule,
     MatCardModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatInputModule,
+    MatButtonModule
   ]
 })
 export class OrderModule { }
