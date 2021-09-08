@@ -5,6 +5,7 @@ import {formatDate} from "@angular/common";
 import {AgentService} from "../../../../../services/agent.service";
 import {HttpClient} from "@angular/common/http";
 import {ProductService} from "../../../../../services/product.service";
+import {CustomerCategoryService} from "../../../../../services/customer-category.service";
 
 @Component({
   selector: 'app-order',
@@ -16,10 +17,14 @@ export class OrderComponent implements OnInit {
   agents: any[];
   customers: any[];
   products: any[];
+  selectedProduct: any;
+  customerCategories: any[];
+  selectedCustomerCategory: any;
 
-  constructor(private commonService: CommonService, private agentService: AgentService, private http: HttpClient, private productService: ProductService) {
+  constructor(private commonService: CommonService, private agentService: AgentService, private http: HttpClient, private productService: ProductService, private customerCategoryService: CustomerCategoryService) {
     this.agents = this.agentService.getAgents();
     this.products = this.productService.getProducts();
+    this.customerCategories = this.customerCategoryService.getCategories();
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
     this.orderForm = new FormGroup({
@@ -27,7 +32,8 @@ export class OrderComponent implements OnInit {
       delivery_date: new FormControl(currentSQLDate),
       agent_id: new FormControl(null),
       cust_id: new FormControl(null),
-      product_code: new FormControl(null)
+      product_code: new FormControl(null),
+      customer_category_id: new FormControl(null)
     });
   }
 
@@ -37,6 +43,9 @@ export class OrderComponent implements OnInit {
     });
     this.productService.getProductUpdateListener().subscribe((response: any[]) => {
       this.products = response;
+    });
+    this.customerCategoryService.getCustomerCategoryUpdateListener().subscribe((response: any[]) => {
+      this.customerCategories = response;
     });
   }
 
@@ -53,7 +62,11 @@ export class OrderComponent implements OnInit {
 
   }
 
-  productSelected() {
+  productSelected(val) {
+    this.selectedProduct = val;
+  }
 
+  customerCategorySelected($event: any) {
+    this.selectedCustomerCategory = $event;
   }
 }

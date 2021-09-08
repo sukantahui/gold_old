@@ -8,6 +8,7 @@ import {FlexModule} from "@angular/flex-layout";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
+import {MatBadgeModule} from "@angular/material/badge";
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {MatCardModule} from "@angular/material/card";
     NgSelectModule,
     MatIconModule,
     MatCardModule,
+    MatBadgeModule
   ]
 })
 export class OrderModule { }

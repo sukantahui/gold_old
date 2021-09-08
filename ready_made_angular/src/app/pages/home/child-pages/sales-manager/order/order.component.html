@@ -28,15 +28,29 @@
                         </div>
                     </div>
 
-                    <div fxLayoutGap="15px" style="padding-left: 50px">
-                        <div class="col-3">
-                            <ng-select [items]="products"
+                    <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
+                        <div cfxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px">
+                            <ng-select fxFlex="150px" [items]="products"
                                        bindLabel="product_code"
                                        class="custom"
-                                       (change)="productSelected()"
+                                       (change)="productSelected($event)"
                                        bindValue="product_code"
                                        formControlName="product_code"
                                        placeholder="Select Product">
+
+                            </ng-select>
+                            <span *ngIf="selectedProduct" [matBadge]="selectedProduct.price_code" matBadgeOverlap="false"></span>
+                        </div>
+
+                        <div cfxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px">
+                            <ng-select fxFlex="150px" [items]="customerCategories"
+                                       bindLabel="category"
+                                       class="custom"
+                                       (change)="customerCategorySelected($event)"
+                                       bindValue="ID"
+                                       formControlName="customer_category_id"
+                                       placeholder="Select Category">
+
                             </ng-select>
                         </div>
                     </div>
@@ -56,7 +70,7 @@
 <div *ngIf="true" id="developer-div">
 
     <pre>
-<!--        agents = {{agents | json}}-->
+        selectedCustomerCategory = {{selectedCustomerCategory | json}}
     </pre>
     <pre>
         products = {{products | json}}
