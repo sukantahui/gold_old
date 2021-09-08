@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PriceMasterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
@@ -150,6 +151,10 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("customerCategories",[CustomerCategoryController::class, 'getCustomerCategories']);
     //http://127.0.0.1/gold_old/gold_api/public/api/dev/customerCategories/visible
     Route::get("customerCategories/visible",[CustomerCategoryController::class, 'getVisibleCustomerCategories']);
+
+    //Price Master
+    //http://127.0.0.1/gold_old/gold_api/public/api/dev/customerCategories
+    Route::get("priceMasters",[PriceMasterController::class, 'getPriceMasters']);
 
 });
 

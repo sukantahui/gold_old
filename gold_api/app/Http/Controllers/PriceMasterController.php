@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PriceMasterController extends ApiController
 {
     //http://127.0.0.1/gold_old/gold_api/public/api/dev/priceMasters
-    public function getCustomerCategories(){
+    public function getPriceMasters(){
         $result = PriceMaster::get();
         return $this->successResponse($result);
     }
