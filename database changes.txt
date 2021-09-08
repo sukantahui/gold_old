@@ -5,3 +5,11 @@ ALTER TABLE ses_gold.order_master
 ALTER TABLE ses_gold.cust_category
  ADD inforce TINYINT DEFAULT '1' AFTER category,
  ADD visible TINYINT DEFAULT '1';
+
+
+
+ALTER TABLE ses_gold.price_master
+ DROP FOREIGN KEY price_master_ibfk_1,
+ ADD price_master_mv DOUBLE DEFAULT '0' AFTER user_id;
+ALTER TABLE ses_gold.price_master
+ ADD CONSTRAINT price_master_ibfk_1 FOREIGN KEY (price_cat) REFERENCES ses_gold.cust_category (ID) ON UPDATE CASCADE ON DELETE RESTRICT;
