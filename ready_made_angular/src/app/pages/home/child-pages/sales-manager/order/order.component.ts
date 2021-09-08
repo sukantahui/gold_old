@@ -55,7 +55,8 @@ export class OrderComponent implements OnInit {
       lc: new FormControl(null),
       ploss: new FormControl(null),
       product_mv: new FormControl(null),
-      qty: new FormControl(null)
+      qty: new FormControl(null),
+      expected_gold: new FormControl(null)
     });
   }
 
