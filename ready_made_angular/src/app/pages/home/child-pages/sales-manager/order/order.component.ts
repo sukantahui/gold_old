@@ -25,6 +25,7 @@ export interface Item{
   expected_gold: number;
   rm_id: number;
   product_size: string;
+
 }
 
 @Component({
@@ -46,6 +47,7 @@ export class OrderComponent implements OnInit {
   orderMaster: {cust_id: string, agent_id: string, cust_mv: number, order_date: string, delivery_date: string};
   item: Item;
   orderDetails: Item[] = [];
+  expectedGold: any;
 
   faUserEdit = faUserEdit;
   faTrashAlt = faTrashAlt;
@@ -160,7 +162,13 @@ export class OrderComponent implements OnInit {
   }
 
   addItem() {
-    this.item={
+    if (this.orderFormDetails.get('expected_gold').value.length >= 3){
+      this.expectedGold = this.orderFormDetails.get('expected_gold').value / 1000;
+    }
+    else{
+       this.expectedGold = this.orderFormDetails.get('expected_gold').value;
+    }
+    this.item = {
                 product_code: this.orderFormDetails.get('product_code').value,
                 price_code: this.selectedProduct.price_code,
                 cust_category: this.selectedCustomerCategory,
@@ -170,7 +178,8 @@ export class OrderComponent implements OnInit {
                 cust_mv: this.orderFormMaster.get('cust_mv').value,
                 total_mv: (this.orderFormDetails.get('product_mv').value + this.orderFormMaster.get('cust_mv').value),
                 qty: this.orderFormDetails.get('qty').value,
-                expected_gold: this.orderFormDetails.get('expected_gold').value / 1000,
+                // expected_gold: this.orderFormDetails.get('expected_gold').value,
+                expected_gold: this.expectedGold,
                 product_size: this.orderFormDetails.get('product_size').value,
                 rm_id: this.orderFormDetails.get('rm_id').value
               };
