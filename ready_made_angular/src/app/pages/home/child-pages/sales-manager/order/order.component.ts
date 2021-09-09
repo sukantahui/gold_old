@@ -14,8 +14,10 @@ export interface Item{
   lc: number;
   ploss: number;
   product_mv: number;
+  total_mv: number;
   cust_mv: number;
   qty: number;
+  expected_gold: number;
 }
 
 @Component({
@@ -123,8 +125,18 @@ export class OrderComponent implements OnInit {
                 ploss: this.orderForm.get('ploss').value,
                 product_mv: this.orderForm.get('product_mv').value,
                 cust_mv: this.orderForm.get('cust_mv').value,
-                qty: this.orderForm.get('qty').value
+                total_mv: (this.orderForm.get('product_mv').value + this.orderForm.get('cust_mv').value),
+                qty: this.orderForm.get('qty').value,
+                expected_gold: this.orderForm.get('expected_gold').value
               };
     this.orderDetails.unshift(this.item);
+    // clearing the form
+    this.orderForm.get('product_code').patchValue(null, { onlySelf: true });
+    this.orderForm.get('customer_category_id').patchValue(null, { onlySelf: true });
+    this.orderForm.get('lc').patchValue(null, { onlySelf: true });
+    this.orderForm.get('ploss').patchValue(null, { onlySelf: true });
+    this.orderForm.get('product_mv').patchValue(null, { onlySelf: true });
+    this.orderForm.get('qty').patchValue(null, { onlySelf: true });
+    this.orderForm.get('expected_gold').patchValue(null, { onlySelf: true });
   }
 }
