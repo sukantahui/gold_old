@@ -14,6 +14,7 @@ import {StorageMap} from "@ngx-pwa/local-storage";
 
 export interface Item{
   product_code: string;
+  selectedProduct: any;
   price_code: string;
   cust_category: any;
   lc: number;
@@ -170,6 +171,7 @@ export class OrderComponent implements OnInit {
     }
     this.item = {
                 product_code: this.orderFormDetails.get('product_code').value,
+                selectedProduct: this.selectedProduct,
                 price_code: this.selectedProduct.price_code,
                 cust_category: this.selectedCustomerCategory,
                 lc: this.orderFormDetails.get('lc').value,
@@ -203,6 +205,7 @@ export class OrderComponent implements OnInit {
     this.orderFormDetails.patchValue({
       product_code: row.product_code
     });
+    this.selectedProduct=row.selectedProduct;
   }
 
   deleteItem(i: any) {
