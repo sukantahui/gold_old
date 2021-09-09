@@ -122,7 +122,6 @@ export class OrderComponent implements OnInit {
 
 
   agentSelected() {
-    this.setOrderMaster();
     // tslint:disable-next-line:max-line-length
     this.http.get(this.commonService.getAPI() + '/dev/customers/agent/AG2006/inforced').subscribe((response: {success: number , data: any[]}) => {
       this.customers =  response.data;
@@ -131,11 +130,20 @@ export class OrderComponent implements OnInit {
 
   customerSelected($event) {
     this.selectedCustomer = $event;
-    this.orderMaster.cust_id=this.selectedCustomer.cust_id;
+    // this.orderMaster.cust_id=this.selectedCustomer.cust_id;
     this.orderFormMaster.get('cust_mv').patchValue(this.selectedCustomer.markup_value, { onlySelf: true });
+    this.orderMaster = {
+      cust_id: this.orderFormMaster.get('cust_id').value,
+      agent_id: this.orderFormMaster.get('agent_id').value,
+      cust_mv: this.orderFormMaster.get('cust_mv').value,
+      order_date: this.orderFormMaster.get('order_date').value,
+      delivery_date: this.orderFormMaster.get('delivery_date').value
+    };
+    this.storage.set('orderMaster', this.orderFormMaster).subscribe(() => {});
   }
 
   productSelected(val) {
+    console.log('product selected');
     this.selectedProduct = val;
     this.orderFormDetails.get('customer_category_id').patchValue(null, { onlySelf: true });
     this.orderFormDetails.get('lc').patchValue(null, { onlySelf: true });
@@ -202,8 +210,11 @@ export class OrderComponent implements OnInit {
   }
 
   populateOrderFormDetails(row: Item, i: any) {
+    console.log(row.selectedProduct);
     this.orderFormDetails.patchValue({
-      product_code: row.product_code
+      product_code: row.product_code,
+      customer_category_id: row.cust_category.ID,
+      lc: row.lc
     });
     this.selectedProduct=row.selectedProduct;
   }
@@ -221,6 +232,12 @@ export class OrderComponent implements OnInit {
       if (result.isConfirmed) {
         this.orderDetails.splice(i, 1);
       }
+    });
+  }
+
+  test() {
+    this.storage.delete('orderDetails').subscribe(() => {
+
     });
   }
 }
