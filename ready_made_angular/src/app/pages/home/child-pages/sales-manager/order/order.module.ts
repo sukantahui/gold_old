@@ -11,6 +11,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {MatButtonModule} from "@angular/material/button";
     MatCardModule,
     MatBadgeModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    FontAwesomeModule
   ]
 })
 export class OrderModule { }
