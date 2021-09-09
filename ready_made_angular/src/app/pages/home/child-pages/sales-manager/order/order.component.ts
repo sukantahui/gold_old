@@ -49,15 +49,15 @@ export class OrderComponent implements OnInit {
     this.orderForm = new FormGroup({
       order_date: new FormControl(currentSQLDate),
       delivery_date: new FormControl(currentSQLDate),
-      agent_id: new FormControl(null),
-      cust_id: new FormControl(null),
-      cust_mv: new FormControl(null),
-      product_code: new FormControl(null),
-      customer_category_id: new FormControl(null),
-      lc: new FormControl(null),
-      ploss: new FormControl(null),
-      product_mv: new FormControl(null),
-      qty: new FormControl(null),
+      agent_id: new FormControl(null, [Validators.required]),
+      cust_id: new FormControl(null, [Validators.required]),
+      cust_mv: new FormControl(null, [Validators.required]),
+      product_code: new FormControl(null, [Validators.required]),
+      customer_category_id: new FormControl(null, [Validators.required]),
+      lc: new FormControl(null, [Validators.required]),
+      ploss: new FormControl(null, [Validators.required]),
+      product_mv: new FormControl(null, [Validators.required]),
+      qty: new FormControl(null, [Validators.required]),
       expected_gold: new FormControl(null, [Validators.required])
     });
   }
