@@ -109,18 +109,6 @@ export class OrderComponent implements OnInit {
   }
 
 
-  setOrderMaster(){
-    this.orderMaster = {
-      cust_id: this.orderFormMaster.get('cust_id').value,
-      agent_id: this.orderFormMaster.get('agent_id').value,
-      cust_mv: this.orderFormMaster.get('cust_mv').value,
-      order_date: this.orderFormMaster.get('order_date').value,
-      delivery_date: this.orderFormMaster.get('delivery_date').value
-    };
-    this.storage.set('orderMaster', this.orderFormMaster).subscribe(() => {});
-  }
-
-
   agentSelected() {
     // tslint:disable-next-line:max-line-length
     this.http.get(this.commonService.getAPI() + '/dev/customers/agent/AG2006/inforced').subscribe((response: {success: number , data: any[]}) => {
@@ -139,11 +127,10 @@ export class OrderComponent implements OnInit {
       order_date: this.orderFormMaster.get('order_date').value,
       delivery_date: this.orderFormMaster.get('delivery_date').value
     };
-    this.storage.set('orderMaster', this.orderFormMaster).subscribe(() => {});
+    this.storage.set('orderMaster', this.orderMaster).subscribe(() => {});
   }
 
   productSelected(val) {
-    console.log('product selected');
     this.selectedProduct = val;
     this.orderFormDetails.get('customer_category_id').patchValue(null, { onlySelf: true });
     this.orderFormDetails.get('lc').patchValue(null, { onlySelf: true });
@@ -210,11 +197,13 @@ export class OrderComponent implements OnInit {
   }
 
   populateOrderFormDetails(row: Item, i: any) {
-    console.log(row.selectedProduct);
     this.orderFormDetails.patchValue({
       product_code: row.product_code,
       customer_category_id: row.cust_category.ID,
-      lc: row.lc
+      lc: row.lc,
+      ploss: row.ploss,
+      product_mv: row.product_mv,
+      product_size: row.product_size
     });
     this.selectedProduct=row.selectedProduct;
   }
