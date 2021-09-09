@@ -26,7 +26,8 @@ export interface Item{
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
-  orderForm: FormGroup;
+  orderFormMaster: FormGroup;
+  orderFormDetails: FormGroup;
   agents: any[];
   customers: any[];
   products: any[];
@@ -46,12 +47,15 @@ export class OrderComponent implements OnInit {
     this.customerCategories = this.customerCategoryService.getCategories();
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
-    this.orderForm = new FormGroup({
+
+    this.orderFormMaster = new FormGroup({
       order_date: new FormControl(currentSQLDate),
       delivery_date: new FormControl(currentSQLDate),
       agent_id: new FormControl(null, [Validators.required]),
       cust_id: new FormControl(null, [Validators.required]),
       cust_mv: new FormControl(null, [Validators.required]),
+    });
+    this.orderFormDetails = new FormGroup({
       product_code: new FormControl(null, [Validators.required]),
       customer_category_id: new FormControl(null, [Validators.required]),
       lc: new FormControl(null, [Validators.required]),
@@ -87,15 +91,15 @@ export class OrderComponent implements OnInit {
   customerSelected($event) {
     this.selectedCustomer = $event;
     this.orderMaster.cust_id=this.selectedCustomer.cust_id;
-    this.orderForm.get('cust_mv').patchValue(this.selectedCustomer.markup_value, { onlySelf: true });
+    this.orderFormMaster.get('cust_mv').patchValue(this.selectedCustomer.markup_value, { onlySelf: true });
   }
 
   productSelected(val) {
     this.selectedProduct = val;
-    this.orderForm.get('customer_category_id').patchValue(null, { onlySelf: true });
-    this.orderForm.get('lc').patchValue(null, { onlySelf: true });
-    this.orderForm.get('ploss').patchValue(null, { onlySelf: true });
-    this.orderForm.get('product_mv').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.get('customer_category_id').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.get('lc').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.get('ploss').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.get('product_mv').patchValue(null, { onlySelf: true });
   }
 
   customerCategorySelected($event: any) {
@@ -104,39 +108,43 @@ export class OrderComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         this.http.get(this.commonService.getAPI() + '/dev/priceMasters/' + this.selectedProduct.price_code + '/' + this.selectedCustomerCategory.ID).subscribe((response: {success: number , data: PriceMaster}) => {
           this.selectedPriceMaster =  response.data;
-          this.orderForm.get('lc').patchValue(this.selectedPriceMaster.price, { onlySelf: true });
-          this.orderForm.get('ploss').patchValue(this.selectedPriceMaster.p_loss, { onlySelf: true });
-          this.orderForm.get('product_mv').patchValue(this.selectedPriceMaster.price_master_mv, { onlySelf: true });
+          this.orderFormDetails.get('lc').patchValue(this.selectedPriceMaster.price, { onlySelf: true });
+          this.orderFormDetails.get('ploss').patchValue(this.selectedPriceMaster.p_loss, { onlySelf: true });
+          this.orderFormDetails.get('product_mv').patchValue(this.selectedPriceMaster.price_master_mv, { onlySelf: true });
         });
     }else{
       this.selectedCustomerCategory = $event;
-      this.orderForm.get('lc').patchValue(null, { onlySelf: true });
-      this.orderForm.get('ploss').patchValue(null, { onlySelf: true });
-      this.orderForm.get('product_mv').patchValue(null, { onlySelf: true });
+      this.orderFormDetails.get('lc').patchValue(null, { onlySelf: true });
+      this.orderFormDetails.get('ploss').patchValue(null, { onlySelf: true });
+      this.orderFormDetails.get('product_mv').patchValue(null, { onlySelf: true });
     }
 
   }
 
   addItem() {
     this.item={
-                product_code: this.orderForm.get('product_code').value,
+                product_code: this.orderFormDetails.get('product_code').value,
                 cust_category: this.selectedCustomerCategory,
-                lc: this.orderForm.get('lc').value,
-                ploss: this.orderForm.get('ploss').value,
-                product_mv: this.orderForm.get('product_mv').value,
-                cust_mv: this.orderForm.get('cust_mv').value,
-                total_mv: (this.orderForm.get('product_mv').value + this.orderForm.get('cust_mv').value),
-                qty: this.orderForm.get('qty').value,
-                expected_gold: this.orderForm.get('expected_gold').value
+                lc: this.orderFormDetails.get('lc').value,
+                ploss: this.orderFormDetails.get('ploss').value,
+                product_mv: this.orderFormDetails.get('product_mv').value,
+                cust_mv: this.orderFormMaster.get('cust_mv').value,
+                total_mv: (this.orderFormDetails.get('product_mv').value + this.orderFormMaster.get('cust_mv').value),
+                qty: this.orderFormDetails.get('qty').value,
+                expected_gold: this.orderFormDetails.get('expected_gold').value
               };
     this.orderDetails.unshift(this.item);
     // clearing the form
-    this.orderForm.get('product_code').patchValue(null, { onlySelf: true });
-    this.orderForm.get('customer_category_id').patchValue(null, { onlySelf: true });
-    this.orderForm.get('lc').patchValue(null, { onlySelf: true });
-    this.orderForm.get('ploss').patchValue(null, { onlySelf: true });
-    this.orderForm.get('product_mv').patchValue(null, { onlySelf: true });
-    this.orderForm.get('qty').patchValue(null, { onlySelf: true });
-    this.orderForm.get('expected_gold').patchValue(null, { onlySelf: true });
+
+    this.orderFormDetails.get('product_code').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.get('customer_category_id').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.get('lc').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.get('ploss').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.get('product_mv').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.get('qty').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.get('expected_gold').patchValue(null, { onlySelf: true });
+    this.orderFormDetails.reset();
+    this.selectedProduct=null;
+
   }
 }

@@ -2,7 +2,7 @@
     <div fxLayout="row" fxLayout.xs="column">
         <div class="child-1" fxFlex="50">
             <mat-card id="stock-form-div">
-                <form [formGroup] = orderForm>
+                <form [formGroup] = orderFormMaster>
                     <div fxLayoutGap="15px" style="padding-left: 50px">
                         <div class="col-8">
                             <ng-select [items]="agents"
@@ -31,10 +31,12 @@
                             <input type="number" class="text-right" matInput formControlName="cust_mv" placeholder="MV">
                         </mat-form-field>
                     </div>
-
+                </form>
+                <form [formGroup] = orderFormDetails>
                     <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
                         <div cfxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px">
                             <ng-select fxFlex="150px" [items]="products"
+                                       [virtualScroll]="true"
                                        bindLabel="product_code"
                                        class="custom"
                                        (change)="productSelected($event)"
@@ -80,7 +82,7 @@
                             <input type="number" class="text-right" matInput formControlName="qty" placeholder="Qty">
                         </mat-form-field>
                         <div class="example-button-row" fxFlex="40">
-                            <button mat-raised-button color="accent" (click)="addItem()">Add</button>
+                            <button mat-raised-button color="accent" (click)="addItem()" [disabled]="!orderFormDetails.valid" >Add</button>
                         </div>
                     </div>
                 </form>
@@ -134,7 +136,7 @@
 
 <div *ngIf="true" id="developer-div">
     <pre>
-        orderForm = {{orderForm.valid | json}}
+        orderForm = {{orderFormDetails.valid | json}}
     </pre>
     <pre>
         orderDetails = {{orderDetails | json}}
