@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../../../../services/common.service';
 import {formatDate} from '@angular/common';
 import {AgentService} from '../../../../../services/agent.service';
@@ -58,7 +58,7 @@ export class OrderComponent implements OnInit {
       ploss: new FormControl(null),
       product_mv: new FormControl(null),
       qty: new FormControl(null),
-      expected_gold: new FormControl(null)
+      expected_gold: new FormControl(null, [Validators.required])
     });
   }
 
