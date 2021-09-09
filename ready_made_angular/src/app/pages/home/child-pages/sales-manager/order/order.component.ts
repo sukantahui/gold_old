@@ -92,7 +92,13 @@ export class OrderComponent implements OnInit {
       this.customerCategories = response;
     });
     this.storage.get('orderDetails').subscribe((orderDetails: Item[]) => {
-      this.orderDetails = orderDetails;
+      if (!orderDetails){
+        this.orderDetails = [];
+      }else{
+        this.orderDetails = orderDetails;
+      }
+    }, (error) => {
+      console.log(error);
     });
     this.storage.get('orderMaster').subscribe((orderMaster: any) => {
       this.orderMaster = orderMaster;
@@ -164,7 +170,7 @@ export class OrderComponent implements OnInit {
                 cust_mv: this.orderFormMaster.get('cust_mv').value,
                 total_mv: (this.orderFormDetails.get('product_mv').value + this.orderFormMaster.get('cust_mv').value),
                 qty: this.orderFormDetails.get('qty').value,
-                expected_gold: this.orderFormDetails.get('expected_gold').value,
+                expected_gold: this.orderFormDetails.get('expected_gold').value / 1000,
                 product_size: this.orderFormDetails.get('product_size').value,
                 rm_id: this.orderFormDetails.get('rm_id').value
               };
