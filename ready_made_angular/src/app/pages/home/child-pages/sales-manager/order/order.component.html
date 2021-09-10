@@ -79,7 +79,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex="15">
                             <mat-label>Exp. Gold</mat-label>
-                            <input type="text" class="text-right" matInput formControlName="expected_gold" placeholder="Gold">
+                            <input type="text" class="text-right" matInput formControlName="expected_gold" placeholder="Gold" (blur)="getExpectedGoldDecimalValue()">
                         </mat-form-field>
                         <mat-form-field fxFlex="10">
                             <mat-label>Qty</mat-label>

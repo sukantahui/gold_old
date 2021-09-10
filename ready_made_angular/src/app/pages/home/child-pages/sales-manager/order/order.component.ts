@@ -173,12 +173,6 @@ export class OrderComponent implements OnInit {
   }
 
   addItem() {
-    if (this.orderFormDetails.get('expected_gold').value.length >= 3){
-      this.expectedGold = this.orderFormDetails.get('expected_gold').value / 1000;
-    }
-    else{
-       this.expectedGold = this.orderFormDetails.get('expected_gold').value;
-    }
     this.item = {
                 product_code: this.orderFormDetails.get('product_code').value,
                 selectedProduct: this.selectedProduct,
@@ -190,8 +184,7 @@ export class OrderComponent implements OnInit {
                 cust_mv: this.orderFormMaster.get('cust_mv').value,
                 total_mv: (this.orderFormDetails.get('product_mv').value + this.orderFormMaster.get('cust_mv').value),
                 qty: this.orderFormDetails.get('qty').value,
-                // expected_gold: this.orderFormDetails.get('expected_gold').value,
-                expected_gold: this.expectedGold,
+                expected_gold: this.orderFormDetails.get('expected_gold').value,
                 product_size: this.orderFormDetails.get('product_size').value,
                 rm_id: this.orderFormDetails.get('rm_id').value
               };
@@ -251,5 +244,15 @@ export class OrderComponent implements OnInit {
       this.orderFormMaster.get('cust_mv').patchValue(null, { onlySelf: true });
       this.orderFormMaster.get('agent_id').patchValue(null, { onlySelf: true });
     });
+  }
+
+  getExpectedGoldDecimalValue(){
+    if (this.orderFormDetails.get('expected_gold').value.length >= 3){
+      this.expectedGold = this.orderFormDetails.get('expected_gold').value / 1000;
+    }
+    else {
+      this.expectedGold = this.orderFormDetails.get('expected_gold').value;
+    }
+    this.orderFormDetails.get('expected_gold').patchValue( this.expectedGold, { onlySelf: true });
   }
 }
