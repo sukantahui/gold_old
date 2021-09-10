@@ -108,6 +108,7 @@
                         <th class="text-center" >PR. MV</th>
                         <th class="text-center" >CMV</th>
                         <th class="text-center" >TMV</th>
+                        <th class="text-center" colspan="2"><fa-icon class="edit" [icon]="faCogs"></fa-icon></th>
 
                     </tr>
                     </thead>
@@ -141,10 +142,10 @@
                     </tfoot>
                 </table>
                 <div class="example-button-row">
-                    <button mat-raised-button color="accent" (click)="test()"  >Clear</button>
+                    <button mat-raised-button color="accent" (click)="clearOrder()" >Clear</button>
                 </div>
                 <pre>
-                    orderFormDetails = {{orderFormDetails.value | json}}
+                    orderFormMaster = {{orderFormMaster.value | json}}
                 </pre>
             </mat-card>
         </div>
@@ -153,17 +154,20 @@
 
 
 <div *ngIf="true" id="developer-div">
-    <pre>
-        orderForm = {{orderFormDetails.valid | json}}
-    </pre>
-    <pre>
-        orderDetails = {{orderDetails | json}}
-    </pre>
-    <pre>
-        item = {{item | json}}
-    </pre>
-<!--    <pre>-->
-<!--        products = {{products | json}}-->
-<!--    </pre>-->
-
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div fxLayoutAlign="center center">
+                <pre>
+                    orderForm = {{orderFormDetails.valid | json}}
+                </pre>
+            </div>
+            <div fxFlex="2 1 auto" fxLayoutAlign="center center">
+                <pre>
+                    orderDetails = {{orderDetails | json}}
+                </pre>
+            </div>
+            <div fxLayoutAlign="center center">3</div>
+            <div fxLayoutAlign="center center">4</div>
+        </div>
+    </div>
 </div>

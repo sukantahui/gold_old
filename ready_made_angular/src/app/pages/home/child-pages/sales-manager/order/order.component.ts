@@ -6,11 +6,11 @@ import {AgentService} from '../../../../../services/agent.service';
 import {HttpClient} from '@angular/common/http';
 import {ProductService} from '../../../../../services/product.service';
 import {CustomerCategoryService} from '../../../../../services/customer-category.service';
-import {PriceMaster} from "../../../../../models/price-master.model";
-import { faUserEdit, faTrashAlt, faPencilAlt, faPrint} from '@fortawesome/free-solid-svg-icons';
+import {PriceMaster} from '../../../../../models/price-master.model';
+import { faUserEdit, faTrashAlt, faPencilAlt, faPrint, faCogs} from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-import {StorageMap} from "@ngx-pwa/local-storage";
+import {StorageMap} from '@ngx-pwa/local-storage';
 
 export interface Item{
   product_code: string;
@@ -53,6 +53,7 @@ export class OrderComponent implements OnInit {
   faUserEdit = faUserEdit;
   faTrashAlt = faTrashAlt;
   faPencilAlt = faPencilAlt;
+  faCogs = faCogs;
   faPrint = faPrint;
   faCheck = faCheck;
 
@@ -104,11 +105,17 @@ export class OrderComponent implements OnInit {
       console.log(error);
     });
     this.storage.get('orderMaster').subscribe((orderMaster: any) => {
-      this.orderMaster = orderMaster;
-      if(orderMaster){
+      if (orderMaster){
         this.orderFormMaster.get('agent_id').patchValue(orderMaster.agent_id, { onlySelf: true });
         this.agentSelected();
         this.orderFormMaster.get('cust_id').patchValue(orderMaster.cust_id, { onlySelf: true });
+        this.orderMaster = {
+          cust_id: this.orderFormMaster.get('cust_id').value,
+          agent_id: this.orderFormMaster.get('agent_id').value,
+          cust_mv: this.orderFormMaster.get('cust_mv').value,
+          order_date: this.orderFormMaster.get('order_date').value,
+          delivery_date: this.orderFormMaster.get('delivery_date').value
+        };
       }
     });
   }
@@ -147,7 +154,7 @@ export class OrderComponent implements OnInit {
   }
 
   customerCategorySelected($event: any) {
-    if($event != null){
+    if ($event != null){
         this.selectedCustomerCategory = $event;
         // tslint:disable-next-line:max-line-length
         this.http.get(this.commonService.getAPI() + '/dev/priceMasters/' + this.selectedProduct.price_code + '/' + this.selectedCustomerCategory.ID).subscribe((response: {success: number , data: PriceMaster}) => {
@@ -199,7 +206,7 @@ export class OrderComponent implements OnInit {
     this.orderFormDetails.get('qty').patchValue(null, { onlySelf: true });
     this.orderFormDetails.get('expected_gold').patchValue(null, { onlySelf: true });
     this.orderFormDetails.reset();
-    this.selectedProduct=null;
+    this.selectedProduct = null;
     this.storage.set('orderDetails', this.orderDetails).subscribe(() => {});
 
   }
@@ -216,7 +223,7 @@ export class OrderComponent implements OnInit {
       rm_id: row.rm_id,
       qty: row.qty,
     });
-    this.selectedProduct=row.selectedProduct;
+    this.selectedProduct = row.selectedProduct;
   }
 
   deleteItem(i: any) {
@@ -235,12 +242,14 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  test() {
+  clearOrder() {
     this.storage.delete('orderDetails').subscribe(() => {
-
+      this.orderDetails = [];
     });
     this.storage.delete('orderMaster').subscribe(() => {
-
+      this.orderFormMaster.get('cust_id').patchValue(null, { onlySelf: true });
+      this.orderFormMaster.get('cust_mv').patchValue(null, { onlySelf: true });
+      this.orderFormMaster.get('agent_id').patchValue(null, { onlySelf: true });
     });
   }
 }
