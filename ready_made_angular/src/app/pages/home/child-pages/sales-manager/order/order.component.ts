@@ -105,13 +105,21 @@ export class OrderComponent implements OnInit {
     });
     this.storage.get('orderMaster').subscribe((orderMaster: any) => {
       this.orderMaster = orderMaster;
+      if(orderMaster){
+        this.orderFormMaster.get('agent_id').patchValue(orderMaster.agent_id, { onlySelf: true });
+        this.agentSelected();
+        this.orderFormMaster.get('cust_id').patchValue(orderMaster.cust_id, { onlySelf: true });
+      }
     });
   }
 
 
   agentSelected() {
+    const agent_id = this.orderFormMaster.get('agent_id').value;
+    this.orderFormMaster.get('cust_id').patchValue(null, { onlySelf: true });
+    this.orderFormMaster.get('cust_mv').patchValue(null, { onlySelf: true });
     // tslint:disable-next-line:max-line-length
-    this.http.get(this.commonService.getAPI() + '/dev/customers/agent/AG2006/inforced').subscribe((response: {success: number , data: any[]}) => {
+    this.http.get(this.commonService.getAPI() + '/dev/customers/agent/' + agent_id + '/inforced').subscribe((response: {success: number , data: any[]}) => {
       this.customers =  response.data;
     });
   }
@@ -203,7 +211,10 @@ export class OrderComponent implements OnInit {
       lc: row.lc,
       ploss: row.ploss,
       product_mv: row.product_mv,
-      product_size: row.product_size
+      product_size: row.product_size,
+      expected_gold: row.expected_gold,
+      rm_id: row.rm_id,
+      qty: row.qty,
     });
     this.selectedProduct=row.selectedProduct;
   }
@@ -226,6 +237,9 @@ export class OrderComponent implements OnInit {
 
   test() {
     this.storage.delete('orderDetails').subscribe(() => {
+
+    });
+    this.storage.delete('orderMaster').subscribe(() => {
 
     });
   }
