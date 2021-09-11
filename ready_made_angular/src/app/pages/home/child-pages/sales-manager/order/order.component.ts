@@ -279,6 +279,7 @@ export class OrderComponent implements OnInit {
                 icon: 'success'
               });
               this.orderDetails = [];
+              this.orderFormMaster.reset();
             }
         });
   }

@@ -99,7 +99,7 @@
             </mat-card>
         </div>
         <div class="child-2" fxFlex="60">
-            <mat-card id="stock-form-div">
+            <mat-card id="stock-form-div" *ngIf="orderDetails.length > 0">
                 <table  class="table table-bordered table-responsive">
                     <thead>
                     <tr>
@@ -147,15 +147,18 @@
 
                     </tfoot>
                 </table>
-                <div class="example-button-row">
-                    <button mat-raised-button color="accent" (click)="clearOrder()" >Clear</button>
+                <div style="text-align: center">
+                    <div class="example-button-row" fxFlex="20">
+                        <button mat-raised-button color="accent" (click)="clearOrder()" >Clear</button>
+                    </div>
+                    <div class="example-button-row" fxFlex="20">
+                        <button mat-raised-button color="accent" (click)="saveOrder()" >Save</button>
+                    </div>
                 </div>
-                <div class="example-button-row">
-                    <button mat-raised-button color="accent" (click)="saveOrder()" >Save</button>
-                </div>
-                <pre>
-                    orderFormMaster = {{orderFormMaster.value | json}}
-                </pre>
+
+<!--                <pre>-->
+<!--                    orderFormMaster = {{orderFormMaster.value | json}}-->
+<!--                </pre>-->
             </mat-card>
         </div>
     </div>
