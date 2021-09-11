@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceMasterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
@@ -157,6 +158,9 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("priceMasters",[PriceMasterController::class, 'getPriceMasters']);
     //http://127.0.0.1/gold_old/gold_api/public/api/dev/priceMasters/{priceCode}/{priceCat}
     Route::get("priceMasters/{priceCode}/{priceCat}",[PriceMasterController::class, 'getPriceMastersByCodeNCat']);
+
+
+    Route::post("test",[OrderController::class, 'saveOrder']);
 
 });
 

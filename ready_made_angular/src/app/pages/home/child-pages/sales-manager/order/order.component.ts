@@ -16,6 +16,7 @@ export interface Item{
   product_code: string;
   selectedProduct: any;
   price_code: string;
+  cust_category_id: number;
   cust_category: any;
   lc: number;
   ploss: number;
@@ -177,6 +178,7 @@ export class OrderComponent implements OnInit {
                 product_code: this.orderFormDetails.get('product_code').value,
                 selectedProduct: this.selectedProduct,
                 price_code: this.selectedProduct.price_code,
+                cust_category_id: this.orderFormDetails.get('customer_category_id').value,
                 cust_category: this.selectedCustomerCategory,
                 lc: this.orderFormDetails.get('lc').value,
                 ploss: this.orderFormDetails.get('ploss').value,
@@ -254,5 +256,12 @@ export class OrderComponent implements OnInit {
       this.expectedGold = this.orderFormDetails.get('expected_gold').value;
     }
     this.orderFormDetails.get('expected_gold').patchValue( this.expectedGold, { onlySelf: true });
+  }
+
+  saveOrder() {
+    const tempoOrderDetails = this.orderDetails.map(
+        ({product_code, price_code, rm_id, product_size,expected_gold,qty,total_mv,ploss,cust_category_id }) => ({product_code, price_code, rm_id, product_size,expected_gold,qty,total_mv,ploss,cust_category_id})
+    );
+    console.log(tempoOrderDetails);
   }
 }
