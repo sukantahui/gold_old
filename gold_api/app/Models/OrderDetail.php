@@ -64,4 +64,8 @@ class OrderDetail extends Model
      * @var int|mixed
      */
     private $status;
+    /**
+     * @var mixed
+     */
+    private $product_mv;
 }

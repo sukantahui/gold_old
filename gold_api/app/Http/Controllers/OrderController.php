@@ -65,6 +65,7 @@ class OrderController extends ApiController
                     $orderDetail->rm_id = $detail['rm_id'];
                     $orderDetail->particulars = '';
                     $orderDetail->qty = $detail['qty'];
+                    $orderDetail->product_mv = $detail['product_mv'];
                     $orderDetail->status = 1;
                     $orderDetail->save();
                     $orderDetailArray[]=$orderDetail;

@@ -14,8 +14,33 @@
 			"p_loss": 1.25,
 			"prd_size": "9-8-7",
 			"gold_wt": 23.56,
+			"product_mv": 0.121,
+			"rm_id": 48,
+			"qty": 3
+			
+		},
+		{ 
+			"product_code":"C0725",
+			"price_code": "D",
+			"price": 300,
+			"p_loss": 1.25,
+			"prd_size": "9-8-7",
+			"gold_wt": 23.56,
+			"product_mv": 0.123,
 			"rm_id": 48,
 			"qty": 5
+			
+		},
+		{ 
+			"product_code":"C0724",
+			"price_code": "E",
+			"price": 100,
+			"p_loss": 2.25,
+			"prd_size": "9-8-7",
+			"gold_wt": 11.56,
+			"product_mv": 0.123,
+			"rm_id": 48,
+			"qty": 4
 			
 		}
 	]
