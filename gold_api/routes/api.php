@@ -86,6 +86,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("getJobIdByJobMaster",[JobMasterController::class, 'getJobIdByJobMaster']);
 
     Route::get("agents",[AgentController::class, 'getAgents']);
+
+    Route::post("save",[OrderController::class, 'saveOrder']);
 });
 
 
@@ -160,7 +162,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("priceMasters/{priceCode}/{priceCat}",[PriceMasterController::class, 'getPriceMastersByCodeNCat']);
 
 
-    Route::post("test",[OrderController::class, 'saveOrder']);
+    Route::post("save",[OrderController::class, 'saveOrder']);
 
 });
 

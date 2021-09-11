@@ -266,10 +266,20 @@ export class OrderComponent implements OnInit {
 
   saveOrder() {
     const tempoOrderDetails = this.orderDetails.map(
-        ({product_code, price_code, rm_id, product_size,expected_gold,qty,total_mv,ploss,cust_category_id }) => ({product_code, price_code, rm_id, product_size,expected_gold,qty,total_mv,ploss,cust_category_id})
+        ({product_code, price_code, rm_id, product_size, expected_gold, qty, total_mv, ploss, cust_category_id , lc}) => ({product_code, price_code, rm_id, product_size, expected_gold, qty, total_mv, ploss, cust_category_id, lc})
     );
     // console.log(tempoOrderDetails);
     // console.log(this.orderMaster);
-    this.orderService.saveOrder(this.orderMaster, tempoOrderDetails);
+    this.orderService.saveOrder(this.orderMaster, tempoOrderDetails)
+        .subscribe((response: {status: any , data: any}) => {
+            if (response.status === true){
+              Swal.fire({
+                title: 'Done',
+                text: 'Order saved successfully',
+                icon: 'success'
+              });
+              this.orderDetails = [];
+            }
+        });
   }
 }
