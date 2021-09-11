@@ -1,6 +1,6 @@
 <div id="create-order-div">
     <div fxLayout="row" fxLayout.xs="column">
-        <div class="child-1" fxFlex="50">
+        <div class="child-1" fxFlex="40">
             <mat-card id="stock-form-div">
                 <form [formGroup] = orderFormMaster>
                     <div fxLayoutGap="15px" style="padding-left: 50px">
@@ -29,6 +29,10 @@
                         <mat-form-field fxFlex="10">
                             <mat-label>MV</mat-label>
                             <input type="number" class="text-right" matInput formControlName="cust_mv" placeholder="MV">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="10">
+                            <mat-label>Disc %</mat-label>
+                            <input type="number" class="text-right" matInput formControlName="lc_discount_percentage" placeholder="LC Discount Percentage">
                         </mat-form-field>
                     </div>
                 </form>
@@ -59,6 +63,8 @@
 
                             </ng-select>
                         </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
                         <mat-form-field fxFlex="10">
                             <mat-label>LC</mat-label>
                             <input type="number" class="text-right" matInput formControlName="lc" placeholder="LC">
@@ -92,7 +98,7 @@
                 </form>
             </mat-card>
         </div>
-        <div class="child-2" fxFlex="50">
+        <div class="child-2" fxFlex="60">
             <mat-card id="stock-form-div">
                 <table  class="table table-bordered table-responsive">
                     <thead>

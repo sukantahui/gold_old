@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Maxtable;
+use App\Models\OrderDetail;
 use App\Models\OrderMaster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +47,31 @@ class OrderController extends ApiController
             $orderMaster->save();
 
             $return_array['order_master']=$orderMaster;
+
+            if($orderMaster){
+                $sl = 1;
+                $orderDetailArray = [];
+                foreach ($orderDetailsInput as $detail){
+                    $orderDetail = new OrderDetail();
+                    $orderDetail->sl_no = $sl++;
+                    $orderDetail->order_id = $orderMaster->order_id;
+                    $orderDetail->product_code = $detail['product_code'];
+                    $orderDetail->price_code = $detail['price_code'];
+                    $orderDetail->price_method = 'Regular';
+                    $orderDetail->price = $detail['price'];
+                    $orderDetail->p_loss = $detail['p_loss'];
+                    $orderDetail->prd_size = $detail['prd_size'];
+                    $orderDetail->gold_wt = $detail['gold_wt'];
+                    $orderDetail->rm_id = $detail['rm_id'];
+                    $orderDetail->particulars = '';
+                    $orderDetail->qty = $detail['qty'];
+                    $orderDetail->status = 1;
+                    $orderDetail->save();
+                    $orderDetailArray[]=$orderDetail;
+
+                }
+                $return_array['order_details']=$orderDetailArray;
+            }
 
             DB::commit();
 //            return  $this->successResponse($return_array);

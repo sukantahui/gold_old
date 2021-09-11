@@ -1,0 +1,22 @@
+{
+	"orderMaster" : {
+		"cust_id": "s53",
+		"agent_id": "AG2018",
+		"order_date": "2021-09-09",
+		"delivery_date": "2021-09-14",
+		"lc_discount_percentage": 10
+	},
+	"orderDetails" : [
+		{ 
+			"product_code":"b200",
+			"price_code": "H",
+			"price": 500,
+			"p_loss": 1.25,
+			"prd_size": "9-8-7",
+			"gold_wt": 23.56,
+			"rm_id": 48,
+			"qty": 5
+			
+		}
+	]
+}

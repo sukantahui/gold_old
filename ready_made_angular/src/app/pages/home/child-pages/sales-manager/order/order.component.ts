@@ -11,6 +11,7 @@ import { faUserEdit, faTrashAlt, faPencilAlt, faPrint, faCogs} from '@fortawesom
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import {StorageMap} from '@ngx-pwa/local-storage';
+import {OrderService} from '../../../../../services/order.service';
 
 export interface Item{
   product_code: string;
@@ -46,7 +47,7 @@ export class OrderComponent implements OnInit {
   selectedCustomerCategory: any;
   selectedPriceMaster: PriceMaster;
   selectedCustomer: any;
-  orderMaster: {cust_id: string, agent_id: string, cust_mv: number, order_date: string, delivery_date: string};
+  orderMaster: {cust_id: string, agent_id: string, cust_mv: number, order_date: string, delivery_date: string, lc_discount_percentage: number};
   item: Item;
   orderDetails: Item[] = [];
   expectedGold: any;
@@ -59,7 +60,7 @@ export class OrderComponent implements OnInit {
   faCheck = faCheck;
 
 
-  constructor(private commonService: CommonService, private agentService: AgentService, private http: HttpClient, private productService: ProductService, private customerCategoryService: CustomerCategoryService, private storage: StorageMap) {
+  constructor(private commonService: CommonService, private agentService: AgentService, private http: HttpClient, private productService: ProductService, private customerCategoryService: CustomerCategoryService, private storage: StorageMap , private  orderService: OrderService) {
     this.agents = this.agentService.getAgents();
     this.products = this.productService.getProducts();
     this.customerCategories = this.customerCategoryService.getCategories();
@@ -72,6 +73,7 @@ export class OrderComponent implements OnInit {
       agent_id: new FormControl(null, [Validators.required]),
       cust_id: new FormControl(null, [Validators.required]),
       cust_mv: new FormControl(null, [Validators.required]),
+      lc_discount_percentage: new FormControl(null, [Validators.required]),
     });
     this.orderFormDetails = new FormGroup({
       product_code: new FormControl(null, [Validators.required]),
@@ -115,7 +117,8 @@ export class OrderComponent implements OnInit {
           agent_id: this.orderFormMaster.get('agent_id').value,
           cust_mv: this.orderFormMaster.get('cust_mv').value,
           order_date: this.orderFormMaster.get('order_date').value,
-          delivery_date: this.orderFormMaster.get('delivery_date').value
+          delivery_date: this.orderFormMaster.get('delivery_date').value,
+          lc_discount_percentage: this.orderFormMaster.get('lc_discount_percentage').value,
         };
       }
     });
@@ -136,12 +139,15 @@ export class OrderComponent implements OnInit {
     this.selectedCustomer = $event;
     // this.orderMaster.cust_id=this.selectedCustomer.cust_id;
     this.orderFormMaster.get('cust_mv').patchValue(this.selectedCustomer.markup_value, { onlySelf: true });
+    this.orderFormMaster.get('lc_discount_percentage').patchValue(this.selectedCustomer.lc_discount_percentage, { onlySelf: true });
     this.orderMaster = {
       cust_id: this.orderFormMaster.get('cust_id').value,
       agent_id: this.orderFormMaster.get('agent_id').value,
       cust_mv: this.orderFormMaster.get('cust_mv').value,
       order_date: this.orderFormMaster.get('order_date').value,
-      delivery_date: this.orderFormMaster.get('delivery_date').value
+      delivery_date: this.orderFormMaster.get('delivery_date').value,
+      lc_discount_percentage: this.orderFormMaster.get('lc_discount_percentage').value
+
     };
     this.storage.set('orderMaster', this.orderMaster).subscribe(() => {});
   }
@@ -262,6 +268,8 @@ export class OrderComponent implements OnInit {
     const tempoOrderDetails = this.orderDetails.map(
         ({product_code, price_code, rm_id, product_size,expected_gold,qty,total_mv,ploss,cust_category_id }) => ({product_code, price_code, rm_id, product_size,expected_gold,qty,total_mv,ploss,cust_category_id})
     );
-    console.log(tempoOrderDetails);
+    // console.log(tempoOrderDetails);
+    // console.log(this.orderMaster);
+    this.orderService.saveOrder(this.orderMaster, tempoOrderDetails);
   }
 }
