@@ -164,18 +164,9 @@
                     <thead>
                     <tr>
                         <th class="text-center">SL</th>
-                        <th class="text-center" >Order Id</th>
-                        <th class="text-center" >DoO</th>
-                        <th class="text-center" >DoD</th>
+                        <th class="text-center">Order Id</th>
                         <th class="text-center" >Order Date</th>
-                        <th class="text-center" >Delivery Date</th>
                         <th class="text-center" >LC Discount Percentage</th>
-                        <!--                        <th class="text-center" >LC</th>-->
-                        <!--                        <th class="text-center" >PR. MV</th>-->
-                        <!--                        <th class="text-center" >CMV</th>-->
-                        <!--                        <th class="text-center" >TMV</th>-->
-                        <!--                        <th class="text-center" colspan="2"><fa-icon class="edit" [icon]="faCogs"></fa-icon></th>-->
-
                     </tr>
                     </thead>
                     <tbody>
@@ -183,22 +174,8 @@
                         <ng-container *ngIf="true">
                             <th scope="row">{{i+1}}</th>
                             <td class="text-left">{{row.order_id}}</td>
-                            <td class="text-left">{{row.DoO}}</td>
-                            <td class="text-right">{{row.DoD}}</td>
                             <td class="text-right">{{row.order_date | date: 'dd-MM-yyyy'}}</td>
-                            <td class="text-right" >{{row.delivery_date | date: 'dd-MM-yyyy' }}</td>
                             <td class="text-right">{{row.lc_discount_percentage}}</td>
-                            <!--                            <td class="text-right">{{row.lc}}</td>-->
-                            <!--                            <td class="text-right">{{row.product_mv | number: '1.3'}}</td>-->
-                            <!--                            <td class="text-right">{{row.cust_mv | number: '1.3'}}</td>-->
-                            <!--                            <td class="text-right">{{(row.product_mv+row.cust_mv) | number: '1.3'}}</td>-->
-                            <!--                            <td class="text-right">-->
-                            <!--                                <a [routerLink]="" (click)="populateOrderFormDetails(row , i)"><fa-icon class="edit" [icon]="faPencilAlt"></fa-icon></a>-->
-                            <!--                            </td>-->
-                            <!--                            <td class="text-right">-->
-                            <!--                                <a [routerLink]="" (click)="deleteItem(i)"><fa-icon class="edit" [icon]="faTrashAlt"></fa-icon></a>-->
-                            <!--                            </td>-->
-
                         </ng-container>
                     </tr>
 
