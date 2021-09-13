@@ -50,6 +50,7 @@ export class OrderComponent implements OnInit {
   orderMaster: {cust_id: string, agent_id: string, cust_mv: number, order_date: string, delivery_date: string, lc_discount_percentage: number};
   item: Item;
   orderDetails: Item[] = [];
+  orderMasterList: any[] = [];
   expectedGold: any;
 
   faUserEdit = faUserEdit;
@@ -138,6 +139,8 @@ export class OrderComponent implements OnInit {
   customerSelected($event) {
     this.selectedCustomer = $event;
     // this.orderMaster.cust_id=this.selectedCustomer.cust_id;
+    console.log(this.selectedCustomer);
+    console.log('customerSelected');
     this.orderFormMaster.get('cust_mv').patchValue(this.selectedCustomer.markup_value, { onlySelf: true });
     this.orderFormMaster.get('lc_discount_percentage').patchValue(this.selectedCustomer.lc_discount_percentage, { onlySelf: true });
     this.orderMaster = {
@@ -268,8 +271,8 @@ export class OrderComponent implements OnInit {
     const tempoOrderDetails = this.orderDetails.map(
         ({product_code, price_code, rm_id, product_size, expected_gold, qty, total_mv, ploss, cust_category_id , lc}) => ({product_code, price_code, rm_id, product_size, expected_gold, qty, total_mv, ploss, cust_category_id, lc})
     );
-    // console.log(tempoOrderDetails);
-    // console.log(this.orderMaster);
+    console.log(tempoOrderDetails);
+    console.log(this.orderMaster);
     this.orderService.saveOrder(this.orderMaster, tempoOrderDetails)
         .subscribe((response: {status: any , data: any}) => {
             if (response.status === true){
@@ -282,5 +285,13 @@ export class OrderComponent implements OnInit {
               this.orderFormMaster.reset();
             }
         });
+  }
+
+  viewOrderList(){
+    this.orderService.getOrderMasterList().subscribe((response:{status:any, data:any[]})=>{
+      this.orderMasterList = response.data;
+      console.log(this.orderMasterList);
+    });
+    
   }
 }

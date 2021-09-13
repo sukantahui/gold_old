@@ -66,7 +66,7 @@ class OrderController extends ApiController
                     $orderDetail->particulars = '';
                     $orderDetail->qty = $detail['qty'];
                     $orderDetail->product_mv = $detail['total_mv'];
-                    $orderDetail->status = 1;
+                    $orderDetail->status = 0;
                     $orderDetail->save();
                     $orderDetailArray[]=$orderDetail;
 
@@ -82,5 +82,10 @@ class OrderController extends ApiController
             DB::rollBack();
             return $this->errorResponse($e->getMessage(),500);
         }
+    }
+
+    public function getOrderMasterList(){
+        $orderMaster = OrderMaster::get();
+        return $this->successResponse($orderMaster);
     }
 }
