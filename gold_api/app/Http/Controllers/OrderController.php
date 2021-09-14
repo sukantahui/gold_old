@@ -85,7 +85,14 @@ class OrderController extends ApiController
     }
 
     public function getOrderMasterList(){
-        $orderMaster = OrderMaster::get();
+        $orderMaster = OrderMaster::select()
+                        ->join('customer_master','customer_master.cust_id','=','order_master.cust_id')
+                        ->get();
         return $this->successResponse($orderMaster);
     }
+    // public function getOrderMasterList(){
+    //     $orderMaster = DB::select(DB::raw("select * from order_master
+    //     inner join customer_master on order_master.cust_id = customer_master.cust_id;"));
+    //     return $this->successResponse($orderMaster);
+    // }
 }
