@@ -14,6 +14,7 @@ class Customer extends Model
     // In Laravel 6.0+ make sure to also set $keyType
     protected $keyType = 'string';
     public $timestamps = false;
+    private $cust_id;
     private $cust_name;
     private $mailing_name;
     private $city;
@@ -29,6 +30,7 @@ class Customer extends Model
     private $order_inforce;
     private $bill_inforce;
     private $short_name;
+    private $lc_discount_percentage;
 
 
 }
