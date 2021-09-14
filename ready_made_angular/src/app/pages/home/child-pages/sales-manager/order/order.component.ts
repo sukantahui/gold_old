@@ -84,7 +84,7 @@ export class OrderComponent implements OnInit {
       product_mv: new FormControl(null, [Validators.required]),
       qty: new FormControl(null, [Validators.required]),
       expected_gold: new FormControl(null, [Validators.required]),
-      rm_id: new FormControl(48, ),
+      rm_id: new FormControl(48, [Validators.required]),
       product_size: new FormControl(null, [Validators.required])
     });
   }
@@ -210,6 +210,7 @@ export class OrderComponent implements OnInit {
     this.orderFormDetails.get('qty').patchValue(null, { onlySelf: true });
     this.orderFormDetails.get('expected_gold').patchValue(null, { onlySelf: true });
     this.orderFormDetails.reset();
+    this.orderFormDetails.get('rm_id').setValue(48);
     this.selectedProduct = null;
     this.storage.set('orderDetails', this.orderDetails).subscribe(() => {});
 
@@ -269,6 +270,7 @@ export class OrderComponent implements OnInit {
 
   saveOrder() {
     const tempoOrderDetails = this.orderDetails.map(
+        // tslint:disable-next-line:max-line-length
         ({product_code, price_code, rm_id, product_size, expected_gold, qty, total_mv, ploss, cust_category_id , lc}) => ({product_code, price_code, rm_id, product_size, expected_gold, qty, total_mv, ploss, cust_category_id, lc})
     );
     console.log(tempoOrderDetails);
@@ -292,6 +294,6 @@ export class OrderComponent implements OnInit {
       this.orderMasterList = response.data;
       console.log(this.orderMasterList);
     });
-    
+
   }
 }
