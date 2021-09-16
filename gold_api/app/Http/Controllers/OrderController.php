@@ -87,6 +87,8 @@ class OrderController extends ApiController
     public function getOrderMasterList(){
         $orderMaster = OrderMaster::select()
                         ->join('customer_master','customer_master.cust_id','=','order_master.cust_id')
+                        ->orderBy('tr_time','desc')
+                        ->take(50)
                         ->get();
         return $this->successResponse($orderMaster);
     }
