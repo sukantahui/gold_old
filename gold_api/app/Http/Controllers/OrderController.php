@@ -92,6 +92,8 @@ class OrderController extends ApiController
                         ->get();
         return $this->successResponse($orderMaster);
     }
+
+    //http://127.0.0.1/gold_old/gold_api/public/api/dev/orderDetails/orderMasterId/1366
     public function getOrderDetailsByOrderMaster($order_master_id){
         $order_id = OrderMaster::findOrFail($order_master_id)->order_id;
         $order_details = OrderDetail::whereOrderId($order_id)
