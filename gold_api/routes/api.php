@@ -166,6 +166,8 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::post("save",[OrderController::class, 'saveOrder']);
     Route::get("getOrderMasterList",[OrderController::class, 'getOrderMasterList']);
 
+    Route::get("orderDetails/orderMasterId/{order_master_id}",[OrderController::class, 'getOrderDetailsByOrderMaster']);
+
     Route::post("saveCustomer",[CustomerController::class, 'saveCustomer']);
 
 });

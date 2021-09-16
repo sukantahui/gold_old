@@ -92,9 +92,10 @@ class OrderController extends ApiController
                         ->get();
         return $this->successResponse($orderMaster);
     }
-    // public function getOrderMasterList(){
-    //     $orderMaster = DB::select(DB::raw("select * from order_master
-    //     inner join customer_master on order_master.cust_id = customer_master.cust_id;"));
-    //     return $this->successResponse($orderMaster);
-    // }
+    public function getOrderDetailsByOrderMaster($order_master_id){
+        $order_id = OrderMaster::findOrFail($order_master_id)->order_id;
+        $order_details = OrderDetail::whereOrderId($order_id)
+                            ->get();
+        return $this->successResponse($order_details);
+    }
 }
