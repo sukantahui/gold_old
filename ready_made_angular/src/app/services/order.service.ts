@@ -16,4 +16,8 @@ export class OrderService {
   getOrderMasterList(){
     return this.http.get(this.commonService.getAPI() + '/getOrderMasterList');
   }
+
+  getOrderDetailsByOrderMaster(orderMasterId){
+    return this.http.get(this.commonService.getAPI() + '/orderDetails/orderMasterId/' + orderMasterId);
+  }
 }

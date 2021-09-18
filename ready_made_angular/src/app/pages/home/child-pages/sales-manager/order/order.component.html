@@ -160,13 +160,14 @@
             </div>
 
             <mat-card *ngIf="orderMasterList.length">
-                <table  class="table table-bordered table-responsive">
+                <table  class="table table-bordered table-responsive" [hidden]="viewDetails">
                     <thead>
                     <tr>
                         <th class="text-center">SL</th>
                         <th class="text-center">Name</th>
                         <th class="text-center">Order Id</th>
                         <th class="text-center" >Order Date</th>
+                        <td>View Details</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -176,6 +177,7 @@
                             <th scope="row">{{row.cust_name}}</th>
                             <td class="text-left">{{row.order_id}}</td>
                             <td class="text-right">{{row.order_date | date: 'dd-MM-yyyy'}}</td>
+                            <td class="text-center"><button mat-button (click)="viewOrderDetailsByOrderMaster(row.order_autoid)"><i class="bi bi-view-list"></i></button></td>
                         </ng-container>
                     </tr>
 
@@ -188,6 +190,37 @@
 <!--                <pre>-->
 <!--                    orderFormMaster = {{orderFormMaster.value | json}}-->
 <!--                </pre>-->
+            </mat-card>
+            <mat-card *ngIf="viewDetails">
+                
+                <!-- {{orderMasterList.cust_name}} -->
+                <table class="table table-bordered table-responsive">
+                    <thead>                        
+                        <tr>
+                            <th class="text-center">SL</th>
+                            <th class="text-center">Product Code</th>
+                            <th class="text-center">Price Code</th>
+                            <th class="text-center">Size</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-center">Gold Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of orderDetailsList; let i = index">
+                            <ng-container *ngIf="true">                                
+                                <th scope="row">{{i+1}}</th>
+                                <th scope="row">{{row.product_code}}</th>
+                                <th class="text-center">{{row.price_code}}</th>
+                                <th class="text-center">{{row.prd_size}}</th>
+                                <th class="text-center">{{row.qty}}</th>
+                                <th class="text-center">{{row.gold_wt}}</th>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+                <pre>
+                    orderDetails: {{orderDetailsList | json}}
+                </pre>
             </mat-card>
         </div>
     </div>

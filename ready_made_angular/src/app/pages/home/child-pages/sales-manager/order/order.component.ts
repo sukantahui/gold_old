@@ -52,6 +52,8 @@ export class OrderComponent implements OnInit {
   orderDetails: Item[] = [];
   orderMasterList: any[] = [];
   expectedGold: any;
+  viewDetails= false;
+  orderDetailsList: any[] =[];
 
   faUserEdit = faUserEdit;
   faTrashAlt = faTrashAlt;
@@ -296,4 +298,13 @@ export class OrderComponent implements OnInit {
     });
 
   }
+
+  viewOrderDetailsByOrderMaster(orderId){
+    this.orderService.getOrderDetailsByOrderMaster(orderId).subscribe((response:{status:any, data:any[]})=>{
+      this.orderDetailsList = response.data;
+      this.viewDetails = true;
+    });
+  }
+
+
 }
