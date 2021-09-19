@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Maxtable;
 use App\Models\OrderDetail;
 use App\Models\OrderMaster;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -95,12 +96,22 @@ class OrderController extends ApiController
 
     //http://127.0.0.1/gold_old/gold_api/public/api/dev/orderDetails/orderMasterId/1366
     public function getOrderDetailsByOrderMaster($order_master_id){
-        $order_id = OrderMaster::findOrFail($order_master_id)->order_id;
+        $return_array=array();
+        $order_master = OrderMaster::findOrFail($order_master_id);
+
         $order_details = OrderDetail::select()
-                            ->whereOrderId($order_id)
+                            ->whereOrderId($order_master->order_id)
 
                             ->get();
-        return $this->successResponse($order_details);
+        
+        $return_array['order_details']=$order_details;
+        $customer = Customer::findOrFail($order_master->cust_id);
+        $return_array['customer']=$customer;
+        $return_array['order_master']=$order_master;
+
+
+        return $this->successResponse($return_array);
+        // return $this->successResponse($customer);
     }
 
 

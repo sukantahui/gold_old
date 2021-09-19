@@ -192,35 +192,51 @@
 <!--                </pre>-->
             </mat-card>
             <mat-card *ngIf="viewDetails">
+                <div style="text-align: right">
+                    <button
+                            mat-button color="primary"
+                            [printStyle]="printDivStyle"
+                            printSectionId="orderDetailsDiv"
+                            ngxPrint ><mat-icon>print</mat-icon>
+                    </button>
+                </div>
                 
                 <!-- {{orderMasterList.cust_name}} -->
-                <table class="table table-bordered table-responsive">
-                    <thead>                        
-                        <tr>
-                            <th class="text-center">SL</th>
-                            <th class="text-center">Product Code</th>
-                            <th class="text-center">Price Code</th>
-                            <th class="text-center">Size</th>
-                            <th class="text-center">Qty</th>
-                            <th class="text-center">Gold Weight</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let row of orderDetailsList; let i = index">
-                            <ng-container *ngIf="true">                                
-                                <th scope="row">{{i+1}}</th>
-                                <th scope="row">{{row.product_code}}</th>
-                                <th class="text-center">{{row.price_code}}</th>
-                                <th class="text-center">{{row.prd_size}}</th>
-                                <th class="text-center">{{row.qty}}</th>
-                                <th class="text-center">{{row.gold_wt}}</th>
-                            </ng-container>
-                        </tr>
-                    </tbody>
-                </table>
-                <pre>
+                <div id="orderDetailsDiv">
+                    <table class="table table-bordered table-responsive">
+                        Name: <b>{{customerName.cust_name}}</b>
+                        
+                        <thead>                        
+                            <tr>
+                                <th class="text-center">SL</th>
+                                <th class="text-center">Product Code</th>
+                                <th class="text-center">Price Code</th>
+                                <th class="text-center">Size</th>
+                                <th class="text-center">Qty</th>
+                                <th class="text-center">Gold Weight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of orderDetailsList; let i = index">
+                                <ng-container *ngIf="true">                                
+                                    <th scope="row">{{i+1}}</th>
+                                    <th scope="row">{{row.product_code}}</th>
+                                    <th class="text-center">{{row.price_code}}</th>
+                                    <th class="text-center">{{row.prd_size}}</th>
+                                    <th class="text-center">{{row.qty}}</th>
+                                    <th class="text-center">{{row.gold_wt}}</th>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+               
+                <!-- <pre>
                     orderDetails: {{orderDetailsList | json}}
                 </pre>
+                <pre>
+                    cust: {{customerName | json}}
+                </pre> -->
             </mat-card>
         </div>
     </div>
