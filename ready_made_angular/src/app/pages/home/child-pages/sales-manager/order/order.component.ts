@@ -304,7 +304,6 @@ export class OrderComponent implements OnInit {
   viewOrderList(){
     this.orderService.getOrderMasterList().subscribe((response:{status:any, data:any[]})=>{
       this.orderMasterList = response.data;
-      console.log(this.orderMasterList);
     });
 
   }
@@ -314,7 +313,6 @@ export class OrderComponent implements OnInit {
       this.orderDetailsList = response.data.order_details;
       this.customerName = response.data.customer;
       this.orderMasterListOfDetails = response.data.customer;
-      console.log(response.data);
       this.viewDetails = true;
     });
   }
