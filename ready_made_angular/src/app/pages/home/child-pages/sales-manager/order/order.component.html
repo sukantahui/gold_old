@@ -1,10 +1,10 @@
 <div id="create-order-div">
     <div fxLayout="row" fxLayout.xs="column">
-        <div class="child-1" fxFlex="40">
+        <div class="child-1" fxFlex="30">
             <mat-card id="stock-form-div">
                 <form [formGroup] = orderFormMaster>
-                    <div fxLayoutGap="15px" style="padding-left: 50px">
-                        <div class="col-8">
+                    <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
+                        <div fxFlex="90">
                             <ng-select [items]="agents"
                                        bindLabel="agent_name"
                                        class="custom"
@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
-                        <div class="col-8">
+                        <div fxFlex="90">
                             <ng-select [items]="customers"
                                        bindLabel="cust_name"
                                        class="custom"
@@ -26,20 +26,22 @@
                                        placeholder="Select Customer">
                             </ng-select>
                         </div>
-                        <mat-form-field fxFlex="10">
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
+                        <mat-form-field fxFlex="20">
                             <mat-label>MV</mat-label>
                             <input type="number" class="text-right" matInput formControlName="cust_mv" placeholder="MV">
                         </mat-form-field>
-                        <mat-form-field fxFlex="10">
-                            <mat-label>Disc %</mat-label>
+                        <mat-form-field fxFlex="20">
+                            <mat-label>Disc. %</mat-label>
                             <input type="number" class="text-right" matInput formControlName="lc_discount_percentage" placeholder="LC Discount Percentage">
                         </mat-form-field>
                     </div>
                 </form>
                 <form [formGroup] = orderFormDetails>
                     <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
-                        <div cfxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px">
-                            <ng-select fxFlex="150px" [items]="products"
+                        <div cfxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" fxFlex="30">
+                            <ng-select  [items]="products"
                                        [virtualScroll]="true"
                                        bindLabel="product_code"
                                        class="custom"
@@ -52,8 +54,8 @@
                             <span *ngIf="selectedProduct" [matBadge]="selectedProduct.price_code" matBadgeOverlap="false"></span>
                         </div>
 
-                        <div cfxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px">
-                            <ng-select fxFlex="150px" [items]="customerCategories"
+                        <div cfxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" fxFlex="30">
+                            <ng-select [items]="customerCategories"
                                        bindLabel="category"
                                        class="custom"
                                        (change)="customerCategorySelected($event)"
@@ -85,7 +87,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex="15">
                             <mat-label>Exp. Gold</mat-label>
-                            <input type="text" class="text-right" matInput formControlName="expected_gold" placeholder="Gold" (blur)="getExpectedGoldDecimalValue()">
+                            <input type="text" class="text-right" matInput formControlName="expected_gold" placeholder="Gold">
                         </mat-form-field>
                         <mat-form-field fxFlex="10">
                             <mat-label>Qty</mat-label>
@@ -136,7 +138,7 @@
                 </div>
             </mat-card>
         </div>
-        <div class="child-2" fxFlex="60">
+        <div class="child-2" fxFlex="70">
             <button (click)="viewOrderList()">View Order List</button>
             <div *ngIf="orderDetails.length>0">
                 <table  class="table table-bordered table-responsive">
