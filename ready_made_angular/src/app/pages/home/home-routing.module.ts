@@ -65,7 +65,14 @@ const routes: Routes = [
                                     path: 'Order',
                                     loadChildren: () => import('./child-pages/sales-manager/order/order.module')
                                         .then(mod => mod.OrderModule)
+                                },
+                                {
+                                    path: 'AgentWiseStock',
+                                    loadChildren: () => import('./child-pages/sales-manager/agent-wise-stock/agent-wise-stock.module')
+                                        .then(mod => mod.AgentWiseStockModule)
                                 }
+
+
 
 
                             ]

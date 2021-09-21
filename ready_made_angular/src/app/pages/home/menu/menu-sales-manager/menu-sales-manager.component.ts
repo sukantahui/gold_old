@@ -83,7 +83,7 @@ export class MenuSalesManagerComponent implements OnInit {
             {
               displayName: 'Agentwise Stock',
               iconName: 'person',
-              route: 'AgentWiseSaleReport',
+              route: 'AgentWiseStock',
             }
           ]
         },
