@@ -65,7 +65,7 @@ export class OrderComponent implements OnInit {
   faPrint = faPrint;
   faCheck = faCheck;
 
-  isProduction = environment.production;
+  isProduction = environment.production; // for showing it only in development phase not in build phase
 
 
 

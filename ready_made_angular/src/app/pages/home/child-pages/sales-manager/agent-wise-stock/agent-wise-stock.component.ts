@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {environment} from '../../../../../../environments/environment';
+import {AgentService} from '../../../../../services/agent.service';
 
 @Component({
   selector: 'app-agent-wise-stock',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgentWiseStockComponent implements OnInit {
 
-  constructor() { }
+  agentList: any[];
+  isProduction = environment.production;
+  constructor(private  agentService: AgentService) { }
 
   ngOnInit(): void {
+    this.agentService.getAgentUpdateListener().subscribe((response) => {
+      this.agentList = response;
+    });
   }
-
 }
