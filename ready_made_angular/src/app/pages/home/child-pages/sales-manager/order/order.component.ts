@@ -12,6 +12,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import {StorageMap} from '@ngx-pwa/local-storage';
 import {OrderService} from '../../../../../services/order.service';
+import {environment} from "../../../../../../environments/environment";
 
 export interface Item{
   product_code: string;
@@ -56,13 +57,16 @@ export class OrderComponent implements OnInit {
   orderDetailsList: any;
   customerName: any;
   orderMasterListOfDetails: any[] = [];
-
+  printAbleOrderDetails: {order_details: any[],customer: any,order_master: any};
   faUserEdit = faUserEdit;
   faTrashAlt = faTrashAlt;
   faPencilAlt = faPencilAlt;
   faCogs = faCogs;
   faPrint = faPrint;
   faCheck = faCheck;
+
+  isProduction = environment.production;
+
 
 
   constructor(private commonService: CommonService, private agentService: AgentService, private http: HttpClient, private productService: ProductService, private customerCategoryService: CustomerCategoryService, private storage: StorageMap , private  orderService: OrderService) {
@@ -285,8 +289,7 @@ export class OrderComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         ({product_code, price_code, rm_id, product_size, expected_gold, qty, total_mv, ploss, cust_category_id , lc}) => ({product_code, price_code, rm_id, product_size, expected_gold, qty, total_mv, ploss, cust_category_id, lc})
     );
-    console.log(tempoOrderDetails);
-    console.log(this.orderMaster);
+
     this.orderService.saveOrder(this.orderMaster, tempoOrderDetails)
         .subscribe((response: {status: any , data: any}) => {
             if (response.status === true){
@@ -295,8 +298,14 @@ export class OrderComponent implements OnInit {
                 text: 'Order saved successfully',
                 icon: 'success'
               });
-              this.orderDetails = [];
-              this.orderFormMaster.reset();
+
+              this.storage.delete('orderDetails').subscribe(() => {
+                this.orderDetails = [];
+              });
+              this.storage.delete('orderMaster').subscribe(() => {
+                this.orderFormMaster.reset();
+              });
+
             }
         });
   }
@@ -310,9 +319,10 @@ export class OrderComponent implements OnInit {
 
   viewOrderDetailsByOrderMaster(orderId){
     this.orderService.getOrderDetailsByOrderMaster(orderId).subscribe((response:{status:any, data:any})=>{
-      this.orderDetailsList = response.data.order_details;
-      this.customerName = response.data.customer;
-      this.orderMasterListOfDetails = response.data.customer;
+      // this.orderDetailsList = response.data.order_details;
+      // this.customerName = response.data.customer;
+      // this.orderMasterListOfDetails = response.data.order_master;
+      this.printAbleOrderDetails = response.data;
       this.viewDetails = true;
     });
   }

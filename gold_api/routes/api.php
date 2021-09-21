@@ -169,9 +169,10 @@ Route::group(array('prefix' => 'dev'), function() {
 
 
     Route::post("save",[OrderController::class, 'saveOrder']);
+    // http://127.0.0.1/gold_old/gold_api/public/api/dev/getOrderMasterList
     Route::get("getOrderMasterList",[OrderController::class, 'getOrderMasterList']);
 
-//    http://127.0.0.1/gold_old/gold_api/public/api/dev/orderDetails/orderMasterId/1366
+    // http://127.0.0.1/gold_old/gold_api/public/api/dev/orderDetails/orderMasterId/1366
     Route::get("orderDetails/orderMasterId/{order_master_id}",[OrderController::class, 'getOrderDetailsByOrderMaster']);
 
     Route::post("saveCustomer",[CustomerController::class, 'saveCustomer']);
