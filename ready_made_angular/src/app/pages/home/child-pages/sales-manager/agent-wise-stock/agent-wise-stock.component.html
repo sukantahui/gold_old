@@ -1,17 +1,31 @@
 <div id="agent-wise-stock-div">
     <mat-card>
         <mat-card-title>
-            <div class="col-6">
-                <ng-select [items]="agentList"
-                           bindLabel="agent_name"
-                           class="custom"
-                           bindValue="agent_id"
-                           formControlName="agent_id"
-                           placeholder="Select Agent">
-                </ng-select>
-            </div>
         </mat-card-title>
         <mat-card-content>
+            <div>
+                <form [formGroup]="agentStockForm">
+                    <div fxFlex="70">
+                        <ng-select [items]="agentList"
+                                   bindLabel="agent_name"
+                                   class="custom"
+                                   bindValue="agent_id"
+                                   formControlName="agent_id"
+                                   placeholder="Select Agent">
+                        </ng-select>
+                    </div>
+                    <div fxFlex="30">
+                        <div>
+                            <button (click)="stockByAgent()">View Stock</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <pre>
+                    {{stoockListByAgent | json}}
+                </pre>
+            </div>
 
         </mat-card-content>
     </mat-card>

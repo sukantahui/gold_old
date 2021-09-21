@@ -75,5 +75,8 @@ export class StockService {
   getDetailsByJobId(){
     return this.http.get(this.commonService.getAPI() + '/getDetailsByJobId/' + this.stockForm.value.jobId);
   }
+  getStockByAgent(agentId){
+    return this.http.get(this.commonService.getAPI() + '/getStockByAgent/' + agentId);
+  }
 
 }

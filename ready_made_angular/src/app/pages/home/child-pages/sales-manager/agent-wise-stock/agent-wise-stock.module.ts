@@ -5,6 +5,8 @@ import { AgentWiseStockRoutingModule } from './agent-wise-stock-routing.module';
 import { AgentWiseStockComponent } from './agent-wise-stock.component';
 import {MatCardModule} from '@angular/material/card';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {FlexModule} from '@angular/flex-layout';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +17,10 @@ import {NgSelectModule} from '@ng-select/ng-select';
     CommonModule,
     AgentWiseStockRoutingModule,
     MatCardModule,
-    NgSelectModule
+    NgSelectModule,
+    FlexModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AgentWiseStockModule { }
