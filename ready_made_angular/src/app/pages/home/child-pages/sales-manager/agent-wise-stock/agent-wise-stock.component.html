@@ -16,15 +16,45 @@
                     </div>
                     <div fxFlex="30">
                         <div>
-                            <button (click)="stockByAgent()">View Stock</button>
+                            <button class="mat-raised-button" color="primary" mat-button (click)="stockByAgent()">View Stock</button>
                         </div>
                     </div>
                 </form>
             </div>
             <div>
-                <pre>
+                <div>
+                    <table class="table table-bodered">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Tag</th>
+                                <th>Model No.</th>
+                                <th>Model Size</th>
+                                <th>Quantity</th>
+                                <th>Gold</th>
+                                <th>Labour Charge</th>
+                                <th>Gross Weight</th>
+                                <th>Package Weight</th>
+                            </tr>                            
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of stoockListByAgent; let i = index">
+                                <td >{{i+1}}</td>
+                                <td >{{row.tag}}</td>
+                                <td >{{row.modelNo}}</td>
+                                <td >{{row.modelSize}}</td>
+                                <td >{{row.quantity}}</td>
+                                <td >{{row.gold}}</td>
+                                <td >{{row.labourCharge}}</td>
+                                <td >{{row.grossWeight}}</td>
+                                <td >{{row.packageWeight}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <pre>
                     {{stoockListByAgent | json}}
-                </pre>
+                </pre> -->
             </div>
 
         </mat-card-content>
