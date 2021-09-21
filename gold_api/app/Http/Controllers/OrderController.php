@@ -85,11 +85,11 @@ class OrderController extends ApiController
         }
     }
 
-    public function getOrderMasterList(){
+    public function getOrderMasterList($pageSize){
         $orderMaster = OrderMaster::select()
                         ->join('customer_master','customer_master.cust_id','=','order_master.cust_id')
                         ->orderBy('tr_time','desc')
-                        ->take(50)
+                        ->take($pageSize)
                         ->get();
         return $this->successResponse($orderMaster);
     }
@@ -103,7 +103,7 @@ class OrderController extends ApiController
                             ->whereOrderId($order_master->order_id)
 
                             ->get();
-        
+
         $return_array['order_details']=$order_details;
         $customer = Customer::findOrFail($order_master->cust_id);
         $return_array['customer']=$customer;

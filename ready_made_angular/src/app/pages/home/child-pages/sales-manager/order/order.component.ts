@@ -104,6 +104,8 @@ export class OrderComponent implements OnInit {
     td: {border: '1px  solid black' , 'fontSize' : 'small'},
 
 };
+  searchTerm: any;
+  pageSize = 50;
 
   ngOnInit(): void {
     this.agentService.getAgentUpdateListener().subscribe((response: any[]) => {
@@ -298,6 +300,9 @@ export class OrderComponent implements OnInit {
                 text: 'Order saved successfully',
                 icon: 'success'
               });
+              this.orderService.getOrderMasterList(this.pageSize).subscribe((response:{status:any, data:any[]})=>{
+                this.orderMasterList = response.data;
+              });
 
               this.storage.delete('orderDetails').subscribe(() => {
                 this.orderDetails = [];
@@ -311,7 +316,7 @@ export class OrderComponent implements OnInit {
   }
 
   viewOrderList(){
-    this.orderService.getOrderMasterList().subscribe((response:{status:any, data:any[]})=>{
+    this.orderService.getOrderMasterList(this.pageSize).subscribe((response:{status:any, data:any[]})=>{
       this.orderMasterList = response.data;
     });
 

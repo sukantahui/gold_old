@@ -13,8 +13,8 @@ export class OrderService {
     return this.http.post(this.commonService.getAPI() + '/save', {orderMaster: orderMasterData , orderDetails: orderDetailsData});
 
   }
-  getOrderMasterList(){
-    return this.http.get(this.commonService.getAPI() + '/getOrderMasterList');
+  getOrderMasterList(pageSize: number){
+    return this.http.get(this.commonService.getAPI() + '/dev/getOrderMasterList/' + pageSize);
   }
 
   getOrderDetailsByOrderMaster(orderMasterId){
