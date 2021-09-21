@@ -23,7 +23,15 @@
                 </form>
             </div>
             <div>
-                <div *ngIf="stoockListByAgent">
+                <div style="text-align: right">
+                    <button
+                            mat-button color="primary"
+                            [printStyle]="printDivStyle"
+                            printSectionId="stockListDiv"
+                            ngxPrint><mat-icon>print</mat-icon>
+                    </button>
+                </div>
+                <div *ngIf="stoockListByAgent" id="stockListDiv">
                     <table class="table table-bodered">
                         <thead>
                             <tr>

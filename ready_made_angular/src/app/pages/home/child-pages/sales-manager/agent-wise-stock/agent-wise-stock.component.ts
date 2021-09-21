@@ -14,6 +14,16 @@ export class AgentWiseStockComponent implements OnInit {
   agentList: any[];
   stoockListByAgent: any[];
   isProduction = environment.production;
+
+  printDivStyle = {
+    table: {'border-collapse': 'collapse', 'width' : '100%' },
+    label:{'width': '100%'},
+    th: {border: '1px  solid black' , 'fontSize' : 'small'},
+    td: {border: '1px  solid black' , 'fontSize' : 'small'},
+
+  };
+
+
   constructor(private  agentService: AgentService , private stockService: StockService) {
     this.agentStockForm = new FormGroup({
       agent_id : new FormControl(null)

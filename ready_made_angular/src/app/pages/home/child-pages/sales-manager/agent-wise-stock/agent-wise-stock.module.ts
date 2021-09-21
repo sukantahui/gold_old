@@ -9,6 +9,10 @@ import {FlexModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {NgxPrinterModule} from "ngx-printer";
+import {NgxPrintModule} from "ngx-print";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -21,10 +25,14 @@ import {MatButtonModule} from "@angular/material/button";
     MatCardModule,
     NgSelectModule,
     FlexModule,
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    FontAwesomeModule,
+    NgxPrinterModule,
+    NgxPrintModule
   ]
 })
 export class AgentWiseStockModule { }
