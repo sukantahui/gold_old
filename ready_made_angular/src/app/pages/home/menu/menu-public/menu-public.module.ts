@@ -6,7 +6,7 @@ import { MenuPublicComponent } from './menu-public.component';
 import {AuthModule} from '../../auth/auth.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MenuItemModule} from '../menu-item/menu-item.module';
-import {_MatMenuDirectivesModule} from '@angular/material/menu';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -22,7 +22,8 @@ import {_MatMenuDirectivesModule} from '@angular/material/menu';
         AuthModule,
         MatButtonModule,
         MenuItemModule,
-        _MatMenuDirectivesModule
+        MatMenuModule
+        // _MatMenuDirectivesModule
     ]
 })
 export class MenuPublicModule { }

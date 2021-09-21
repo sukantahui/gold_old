@@ -15,7 +15,7 @@ import {WhyUsModule} from './why-us/why-us.module';
 import {FeaturesModule} from './features/features.module';
 import {PopularCoursesModule} from './popular-courses/popular-courses.module';
 import {TrainerModule} from './trainer/trainer.module';
-import {_MatMenuDirectivesModule, MatMenuModule} from '@angular/material/menu';
+import {MatMenuModule} from '@angular/material/menu';
 import {PopoverModule} from 'ngx-smart-popover';
 import {TestSectionModule} from "./test-section/test-section.module";
 import {OfferSectionModule} from "./offer-section/offer-section.module";
@@ -44,7 +44,7 @@ import {CalloutSectionModule} from "./callout-section/callout-section.module";
         PopularCoursesModule,
         TrainerModule,
         CommonModule,
-        _MatMenuDirectivesModule,
+        // _MatMenuDirectivesModule,
         MatMenuModule,
         PopoverModule,
         TestSectionModule,
