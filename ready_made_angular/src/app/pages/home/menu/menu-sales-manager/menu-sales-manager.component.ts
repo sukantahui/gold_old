@@ -79,32 +79,22 @@ export class MenuSalesManagerComponent implements OnInit {
               displayName: 'Agentwise Sale',
               iconName: 'person',
               route: 'AgentWiseSaleReport',
+            },
+            {
+              displayName: 'Agentwise Stock',
+              iconName: 'person',
+              route: 'AgentWiseSaleReport',
             }
           ]
         },
         {
-          displayName: 'Sessions',
-          iconName: 'speaker_notes',
+          displayName: 'Others',
+          iconName: 'pie_chart',
           children: [
             {
-              displayName: 'Create Enterprise UIs',
+              displayName: 'Others report',
               iconName: 'star_rate',
-              route: 'material-design'
-            },
-            {
-              displayName: 'What\'s up with the Web?',
-              iconName: 'star_rate',
-              route: 'what-up-web'
-            },
-            {
-              displayName: 'My ally, the CLI',
-              iconName: 'star_rate',
-              route: 'my-ally-cli'
-            },
-            {
-              displayName: 'Become an Angular Tailor',
-              iconName: 'star_rate',
-              route: 'become-angular-tailer'
+              route: 'Show Stock by Agent'
             }
           ]
         },
@@ -122,12 +112,13 @@ export class MenuSalesManagerComponent implements OnInit {
       route: 'michael-prentice',
       children: [
         {
-          displayName: 'Sale Order',
-          iconName: 'group',
+          displayName: 'ORDER',
+          iconName: 'label',
           children: [
             {
               displayName: 'Create Order',
-              iconName: 'person',
+              iconName: 'shopping_cart',
+              color: 'green',
               route: 'Order',
             }
           ]
