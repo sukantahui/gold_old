@@ -11,12 +11,13 @@
                                    class="custom"
                                    bindValue="agent_id"
                                    formControlName="agent_id"
-                                   placeholder="Select Agent">
+                                   placeholder="Select Agent"
+                                   (change)="stockByAgent($event)">
                         </ng-select>
                     </div>
                     <div fxFlex="30">
-                        <div>
-                            <button class="mat-raised-button" color="primary" mat-button (click)="stockByAgent()">View Stock</button>
+                        <div class="example-button-row" fxFlex="40">
+                            <button mat-raised-button color="accent">View Stock</button>
                         </div>
                     </div>
                 </form>

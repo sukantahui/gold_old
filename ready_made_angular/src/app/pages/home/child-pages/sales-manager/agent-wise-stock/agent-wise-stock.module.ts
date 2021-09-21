@@ -7,6 +7,8 @@ import {MatCardModule} from '@angular/material/card';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {FlexModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     NgSelectModule,
     FlexModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule
   ]
 })
 export class AgentWiseStockModule { }

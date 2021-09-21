@@ -25,7 +25,7 @@ export class AgentWiseStockComponent implements OnInit {
       this.agentList = response;
     });
   }
-  stockByAgent(){
+  stockByAgent($event: any){
     this.stockService.getStockByAgent(this.agentStockForm.value.agent_id)
         .subscribe((response: {status: any , data: any[]}) => {
             this.stoockListByAgent = response.data;
