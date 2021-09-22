@@ -30,5 +30,8 @@ export class AgentService {
   getAgentsWithDues(){
     return this.http.get(this.commonService.getAPI() + '/getAgentBalance');
   }
+  getCustomersWithDuesByAgent(agentId: string){
+    return this.http.get(this.commonService.getAPI() + '/getCustomersBalanceByAgentId/'+ agentId);
+  }
 
 }

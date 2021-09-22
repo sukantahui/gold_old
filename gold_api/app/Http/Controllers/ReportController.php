@@ -56,4 +56,15 @@ class ReportController extends ApiController
                                     from agent_master");
         return $this->successResponse($result);
     }
+    public function getCustomersBalanceByAgentId($agentId){
+        $result = DB::select("select agent_to_customer.cust_id
+                                    ,customer_master.cust_name
+                                    , customer_master.city
+                                    , get_customer_gold_due(agent_to_customer.cust_id) as gold_due
+                                    , get_customer_lc_due(agent_to_customer.cust_id) as lc_due
+                                    from agent_to_customer
+                                    inner join customer_master ON customer_master.cust_id = agent_to_customer.cust_id
+                                    where agent_to_customer.agent_id='$agentId'");
+        return $this->successResponse($result);
+    }
 }

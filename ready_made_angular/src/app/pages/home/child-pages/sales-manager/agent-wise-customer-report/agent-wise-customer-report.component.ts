@@ -10,6 +10,7 @@ import {AgentService} from "../../../../../services/agent.service";
 export class AgentWiseCustomerReportComponent implements OnInit {
   isProduction = environment.production;
   agents: any[];
+  customers: any[];
   constructor(private agentService: AgentService) { }
 
   ngOnInit(): void {
@@ -18,4 +19,9 @@ export class AgentWiseCustomerReportComponent implements OnInit {
     });
   }
 
+  agentSelected(agentId: string) {
+    this.agentService.getCustomersWithDuesByAgent(agentId).subscribe((response: {status: any , data: any[]}) => {
+      this.customers=response.data;
+    });
+  }
 }
