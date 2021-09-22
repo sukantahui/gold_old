@@ -2,6 +2,7 @@ import os
 import json
 from PIL import Image
 import streamlit as st
+import requests
 
 # To make things easier later, we're also importing numpy and pandas for
 # working with sample data.
@@ -12,43 +13,30 @@ import requests
 # pip3 install mysql-connector
 import mysql.connector
 
-from streamlit_ace import st_ace
+
+def format_func(option):
+    return modeOptions[option]
+
+st.title("Tag")
+prevJobId = ""
+
+modeOptions = {1: "dataset a", 2: "dataset b", 3: "dataset c"}
+st.write(modeOptions)
+
+left,right = st.columns(2)
+
+jobId = left.text_input("Job ID")
+option = st.selectbox("Select option", options=list(modeOptions.keys()), format_func=format_func)
+st.write(option)
+
+if jobId != prevJobId:
+    prevJobId = jobId
+    st.write(jobId)
+    response = requests.get("http://127.0.0.1/gold_old/gold_api/public/api/dev/job/"+jobId)
+    if response.status_code==200:
+        jobDetails = response.json().get('data')
+        st.write(jobDetails)
 
 
-
-# max_width_str = f"max-width: 1500px;"
-# st.markdown(
-# 	f"""
-# 		<style>
-# 			.reportview-container .main .block-container {{{max_width_str}}}
-# 		</style>    
-# 	""",
-# 	unsafe_allow_html=True
-# )
-
-
-
-
-st.set_page_config(layout="wide")
-
-# Spawn a new Ace editor
-content = st_ace()
-st.markdown('---')
-
-
-def my_widget(key):
-    st.subheader('Hello there!')
-    return st.button("Click me " + key)
-
-# This works in the main area
-clicked = my_widget("first")
-
-# And within an expander
-my_expander = st.expander("Expand", expanded=True)
-with my_expander:
-    clicked = my_widget("second")
-
-# AND in st.sidebar!
-with st.sidebar:
-    clicked = my_widget("third")
+    
     
