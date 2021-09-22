@@ -7,6 +7,7 @@ import {ServerResponse} from '../models/ServerResponse.model';
 import {environment} from '../../environments/environment';
 import {concatMap, tap} from "rxjs/operators";
 import {Router} from "@angular/router";
+import * as XLSX from "xlsx";
 
 
 @Injectable({
@@ -14,7 +15,6 @@ import {Router} from "@angular/router";
 })
 // @ts-ignore
 export class CommonService {
-
 
   value$ = new BehaviorSubject(20);
   currentValue = 0;
@@ -84,5 +84,20 @@ export class CommonService {
   }
   compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  exportToExcel(tableId: string, fileName: string, sheetName = 'Sheet1'): void
+  {
+    /* table id is passed over here */
+    let element = document.getElementById(tableId);
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+
+    /* save to file */
+    XLSX.writeFile(wb, fileName);
+
   }
 }
