@@ -25,12 +25,14 @@ export class AgentWiseStockComponent implements OnInit {
 
 
   constructor(private  agentService: AgentService , private stockService: StockService) {
+    this.agentList = this.agentService.getAgents();
     this.agentStockForm = new FormGroup({
       agent_id : new FormControl(null)
     });
   }
 
   ngOnInit(): void {
+    this.agentList = this.agentService.getAgents();
     this.agentService.getAgentUpdateListener().subscribe((response) => {
       this.agentList = response;
     });
