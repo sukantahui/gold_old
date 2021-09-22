@@ -5,7 +5,7 @@ import {StockService} from '../../../../../services/stock.service';
 import {FormControl, FormGroup} from '@angular/forms';
 
 
-import {CommonService} from "../../../../../services/common.service";
+import {CommonService} from '../../../../../services/common.service';
 
 
 @Component({
