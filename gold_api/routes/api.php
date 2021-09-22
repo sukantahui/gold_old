@@ -145,6 +145,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("getClosingBalannceByEmpIdAndRmId/{empId}/{rmId}",[MaterialToEmployeeBalanceController::class, 'getClosingBalannceByEmpIdAndRmId']);
 
     Route::get("getJobIdByJobMaster",[JobMasterController::class, 'getJobIdByJobMaster']);
+    Route::get("job/{job_id}",[JobMasterController::class, 'getJobById']);
 
     Route::get("agents",[AgentController::class, 'getAgents']);
 
