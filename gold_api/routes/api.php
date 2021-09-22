@@ -177,5 +177,8 @@ Route::group(array('prefix' => 'dev'), function() {
 
     Route::post("saveCustomer",[CustomerController::class, 'saveCustomer']);
 
+    // http://127.0.0.1/gold_old/gold_api/public/api/dev/getAgentBalance
+    Route::get("getAgentBalance",[ReportController::class, 'getAgentsBalance']);
+
 });
 

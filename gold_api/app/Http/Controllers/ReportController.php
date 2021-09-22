@@ -47,4 +47,9 @@ class ReportController extends ApiController
 //        get_customer_sale_qty_by_date(cust_id,$startDate, $endDate)
         return $this->successResponse($queries);
     }
+    public function getAgentsBalance(){
+        $result = DB::select("select agent_id, get_agent_lc_due(agent_id) as lc_due,get_agent_gold_due(agent_id) as gold_due from agent_master");
+//        $result = DB::select("SELECT agent_id, agent_name from agent_master");
+        return $this->successResponse($result);
+    }
 }
