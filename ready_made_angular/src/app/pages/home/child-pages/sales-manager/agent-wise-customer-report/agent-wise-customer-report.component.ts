@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
+import {AgentService} from "../../../../../services/agent.service";
 
 @Component({
   selector: 'app-agent-wise-customer-report',
@@ -8,9 +9,13 @@ import {environment} from '../../../../../../environments/environment';
 })
 export class AgentWiseCustomerReportComponent implements OnInit {
   isProduction = environment.production;
-  constructor() { }
+  agents: any[];
+  constructor(private agentService: AgentService) { }
 
   ngOnInit(): void {
+    this.agentService.getAgentsWithDues().subscribe((response: {status: any , data: any[]}) => {
+      this.agents=response.data;
+    });
   }
 
 }

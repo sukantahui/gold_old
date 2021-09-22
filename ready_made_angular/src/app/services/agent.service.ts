@@ -27,4 +27,8 @@ export class AgentService {
     return this.agentSub.asObservable();
   }
 
+  getAgentsWithDues(){
+    return this.http.get(this.commonService.getAPI() + '/getAgentBalance');
+  }
+
 }

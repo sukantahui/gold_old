@@ -94,6 +94,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("orderDetails/orderMasterId/{order_master_id}",[OrderController::class, 'getOrderDetailsByOrderMaster']);
 
     Route::post("saveCustomer",[CustomerController::class, 'saveCustomer']);
+
+    // http://127.0.0.1/gold_old/gold_api/public/api/getAgentBalance
+    Route::get("getAgentBalance",[ReportController::class, 'getAgentsBalance']);
 });
 
 
