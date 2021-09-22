@@ -27,6 +27,7 @@
                             ngxPrint><mat-icon>print</mat-icon>
                     </button>
                     <button mat-button color="primary" (click)="commonService.exportToExcel('printable-stock-table','stock.xlsx')"><mat-icon>cloud_download</mat-icon></button>
+                    <button mat-button color="primary" (click)="commonService.arrayToExcel(agentList,'stock.xlsx')">Save Agents to Excel</button>
                 </div>
                     <div *ngIf="stoockListByAgent" id="stockListDiv" class="table-responsive">
                         <table class="table table-bodered table-condensed" id="printable-stock-table">
