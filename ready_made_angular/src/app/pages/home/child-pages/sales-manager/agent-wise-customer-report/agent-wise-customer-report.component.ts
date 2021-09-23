@@ -16,6 +16,7 @@ export class AgentWiseCustomerReportComponent implements OnInit {
   selectedAgent: any;
   agentDues: { gold: number; lc: number };
   selectedCustomer: any;
+  selectedCustomerIndex= -1;
   constructor(private agentService: AgentService) { }
 
   ngOnInit(): void {
@@ -45,10 +46,11 @@ export class AgentWiseCustomerReportComponent implements OnInit {
     }
   }
 
-  customerSelected(customer: any) {
+  customerSelected(customer: any, index: number) {
     this.agentService.getCustomerReceiptPayment(customer.cust_id).subscribe((response: {status: any , data: any[]}) => {
       this.customerReceiptPayment = response.data;
       this.selectedCustomer = customer;
+      this.selectedCustomerIndex=index;
     });
   }
 }
