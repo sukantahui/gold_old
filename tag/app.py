@@ -35,8 +35,5 @@ if jobId != prevJobId:
     response = requests.get("http://127.0.0.1/gold_old/gold_api/public/api/dev/job/"+jobId)
     if response.status_code==200:
         jobDetails = response.json().get('data')
+        t = st.text_area("Enter multiline text",jobDetails['product_code'])
         st.write(jobDetails)
-
-
-    
-    
