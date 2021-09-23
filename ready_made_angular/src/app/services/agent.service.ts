@@ -33,6 +33,10 @@ export class AgentService {
   getCustomersWithDuesByAgent(agentId: string){
     return this.http.get(this.commonService.getAPI() + '/getCustomersBalanceByAgentId/' + agentId);
   }
+  getCustomersWithDues(){
+    return this.http.get(this.commonService.getAPI() + '/customersBalances');
+  }
+
   getCustomerReceiptPayment(custId: string){
     return this.http.get(this.commonService.getAPI() + '/customerReceiptPayments/' + custId);
   }

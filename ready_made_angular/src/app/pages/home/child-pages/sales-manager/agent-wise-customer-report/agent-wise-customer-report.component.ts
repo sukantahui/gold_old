@@ -12,27 +12,43 @@ export class AgentWiseCustomerReportComponent implements OnInit {
   agents: any[];
   customers: any[];
   customerReceiptPayment: any[];
-  selectedAgentIndex = -1;
+  selectedAgentIndex = -2;
   selectedAgent: any;
+  agentDues: { gold: number; lc: number };
+  selectedCustomer: any;
   constructor(private agentService: AgentService) { }
 
   ngOnInit(): void {
     this.agentService.getAgentsWithDues().subscribe((response: {status: any , data: any[]}) => {
       this.agents = response.data;
+      const agentLcTotal = this.agents.reduce((prev,next)=>prev+next.lc_due,0);
+      const agentGoldTotal = this.agents.reduce((prev,next)=>prev+next.gold_due,0);
+      this.agentDues = {gold: agentGoldTotal, lc: agentLcTotal};
     });
   }
 
   agentSelected(agent: any, index: number) {
-    this.selectedAgentIndex = index;
-    this.selectedAgent = agent;
-    this.agentService.getCustomersWithDuesByAgent(agent.agent_id).subscribe((response: {status: any , data: any[]}) => {
-      this.customers = response.data;
-    });
+    if(index == -1){
+      this.selectedAgentIndex = -1;
+      this.selectedAgent = null;
+      this.agentService.getCustomersWithDues().subscribe((response: {status: any , data: any[]}) => {
+        this.customers = response.data;
+        this.customerReceiptPayment = null;
+      });
+    }else{
+      this.selectedAgentIndex = index;
+      this.selectedAgent = agent;
+      this.agentService.getCustomersWithDuesByAgent(agent.agent_id).subscribe((response: {status: any , data: any[]}) => {
+        this.customers = response.data;
+        this.customerReceiptPayment = null;
+      });
+    }
   }
 
-  customerSelected(cust_id: string) {
-    this.agentService.getCustomerReceiptPayment(cust_id).subscribe((response: {status: any , data: any[]}) => {
+  customerSelected(customer: any) {
+    this.agentService.getCustomerReceiptPayment(customer.cust_id).subscribe((response: {status: any , data: any[]}) => {
       this.customerReceiptPayment = response.data;
+      this.selectedCustomer = customer;
     });
   }
 }

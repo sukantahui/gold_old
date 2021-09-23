@@ -34,6 +34,20 @@
 
                             </tr>
                             </tbody>
+                                <tr>
+                                    <td ></td>
+                                    <td ></td>
+                                    <td >All Agents</td>
+                                    <td class="text-right">{{agentDues.gold | number: '1.3'}}</td>
+                                    <td class="text-right">{{agentDues.lc}}</td>
+                                    <td class="text-right" >
+                                        <a [routerLink]=""  (click)="agentSelected(null,-1)" *ngIf="selectedAgentIndex!=-1"> <mat-icon>gps_not_fixed</mat-icon> </a>
+                                        <a [routerLink]=""   *ngIf="selectedAgentIndex==-1"> <mat-icon>gps_fixed</mat-icon> </a>
+                                    </td>
+                                </tr>
+                            <tfoot>
+
+                            </tfoot>
                         </table>
                     </div>
                 </mat-card-content>
@@ -42,14 +56,17 @@
         </div>
         <!--            Customer List-->
         <div class="child-2" fxFlex="60">
-            <mat-card class="example-card" id="customer-receipt-payment-div">
-                <mat-card-header>
-                    <mat-card-title>Customers</mat-card-title>
-                    <mat-card-subtitle>Receipt Payment</mat-card-subtitle>
-                </mat-card-header>
-
+            <mat-card class="example-card" id="customer-receipt-payment-div" *ngIf="customerReceiptPayment">
                 <mat-card-content>
-                    <div *ngIf="customerReceiptPayment" id="customer-receipt-payment-table" class="table-responsive">
+                    <button
+                            mat-button color="primary"
+                            printSectionId="customer-receipt-payment-table"
+                            [useExistingCss]="true"
+                            styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
+                            ngxPrint><mat-icon>print</mat-icon>
+                    </button>
+                    <div  id="customer-receipt-payment-table" class="table-responsive">
+                        <h3>Receipt and Payment of {{selectedCustomer.cust_name}}</h3>
                         <table class="table table-bodered table-condensed" id="printable-receipt-payment-table">
                             <thead>
                             <tr>
@@ -85,12 +102,20 @@
             <mat-card class="example-card">
                 <mat-card-header>
                     <mat-card-title *ngIf="selectedAgent">Customers of {{selectedAgent.agent_name}}</mat-card-title>
-                    <mat-card-subtitle>By Agents</mat-card-subtitle>
+                    <mat-card-subtitle>
+                        <button
+                                mat-button color="primary"
+                                printSectionId="customer-list-table"
+                                [useExistingCss]="true"
+                                styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
+                                ngxPrint><mat-icon>print</mat-icon>
+                        </button>
+                    </mat-card-subtitle>
                 </mat-card-header>
 
                 <mat-card-content>
                     <div *ngIf="customers" id="customer-list-table" class="table-responsive">
-                        <table class="table table-bodered table-condensed" id="printable-stock-table">
+                        <table class="table table-bodered table-condensed" id="printable-customer-dues-table">
                             <thead>
                             <tr>
                                 <th>SL</th>
@@ -109,8 +134,8 @@
                                 <td >{{row.city}}</td>
                                 <td class="text-right">{{row.gold_due | number: '1.3'}}</td>
                                 <td class="text-right">{{row.lc_due}}</td>
-                                <td class="text-right" >
-                                    <a [routerLink]="" (click)="customerSelected(row.cust_id)"> <mat-icon >gps_not_fixed</mat-icon> </a>
+                                <td class="text-right noprint" >
+                                    <a [routerLink]="" (click)="customerSelected(row)"> <mat-icon >gps_not_fixed</mat-icon> </a>
                                 </td>
                             </tr>
                             </tbody>

@@ -101,6 +101,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     // http://127.0.0.1/gold_old/gold_api/public/api/getAgentBalance
     Route::get("getCustomersBalanceByAgentId/{agentId}",[ReportController::class, 'getCustomersBalanceByAgentId']);
 
+    // http://127.0.0.1/gold_old/gold_api/public/api/dev/customersBalances
+    Route::get("customersBalances",[ReportController::class, 'getCustomersBalance']);
+
     // http://127.0.0.1/gold_old/gold_api/public/api/dev/customerReceiptPayments
     Route::get("customerReceiptPayments/{custId}",[ReportController::class, 'getCustomerReceiptPayment']);
 });
@@ -192,6 +195,9 @@ Route::group(array('prefix' => 'dev'), function() {
 
     // http://127.0.0.1/gold_old/gold_api/public/api/dev/getAgentBalance
     Route::get("getCustomersBalanceByAgentId/{agentId}",[ReportController::class, 'getCustomersBalanceByAgentId']);
+
+    // http://127.0.0.1/gold_old/gold_api/public/api/dev/customersBalances
+    Route::get("customersBalances",[ReportController::class, 'getCustomersBalance']);
 
     // http://127.0.0.1/gold_old/gold_api/public/api/dev/customerReceiptPayments
     Route::get("customerReceiptPayments/{custId}",[ReportController::class, 'getCustomerReceiptPayment']);
