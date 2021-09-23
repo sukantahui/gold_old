@@ -67,4 +67,8 @@ class ReportController extends ApiController
                                     where agent_to_customer.agent_id='$agentId'");
         return $this->successResponse($result);
     }
+    public function getCustomerReceiptPayment($custId){
+        $result = DB::select("call get_cutomer_recept_payment_by_id('$custId')");
+        return $this->successResponse($result);
+    }
 }

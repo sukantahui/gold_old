@@ -11,17 +11,24 @@ export class AgentWiseCustomerReportComponent implements OnInit {
   isProduction = environment.production;
   agents: any[];
   customers: any[];
+  customerReceiptPayment: any[];
   constructor(private agentService: AgentService) { }
 
   ngOnInit(): void {
     this.agentService.getAgentsWithDues().subscribe((response: {status: any , data: any[]}) => {
-      this.agents=response.data;
+      this.agents = response.data;
     });
   }
 
   agentSelected(agentId: string) {
     this.agentService.getCustomersWithDuesByAgent(agentId).subscribe((response: {status: any , data: any[]}) => {
-      this.customers=response.data;
+      this.customers = response.data;
+    });
+  }
+
+  customerSelected(cust_id: string) {
+    this.agentService.getCustomerReceiptPayment(cust_id).subscribe((response: {status: any , data: any[]}) => {
+      this.customerReceiptPayment = response.data;
     });
   }
 }
