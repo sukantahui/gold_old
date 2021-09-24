@@ -22,6 +22,13 @@ def create_text_file(data):
     f.write(data)
     f.close()
 
+
+st.markdown(""" <style> .font {
+font-size:50px ; font-family: 'Cooper Black'; color: #FF9633;} 
+</style> """, unsafe_allow_html=True)
+st.markdown('<p class="font">Guess the object Names</p>', unsafe_allow_html=True)
+
+
 st.title("Tag")
 prevJobId = ""
 
