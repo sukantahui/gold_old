@@ -1,11 +1,9 @@
 <div id="agent-wise-stock-div">
     <mat-card>
-        <mat-card-title>
-        </mat-card-title>
         <mat-card-content>
             <div>
                 <form [formGroup]="agentStockForm">
-                    <div fxFlex="70">
+                    <div fxFlex="30">
                         <ng-select [items]="agentList"
                                    bindLabel="agent_name"
                                    class="custom"
@@ -15,24 +13,24 @@
                                    (change)="stockByAgent($event)">
                         </ng-select>
                     </div>
-                    <div fxFlex="30">
-                        <div class="example-button-row" fxFlex="40">
-                            <button mat-raised-button color="accent">View Stock</button>
-                        </div>
-                    </div>
                 </form>
             </div>
-            <div>
-                <div style="text-align: right">
+            <div fxLayout="row" fxLayout.xs="column">
+                <div class="child-1" fxFlex="40">
+                    <div style="text-align: right">
+                    <!-- use useExistingCss to usecurrent Style and  styleSheetFile to add your custom file, use anyone of them-->
                     <button
                             mat-button color="primary"
-                            [printStyle]="printDivStyle"
                             printSectionId="stockListDiv"
+                            [useExistingCss]="true"
+                            styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
                             ngxPrint><mat-icon>print</mat-icon>
                     </button>
+                    <button mat-button color="primary" (click)="commonService.exportToExcel('printable-stock-table','stock.xlsx')"><mat-icon>cloud_download</mat-icon></button>
+                    <button mat-button color="primary" (click)="commonService.arrayToExcel(agentList,'stock.xlsx')">Save Agents to Excel</button>
                 </div>
-                <div *ngIf="stoockListByAgent" id="stockListDiv">
-                    <table class="table table-bodered">
+                    <div *ngIf="stoockListByAgent" id="stockListDiv" class="table-responsive">
+                        <table class="table table-bodered table-condensed" id="printable-stock-table">
                         <thead>
                             <tr>
                                 <th>SL</th>
@@ -42,9 +40,7 @@
                                 <th>Quantity</th>
                                 <th>Gold</th>
                                 <th>Labour Charge</th>
-                                <th>Gross Weight</th>
-                                <th>Package Weight</th>
-                            </tr>                            
+                            </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let row of stoockListByAgent; let i = index">
@@ -53,17 +49,13 @@
                                 <td >{{row.modelNo}}</td>
                                 <td >{{row.modelSize}}</td>
                                 <td >{{row.quantity}}</td>
-                                <td >{{row.gold}}</td>
-                                <td >{{row.labourCharge}}</td>
-                                <td >{{row.grossWeight}}</td>
-                                <td >{{row.packageWeight}}</td>
+                                <td class="text-right">{{row.gold | number: '1.3'}}</td>
+                                <td class="text-right">{{row.labourCharge}}</td>
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
-                <!-- <pre>
-                    {{stoockListByAgent | json}}
-                </pre> -->
             </div>
 
         </mat-card-content>

@@ -1,0 +1,25 @@
+@media print {
+  .noprint {
+    visibility: hidden;
+  }
+}
+#agent-wise-customer-report-div{
+  min-height: 100vh;
+  width: 100vw;
+  padding-left: 35px;
+  padding-right: 65px;
+}
+#developer-div{
+  padding-left: 35px;
+  padding-right: 65px;
+}
+
+#agent-card{
+  background-color: #dfefcd; /* For browsers that do not support gradients */
+  background-image: linear-gradient(#f5e7d6, #f3f3c4);
+}
+#customer-receipt-payment-div{
+  background-color: #dfefcd; /* For browsers that do not support gradients */
+  background-image: linear-gradient(#e9e7f8, #f3e3c7);
+}
+

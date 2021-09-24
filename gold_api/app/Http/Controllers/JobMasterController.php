@@ -20,4 +20,8 @@ class JobMasterController extends ApiController
         $result = JobMaster::select('job_id')->whereBetween('tr_time',[$date1,$date2])->pluck('job_id');
         return $this->successResponse($result);
     }
+    public function getJobById($job_id){
+                $result = JobMaster::findOrFail($job_id);
+        return $this->successResponse($result);
+    }
 }

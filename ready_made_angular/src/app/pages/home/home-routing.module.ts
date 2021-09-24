@@ -70,9 +70,12 @@ const routes: Routes = [
                                     path: 'AgentWiseStock',
                                     loadChildren: () => import('./child-pages/sales-manager/agent-wise-stock/agent-wise-stock.module')
                                         .then(mod => mod.AgentWiseStockModule)
+                                },
+                                {
+                                    path: 'AgentWiseCustomerReport',
+                                    loadChildren: () => import('./child-pages/sales-manager/agent-wise-customer-report/agent-wise-customer-report.module')
+                                        .then(mod => mod.AgentWiseCustomerReportModule)
                                 }
-
-
 
 
                             ]

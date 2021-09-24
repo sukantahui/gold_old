@@ -1,0 +1,171 @@
+<div id="agent-wise-customer-report-div">
+    <div fxLayout="row" fxLayout.xs="column">
+        <!--        Agent List-->
+        <div class="child-1" fxFlex="40">
+            <mat-card class="example-card" id="agent-card">
+                <mat-card-header>
+                    <mat-card-title>Agents</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <button
+                            mat-button color="primary"
+                            printSectionId="agent-list-table"
+                            [useExistingCss]="true"
+                            styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
+                            ngxPrint><mat-icon>print</mat-icon>
+                    </button>
+                    <div *ngIf="agents" id="agent-list-table" class="table-responsive">
+                        <table class="table table-bodered table-condensed" id="printable-agent-table">
+                            <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Agent ID</th>
+                                <th>Agent Name</th>
+                                <th>Gold</th>
+                                <th>LC</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let row of agents; let i = index">
+                                <td >{{i+1}}</td>
+                                <td >{{row.agent_id}}</td>
+                                <td >{{row.agent_name}}</td>
+                                <td class="text-right">{{row.gold_due | number: '1.3'}}</td>
+                                <td class="text-right">{{row.lc_due}}</td>
+                                <td class="text-right noprint" >
+                                    <a [routerLink]=""  (click)="agentSelected(row,i)" *ngIf="selectedAgentIndex!=i"> <mat-icon>gps_not_fixed</mat-icon> </a>
+                                    <a [routerLink]=""   *ngIf="selectedAgentIndex==i"> <mat-icon>gps_fixed</mat-icon> </a>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td ></td>
+                                    <td ></td>
+                                    <td >All Agents</td>
+                                    <td class="text-right">{{agentDues.gold | number: '1.3'}}</td>
+                                    <td class="text-right">{{agentDues.lc}}</td>
+                                    <td class="text-right noprint" >
+                                        <a [routerLink]=""  (click)="agentSelected(null,-1)" *ngIf="selectedAgentIndex!=-1"> <mat-icon>gps_not_fixed</mat-icon> </a>
+                                        <a [routerLink]=""   *ngIf="selectedAgentIndex==-1"> <mat-icon>gps_fixed</mat-icon> </a>
+                                    </td>
+                                </tr>
+                            <tfoot>
+                        </table>
+                    </div>
+                </mat-card-content>
+
+            </mat-card>
+        </div>
+        <!--            Customer List-->
+        <div class="child-2" fxFlex="60">
+            <mat-card class="example-card" id="customer-receipt-payment-div" *ngIf="customerReceiptPayment">
+                <mat-card-content>
+                    <button
+                            mat-button color="primary"
+                            printSectionId="customer-receipt-payment-table"
+                            [useExistingCss]="true"
+                            styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
+                            ngxPrint><mat-icon>print</mat-icon>
+                    </button>
+                    <div  id="customer-receipt-payment-table" class="table-responsive">
+                        <h3>Receipt and Payment of {{selectedCustomer.cust_name}}</h3>
+                        <table class="table table-bodered table-condensed" id="printable-receipt-payment-table">
+                            <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Date</th>
+                                <th>Particulars</th>
+                                <th>Reference</th>
+                                <th>Qty</th>
+                                <th>Gold</th>
+                                <th>LC</th>
+                                <th>Gold Balance</th>
+                                <th>LC Balance</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let row of customerReceiptPayment; let i = index">
+                                <td >{{i+1}}</td>
+                                <td >{{row.tr_date}}</td>
+                                <td >{{row.particulars}}</td>
+                                <td >{{row.reference}}</td>
+                                <td class="text-right">{{row.billed_qty}}</td>
+                                <td class="text-right">{{(row.op_gold_due + row.billed_gold + row.received_gold) | number: '1.3'}}</td>
+                                <td class="text-right">{{(row.op_lc_due + row.billed_lc + row.received_lc)}}</td>
+                                <td class="text-right">{{row.current_gold_due | number: '1.3'}}</td>
+                                <td class="text-right">{{row.current_lc_due}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </mat-card-content>
+
+            </mat-card>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-subtitle>
+                        <button
+                                mat-button color="primary"
+                                printSectionId="customer-list-table"
+                                [useExistingCss]="true"
+                                styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
+                                ngxPrint><mat-icon>print</mat-icon>
+                        </button>
+                    </mat-card-subtitle>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div *ngIf="customers" id="customer-list-table" class="table-responsive">
+                        <h3 *ngIf="selectedAgent">Customers of {{selectedAgent.agent_name}}</h3>
+                        <table class="table table-bodered table-condensed" id="printable-customer-dues-table">
+                            <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Customer ID</th>
+                                <th>Name</th>
+                                <th>City</th>
+                                <th>Gold</th>
+                                <th>LC</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let row of customers; let i = index">
+                                <td >{{i+1}}</td>
+                                <td >{{row.cust_id}}</td>
+                                <td >{{row.cust_name}}</td>
+                                <td >{{row.city}}</td>
+                                <td class="text-right">{{row.gold_due | number: '1.3'}}</td>
+                                <td class="text-right">{{row.lc_due}}</td>
+                                <td class="text-right noprint" >
+                                    <a [routerLink]="" (click)="customerSelected(row, i)" *ngIf="selectedCustomerIndex!=i"> <mat-icon >gps_not_fixed</mat-icon> </a>
+                                    <a [routerLink]=""   *ngIf="selectedCustomerIndex==i"> <mat-icon>gps_fixed</mat-icon> </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </mat-card-content>
+
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div fxLayoutAlign="center center">
+                <pre>
+                    selectedAgentIndex = {{selectedAgentIndex | json}}
+                </pre>
+            </div>
+            <div fxFlex="2 1 auto" fxLayoutAlign="center center">
+            </div>
+            <div fxLayoutAlign="center center">3</div>
+            <div fxLayoutAlign="center center">4</div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,10 @@ import {AgentService} from '../../../../../services/agent.service';
 import {StockService} from '../../../../../services/stock.service';
 import {FormControl, FormGroup} from '@angular/forms';
 
+
+import {CommonService} from '../../../../../services/common.service';
+
+
 @Component({
   selector: 'app-agent-wise-stock',
   templateUrl: './agent-wise-stock.component.html',
@@ -14,6 +18,8 @@ export class AgentWiseStockComponent implements OnInit {
   agentList: any[];
   stoockListByAgent: any[];
   isProduction = environment.production;
+  /*name of the excel-file which will be downloaded. */
+  fileName= 'ExcelSheet.xlsx';
 
   printDivStyle = {
     table: {'border-collapse': 'collapse', 'width' : '100%' },
@@ -24,13 +30,15 @@ export class AgentWiseStockComponent implements OnInit {
   };
 
 
-  constructor(private  agentService: AgentService , private stockService: StockService) {
+  constructor(private  agentService: AgentService , private stockService: StockService, public commonService: CommonService) {
+    this.agentList = this.agentService.getAgents();
     this.agentStockForm = new FormGroup({
       agent_id : new FormControl(null)
     });
   }
 
   ngOnInit(): void {
+    this.agentList = this.agentService.getAgents();
     this.agentService.getAgentUpdateListener().subscribe((response) => {
       this.agentList = response;
     });

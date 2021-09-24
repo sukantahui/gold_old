@@ -217,7 +217,7 @@ export class OrderComponent implements OnInit {
                 product_size: this.orderFormDetails.get('product_size').value,
                 rm_id: this.orderFormDetails.get('rm_id').value
               };
-    this.orderDetails.unshift(this.item);
+    this.orderDetails.push(this.item);
     // clearing the form
 
     this.orderFormDetails.get('product_code').patchValue(null, { onlySelf: true });

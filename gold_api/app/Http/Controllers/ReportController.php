@@ -47,4 +47,38 @@ class ReportController extends ApiController
 //        get_customer_sale_qty_by_date(cust_id,$startDate, $endDate)
         return $this->successResponse($queries);
     }
+    public function getAgentsBalance(){
+        $result = DB::select("select agent_id
+                                    , agent_name
+                                    , short_name
+                                    , get_agent_lc_due(agent_id) as lc_due
+                                    ,get_agent_gold_due(agent_id) as gold_due
+                                    from agent_master");
+        return $this->successResponse($result);
+    }
+    public function getCustomersBalanceByAgentId($agentId){
+        $result = DB::select("select agent_to_customer.cust_id
+                                    ,customer_master.cust_name
+                                    , customer_master.city
+                                    , get_customer_gold_due(agent_to_customer.cust_id) as gold_due
+                                    , get_customer_lc_due(agent_to_customer.cust_id) as lc_due
+                                    from agent_to_customer
+                                    inner join customer_master ON customer_master.cust_id = agent_to_customer.cust_id
+                                    where agent_to_customer.agent_id='$agentId'");
+        return $this->successResponse($result);
+    }
+    public function getCustomersBalance(){
+        $result = DB::select("select agent_to_customer.cust_id
+                                    ,customer_master.cust_name
+                                    , customer_master.city
+                                    , get_customer_gold_due(agent_to_customer.cust_id) as gold_due
+                                    , get_customer_lc_due(agent_to_customer.cust_id) as lc_due
+                                    from agent_to_customer
+                                    inner join customer_master ON customer_master.cust_id = agent_to_customer.cust_id");
+        return $this->successResponse($result);
+    }
+    public function getCustomerReceiptPayment($custId){
+        $result = DB::select("call get_cutomer_recept_payment_by_id('$custId')");
+        return $this->successResponse($result);
+    }
 }
