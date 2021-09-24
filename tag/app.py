@@ -33,7 +33,8 @@ def create_text_file(data):
 st.markdown(""" <style> .font {
 font-size:50px ; font-family: 'Cooper Black'; color: #FF9633;} 
 </style> """, unsafe_allow_html=True)
-st.markdown('<p class="font">Guess the object Names</p>', unsafe_allow_html=True)
+
+st.markdown('<p class="font">Tag Printing Environment</p>', unsafe_allow_html=True)
 
 
 st.title("Tag")
@@ -58,7 +59,15 @@ lcCol,tagLcCol = st.columns(2)
 lc = lcCol.text_input("Lc","380")
 tagLc = tagLcCol.text_input("TagLc","1140")
 
-st.text("Job Details:")
+
+st.markdown(""" 
+            <style> 
+                #job-details {
+                             font-family: 'Cooper Black'; color: #FF9633;} 
+            </style> 
+            """, unsafe_allow_html=True)
+
+st.markdown('<p id="job-details">Job Details:</p>', unsafe_allow_html=True)
 st.write("Gold Send: ",3.323)
 st.write("Gold Returned: ",-0.029)
 st.write("Pan Send: ",0.0652)
@@ -180,3 +189,7 @@ if createTagButton:
     filedata+= "A505,20,2,1,1,1,N,'2520'\n"
     filedata+= "P1\n"
     create_text_file(filedata)
+    
+    
+    
+   
