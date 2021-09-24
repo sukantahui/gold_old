@@ -4,18 +4,21 @@
         <div class="child-1" fxFlex="40">
             <mat-card class="example-card" id="agent-card">
                 <mat-card-header>
-                    <mat-card-title>Agents</mat-card-title>
+                    <mat-card-subtitle>
+                        <button
+                                mat-button color="primary"
+                                printSectionId="agent-list-table"
+                                [useExistingCss]="true"
+                                styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
+                                ngxPrint><mat-icon>print</mat-icon>
+                        </button>
+                        <button mat-button color="primary" (click)="commonService.exportToExcel('printable-agent-table','all_agents.xlsx',5)"><mat-icon>cloud_download</mat-icon></button>
+                    </mat-card-subtitle>
                 </mat-card-header>
 
                 <mat-card-content>
-                    <button
-                            mat-button color="primary"
-                            printSectionId="agent-list-table"
-                            [useExistingCss]="true"
-                            styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
-                            ngxPrint><mat-icon>print</mat-icon>
-                    </button>
                     <div *ngIf="agents" id="agent-list-table" class="table-responsive">
+                        <h3>Agent List</h3>
                         <table class="table table-bodered table-condensed" id="printable-agent-table">
                             <thead>
                             <tr>
@@ -114,6 +117,7 @@
                                 styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
                                 ngxPrint><mat-icon>print</mat-icon>
                         </button>
+                        <button mat-button color="primary" (click)="commonService.exportToExcel('printable-customer-dues-table','customers.xlsx',6)"><mat-icon>cloud_download</mat-icon></button>
                     </mat-card-subtitle>
                 </mat-card-header>
 

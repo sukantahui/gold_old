@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
 import {AgentService} from "../../../../../services/agent.service";
+import {CommonService} from "../../../../../services/common.service";
 
 @Component({
   selector: 'app-agent-wise-customer-report',
@@ -17,7 +18,7 @@ export class AgentWiseCustomerReportComponent implements OnInit {
   agentDues: { gold: number; lc: number };
   selectedCustomer: any;
   selectedCustomerIndex= -1;
-  constructor(private agentService: AgentService) { }
+  constructor(private agentService: AgentService, public commonService: CommonService) { }
 
   ngOnInit(): void {
     this.agentService.getAgentsWithDues().subscribe((response: {status: any , data: any[]}) => {
@@ -29,6 +30,7 @@ export class AgentWiseCustomerReportComponent implements OnInit {
   }
 
   agentSelected(agent: any, index: number) {
+    this.selectedCustomerIndex=-1;
     if(index == -1){
       this.selectedAgentIndex = -1;
       this.selectedAgent = null;

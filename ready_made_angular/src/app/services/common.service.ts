@@ -91,18 +91,20 @@ export class CommonService {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
-  exportToExcel(tableId: string, fileName: string, sheetName = 'Sheet1'): void
+  exportToExcel(tableId: string, fileName: string, except_col=255 ,sheetName = 'Sheet1'): void
   {
+    const currentTimeInSeconds=Math.floor(Date.now()/1000);
     /* table id is passed over here */
     let element = document.getElementById(tableId);
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-
+    let ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+    ws['!cols'] = [];
+    ws['!cols'][except_col] = { hidden: true };
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, sheetName);
 
     /* save to file */
-    XLSX.writeFile(wb, fileName);
+    XLSX.writeFile(wb, fileName+'_'+currentTimeInSeconds);
 
   }
 
