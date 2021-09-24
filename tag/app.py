@@ -119,7 +119,8 @@ def createTag():
 st.markdown(""" <style> .font {
 font-size:50px ; font-family: 'Cooper Black'; color: #FF9633;} 
 </style> """, unsafe_allow_html=True)
-st.markdown('<p class="font">Guess the object Names</p>', unsafe_allow_html=True)
+
+st.markdown('<p class="font">Tag Printing Environment</p>', unsafe_allow_html=True)
 
 
 st.title("Tag")
@@ -144,8 +145,14 @@ def createTagForm(jobDetails):
     lcCol,tagLcCol = st.columns(2)
     lc = lcCol.text_input("Lc","380")
     tagLc = tagLcCol.text_input("TagLc","1140")
+    st.markdown(""" 
+                <style> 
+                    #job-details {
+                                font-family: 'Cooper Black'; color: #FF9633;} 
+                </style> 
+                """, unsafe_allow_html=True)
 
-    st.text("Job Details:")
+    st.markdown('<p id="job-details">Job Details:</p>', unsafe_allow_html=True)
     st.write("Gold Send: ",3.323)
     st.write("Gold Returned: ",-0.029)
     st.write("Pan Send: ",0.0652)
@@ -179,7 +186,8 @@ if jobId != prevJobId:
     response = requests.get("http://127.0.0.1/gold_old/gold_api/public/api/dev/job/"+jobId)
     if response.status_code==200:
         jobDetails = response.json().get('data')
-        #t = st.text_area("Enter multiline text",jobDetails['product_code'])
-        #st.write(jobDetails)
-        createTagForm(jobDetails)      
-
+        createTagForm(jobDetails)
+    
+    
+    
+   
