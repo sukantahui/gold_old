@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '938611aebac31cfc9368f995e8a3ab02d0cb6b44',
+    'reference' => '7f85516e3f0ebb7e9d9121f6265f43afd0465d72',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -445,7 +445,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '938611aebac31cfc9368f995e8a3ab02d0cb6b44',
+      'reference' => '7f85516e3f0ebb7e9d9121f6265f43afd0465d72',
     ),
     'laravel/sanctum' => 
     array (
