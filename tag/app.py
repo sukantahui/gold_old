@@ -13,6 +13,13 @@ import requests
 # pip3 install mysql-connector
 import mysql.connector
 
+m = st.markdown("""
+<style>
+div.stButton > button:first-child {
+    background-color: rgb(165 104 104);
+    margin-top: 30px;
+}
+</style>""", unsafe_allow_html=True)
 
 def format_func(option):
     return modeOptions[option]
@@ -34,12 +41,50 @@ prevJobId = ""
 
 modeOptions = {1: "dataset a", 2: "dataset b", 3: "dataset c"}
 
-left,right = st.columns(2)
+first,second,third = st.columns(3)
 
-jobId = left.text_input("Job ID")
-createTagButton = left.button("Create Tag")
+jobId = first.text_input("Job ID")
+jobSearchButton = second.button("Search",key=10)
+brandName = third.text_input("Brand","BB")
+
+modelCol,sizeCol,qtyCol,tonchCol, = st.columns(4)
+
+model = modelCol.text_input("Model","c00f")
+size = sizeCol.text_input("Size","2-3-0")
+qty = qtyCol.text_input("200")
+tonch = tonchCol.text_input("5")
+
+lcCol,tagLcCol = st.columns(2)
+lc = lcCol.text_input("Lc","380")
+tagLc = tagLcCol.text_input("TagLc","1140")
+
+st.text("Job Details:")
+st.write("Gold Send: ",3.323)
+st.write("Gold Returned: ",-0.029)
+st.write("Pan Send: ",0.0652)
+st.write("Pan Returened: ",0)
+st.write("Ntr Returened: ",-1.091)
+st.write("P Loss: ",0.396)
+st.write("MV: ",0.484)
+st.write("Total: ",2.8862)
+st.write("Fine: ",2.655)
+st.write("Gross: ",23.8862)
+
+
+orderIdCol,customerIdCol,nameCol,shortNameCol, = st.columns(4)
+
+order = orderIdCol.text_input("Order","c00f")
+customerId = customerIdCol.text_input("CustomerId","2-3-0")
+name = nameCol.text_input("Name")
+shortName = shortNameCol.text_input("Short Name")
+
+setTagOption = st.radio('Select: ',('All', '0F', '100F','200F'))
+mark = st.radio("Select: : ", ('With Mark', 'Without Mark'))
+
+createTagButton = st.button("Create Tag")
+
 option = st.selectbox("Select option", options=list(modeOptions.keys()), format_func=format_func)
-st.write(option)
+#st.write(option)
 
 if jobId != prevJobId:
     prevJobId = jobId
