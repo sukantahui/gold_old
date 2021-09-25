@@ -180,13 +180,19 @@ def createTagForm(jobDetails,customer):
     name = nameCol.text_input("Name",customer['cust_name'])
     shortName = shortNameCol.text_input("Short Name",customer['short_name'])
 
-    setTagOption = st.radio('Select: ',('All', '0F', '100F','200F'))
-    mark = st.radio("Select: : ", ('With Mark', 'Without Mark'))
+    tagCol,customerCol = st.columns(2)
+    setTagOption = tagCol.radio('Select: ',('All', '0F', '100F','200F'))
+    mark = tagCol.radio("Select: : ", ('With Mark', 'Without Mark'))
+
+    customerCol.markdown('<p id="order-id" class="customer">order ID: '+ jobDetails['order_id'] + ' </p>', unsafe_allow_html=True)
+    customerCol.markdown('<p id="customer-id" class="customer">Customer ID: '+ customer['cust_id'] + ' </p>', unsafe_allow_html=True)
+    customerCol.markdown('<p id="customer-name" class="customer">Customer name: '+ customer['cust_name'] + ' </p>', unsafe_allow_html=True)
+    customerCol.markdown('<p id="customer-short-name" class="customer">Short name: '+ customer['short_name'] + ' </p>', unsafe_allow_html=True)
 
     if st.button("Create Tag"):
         createTag()  
 
-option = st.selectbox("Select option", options=list(modeOptions.keys()), format_func=format_func)
+#option = st.selectbox("Select option", options=list(modeOptions.keys()), format_func=format_func)
 #st.write(option)
 
 if jobId != prevJobId:
