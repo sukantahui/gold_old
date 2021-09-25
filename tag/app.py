@@ -158,6 +158,7 @@ def createTagForm(jobDetails):
                 </style> 
                 """, unsafe_allow_html=True)
 
+
     st.sidebar.markdown('<p id="job-details">Job Details:</p>', unsafe_allow_html=True)
     st.sidebar.write("Gold Send: ",3.323)
     st.sidebar.write("Gold Returned: ",-0.029)
