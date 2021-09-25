@@ -202,5 +202,7 @@ Route::group(array('prefix' => 'dev'), function() {
     // http://127.0.0.1/gold_old/gold_api/public/api/dev/customerReceiptPayments
     Route::get("customerReceiptPayments/{custId}",[ReportController::class, 'getCustomerReceiptPayment']);
 
+    Route::get("customerByJob/{jobId}",[ReportController::class, 'getCustomerByJobId']);
+
 });
 

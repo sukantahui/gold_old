@@ -141,16 +141,18 @@ jobSearchButton = second.button("Search")
 brandName = third.text_input("Brand","BB")
 
 
-def createTagForm(jobDetails):
+def createTagForm(jobDetails,customer):
+    modelNumber = jobDetails['product_code'] + '-' + jobDetails['price_code']
+    tagLcValue = jobDetails['pieces'] * jobDetails['price'] * 3
     modelCol,sizeCol,qtyCol,tonchCol, = st.columns(4)
-    model = modelCol.text_input("Model",jobDetails['product_code'])
-    size = sizeCol.text_input("Size","2-3-0")
-    qty = qtyCol.text_input("200")
-    tonch = tonchCol.text_input("5")
+    model = modelCol.text_input("Model",modelNumber)
+    size = sizeCol.text_input("Size",jobDetails['product_size'])
+    qty = qtyCol.text_input("Qty",jobDetails['pieces'])
+    tonch = tonchCol.text_input("Tonch")
 
     lcCol,tagLcCol,right1,right2 = st.columns(4)
-    lc = lcCol.text_input("Lc","380")
-    tagLc = tagLcCol.text_input("TagLc","1140")
+    lc = lcCol.text_input("Lc",jobDetails['price'])
+    tagLc = tagLcCol.text_input("TagLc",tagLcValue)
     st.sidebar.markdown(""" 
                 <style> 
                     #job-details {
@@ -160,13 +162,13 @@ def createTagForm(jobDetails):
 
 
     st.sidebar.markdown('<p id="job-details">Job Details:</p>', unsafe_allow_html=True)
-    st.sidebar.write("Gold Send: ",3.323)
-    st.sidebar.write("Gold Returned: ",-0.029)
-    st.sidebar.write("Pan Send: ",0.0652)
-    st.sidebar.write("Pan Returened: ",0)
-    st.sidebar.write("Ntr Returened: ",-1.091)
-    st.sidebar.write("P Loss: ",0.396)
-    st.sidebar.write("MV: ",0.484)
+    st.sidebar.write("Gold Send: ",jobDetails['gold_send'])
+    st.sidebar.write("Gold Returned: ",jobDetails['gold_returned'])
+    st.sidebar.write("Pan Send: ",jobDetails['pan_send'])
+    st.sidebar.write("Pan Returened: ",jobDetails['pan_returned'])
+    st.sidebar.write("Ntr Returened: ",jobDetails['nitrick_returned'])
+    st.sidebar.write("P Loss: ",jobDetails['p_loss'])
+    st.sidebar.write("MV: ",jobDetails['markup_value'])
     st.sidebar.write("Total: ",2.8862)
     st.sidebar.write("Fine: ",2.655)
     st.sidebar.write("Gross: ",23.8862)
@@ -174,9 +176,9 @@ def createTagForm(jobDetails):
     orderIdCol,customerIdCol,nameCol,shortNameCol, = st.columns(4)
 
     order = orderIdCol.text_input("Order",jobDetails['order_id'])
-    customerId = customerIdCol.text_input("CustomerId","2-3-0")
-    name = nameCol.text_input("Name")
-    shortName = shortNameCol.text_input("Short Name")
+    customerId = customerIdCol.text_input("CustomerId",customer['cust_id'])
+    name = nameCol.text_input("Name",customer['cust_name'])
+    shortName = shortNameCol.text_input("Short Name",customer['short_name'])
 
     setTagOption = st.radio('Select: ',('All', '0F', '100F','200F'))
     mark = st.radio("Select: : ", ('With Mark', 'Without Mark'))
@@ -193,8 +195,12 @@ if jobId != prevJobId:
     response = requests.get("http://127.0.0.1/gold_old/gold_api/public/api/dev/job/"+jobId)
     if response.status_code==200:
         jobDetails = response.json().get('data')
-        createTagForm(jobDetails)
         st.write(jobDetails)
+        response2 = requests.get("http://127.0.0.1/gold_old/gold_api/public/api/dev/customerByJob/"+jobId)
+        if response2.status_code==200:
+            customer = response2.json().get('data')
+            st.write(customer)
+            createTagForm(jobDetails,customer)
 
 
 

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\AgentToCustomer;
 use App\Models\BillDetails;
 use App\Models\BillMaster;
+use App\Models\Customer;
+use App\Models\JobMaster;
+use App\Models\OrderMaster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -80,5 +83,12 @@ class ReportController extends ApiController
     public function getCustomerReceiptPayment($custId){
         $result = DB::select("call get_cutomer_recept_payment_by_id('$custId')");
         return $this->successResponse($result);
+    }
+
+    public function getCustomerByJobId($jobId){
+        $job = JobMaster::findOrFail($jobId);
+        $order = OrderMaster::whereOrderId($job->order_id)->first();
+        $customer = Customer::findOrFail($order->cust_id);
+        return $this->successResponse($customer);
     }
 }
