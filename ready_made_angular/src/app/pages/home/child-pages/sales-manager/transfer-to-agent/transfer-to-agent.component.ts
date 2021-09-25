@@ -18,6 +18,7 @@ export class TransferToAgentComponent implements OnInit {
   transferForm: FormGroup;
   disabled: any;
   searchTerm: any;
+  searchTag: any;
   pageSize = 50;
   currentPageProducts = 1;
   searchTermSelectedProducts: any;
@@ -210,6 +211,12 @@ export class TransferToAgentComponent implements OnInit {
     item.is_selected = false;
     this.sortedProducts.unshift(item);
     this.products.unshift(item);
+  }
+  selectForTagTransfer(){
+    const newArray = this.sortedProducts.filter(el => el.tag == this.searchTag);
+    this.sortedProducts = this.sortedProducts.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
+    this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
+    this.selectedProducts.push(...newArray);
   }
 }// end of class
 
