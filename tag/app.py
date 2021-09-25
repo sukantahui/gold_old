@@ -143,12 +143,12 @@ brandName = third.text_input("Brand","BB")
 
 def createTagForm(jobDetails):
     modelCol,sizeCol,qtyCol,tonchCol, = st.columns(4)
-    model = modelCol.text_input("Model","c00f")
+    model = modelCol.text_input("Model",jobDetails['product_code'])
     size = sizeCol.text_input("Size","2-3-0")
     qty = qtyCol.text_input("200")
     tonch = tonchCol.text_input("5")
 
-    lcCol,tagLcCol = st.columns(2)
+    lcCol,tagLcCol,right1,right2 = st.columns(4)
     lc = lcCol.text_input("Lc","380")
     tagLc = tagLcCol.text_input("TagLc","1140")
     st.sidebar.markdown(""" 
@@ -172,7 +172,7 @@ def createTagForm(jobDetails):
 
     orderIdCol,customerIdCol,nameCol,shortNameCol, = st.columns(4)
 
-    order = orderIdCol.text_input("Order","c00f")
+    order = orderIdCol.text_input("Order",jobDetails['order_id'])
     customerId = customerIdCol.text_input("CustomerId","2-3-0")
     name = nameCol.text_input("Name")
     shortName = shortNameCol.text_input("Short Name")
@@ -193,6 +193,10 @@ if jobId != prevJobId:
     if response.status_code==200:
         jobDetails = response.json().get('data')
         createTagForm(jobDetails)
+        st.write(jobDetails)
+
+
+
     
     
     
