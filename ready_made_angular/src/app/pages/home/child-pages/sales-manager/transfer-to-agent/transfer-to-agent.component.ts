@@ -213,10 +213,23 @@ export class TransferToAgentComponent implements OnInit {
     this.products.unshift(item);
   }
   selectForTagTransfer(){
+
     const newArray = this.sortedProducts.filter(el => el.tag == this.searchTag);
-    this.sortedProducts = this.sortedProducts.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
-    this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
-    this.selectedProducts.push(...newArray);
+    if(newArray.length === 0){
+      Swal.fire( {
+            title: 'Not found',
+            text: 'No element of the tag found',
+            showConfirmButton: false,
+            timer: 2000
+       });
+    }else{
+      this.sortedProducts = this.sortedProducts.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
+      this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
+      this.selectedProducts.push(...newArray);
+      this.selectedProducts.filter(el => el.is_selected = true);
+    }
+
+
   }
 }// end of class
 
