@@ -13,6 +13,12 @@ import requests
 # pip3 install mysql-connector
 import mysql.connector
 
+st.sidebar.markdown("## Controls")
+st.sidebar.markdown("You can **change** the values to change the *chart*.")
+st.sidebar.write("testing")
+
+
+
 m = st.markdown("""
 <style>
 div.stButton > button:first-child {
@@ -145,24 +151,24 @@ def createTagForm(jobDetails):
     lcCol,tagLcCol = st.columns(2)
     lc = lcCol.text_input("Lc","380")
     tagLc = tagLcCol.text_input("TagLc","1140")
-    st.markdown(""" 
+    st.sidebar.markdown(""" 
                 <style> 
                     #job-details {
                                 font-family: 'Cooper Black'; color: #FF9633;} 
                 </style> 
                 """, unsafe_allow_html=True)
 
-    st.markdown('<p id="job-details">Job Details:</p>', unsafe_allow_html=True)
-    st.write("Gold Send: ",3.323)
-    st.write("Gold Returned: ",-0.029)
-    st.write("Pan Send: ",0.0652)
-    st.write("Pan Returened: ",0)
-    st.write("Ntr Returened: ",-1.091)
-    st.write("P Loss: ",0.396)
-    st.write("MV: ",0.484)
-    st.write("Total: ",2.8862)
-    st.write("Fine: ",2.655)
-    st.write("Gross: ",23.8862)
+    st.sidebar.markdown('<p id="job-details">Job Details:</p>', unsafe_allow_html=True)
+    st.sidebar.write("Gold Send: ",3.323)
+    st.sidebar.write("Gold Returned: ",-0.029)
+    st.sidebar.write("Pan Send: ",0.0652)
+    st.sidebar.write("Pan Returened: ",0)
+    st.sidebar.write("Ntr Returened: ",-1.091)
+    st.sidebar.write("P Loss: ",0.396)
+    st.sidebar.write("MV: ",0.484)
+    st.sidebar.write("Total: ",2.8862)
+    st.sidebar.write("Fine: ",2.655)
+    st.sidebar.write("Gross: ",23.8862)
 
     orderIdCol,customerIdCol,nameCol,shortNameCol, = st.columns(4)
 
