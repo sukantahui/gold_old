@@ -75,6 +75,11 @@ const routes: Routes = [
                                     path: 'AgentWiseCustomerReport',
                                     loadChildren: () => import('./child-pages/sales-manager/agent-wise-customer-report/agent-wise-customer-report.module')
                                         .then(mod => mod.AgentWiseCustomerReportModule)
+                                },
+                                {
+                                    path: 'CreateBill',
+                                    loadChildren: () => import('./child-pages/office-staff/create-bill/create-bill-routing.module')
+                                        .then(mod => mod.CreateBillRoutingModule)
                                 }
 
 

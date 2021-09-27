@@ -18,13 +18,13 @@ export class MenuOfficeStaffComponent implements OnInit {
           route: 'StaffReport'
         },
         {
-          displayName: 'Sessions',
+          displayName: 'Production',
           iconName: 'speaker_notes',
           children: [
             {
-              displayName: 'Create Enterprise UIs',
+              displayName: 'Create Bill',
               iconName: 'star_rate',
-              route: 'material-design'
+              route: 'CreateBill'
             },
             {
               displayName: 'What\'s up with the Web?',
@@ -42,11 +42,17 @@ export class MenuOfficeStaffComponent implements OnInit {
               route: 'become-angular-tailer'
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      displayName: 'Production',
+      iconName: 'close',
+      children: [
         {
-          displayName: 'Feedback',
-          iconName: 'feedback',
-          route: 'feedback'
+          displayName: 'Status Report',
+          iconName: 'group',
+          route: 'StaffReport'
         }
       ]
     }
