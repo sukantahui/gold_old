@@ -212,9 +212,11 @@ export class TransferToAgentComponent implements OnInit {
     this.sortedProducts.unshift(item);
     this.products.unshift(item);
   }
-  selectForTagTransfer(){
+  selectForDirectTagTransfer(){
+    if(this.searchTag.length==0)
+      return;
 
-    const newArray = this.sortedProducts.filter(el => el.tag == this.searchTag);
+    const newArray = this.sortedProducts.filter(el => el.tag == this.searchTag.toUpperCase());
     if(newArray.length === 0){
       Swal.fire( {
             title: 'Not found',
@@ -227,6 +229,7 @@ export class TransferToAgentComponent implements OnInit {
       this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
       this.selectedProducts.push(...newArray);
       this.selectedProducts.filter(el => el.is_selected = true);
+
     }
 
 
