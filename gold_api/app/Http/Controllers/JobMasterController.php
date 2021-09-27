@@ -24,4 +24,12 @@ class JobMasterController extends ApiController
                 $result = JobMaster::findOrFail($job_id);
         return $this->successResponse($result);
     }
+
+
+    public function getOderIdByStatus(){
+        $orderId = JobMaster::select('order_id')
+                    ->where('status','=','8')
+                    ->get();
+        return $this->successResponse($orderId);
+    }
 }

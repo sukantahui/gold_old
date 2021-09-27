@@ -206,5 +206,8 @@ Route::group(array('prefix' => 'dev'), function() {
 
     Route::get("customerByJob/{jobId}",[ReportController::class, 'getCustomerByJobId']);
 
+    // http://127.0.0.1/gold_old/gold_api/public/api/dev/getOderIdByStatus
+    Route::get("getOderIdByStatus",[JobMasterController::class, 'getOderIdByStatus']);
+
 });
 

@@ -1,0 +1,60 @@
+
+
+select customer_master.cust_name, order_master.order_id from order_master
+inner join customer_master
+on order_master.cust_id = customer_master.cust_id
+where order_master.order_id in(select distinct order_id from job_master where status=8
+
+
+// function get_billable_job_by_order_id
+
+DROP FUNCTION IF EXISTS ses_gold.get_billable_job_by_order_id;
+CREATE FUNCTION ses_gold.`get_billable_job_by_order_id`(input_order_id varchar(255)) RETURNS int
+    DETERMINISTIC
+BEGIN
+	DECLARE total_billable_jobs int;
+  set total_billable_jobs=0;
+  select count(*) into total_billable_jobs from job_master where status=8 and order_id=input_order_id;
+  IF isnull(total_billable_jobs) then
+    set total_billable_jobs=0;
+  END IF;
+	RETURN total_billable_jobs;
+END;
+
+
+select customer_master.cust_name, order_master.order_id
+,get_billable_job_by_order_id(order_master.order_id) as billable
+from order_master
+inner join customer_master
+on order_master.cust_id = customer_master.cust_id
+where order_master.order_id in(select distinct order_id from job_master where status=8);
+
+
+
+
+///
+select count(*) from job_master where status=8 and order_id='papai/840/2122';
+
+
+///get_remaining_billable_job_by_order_id
+DROP FUNCTION IF EXISTS ses_gold.get_remaining_billable_job_by_order_id;
+CREATE FUNCTION ses_gold.`get_remaining_billable_job_by_order_id`(input_order_id varchar(255)) RETURNS int
+    DETERMINISTIC
+BEGIN
+	DECLARE total_remaining_billable_jobs int;
+  set total_remaining_billable_jobs=0;
+  select count(*) into total_remaining_billable_jobs from job_master where status not in(4,8,9) and order_id=input_order_id;
+  IF isnull(total_remaining_billable_jobs) then
+    set total_remaining_billable_jobs=0;
+  END IF;
+	RETURN total_remaining_billable_jobs;
+END;
+
+
+////
+select customer_master.cust_name, order_master.order_id
+,get_remaining_billable_job_by_order_id(order_master.order_id) as remain_billable
+from order_master
+inner join customer_master
+on order_master.cust_id = customer_master.cust_id
+where order_master.order_id in(select distinct order_id from job_master where status not in (4,8,9));
