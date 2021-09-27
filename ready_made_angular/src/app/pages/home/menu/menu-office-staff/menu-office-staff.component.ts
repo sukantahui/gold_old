@@ -46,16 +46,37 @@ export class MenuOfficeStaffComponent implements OnInit {
       ]
     },
     {
-      displayName: 'Production',
+      displayName: 'Activity',
       iconName: 'close',
       children: [
         {
-          displayName: 'Status Report',
-          iconName: 'group',
-          route: 'StaffReport'
+          displayName: 'Production',
+          iconName: 'speaker_notes',
+          children: [
+            {
+              displayName: 'Create Bill',
+              iconName: 'star_rate',
+              route: 'CreateBill'
+            },
+            {
+              displayName: 'What\'s up with the Web?',
+              iconName: 'star_rate',
+              route: 'what-up-web'
+            },
+            {
+              displayName: 'My ally, the CLI',
+              iconName: 'star_rate',
+              route: 'my-ally-cli'
+            },
+            {
+              displayName: 'Become an Angular Tailor',
+              iconName: 'star_rate',
+              route: 'become-angular-tailer'
+            }
+          ]
         }
       ]
-    }
+    },
   ];
   constructor() { }
 
