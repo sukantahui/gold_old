@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceMasterController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Models\Customer;
@@ -208,6 +209,8 @@ Route::group(array('prefix' => 'dev'), function() {
 
     // http://127.0.0.1/gold_old/gold_api/public/api/dev/getOderIdByStatus
     Route::get("getOderIdByStatus",[JobMasterController::class, 'getOderIdByStatus']);
+
+    Route::get("rawMaterials/{rmId}",[RawMaterialController::class, 'getRawMaterial']);
 
 });
 
