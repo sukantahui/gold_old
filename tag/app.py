@@ -36,6 +36,8 @@ def create_text_file(data):
     f.close()
 
 def createTag(jobDetails,customer,rawMaterials,setTagOption):
+        st.write(jobDetails)
+        st.write(jobDetails['gold_send'] - jobDetails['gold_returned'] + (jobDetails['pan_send'] - jobDetails['pan_returned'])*0.4 - jobDetails['nitrick_returned'])
         fineGold = ((jobDetails['gold_send'] - jobDetails['gold_returned']) + (jobDetails['pan_send'] - jobDetails['pan_returned'])*0.4 - (jobDetails['nitrick_returned']) + (jobDetails['p_loss'] * jobDetails['pieces']) +(jobDetails['markup_value'] * jobDetails['pieces']))
         fileDataSet = ''
 
