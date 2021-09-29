@@ -46,7 +46,7 @@ class CreateAllProceduresAndFunctions extends Migration
         );
 
         DB::unprepared('DROP FUNCTION IF EXISTS get_customer_gold_due;
-            CREATE DEFINER=`root`@`127.0.0.1` FUNCTION get_customer_gold_due(customer_id varchar(255)) RETURNS double
+            CREATE FUNCTION get_customer_gold_due(customer_id varchar(255)) RETURNS double
                 DETERMINISTIC
             BEGIN
                 DECLARE total_gold_due double;
@@ -56,6 +56,50 @@ class CreateAllProceduresAndFunctions extends Migration
                     set total_gold_due=0;
                   END IF;
 	            RETURN total_gold_due;
+            END;'
+        );
+
+        // কটা জব বিল করা যাবে তার গুনতি
+        DB::unprepared('DROP FUNCTION IF EXISTS get_billable_job_count_by_order_id;
+            CREATE FUNCTION get_billable_job_count_by_order_id(input_order_id varchar(255)) RETURNS int(11)
+                DETERMINISTIC
+            BEGIN
+                DECLARE total_billable_jobs int;
+              set total_billable_jobs=0;
+              select count(*) into total_billable_jobs from job_master where status=8 and order_id=input_order_id;
+              IF isnull(total_billable_jobs) then
+                set total_billable_jobs=0;
+              END IF;
+                RETURN total_billable_jobs;
+            END;'
+        );
+        // এখনও কতগুলি জবের কাজ চলছে তা জানার জন্য, as per order_id
+        DB::unprepared('DROP FUNCTION IF EXISTS get_working_job_count_by_order_id;
+            CREATE FUNCTION get_working_job_count_by_order_id(input_order_id varchar(255)) RETURNS int(11)
+                DETERMINISTIC
+            BEGIN
+                DECLARE total_working_jobs int;
+              set total_working_jobs=0;
+              select count(*) into total_working_jobs from job_master where status not in(2,4,8,9) and order_id=input_order_id;
+              IF isnull(total_working_jobs) then
+                set total_working_jobs=0;
+              END IF;
+                RETURN total_working_jobs;
+            END;'
+        );
+
+        // কটি অর্ডার আছে প্রত্যেক অর্ডার আইডির জন্য
+        DB::unprepared('DROP FUNCTION IF EXISTS get_order_count_by_order_id;
+            CREATE FUNCTION ses_gold.`get_order_count_by_order_id`(input_order_id varchar(255)) RETURNS int(11)
+                DETERMINISTIC
+            BEGIN
+                DECLARE total_order_count int;
+              set total_order_count=0;
+              select count(*) into total_order_count from order_details where order_id=input_order_id;
+              IF isnull(total_order_count) then
+                set total_order_count=0;
+              END IF;
+                RETURN total_order_count;
             END;'
         );
 

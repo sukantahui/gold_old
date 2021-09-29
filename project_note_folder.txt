@@ -37,23 +37,26 @@ select count(*) from job_master where status=8 and order_id='papai/840/2122';
 
 
 ///get_remaining_billable_job_by_order_id
-DROP FUNCTION IF EXISTS ses_gold.get_remaining_billable_job_by_order_id;
-CREATE FUNCTION ses_gold.`get_remaining_billable_job_by_order_id`(input_order_id varchar(255)) RETURNS int
+DROP FUNCTION IF EXISTS ses_gold.get_working_job_count_by_order_id;
+CREATE FUNCTION ses_gold.`get_working_job_count_by_order_id`(input_order_id varchar(255)) RETURNS int(11)
     DETERMINISTIC
 BEGIN
-	DECLARE total_remaining_billable_jobs int;
-  set total_remaining_billable_jobs=0;
-  select count(*) into total_remaining_billable_jobs from job_master where status not in(4,8,9) and order_id=input_order_id;
-  IF isnull(total_remaining_billable_jobs) then
-    set total_remaining_billable_jobs=0;
-  END IF;
-	RETURN total_remaining_billable_jobs;
-END;
+                DECLARE total_working_jobs int;
+              set total_working_jobs=0;
+              select count(*) into total_working_jobs from job_master where status not in(2,4,8,9) and order_id=input_order_id;
+              IF isnull(total_working_jobs) then
+                set total_working_jobs=0;
+              END IF;
+                RETURN total_working_jobs;
+            END;
+
 
 
 ////
 select customer_master.cust_name, order_master.order_id
-,get_remaining_billable_job_by_order_id(order_master.order_id) as remain_billable
+,get_billable_job_count_by_order_id(order_master.order_id) as billable_job_count
+,get_working_job_count_by_order_id(order_master.order_id) as working_job_count
+,get_order_count_by_order_id(order_master.order_id) as order_count
 from order_master
 inner join customer_master
 on order_master.cust_id = customer_master.cust_id
