@@ -1,4 +1,4 @@
-
+// https://blog.logrocket.com/angular-formbuilder-reactive-form-validation/
 
 select customer_master.cust_name, order_master.order_id from order_master
 inner join customer_master
