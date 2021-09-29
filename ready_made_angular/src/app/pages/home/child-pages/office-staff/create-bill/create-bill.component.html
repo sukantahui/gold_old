@@ -10,7 +10,30 @@
                 </mat-card-header>
 
                 <mat-card-content>
-                    Left content
+                    <div *ngIf="billableOrders" id="stockListDiv" class="table-responsive">
+                        <table class="table table-bodered table-condensed" id="printable-stock-table">
+                            <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Tag</th>
+                                <th>Model No.</th>
+                                <th>Billable Jobs</th>
+                                <th>Working Progress</th>
+                                <th>Number of Orders</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let row of billableOrders; let i = index">
+                                <td >{{i+1}}</td>
+                                <td >{{row.order_id}}</td>
+                                <td >{{row.cust_name}}</td>
+                                <td >{{row.billable_job_count}}</td>
+                                <td >{{row.working_job_count}}</td>
+                                <td >{{row.order_count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </mat-card-content>
 
             </mat-card>
@@ -33,7 +56,7 @@
         <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
             <div fxLayoutAlign="center center">
                 <pre>
-
+                    billableOrders = {{ billableOrders | json }}
                 </pre>
             </div>
             <div fxFlex="2 1 auto" fxLayoutAlign="center center">

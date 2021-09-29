@@ -102,7 +102,20 @@ class CreateAllProceduresAndFunctions extends Migration
                 RETURN total_order_count;
             END;'
         );
-
+        // to get billable order list
+        DB::unprepared('DROP FUNCTION IF EXISTS get_customer_by_order_id;
+             CREATE FUNCTION get_customer_by_order_id(input_order_id varchar(255)) RETURNS varchar(255)
+                DETERMINISTIC
+            BEGIN
+                DECLARE temp_cust_name varchar(255);
+                set temp_cust_name="";
+                select cust_name into temp_cust_name from order_master inner join customer_master on order_master.cust_id = customer_master.cust_id where order_id=input_order_id;
+                IF isnull(temp_cust_name) then
+                    set temp_cust_name="not found";
+                END IF;
+                    RETURN temp_cust_name;
+                END;'
+        );
     }
 
     /**

@@ -162,5 +162,19 @@ class BillController extends ApiController
         }
 
     }
+    public function get_billable_orders(){
+        $orders = DB::select("select
+            customer_master.cust_name
+            , order_master.order_id
+            ,get_billable_job_count_by_order_id(order_master.order_id) as billable_job_count
+            ,get_working_job_count_by_order_id(order_master.order_id) as working_job_count
+            ,get_order_count_by_order_id(order_master.order_id) as order_count
+            from order_master
+            inner join customer_master
+            on order_master.cust_id = customer_master.cust_id
+            where order_master.order_id in(select distinct order_id from job_master where status not in (4,8,9)) and get_billable_job_count_by_order_id(order_master.order_id)>0;");
+
+        return $this->successResponse($orders);
+    }
 
 }

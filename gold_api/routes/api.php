@@ -109,6 +109,26 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("customerReceiptPayments/{custId}",[ReportController::class, 'getCustomerReceiptPayment']);
 
     Route::get("customerByJob/{jobId}",[ReportController::class, 'getCustomerByJobId']);
+
+    // http://127.0.0.1/gold_old/gold_api/public/api/billableOrders
+    Route::get("billableOrders",[BillController::class, 'get_billable_orders']);
+
+    /*Working status*/
+    Route::get("materialReceivedTransactions/total/{startDate}/{endDate}/{rmId}/{employeeId}/{transactionTypeId}",[MaterialTransactionController::class ,'getMaterialReceivedTransactionsTotalByDates']);
+    Route::get("materialReceivedTransactions/{startDate}/{endDate}/{rmId}/{employeeId}/{transactionTypeId}",[MaterialTransactionController::class ,'getMaterialReceivedTransactionsByDates']);
+
+    Route::get("goldSendToJobs/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getGoldSendToJobByDatesAndEmployee']);
+
+    Route::get("goldReceivedFromJobs/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getGoldReceivedFromJobByDatesAndEmployee']);
+
+    //http://127.0.0.1/gold_old/gold_api/public/api/dev/nitricReceivedFromJobs/total/total/2019-04-13/2022-05-30/45/70
+    Route::get("nitricReceivedFromJobs/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getNitricReceivedFromJobByDatesAndEmployee']);
+    Route::get("billTotal/total/{startDate}/{endDate}",[MaterialTransactionController::class ,'getBillTotalByDate']);
+
+
+
+
+    Route::get("goldReceivedFromJobs/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getGoldReceivedFromJobByDatesAndEmployee']);
 });
 
 
@@ -143,6 +163,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("materialReceivedTransactions/{startDate}/{endDate}/{rmId}/{employeeId}/{transactionTypeId}",[MaterialTransactionController::class ,'getMaterialReceivedTransactionsByDates']);
 
     Route::get("goldSendToJobs/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getGoldSendToJobByDatesAndEmployee']);
+
     Route::get("goldReceivedFromJobs/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getGoldReceivedFromJobByDatesAndEmployee']);
 
     //http://127.0.0.1/gold_old/gold_api/public/api/dev/nitricReceivedFromJobs/total/total/2019-04-13/2022-05-30/45/70
@@ -152,7 +173,10 @@ Route::group(array('prefix' => 'dev'), function() {
 
     Route::get("SalesReport/agent/{startDate}/{endDate}/{agentId}",[ReportController::class ,'getSaleReportByDatesAndAgent']);
 
-
+    //Customers
+    Route::get("customers",[CustomerController::class, 'index']);
+    Route::get("customers/agent/{agentId}",[CustomerController::class, 'getCustomerByAgent']);
+    Route::get("customers/agent/{agentId}/inforced",[CustomerController::class, 'getInforcedCustomerByAgent']);
 
     Route::get("getClosingBalannceByEmpIdAndRmId/{empId}/{rmId}",[MaterialToEmployeeBalanceController::class, 'getClosingBalannceByEmpIdAndRmId']);
 
@@ -211,6 +235,8 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("getOderIdByStatus",[JobMasterController::class, 'getOderIdByStatus']);
 
     Route::get("rawMaterials/{rmId}",[RawMaterialController::class, 'getRawMaterial']);
+
+    Route::get("billableOrders",[BillController::class, 'get_billable_orders']);
 
 });
 

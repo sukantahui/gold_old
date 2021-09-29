@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../../../../environments/environment";
+import {CommonService} from "../../../../../services/common.service";
+import {HttpClient} from "@angular/common/http";
+import {BillService} from "../../../../../services/bill.service";
+
+class httpClient {
+}
 
 @Component({
   selector: 'app-create-bill',
@@ -8,9 +14,13 @@ import {environment} from "../../../../../../environments/environment";
 })
 export class CreateBillComponent implements OnInit {
   isProduction = environment.production;
-  constructor() { }
+  billableOrders: any[] =[];
+  constructor( private  http: HttpClient, private commonService: CommonService, private billService: BillService) { }
 
   ngOnInit(): void {
+    this.billService.getBillableOrders().subscribe(response => {
+      this.billableOrders = response.data;
+    });
   }
 
 }
