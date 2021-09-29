@@ -19,4 +19,8 @@ export class BillService {
     return  this.http.post(this.commonService.getAPI() + '/createBill', { billMaster: billMasterData , billDetails : billDetailsData})
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
+  getBillableOrders(){
+    return  this.http.get(this.commonService.getAPI() + '/billableOrders')
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
 }

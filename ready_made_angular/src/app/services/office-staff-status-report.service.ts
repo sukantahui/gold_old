@@ -18,7 +18,7 @@ export class OfficeStaffStatusReportService {
 
   // gold received from owner
   getMaterialReceivedByDate(startDate: string,endDate: string, rmId: number,employeeId: number){
-    return this.http.get<ServerResponse>(this.commonService.getAPI() + '/dev/materialReceivedTransactions/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId+'/1')
+    return this.http.get<ServerResponse>(this.commonService.getAPI() + '/materialReceivedTransactions/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId+'/1')
         .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
           if (response.status === true){
 
@@ -28,7 +28,7 @@ export class OfficeStaffStatusReportService {
   }
   //gold send to job
   getGoldSendToJobByDateAndEmployee(startDate: string,endDate: string, rmId: number,employeeId: number){
-        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/dev/goldSendToJobs/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId)
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/goldSendToJobs/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId)
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
                 if (response.status === true){
 
@@ -39,7 +39,7 @@ export class OfficeStaffStatusReportService {
 
   //gold received from job
   getGoldReceivedFromJobByDateAndEmployee(startDate: string,endDate: string, rmId: number,employeeId: number){
-        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/dev/goldReceivedFromJobs/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId)
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/goldReceivedFromJobs/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId)
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
                 if (response.status === true){
 
@@ -50,7 +50,7 @@ export class OfficeStaffStatusReportService {
 
   //nitric received from job
   getNitricReceivedFromJobByDateAndEmployee(startDate: string,endDate: string, rmId: number,employeeId: number){
-        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/dev/nitricReceivedFromJobs/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId)
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/nitricReceivedFromJobs/total/'+startDate+'/'+endDate+'/'+rmId+'/'+employeeId)
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
                 if (response.status === true){
 
@@ -60,7 +60,7 @@ export class OfficeStaffStatusReportService {
   }
   //Bill Total by Date
   getBillTotalByDate(startDate: string,endDate: string){
-        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/dev/billTotal/total/'+startDate+'/'+endDate)
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/billTotal/total/'+startDate+'/'+endDate)
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
                 if (response.status === true){
 
