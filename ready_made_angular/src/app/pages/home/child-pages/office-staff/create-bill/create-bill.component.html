@@ -20,6 +20,7 @@
                                 <th>Billable Jobs</th>
                                 <th>Working Progress</th>
                                 <th>Number of Orders</th>
+                                <th>Edit</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -30,6 +31,7 @@
                                 <td >{{row.billable_job_count}}</td>
                                 <td >{{row.working_job_count}}</td>
                                 <td >{{row.order_count}}</td>
+                                <td ><a [routerLink]="" href="" (click)="onOrderSelected(row)"><i class="bi bi-gear-wide-connected"></i></a></td>
                             </tr>
                             </tbody>
                         </table>

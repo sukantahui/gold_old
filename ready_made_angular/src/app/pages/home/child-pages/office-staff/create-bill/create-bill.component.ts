@@ -23,4 +23,8 @@ export class CreateBillComponent implements OnInit {
     });
   }
 
+  onOrderSelected(row: any){
+    console.log(row);
+  }
+
 }
