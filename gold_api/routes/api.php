@@ -238,5 +238,8 @@ Route::group(array('prefix' => 'dev'), function() {
 
     Route::get("billableOrders",[BillController::class, 'get_billable_orders']);
 
+    // http://127.0.0.1/gold_old/gold_api/public/api/dev/billableOrdersByJobId/
+    Route::get("billableOrdersByOrderId/{ordertAutoId}", [BillController::class, 'get_billable_orders_by_order_autoid']);
+
 });
 
