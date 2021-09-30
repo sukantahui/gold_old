@@ -177,4 +177,12 @@ class BillController extends ApiController
         return $this->successResponse($orders);
     }
 
+    public function get_billable_orders_by_order_autoid($id){
+        $orders = DB::select("select  job_master.job_id, job_master.product_code, job_master.product_size from job_master
+        inner join order_master on job_master.order_id = order_master.order_id
+        where   job_master.status=8 and order_master.order_autoid=$id;");
+
+        return $this->successResponse($orders);
+    }
+
 }
