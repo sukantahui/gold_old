@@ -172,7 +172,7 @@ class BillController extends ApiController
             from order_master
             inner join customer_master
             on order_master.cust_id = customer_master.cust_id
-            where order_master.order_id in(select distinct order_id from job_master where status not in (4,8,9)) and get_billable_job_count_by_order_id(order_master.order_id)>0;");
+            where  get_billable_job_count_by_order_id(order_master.order_id)>0;");
 
         return $this->successResponse($orders);
     }

@@ -13,26 +13,28 @@ import {MatButtonModule} from "@angular/material/button";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NgxPrinterModule} from "ngx-printer";
 import {NgxPrintModule} from "ngx-print";
+import {LoadingSpinnerModule} from '../../../../../shared/loading-spinner/loading-spinner.module';
 
 
 @NgModule({
   declarations: [
     CreateBillComponent
   ],
-  imports: [
-    CommonModule,
-    CreateBillRoutingModule,
-    MatCardModule,
-    NgSelectModule,
-    FlexModule,
-    MatIconModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    FontAwesomeModule,
-    NgxPrinterModule,
-    NgxPrintModule
-  ]
+    imports: [
+        CommonModule,
+        CreateBillRoutingModule,
+        MatCardModule,
+        NgSelectModule,
+        FlexModule,
+        MatIconModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        FontAwesomeModule,
+        NgxPrinterModule,
+        NgxPrintModule,
+        LoadingSpinnerModule
+    ]
 })
 export class CreateBillModule { }

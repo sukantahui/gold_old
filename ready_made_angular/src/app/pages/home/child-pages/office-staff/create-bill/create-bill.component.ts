@@ -18,6 +18,7 @@ export class CreateBillComponent implements OnInit {
   constructor( private  http: HttpClient, private commonService: CommonService, private billService: BillService) { }
 
   ngOnInit(): void {
+    this.billableOrders = [];
     this.billService.getBillableOrders().subscribe(response => {
       this.billableOrders = response.data;
     });

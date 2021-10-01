@@ -10,7 +10,11 @@
                 </mat-card-header>
 
                 <mat-card-content>
-                    <div *ngIf="billableOrders" id="stockListDiv" class="table-responsive">
+                    <div *ngIf="billableOrders.length==0">
+                        Please wait fetching records ........
+                        <app-loading-spinner></app-loading-spinner>
+                    </div>
+                    <div *ngIf="billableOrders.length>0" id="stockListDiv" class="table-responsive">
                         <table class="table table-bodered table-condensed" id="printable-stock-table">
                             <thead>
                             <tr>
@@ -20,7 +24,7 @@
                                 <th>Billable Jobs</th>
                                 <th>Working Progress</th>
                                 <th>Number of Orders</th>
-                                <th>Edit</th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -31,7 +35,7 @@
                                 <td >{{row.billable_job_count}}</td>
                                 <td >{{row.working_job_count}}</td>
                                 <td >{{row.order_count}}</td>
-                                <td ><a [routerLink]="" href="" (click)="onOrderSelected(row)"><i class="bi bi-gear-wide-connected"></i></a></td>
+                                <td ><a [routerLink]="" href="" (click)="onOrderSelected(row)"><mat-icon>gps_not_fixed</mat-icon></a></td>
                             </tr>
                             </tbody>
                         </table>
