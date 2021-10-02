@@ -13,9 +13,9 @@ import requests
 # pip3 install mysql-connector
 import mysql.connector
 
-st.sidebar.markdown("## Controls")
-st.sidebar.markdown("You can **change** the values to change the *chart*.")
-st.sidebar.write("testing")
+#st.sidebar.markdown("## Controls")
+#st.sidebar.markdown("You can **change** the values to change the *chart*.")
+#st.sidebar.write("testing")
 
 
 
@@ -34,9 +34,10 @@ def create_text_file(data):
     f = open("tag.txt","w")
     f.write(data)
     f.close()
+    os.system('dir')
 
 def createTag(jobDetails,customer,rawMaterials,setTagOption):
-        #st.write(jobDetails)
+        st.write(jobDetails)
         fineGold = ((jobDetails['gold_send'] - jobDetails['gold_returned']) + (jobDetails['pan_send'] - jobDetails['pan_returned'])*0.4 - (jobDetails['nitrick_returned']) + (jobDetails['p_loss'] * jobDetails['pieces']) +(jobDetails['markup_value'] * jobDetails['pieces']))
 
         tagLcValue = jobDetails['pieces'] * jobDetails['price'] * 3
@@ -62,7 +63,7 @@ def createTag(jobDetails,customer,rawMaterials,setTagOption):
         filedata_0f+= "A550,60,2,1,1,1,N,'" + str(round(fineGold,3)) + "'\n"
         filedata_0f+= "A480,60,2,1,1,1,N,'HM'\n"
         filedata_0f+= "A680,40,2,1,1,1,N,'Gross Weight:'\n"
-        filedata_0f+= "A540,40,2,1,1,1,N,'22.076'\n"
+        filedata_0f+= "A540,40,2,1,1,1,N,'"+str(round(jobDetails['product_wt'],3))+"'\n"
         filedata_0f+= "A680,20,2,1,1,1,N,'Charge:'\n"
         filedata_0f+= "A600,20,2,1,1,1,N,'"+ str(tagPrice) +"'\n"
         filedata_0f+= "A555,20,2,1,1,1,N,'X'\n"
@@ -89,7 +90,7 @@ def createTag(jobDetails,customer,rawMaterials,setTagOption):
         filedata_100f+= "A550,60,2,1,1,1,N,'" + str(round((fineGold + 0.100 * jobDetails['pieces']),3)) + "'\n"
         filedata_100f+= "A480,60,2,1,1,1,N,'HM'\n"
         filedata_100f+= "A680,40,2,1,1,1,N,'Gross Weight:'\n"
-        filedata_100f+= "A540,40,2,1,1,1,N,'22.076'\n"
+        filedata_100f+= "A540,40,2,1,1,1,N,'"+str(round(jobDetails['product_wt'],3))+"'\n"
         filedata_100f+= "A680,20,2,1,1,1,N,'Charge:'\n"
         filedata_100f+= "A600,20,2,1,1,1,N,'"+ str(tagPrice) +"'\n"
         filedata_100f+= "A555,20,2,1,1,1,N,'X'\n"
@@ -116,7 +117,7 @@ def createTag(jobDetails,customer,rawMaterials,setTagOption):
         filedata_200f+= "A550,60,2,1,1,1,N,'" + str(round((fineGold + 0.200 * jobDetails['pieces']),3)) + "'\n"
         filedata_200f+= "A480,60,2,1,1,1,N,'HM'\n"
         filedata_200f+= "A680,40,2,1,1,1,N,'Gross Weight:'\n"
-        filedata_200f+= "A540,40,2,1,1,1,N,'22.076'\n"
+        filedata_200f+= "A540,40,2,1,1,1,N,'"+str(round(jobDetails['product_wt'],3))+"'\n"
         filedata_200f+= "A680,20,2,1,1,1,N,'Charge:'\n"
         filedata_200f+= "A600,20,2,1,1,1,N,'"+ str(tagPrice) +"'\n"
         filedata_200f+= "A555,20,2,1,1,1,N,'X'\n"
@@ -176,7 +177,7 @@ def createTagForm(jobDetails,customer,rawMaterials):
                 </style> 
                 """, unsafe_allow_html=True)
 
-
+ 
     st.sidebar.markdown('<p id="job-details">Job Details:</p>', unsafe_allow_html=True)
     st.sidebar.write("Gold Send: ",jobDetails['gold_send'])
     st.sidebar.write("Gold Returned: ",jobDetails['gold_returned'])
