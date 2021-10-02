@@ -14,6 +14,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NgxPrinterModule} from "ngx-printer";
 import {NgxPrintModule} from "ngx-print";
 import {LoadingSpinnerModule} from '../../../../../shared/loading-spinner/loading-spinner.module';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {LoadingSpinnerModule} from '../../../../../shared/loading-spinner/loadin
         FontAwesomeModule,
         NgxPrinterModule,
         NgxPrintModule,
-        LoadingSpinnerModule
+        LoadingSpinnerModule,
+        MatCheckboxModule
     ]
 })
 export class CreateBillModule { }

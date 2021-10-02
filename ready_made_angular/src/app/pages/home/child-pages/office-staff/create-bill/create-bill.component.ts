@@ -3,6 +3,7 @@ import {environment} from "../../../../../../environments/environment";
 import {CommonService} from "../../../../../services/common.service";
 import {HttpClient} from "@angular/common/http";
 import {BillService} from "../../../../../services/bill.service";
+import {Job} from "../../../../../models/job.model";
 
 class httpClient {
 }
@@ -15,7 +16,10 @@ class httpClient {
 export class CreateBillComponent implements OnInit {
   isProduction = environment.production;
   billableOrders: any[] = [];
-  jobDetails: any[] = [];
+  jobDetails: Job[] = [];
+  selectedOrderIndex = -2;
+  selectedOrder: any;
+  test = false;
   constructor( private  http: HttpClient, private commonService: CommonService, private billService: BillService) { }
 
   ngOnInit(): void {
@@ -25,10 +29,17 @@ export class CreateBillComponent implements OnInit {
     });
   }
 
-  onOrderSelected(row: any){
+  onOrderSelected(row: any, index: number) {
+    this.selectedOrderIndex = -1;
+    if (index == -1) {
+      this.selectedOrderIndex = -1;
+      this.selectedOrder = null;
       this.billService.getbBillableOrdersByOrderAutoid(row.order_autoid).subscribe(response => {
         this.jobDetails = response.data;
       });
+    } else {
+      this.selectedOrderIndex = index;
+      this.selectedOrder = row;
+    }
   }
-
 }
