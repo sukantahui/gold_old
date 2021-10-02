@@ -23,4 +23,8 @@ export class BillService {
     return  this.http.get(this.commonService.getAPI() + '/billableOrders')
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
+  getbBillableOrdersByOrderAutoid(data){
+    return  this.http.get(this.commonService.getAPI() + '/billableOrdersByOrderId/' + data)
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
 }

@@ -165,7 +165,7 @@ class BillController extends ApiController
     public function get_billable_orders(){
         $orders = DB::select("select
             customer_master.cust_name
-            , order_master.order_id
+            , order_master.order_id,order_master.order_autoid
             ,get_billable_job_count_by_order_id(order_master.order_id) as billable_job_count
             ,get_working_job_count_by_order_id(order_master.order_id) as working_job_count
             ,get_order_count_by_order_id(order_master.order_id) as order_count

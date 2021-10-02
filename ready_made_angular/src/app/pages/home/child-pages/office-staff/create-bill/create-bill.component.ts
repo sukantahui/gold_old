@@ -14,7 +14,8 @@ class httpClient {
 })
 export class CreateBillComponent implements OnInit {
   isProduction = environment.production;
-  billableOrders: any[] =[];
+  billableOrders: any[] = [];
+  jobDetails: any[] = [];
   constructor( private  http: HttpClient, private commonService: CommonService, private billService: BillService) { }
 
   ngOnInit(): void {
@@ -25,7 +26,9 @@ export class CreateBillComponent implements OnInit {
   }
 
   onOrderSelected(row: any){
-    console.log(row);
+      this.billService.getbBillableOrdersByOrderAutoid(row.order_autoid).subscribe(response => {
+        this.jobDetails = response.data;
+      });
   }
 
 }

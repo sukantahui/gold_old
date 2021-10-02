@@ -125,6 +125,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("nitricReceivedFromJobs/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getNitricReceivedFromJobByDatesAndEmployee']);
     Route::get("billTotal/total/{startDate}/{endDate}",[MaterialTransactionController::class ,'getBillTotalByDate']);
 
+    Route::get("billableOrdersByOrderId/{ordertAutoId}", [BillController::class, 'get_billable_orders_by_order_autoid']);
+
 
 
 
