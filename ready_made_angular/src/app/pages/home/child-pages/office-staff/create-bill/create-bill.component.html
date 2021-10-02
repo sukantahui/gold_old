@@ -35,7 +35,11 @@
                                 <td >{{row.billable_job_count}}</td>
                                 <td >{{row.working_job_count}}</td>
                                 <td >{{row.order_count}}</td>
-                                <td ><a [routerLink]="" href="" (click)="onOrderSelected(row)"><mat-icon>gps_not_fixed</mat-icon></a></td>
+<!--                                <td ><a [routerLink]="" href="" (click)="onOrderSelected(row)"><mat-icon>gps_not_fixed</mat-icon></a></td>-->
+                                <td>
+                                    <a [routerLink]=""  (click)="onOrderSelected(row,-1)" *ngIf="selectedOrderIndex!=-1"> <mat-icon>gps_not_fixed</mat-icon> </a>
+                                    <a [routerLink]=""   *ngIf="selectedOrderIndex==-1"> <mat-icon>gps_fixed</mat-icon> </a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -57,12 +61,33 @@
         </div>
     </div>
     <div>
-        <mat-card>
+        <mat-card  *ngIf="jobDetails.length>0">
             <mat-card-header>
-                <mat-card-subtitle></mat-card-subtitle>
+                <mat-card-subtitle>Job Details Data</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <pre>{{jobDetails | json}}</pre>
+                <div *ngIf="jobDetails.length>0" id="stockListDiv" class="table-responsive">
+                    <table class="table table-bodered table-condensed" id="printable-stock-table">
+                        <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>SL</th>
+                            <th>Job Id</th>
+                            <th>Product Code</th>
+                            <th>Product Size</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let job of jobDetails; let i = index">
+                            <td><mat-checkbox class="example-margin" [(ngModel)]="job.is_selected"></mat-checkbox></td>
+                            <td >{{i+1}}</td>
+                            <td >{{job.job_id}}</td>
+                            <td >{{job.product_code}}</td>
+                            <td >{{job.product_size}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </mat-card-content>
         </mat-card>
     </div>
