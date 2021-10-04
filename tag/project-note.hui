@@ -10,3 +10,7 @@ pip freeze > requirements.txt
 
 activate your new virtualenv, and run:
 pip install -r requirements.txt
+
+
+read how to use django
+https://docs.djangoproject.com/en/3.2/intro/tutorial02/
