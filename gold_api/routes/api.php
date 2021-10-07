@@ -126,7 +126,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("billTotal/total/{startDate}/{endDate}",[MaterialTransactionController::class ,'getBillTotalByDate']);
 
     Route::get("billableOrdersByOrderId/{ordertAutoId}", [BillController::class, 'get_billable_orders_by_order_autoid']);
-
+    Route::get("SalesReport/agent/{startDate}/{endDate}/{agentId}",[ReportController::class ,'getSaleReportByDatesAndAgent']);
 
 
 
