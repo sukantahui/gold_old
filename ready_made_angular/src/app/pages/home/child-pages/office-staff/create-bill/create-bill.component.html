@@ -2,10 +2,10 @@
     <div fxLayout="row" fxLayout.xs="column">
         <!--        Left-->
         <div class="child-1" fxFlex="40">
-            <mat-card class="example-card" id="agent-card">
+            <mat-card class="example-card">
                 <mat-card-header>
                     <mat-card-subtitle>
-                       Left heading
+                       All Billable Jobs
                     </mat-card-subtitle>
                 </mat-card-header>
 
@@ -47,6 +47,35 @@
                 </mat-card-content>
 
             </mat-card>
+            <mat-card  *ngIf="jobDetails.length>0">
+                <mat-card-header>
+                    <mat-card-subtitle>Job Details Data</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div *ngIf="jobDetails.length>0" class="table-responsive">
+                        <table class="table table-bodered table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>SL</th>
+                                <th>Job Id</th>
+                                <th>Product Code</th>
+                                <th>Product Size</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let job of jobDetails; let i = index">
+                                <td><mat-checkbox class="example-margin" [(ngModel)]="job.is_selected"></mat-checkbox></td>
+                                <td >{{i+1}}</td>
+                                <td >{{job.job_id}}</td>
+                                <td >{{job.product_code}}</td>
+                                <td >{{job.product_size}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </mat-card-content>
+            </mat-card>
         </div>
         <!--            Right-->
         <div class="child-2" fxFlex="60">
@@ -59,37 +88,6 @@
             </mat-card>
 
         </div>
-    </div>
-    <div>
-        <mat-card  *ngIf="jobDetails.length>0">
-            <mat-card-header>
-                <mat-card-subtitle>Job Details Data</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <div *ngIf="jobDetails.length>0" id="stockListDiv" class="table-responsive">
-                    <table class="table table-bodered table-condensed" id="printable-stock-table">
-                        <thead>
-                        <tr>
-                            <th>Select</th>
-                            <th>SL</th>
-                            <th>Job Id</th>
-                            <th>Product Code</th>
-                            <th>Product Size</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let job of jobDetails; let i = index">
-                            <td><mat-checkbox class="example-margin" [(ngModel)]="job.is_selected"></mat-checkbox></td>
-                            <td >{{i+1}}</td>
-                            <td >{{job.job_id}}</td>
-                            <td >{{job.product_code}}</td>
-                            <td >{{job.product_size}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </mat-card-content>
-        </mat-card>
     </div>
 </div>
 

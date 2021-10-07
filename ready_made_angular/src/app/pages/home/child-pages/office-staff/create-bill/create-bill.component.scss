@@ -8,3 +8,10 @@
   padding-left: 35px;
   padding-right: 65px;
 }
+.child-1 mat-card{
+  //background: linear-gradient(#5d90e6, #83b8e5, #5d90e6);
+  background: linear-gradient(217deg, rgba(250, 255, 96, 0.8), rgba(255,0,0,0) 70.71%),
+  linear-gradient(127deg, rgba(169, 255, 197, 0.8), rgba(0,255,0,0) 70.71%),
+  linear-gradient(336deg, rgba(73, 224, 255, 0.8), rgba(0,0,255,0) 70.71%);
+}
+
