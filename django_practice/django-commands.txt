@@ -1,0 +1,5 @@
+1. start new project
+> django-admin startproject Hello
+
+2. start server
+> python manage.py runserver

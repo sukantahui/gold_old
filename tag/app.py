@@ -34,10 +34,10 @@ def create_text_file(data):
     f = open("tag.txt","w")
     f.write(data)
     f.close()
-    os.system('dir')
+    os.system('print_tag.bat')
 
 def createTag(jobDetails,customer,rawMaterials,setTagOption):
-        st.write(jobDetails)
+        #st.write(jobDetails)
         fineGold = ((jobDetails['gold_send'] - jobDetails['gold_returned']) + (jobDetails['pan_send'] - jobDetails['pan_returned'])*0.4 - (jobDetails['nitrick_returned']) + (jobDetails['p_loss'] * jobDetails['pieces']) +(jobDetails['markup_value'] * jobDetails['pieces']))
 
         tagLcValue = jobDetails['pieces'] * jobDetails['price'] * 3
@@ -214,7 +214,7 @@ def createTagForm(jobDetails,customer,rawMaterials):
 
 if jobId != prevJobId:
     prevJobId = jobId
-    st.write(jobId)
+    #st.write(jobId)
     response = requests.get("http://127.0.0.1/gold_old/gold_api/public/api/dev/job/"+jobId)
     if response.status_code==200:
         jobDetails = response.json().get('data')
@@ -226,7 +226,7 @@ if jobId != prevJobId:
         response3 = requests.get("http://127.0.0.1/gold_old/gold_api/public/api/dev/rawMaterials/"+str(jobDetails['rm_id']))
         if response3.status_code == 200:
             rawMaterials = response3.json().get('data')
-            st.write(rawMaterials)
+            #st.write(rawMaterials)
             createTagForm(jobDetails,customer,rawMaterials)
 
         
