@@ -4,6 +4,7 @@ import {CommonService} from "../../../../../services/common.service";
 import {HttpClient} from "@angular/common/http";
 import {BillService} from "../../../../../services/bill.service";
 import {Job} from "../../../../../models/job.model";
+import {MessageService} from "primeng/api";
 
 class httpClient {
 }
@@ -20,7 +21,7 @@ export class CreateBillComponent implements OnInit {
   selectedOrderIndex = -2;
   selectedOrder: any;
   test = false;
-  constructor( private  http: HttpClient, private commonService: CommonService, private billService: BillService) { }
+  constructor( private  http: HttpClient, private commonService: CommonService, private billService: BillService) {}
 
   ngOnInit(): void {
     this.billableOrders = [];

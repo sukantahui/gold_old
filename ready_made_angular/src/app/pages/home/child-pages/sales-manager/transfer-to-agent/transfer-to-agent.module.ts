@@ -22,6 +22,9 @@ import {MatBadgeModule} from "@angular/material/badge";
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {MatIconHarness} from '@angular/material/icon/testing';
 import {MatSortModule} from '@angular/material/sort';
+import {ToastModule} from "primeng/toast";
+import {MessageModule} from "primeng/message";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 
 @NgModule({
@@ -48,7 +51,10 @@ import {MatSortModule} from '@angular/material/sort';
         NgxPaginationModule,
         MatBadgeModule,
         MatSortModule,
-        MatIconModule
+        MatIconModule,
+        ToastModule,
+        MessageModule,
+        ConfirmDialogModule
     ]
 })
 export class TransferToAgentModule {}
