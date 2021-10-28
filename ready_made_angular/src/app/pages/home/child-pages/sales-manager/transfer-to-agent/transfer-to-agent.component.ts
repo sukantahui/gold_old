@@ -11,7 +11,7 @@ import {ConfirmationService, MessageService} from "primeng/api";
   selector: 'app-transfer-to-agent',
   templateUrl: './transfer-to-agent.component.html',
   styleUrls: ['./transfer-to-agent.component.scss'],
-  providers: [MessageService , ConfirmationService]
+
 })
 export class TransferToAgentComponent implements OnInit {
   agents: any[] = [];
@@ -135,147 +135,112 @@ export class TransferToAgentComponent implements OnInit {
     return agent.agent_name;
   }
 
-  // transferToAgent() {
-  //   const agent_id = this.transferForm.get('agentId').value;
-  //   const tags = this.selectedProducts.map(t => t.tag.toString());
-  //   this.transferAgentService.transferProduct(agent_id, tags).subscribe((response: {status: any, data: any}) => {
-  //     if (response.status === true){
-  //       const swalWithBootstrapButtons = Swal.mixin({
-  //         customClass: {
-  //           confirmButton: 'btn btn-success',
-  //           cancelButton: 'btn btn-danger',
-  //           title: 'text-white',
-  //         },
-  //         buttonsStyling: true,
-  //       });
-  //
-  //
-  //       Swal.fire({
-  //         title: 'Transfer',
-  //         text: 'Are you sure to transfer?',
-  //         icon: 'warning',
-  //         showCancelButton: true,
-  //         confirmButtonText: 'Yes, transfer',
-  //         cancelButtonText: 'No!',
-  //         background: 'rgba(38,39,47,0.95)'
-  //       }).then((result) => {
-  //         if (result.value) {
-  //           // Swal.fire({
-  //           //   timer: 2000,
-  //           //   title: 'Transferred',
-  //           //   text: 'Product transferred successfully',
-  //           //   icon: 'success',
-  //           //   showCancelButton: true,
-  //           //   confirmButtonColor: '#1661a0',
-  //           //   cancelButtonColor: '#d33',
-  //           //   background: 'rgba(38,39,47,0.95)'
-  //           // }) ;
-  //           this.messageService.clear();
-  //           this.messageService.add({
-  //             severity: 'success',
-  //             summary: 'Success Message',
-  //             detail: 'Stock transferred successfully',
-  //
-  //           });
-  //         } else if (result.dismiss === Swal.DismissReason.cancel) {
-  //           Swal.fire(
-  //             'Cancelled',
-  //           );
-  //         }
-  //       });
-  //       this.confirmationService.confirm({
-  //         message: 'Are you sure that you want to proceed?',
-  //         header: 'Confirmation',
-  //         icon: 'pi pi-exclamation-triangle',
-  //         accept: () => {
-  //           if (result.value) {
-  //             // Swal.fire({
-  //             //   timer: 2000,
-  //             //   title: 'Transferred',
-  //             //   text: 'Product transferred successfully',
-  //             //   icon: 'success',
-  //             //   showCancelButton: true,
-  //             //   confirmButtonColor: '#1661a0',
-  //             //   cancelButtonColor: '#d33',
-  //             //   background: 'rgba(38,39,47,0.95)'
-  //             // }) ;
-  //             this.messageService.clear();
-  //             this.messageService.add({
-  //               severity: 'success',
-  //               summary: 'Success Message',
-  //               detail: 'Stock transferred successfully',
-  //
-  //             });
-  //           }
-  //         },
-  //         reject: () => {
-  //
-  //         }
-  //       });
-  //
-  //
-  //
-  //       // swalWithBootstrapButtons.fire({
-  //
-  //         // timerProgressBar: true,
-  //         // timer: 2000,
-  //
-  //         // title: 'Transferred',
-  //         // text: 'Product transferred successfully',
-  //         // icon: 'success',
-  //         // showCancelButton: false,
-  //         // confirmButtonColor: '#1661a0',
-  //         // cancelButtonColor: '#d33',
-  //         // background: 'rgba(38,39,47,0.95)'
-  //
-  //       // });
-  //       this.selectedProducts = [];
-  //     }
-  //   }, (error) => {
-  //     Swal.fire({
-  //       title: error.message,
-  //       text: 'Product is not transferred',
-  //       icon: 'error',
-  //       showConfirmButton: false,
-  //       background: 'rgba(38,39,47,0.95)',
-  //       timer: 3000
-  //     });
-  //   });
-  // }
-
-
   transferToAgent() {
     const agent_id = this.transferForm.get('agentId').value;
     const tags = this.selectedProducts.map(t => t.tag.toString());
     this.transferAgentService.transferProduct(agent_id, tags).subscribe((response: {status: any, data: any}) => {
       if (response.status === true){
-        //using primeng confirmationService
-        this.confirmationService.confirm({
-          message: 'Are you sure that you want to proceed?',
-          header: 'Confirmation',
-          icon: 'pi pi-exclamation-triangle',
-              accept: () => {
-              // //using primeng messageService
-                  this.messageService.clear();
-                  this.messageService.add({
-                    severity: 'success',
-                    summary: 'Success Message',
-                    detail: 'Stock transferred successfully'
-                  });
-                },
-          reject: () => {}
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger',
+            title: 'text-white',
+          },
+          buttonsStyling: true,
         });
+
+
+        Swal.fire({
+          title: 'Transfer',
+          text: 'Are you sure to transfer?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, transfer',
+          cancelButtonText: 'No!',
+          background: 'rgba(38,39,47,0.95)'
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire({
+              timer: 2000,
+              title: 'Transferred',
+              text: 'Product transferred successfully',
+              icon: 'success',
+              showCancelButton: true,
+              confirmButtonColor: '#1661a0',
+              cancelButtonColor: '#d33',
+              background: 'rgba(38,39,47,0.95)'
+            }) ;
+
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+              'Cancelled',
+            );
+          }
+        });
+
+
+
+        // swalWithBootstrapButtons.fire({
+
+          // timerProgressBar: true,
+          // timer: 2000,
+
+          // title: 'Transferred',
+          // text: 'Product transferred successfully',
+          // icon: 'success',
+          // showCancelButton: false,
+          // confirmButtonColor: '#1661a0',
+          // cancelButtonColor: '#d33',
+          // background: 'rgba(38,39,47,0.95)'
+
+        // });
         this.selectedProducts = [];
       }
-    },(error) => {
-     this.messageService.clear();
-      this.messageService.add({
-        severity: 'error',
-        summary: 'error Message',
-        detail: error.error.response.message
+    }, (error) => {
+      Swal.fire({
+        title: error.message,
+        text: 'Product is not transferred',
+        icon: 'error',
+        showConfirmButton: false,
+        background: 'rgba(38,39,47,0.95)',
+        timer: 3000
       });
     });
   }
+
+
+  // transferToAgent() {
+  //   const agent_id = this.transferForm.get('agentId').value;
+  //   const tags = this.selectedProducts.map(t => t.tag.toString());
+  //   this.transferAgentService.transferProduct(agent_id, tags).subscribe((response: {status: any, data: any}) => {
+  //     if (response.status === true){
+  //       //using primeng confirmationService
+  //       this.confirmationService.confirm({
+  //         message: 'Are you sure that you want to proceed?',
+  //         header: 'Confirmation',
+  //         icon: 'pi pi-exclamation-triangle',
+  //             accept: () => {
+  //             // //using primeng messageService
+  //                 this.messageService.clear();
+  //                 this.messageService.add({
+  //                   severity: 'success',
+  //                   summary: 'Success Message',
+  //                   detail: 'Stock transferred successfully'
+  //                 });
+  //               },
+  //         reject: () => {}
+  //       });
+  //       this.selectedProducts = [];
+  //     }
+  //   },(error) => {
+  //    this.messageService.clear();
+  //     this.messageService.add({
+  //       severity: 'error',
+  //       summary: 'error Message',
+  //       detail: error.error.response.message
+  //     });
+  //   });
+  // }
 
   deleteFromSelectedProducts(item){
     const index =  this.selectedProducts.findIndex(x => x.tag === item.tag);

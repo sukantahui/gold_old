@@ -51,10 +51,8 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
         NgxPaginationModule,
         MatBadgeModule,
         MatSortModule,
-        MatIconModule,
-        ToastModule,
-        MessageModule,
-        ConfirmDialogModule
+        MatIconModule
+
     ]
 })
 export class TransferToAgentModule {}

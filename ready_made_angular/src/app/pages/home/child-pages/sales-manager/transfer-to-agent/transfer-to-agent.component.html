@@ -198,25 +198,7 @@
         </div>
     </div>
 </div>
-<!--tooltip using primeng messageService-->
-<p-toast position="top-right">
-    <ng-template let-message pTemplate="message" style="background-color: lightgreen">
-        <div style="text-align: center">
-            <i class="pi pi-exclamation-triangle" style="font-size: small ; font-family: Arial"></i>
-            <h3>{{message.summary}}</h3>
-            <p>{{message.detail}}</p>
-        </div>
-    </ng-template>
-</p-toast>
-<!--tooltip ends-->
-<!--confirmation modal using primng confirmationService-->
-<p-confirmDialog header="Enter PIN" icon="fa fa-question-circle" width="425" #cd style="background-color: #1a1e21">
-    <p-footer>
-        <button type="button" pButton icon="fa-close" label="No" (click)="cd.reject()"></button>
-        <button type="button" pButton icon="fa-check" label="Yes" (click)="cd.accept()"></button>
-    </p-footer>
-</p-confirmDialog>
-<!--confirmation modal ends-->
+
 
 
 
