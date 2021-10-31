@@ -67,18 +67,27 @@
 </div>
 <!--tooltip using primeng messageService-->
 <p-toast position="top-right">
-    <ng-template let-message pTemplate="message" style="background-color: lightgreen">
-        <div style="text-align: center">
-            <i class="pi pi-exclamation-triangle" style="font-size: small ; font-family: Arial"></i>
-            <h3>{{message.summary}}</h3>
-            <p>{{message.detail}}</p>
+    <ng-template let-message pTemplate="message">
+        <div  style="background-color: #1e7e34 ; font-size: x-small ; font-family: Roboto">
+<!--            <i class="pi pi-exclamation-triangle" ></i>-->
+                <div class="d-flex">
+                    <div>
+                        <img src="../assets/img/cipudi.jpg" alt="Avatar" height="70px">
+                    </div>
+                    <div>
+                        <h5>{{message.detail}}</h5>
+                    </div>
+                </div>
+
+
+<!--                <p>{{message.detail}}</p>-->
         </div>
     </ng-template>
 </p-toast>
-tooltip ends
-confirmation modal using primng confirmationService
+<!--tooltip ends-->
+<!--confirmation modal using primng confirmationService-->
 <p-confirmDialog header="Enter PIN" icon="fa fa-question-circle" width="425" #cd>
-    <p-footer>
+    <p-footer style="background-color: #1a1e21">
         <button type="button" pButton icon="fa-close" label="No" (click)="cd.reject()"></button>
         <button type="button" pButton icon="fa-check" label="Yes" (click)="cd.accept()"></button>
     </p-footer>

@@ -32,7 +32,8 @@ export class BankingComponent implements OnInit {
         this.messageService.clear();
         this.messageService.add({
           severity: 'success',
-          summary: 'Success Message',
+          summary: '',
+          life: 3000,
           detail: 'Stock transferred successfully'
         });
       },
