@@ -15,6 +15,20 @@
                             <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
                             <mat-hint>Enter your IFSC Code</mat-hint>
                         </mat-form-field>
+                        <div style="padding-top: 5px">
+<!--                            <p-fileUpload-->
+<!--                                    multiple="true"-->
+<!--                                    accept="image/*"-->
+<!--                                    maxFileSize="2000000"-->
+<!--                                    formControlName="image"-->
+<!--                                    [showUploadButton]="false"-->
+<!--                                    [showCancelButton]="false"-->
+<!--                                    (change)="onImageUpload($event)"-->
+<!--                                    >-->
+<!--                            </p-fileUpload>-->
+                            <input type="file" formControlName="image" (change)="onImageUpload($event)">
+                        </div>
+
                         <button mat-raised-button color="warn" (click)="getBankDetails()">Get Bank Details</button>
                     </form>
                 </div>
@@ -68,7 +82,7 @@
 <!--tooltip using primeng messageService-->
 <p-toast position="top-right">
     <ng-template let-message pTemplate="message">
-        <div  style="background-color: #1e7e34 ; font-size: x-small ; font-family: Roboto">
+        <div  *ngIf="message.severity=='success'" style="background-color: #1e7e34 ; font-size: x-small ; font-family: Roboto">
 <!--            <i class="pi pi-exclamation-triangle" ></i>-->
                 <div class="d-flex">
                     <div>
@@ -81,6 +95,20 @@
 
 
 <!--                <p>{{message.detail}}</p>-->
+        </div>
+        <div  *ngIf="message.severity=='error'" style="background-color: #f44336 ; font-size: x-small ; font-family: Roboto">
+            <!--            <i class="pi pi-exclamation-triangle" ></i>-->
+            <div class="d-flex">
+                <div>
+                    <img src="../assets/img/cipudi.jpg" alt="Avatar" height="70px">
+                </div>
+                <div>
+                    <h5>{{message.detail}}</h5>
+                </div>
+            </div>
+
+
+            <!--                <p>{{message.detail}}</p>-->
         </div>
     </ng-template>
 </p-toast>

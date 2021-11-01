@@ -12,6 +12,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {ToastModule} from "primeng/toast";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {MessageModule} from "primeng/message";
+import {FileUploadModule} from "primeng/fileupload";
 
 
 
@@ -30,7 +31,8 @@ import {MessageModule} from "primeng/message";
         ToastModule,
         MessageModule,
         ConfirmDialogModule,
-        
+        FileUploadModule
+
 
     ]
 })

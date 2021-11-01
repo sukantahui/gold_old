@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {ConfirmationService, MessageService, PrimeIcons} from "primeng/api";
 
@@ -12,9 +12,12 @@ import {ConfirmationService, MessageService, PrimeIcons} from "primeng/api";
 export class BankingComponent implements OnInit {
   bankingForm: FormGroup;
   bankDetails: any;
+  uploadedFile: Array<any> = [];
   constructor(private http: HttpClient , private  messageService: MessageService , private  confirmationService: ConfirmationService) {
     this.bankingForm = new FormGroup({
-      ifsc: new FormControl(null)
+      ifsc: new FormControl(null),
+      // testing
+      image: new FormControl(null, [Validators.required])
     });
   }
   ngOnInit(): void {
@@ -29,21 +32,50 @@ export class BankingComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         // //using primeng messageService
-        this.messageService.clear();
-        this.messageService.add({
-          severity: 'success',
-          summary: '',
-          life: 3000,
-          detail: 'Stock transferred successfully'
-        });
-      },
+        if(this.uploadedFile.length === 0){
+          this.messageService.clear();
+          this.messageService.add({
+            severity: 'error',
+            summary: '',
+            life: 3000,
+            detail: 'Please upload a pic !'
+          });
+        }
+        else {
+          this.http.get<any>('https://ifsc.razorpay.com/' + this.bankingForm.get('ifsc').value).subscribe( response => {
+            this.bankDetails = response;
+            this.messageService.clear();
+            this.messageService.add({
+              severity: 'success',
+              summary: '',
+              life: 3000,
+              detail: 'Done!'
+            });
+          }, (error => {
+            console.log('error getting record');
+            // console.log(error);
+            this.messageService.clear();
+            this.messageService.add({
+              severity: 'error',
+              summary: '',
+              life: 3000,
+              detail: error.statusText
+            });
+          }));
+        }
+        },
       reject: () => {}
     });
 
-    this.http.get<any>('https://ifsc.razorpay.com/' + this.bankingForm.get('ifsc').value).subscribe( response => {
-      this.bankDetails = response;
-    }, (error => {
-      console.log('error getting record');
-    }));
+
+  }
+  onImageUpload(event: any){
+    console.log("invoke");
+    // const files = event.target.files;
+    //
+    const files = event.target.files;
+    this.bankingForm.value.image = files;
+    this.uploadedFile.push(...event.target.files);
+    // console.log(files);
   }
 }

@@ -77,7 +77,9 @@ const routes: Routes = [
 
   { path: 'AgentWiseCustomerReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/agent-wise-customer-report/agent-wise-customer-report.module').then(m => m.AgentWiseCustomerReportModule) },
 
-  { path: 'CreateBill', loadChildren: () => import('./pages/home/child-pages/office-staff/create-bill/create-bill.module').then(m => m.CreateBillModule) }
+  { path: 'CreateBill', loadChildren: () => import('./pages/home/child-pages/office-staff/create-bill/create-bill.module').then(m => m.CreateBillModule) },
+
+  { path: 'test', loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule) }
 
 
 
