@@ -52,7 +52,12 @@ export class AuthComponent implements OnInit {
                 }
                 if (this.authService.isOfficeStaff()){
                     this.router.navigate(['/OfficeStaff']).then(r => {});
-
+                }
+                if (this.authService.isRefinish()){
+                    this.router.navigate(['/refinish']).then(r => {});
+                }
+                if (this.authService.isPettyCash()){
+                    this.router.navigate(['/PettyCash']).then(r => {});
                 }
             }
         }, (error) => {

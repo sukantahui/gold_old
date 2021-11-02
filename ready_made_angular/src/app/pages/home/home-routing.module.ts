@@ -87,9 +87,14 @@ const routes: Routes = [
                                 // tslint:disable-next-line:max-line-length
                                 { path: 'WorkingJob', loadChildren: () => import('./child-pages/office-staff/working-job/working-job.module')
                                         .then(m => m.WorkingJobModule)
+                                },
+
+                                { path: 'refinish', loadChildren: () => import('./child-pages/refinish/refinish.module')
+                                        .then(m => m.RefinishModule)
+                                },
+                                { path: 'PettyCash', loadChildren: () => import('./child-pages/petty-cash/petty-cash.module')
+                                        .then(m => m.PettyCashModule)
                                 }
-
-
                             ]
                           },
                           // { path: '404', loadChildren: () => import('./home-not-found/home-not-found.module')

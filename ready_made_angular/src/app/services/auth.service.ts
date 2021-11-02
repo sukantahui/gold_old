@@ -29,7 +29,7 @@ export interface AuthResponseData {
 export class AuthService {
   private BASE_API_URL = environment.BASE_API_URL;
   userBehaviorSubject = new BehaviorSubject<User>(null);
-  constructor(private commonService:CommonService ,private  http: HttpClient, private router: Router, private errorService: ErrorService) { }
+  constructor(private commonService: CommonService , private  http: HttpClient, private router: Router, private errorService: ErrorService) { }
 
   isAuthenticated(){
     if (this.userBehaviorSubject.value){
@@ -70,6 +70,22 @@ export class AuthService {
 
   isOfficeStaff(): boolean{
     if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isOfficeStaff){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  isRefinish(): boolean{
+    if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isRefinish){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  isPettyCash(): boolean{
+    if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isPettyCash){
       return true;
     }else{
       return false;

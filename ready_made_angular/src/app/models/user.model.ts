@@ -53,5 +53,13 @@ export class User{
     // tslint:disable-next-line:triple-equals
     return this.userTypeId == 7;
   }
+  get isRefinish(){
+    // tslint:disable-next-line:triple-equals
+    return this.userTypeId == 9;
+  }
+  get isPettyCash(){
+    // tslint:disable-next-line:triple-equals
+    return this.userTypeId == 10;
+  }
 
 }
