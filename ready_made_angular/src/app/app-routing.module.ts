@@ -79,7 +79,9 @@ const routes: Routes = [
 
   { path: 'CreateBill', loadChildren: () => import('./pages/home/child-pages/office-staff/create-bill/create-bill.module').then(m => m.CreateBillModule) },
 
-  { path: 'test', loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule) }
+  { path: 'test', loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule) },
+
+  { path: 'WorkingJob', loadChildren: () => import('./pages/home/child-pages/office-staff/working-job/working-job.module').then(m => m.WorkingJobModule) }
 
 
 

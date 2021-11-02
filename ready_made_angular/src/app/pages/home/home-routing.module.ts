@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 const routes: Routes = [
                           { path: '', component: HomeComponent,
                             children: [
@@ -80,6 +83,10 @@ const routes: Routes = [
                                     path: 'CreateBill',
                                     loadChildren: () => import('./child-pages/office-staff/create-bill/create-bill-routing.module')
                                         .then(mod => mod.CreateBillRoutingModule)
+                                },
+                                // tslint:disable-next-line:max-line-length
+                                { path: 'WorkingJob', loadChildren: () => import('./child-pages/office-staff/working-job/working-job.module')
+                                        .then(m => m.WorkingJobModule)
                                 }
 
 

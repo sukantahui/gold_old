@@ -22,9 +22,9 @@ export class MenuOfficeStaffComponent implements OnInit {
           iconName: 'speaker_notes',
           children: [
             {
-              displayName: 'Create Bill',
+              displayName: 'Working Jobs',
               iconName: 'star_rate',
-              route: 'CreateBill'
+              route: 'WorkingJob'
             },
             {
               displayName: 'What\'s up with the Web?',
