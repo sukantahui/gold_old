@@ -4,83 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Ledger;
 use App\Http\Controllers\Controller;
+use App\Models\LedgerType;
 use Illuminate\Http\Request;
 
-class LedgerController extends Controller
+class LedgerController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function create_ledger(Request $request)
     {
-        //
+        $input=(object)($request->json()->all());
+        $ledger= new Ledger();
+        $ledger->ledger_type_id=$input->ledger_type_id;
+        $ledger->ledger_name=$input->ledger_name;
+        $ledger->save();
+        return $this->successResponse($ledger);
+    }
+    public function get_income(){
+        $incomes=LedgerType::find(1)->ledgers->where('inforce','=',1);
+        return $this->successResponse($incomes);
+    }
+    public function get_expenditure(){
+        $expenditures = Ledger::where('inforce','=',1)->where('ledger_type_id','=',2)->orderBy('ledger_name')->get();
+        return $this->successResponse($expenditures);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Ledger  $ledger
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ledger $ledger)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Ledger  $ledger
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ledger $ledger)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ledger  $ledger
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Ledger $ledger)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Ledger  $ledger
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ledger $ledger)
-    {
-        //
-    }
 }
