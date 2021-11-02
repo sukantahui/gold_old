@@ -81,7 +81,9 @@ const routes: Routes = [
 
   { path: 'test', loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule) },
 
-  { path: 'WorkingJob', loadChildren: () => import('./pages/home/child-pages/office-staff/working-job/working-job.module').then(m => m.WorkingJobModule) }
+  { path: 'WorkingJob', loadChildren: () => import('./pages/home/child-pages/office-staff/working-job/working-job.module').then(m => m.WorkingJobModule) },
+
+  { path: 'menu-petty-cash', loadChildren: () => import('./pages/home/menu/menu-petty-cash/menu-petty-cash.module').then(m => m.MenuPettyCashModule) }
 
 
 

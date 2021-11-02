@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {NavItem} from '../menu-owner/menu-owner.component';
 
 @Component({
-  selector: 'app-menu-office-staff',
-  templateUrl: './menu-office-staff.component.html',
-  styleUrls: ['./menu-office-staff.component.scss']
+  selector: 'app-menu-petty-cash',
+  templateUrl: './menu-petty-cash.component.html',
+  styleUrls: ['./menu-petty-cash.component.scss']
 })
-export class MenuOfficeStaffComponent implements OnInit {
+export class MenuPettyCashComponent implements OnInit {
+
+  constructor() { }
   navItems: NavItem[] = [
     {
       displayName: 'Report',
@@ -78,10 +80,7 @@ export class MenuOfficeStaffComponent implements OnInit {
       ]
     },
   ];
-  constructor() { }
-
   ngOnInit(): void {
   }
-
 
 }
