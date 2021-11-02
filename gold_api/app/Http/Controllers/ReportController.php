@@ -91,4 +91,8 @@ class ReportController extends ApiController
         $customer = Customer::findOrFail($order->cust_id);
         return $this->successResponse($customer);
     }
+    public function getCurrentJobStatus(){
+        $result = DB::select('call get_bill_and_receive_by_date(?, ?)', ['2021-01-01','2021-04-30']);
+        return $this->successResponse($result);
+    }
 }
