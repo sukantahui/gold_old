@@ -92,7 +92,8 @@ class ReportController extends ApiController
         return $this->successResponse($customer);
     }
     public function getCurrentJobStatus(){
-        $result = DB::select('call get_bill_and_receive_by_date(?, ?)', ['2021-01-01','2021-04-30']);
+//        $result = DB::select('call get_bill_and_receive_by_date(?, ?)', ['2021-01-01','2021-04-30']);
+        $result = DB::select('call get_all_current_jobs');
         return $this->successResponse($result);
     }
 }
