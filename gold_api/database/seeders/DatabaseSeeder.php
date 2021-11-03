@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         User::create(['user_name'=>'Vivekananda Ghosh','mobile1'=>'9836444999','mobile2'=>'100','email'=>'vivek','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>1]);
         User::create(['user_name'=>'Arindam Ghosh','mobile1'=>'9836444999','mobile2'=>'100','email'=>'arindam','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>3]);
         User::create(['user_name'=>'Vivekananda User','mobile1'=>'9836444999','mobile2'=>'100','email'=>'bile','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>5]);
-        User::create(['user_name'=>'Avik Guha','mobile1'=>'9836444999','mobile2'=>'100','email'=>'avik','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>9]);
+        User::create(['user_name'=>'Avik Guha','mobile1'=>'9836444999','mobile2'=>'100','email'=>'refinish','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>9]);
         User::create(['user_name'=>'Avik Guha','mobile1'=>'9836444999','mobile2'=>'100','email'=>'cash','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>10]);
 
 
