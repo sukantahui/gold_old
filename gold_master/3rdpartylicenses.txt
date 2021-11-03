@@ -668,6 +668,9 @@ SOFTWARE.
 ngx-smart-popover
 MIT
 
+primeng
+MIT
+
 regenerator-runtime
 MIT
 MIT License
