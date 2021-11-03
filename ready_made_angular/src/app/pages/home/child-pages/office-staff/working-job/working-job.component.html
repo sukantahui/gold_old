@@ -8,6 +8,16 @@
                         <th>SL</th>
                         <th>Date</th>
                         <th>Job ID</th>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Model</th>
+                        <th class="text-center">Size</th>
+                        <th class="text-right">Qty</th>
+                        <th class="text-center">Karigar</th>
+                        <th class="text-right">Gold</th>
+                        <th class="text-right">Pan Send</th>
+                        <th class="text-right">Nitric</th>
+                        <th class="text-center">Status</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -16,10 +26,15 @@
                         <td>{{row.job_date}}</td>
                         <td>{{row.job_id}}</td>
                         <td>{{row.order_id}}</td>
+                        <td>{{row.cust_name}}</td>
                         <td>{{row.product_code}}</td>
-                        <td>{{row.product_size}}</td>
-                        <td>{{row.pieces}}</td>
-                        <td>{{row.gold_send}}</td>
+                        <td class="text-center">{{row.product_size}}</td>
+                        <td class="text-right">{{row.pieces}}</td>
+                        <td class="text-left">{{row.nick_name}}</td>
+                        <td class="text-right">{{row.gold_send | number: '1.3'}}-{{row.gold_returned | number: '1.3'}} = {{(row.gold_send-row.gold_returned) | number: '1.3'}}</td>
+                        <td class="text-right">{{row.pan_send}}</td>
+                        <td class="text-right">{{row.nitrick_returned}}</td>
+                        <td class="text-center">{{row.status_name}}</td>
                     </tr>
                     </tbody>
                 </table>
