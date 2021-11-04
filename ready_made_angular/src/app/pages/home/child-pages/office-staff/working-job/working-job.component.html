@@ -1,4 +1,4 @@
-<div id="status-report-div">
+<div id="working-job-report-div">
     <div id="report-area">
         <div class="d-flex flex-row bd-highlight mb-3">
             <div class="p-2 bd-highlight col-12">
@@ -35,6 +35,7 @@
                         <td class="text-right">{{row.pan_send}}</td>
                         <td class="text-right">{{row.nitrick_returned}}</td>
                         <td class="text-center">{{row.status_name}}</td>
+                        <td class="text-center">{{row.job_age}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -48,7 +49,7 @@
     </div>
 </div>
 
-<div *ngIf="true" id="developer-div">
+<div *ngIf="true && !isProduction" id="developer-div">
     <pre>
         workingJobList={{workingJobList | json}}
     </pre>

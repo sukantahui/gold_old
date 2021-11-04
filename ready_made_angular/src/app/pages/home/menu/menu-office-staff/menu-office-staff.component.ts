@@ -25,21 +25,6 @@ export class MenuOfficeStaffComponent implements OnInit {
               displayName: 'Working Jobs',
               iconName: 'star_rate',
               route: 'WorkingJob'
-            },
-            {
-              displayName: 'What\'s up with the Web?',
-              iconName: 'star_rate',
-              route: 'what-up-web'
-            },
-            {
-              displayName: 'My ally, the CLI',
-              iconName: 'star_rate',
-              route: 'my-ally-cli'
-            },
-            {
-              displayName: 'Become an Angular Tailor',
-              iconName: 'star_rate',
-              route: 'become-angular-tailer'
             }
           ]
         }
@@ -57,21 +42,6 @@ export class MenuOfficeStaffComponent implements OnInit {
               displayName: 'Create Bill',
               iconName: 'star_rate',
               route: 'CreateBill'
-            },
-            {
-              displayName: 'What\'s up with the Web?',
-              iconName: 'star_rate',
-              route: 'what-up-web'
-            },
-            {
-              displayName: 'My ally, the CLI',
-              iconName: 'star_rate',
-              route: 'my-ally-cli'
-            },
-            {
-              displayName: 'Become an Angular Tailor',
-              iconName: 'star_rate',
-              route: 'become-angular-tailer'
             }
           ]
         }

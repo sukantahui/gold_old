@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
-import {AgentService} from "../../../../../services/agent.service";
-import {CommonService} from "../../../../../services/common.service";
+import {AgentService} from '../../../../../services/agent.service';
+import {CommonService} from '../../../../../services/common.service';
 
 @Component({
   selector: 'app-agent-wise-customer-report',
@@ -17,21 +17,21 @@ export class AgentWiseCustomerReportComponent implements OnInit {
   selectedAgent: any;
   agentDues: { gold: number; lc: number };
   selectedCustomer: any;
-  selectedCustomerIndex= -1;
+  selectedCustomerIndex = -1;
   constructor(private agentService: AgentService, public commonService: CommonService) { }
 
   ngOnInit(): void {
     this.agentService.getAgentsWithDues().subscribe((response: {status: any , data: any[]}) => {
       this.agents = response.data;
-      const agentLcTotal = this.agents.reduce((prev,next)=>prev+next.lc_due,0);
-      const agentGoldTotal = this.agents.reduce((prev,next)=>prev+next.gold_due,0);
+      const agentLcTotal = this.agents.reduce((prev, next) => prev + next.lc_due, 0);
+      const agentGoldTotal = this.agents.reduce((prev, next) => prev + next.gold_due, 0);
       this.agentDues = {gold: agentGoldTotal, lc: agentLcTotal};
     });
   }
 
   agentSelected(agent: any, index: number) {
-    this.selectedCustomerIndex=-1;
-    if(index == -1){
+    this.selectedCustomerIndex = -1;
+    if (index == -1){
       this.selectedAgentIndex = -1;
       this.selectedAgent = null;
       this.agentService.getCustomersWithDues().subscribe((response: {status: any , data: any[]}) => {
@@ -52,7 +52,7 @@ export class AgentWiseCustomerReportComponent implements OnInit {
     this.agentService.getCustomerReceiptPayment(customer.cust_id).subscribe((response: {status: any , data: any[]}) => {
       this.customerReceiptPayment = response.data;
       this.selectedCustomer = customer;
-      this.selectedCustomerIndex=index;
+      this.selectedCustomerIndex = index;
     });
   }
 }
