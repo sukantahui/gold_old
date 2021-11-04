@@ -9,19 +9,32 @@ import {formatDate} from '@angular/common';
 })
 export class PettyCashComponent implements OnInit {
   expenditureForm: FormGroup;
+  incomeForm: FormGroup;
   constructor() {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
     this.expenditureForm = new FormGroup({
       id: new FormControl(null),
-      transaction_date: new FormControl(currentSQLDate, [Validators.required]),
-      ledger_id: new FormControl(null, [Validators.required]),
-      asset_id: new FormControl(1, [Validators.required]),           // purchase
-      voucher_number: new FormControl(null),
+      transactionDate: new FormControl(currentSQLDate, [Validators.required]),
+      ledgerId: new FormControl(null, [Validators.required]),
+      assetId: new FormControl(1, [Validators.required]),           // purchase
+      voucherNumber: new FormControl(null),
       amount: new FormControl(0, [Validators.required]),
-      voucher_id: new FormControl(2, [Validators.required]),
+      voucherId: new FormControl(2, [Validators.required]),
       particulars: new FormControl(null, [Validators.maxLength(255)]),
-      user_id: new FormControl(5, [Validators.required])
+      userId: new FormControl(5, [Validators.required])
+    });
+
+    this.incomeForm = new FormGroup({
+      id: new FormControl(null),
+      transactionDate: new FormControl(currentSQLDate, [Validators.required]),
+      ledgerId: new FormControl(null, [Validators.required]),
+      assetId: new FormControl(1, [Validators.required]),           // purchase
+      voucherNumber: new FormControl(null),
+      amount: new FormControl(0, [Validators.required]),
+      voucherId: new FormControl(1, [Validators.required]),
+      particulars: new FormControl(null, [Validators.maxLength(255)]),
+      userId: new FormControl(5, [Validators.required])
     });
 
   }
