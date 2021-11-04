@@ -5,6 +5,7 @@ import { PettyCashRoutingModule } from './petty-cash-routing.module';
 import { PettyCashComponent } from './petty-cash.component';
 import {MatCardModule} from '@angular/material/card';
 import {FlexModule} from '@angular/flex-layout';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {FlexModule} from '@angular/flex-layout';
         CommonModule,
         PettyCashRoutingModule,
         MatCardModule,
-        FlexModule
+        FlexModule,
+        NgSelectModule
     ]
 })
 export class PettyCashModule { }

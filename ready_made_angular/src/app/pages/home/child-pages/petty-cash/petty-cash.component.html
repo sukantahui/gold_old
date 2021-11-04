@@ -7,7 +7,42 @@
                     <mat-card-header>
                     </mat-card-header>
                     <mat-card-content>
-                        Left part
+                        <form [formGroup] = expenditureForm>
+                            <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
+                                <div fxFlex="90">
+                                    <ng-select [items]="agents"
+                                               bindLabel="agent_name"
+                                               class="custom"
+                                               (change)="agentSelected()"
+                                               bindValue="agent_id"
+                                               formControlName="agent_id"
+                                               placeholder="Select Agent">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
+                                <div fxFlex="90">
+                                    <ng-select [items]="customers"
+                                               bindLabel="cust_name"
+                                               class="custom"
+                                               (change)="customerSelected($event)"
+                                               bindValue="cust_id"
+                                               formControlName="cust_id"
+                                               placeholder="Select Customer">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
+                                <mat-form-field fxFlex="20">
+                                    <mat-label>MV</mat-label>
+                                    <input type="number" class="text-right" matInput formControlName="cust_mv" placeholder="MV">
+                                </mat-form-field>
+                                <mat-form-field fxFlex="20">
+                                    <mat-label>Disc. %</mat-label>
+                                    <input type="number" class="text-right" matInput formControlName="lc_discount_percentage" placeholder="LC Discount Percentage">
+                                </mat-form-field>
+                            </div>
+                        </form>
                     </mat-card-content>
                 </mat-card>
             </div>
