@@ -134,8 +134,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
     Route::get("goldReceivedFromJobs/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getGoldReceivedFromJobByDatesAndEmployee']);
-
     Route::get('/test', [ReportController::class,'getCurrentJobStatus']);
+
+
+    Route::get('/expenditureLedgers', [LedgerController::class,'get_expenditure']);
+    Route::get('/incomeLedgers', [LedgerController::class,'get_income']);
+
 });
 
 

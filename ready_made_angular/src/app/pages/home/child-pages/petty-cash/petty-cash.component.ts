@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {formatDate} from '@angular/common';
+import {AccountService} from '../../../../services/account.service';
 
 @Component({
   selector: 'app-petty-cash',
@@ -10,7 +11,7 @@ import {formatDate} from '@angular/common';
 export class PettyCashComponent implements OnInit {
   expenditureForm: FormGroup;
   incomeForm: FormGroup;
-  constructor() {
+  constructor(private accountService: AccountService) {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
     this.expenditureForm = new FormGroup({
