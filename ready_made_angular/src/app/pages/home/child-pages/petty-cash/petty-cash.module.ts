@@ -3,15 +3,23 @@ import { CommonModule } from '@angular/common';
 
 import { PettyCashRoutingModule } from './petty-cash-routing.module';
 import { PettyCashComponent } from './petty-cash.component';
+import {MatCardModule} from '@angular/material/card';
+import {FlexModule} from '@angular/flex-layout';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     PettyCashComponent
   ],
-  imports: [
-    CommonModule,
-    PettyCashRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        PettyCashRoutingModule,
+        MatCardModule,
+        FlexModule,
+        NgSelectModule,
+        ReactiveFormsModule
+    ]
 })
 export class PettyCashModule { }

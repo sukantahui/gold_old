@@ -57,15 +57,15 @@ class TransactionController extends ApiController
                 . $customVoucher->delimiter
                 . $customVoucher->accounting_year;
             $transaction = new Transaction();
-            $transaction->transaction_date = $input->transaction_date;
+            $transaction->transaction_date = $input->transactionDate;
             $transaction->transaction_number = $transaction_number;
-            $transaction->ledger_id = $input->ledger_id;
-            $transaction->asset_id = $input->asset_id;
-            $transaction->voucher_number = $input->voucher_number;
+            $transaction->ledger_id = $input->ledgerId;
+            $transaction->asset_id = $input->assetId;
+            $transaction->voucher_number = $input->voucherNumber;
             $transaction->amount = $input->amount;
-            $transaction->voucher_id = $input->voucher_id;
+            $transaction->voucher_id = $input->voucherId;
             $transaction->particulars = $input->particulars;
-            $transaction->user_id = $input->user_id;
+            $transaction->user_id = $input->userId;
             $transaction->save();
             DB::commit();
             $result = Transaction::join('ledgers', 'transactions.ledger_id', 'ledgers.id')
@@ -128,13 +128,13 @@ class TransactionController extends ApiController
                 .$customVoucher->delimiter
                 .$customVoucher->accounting_year;
             $transaction= new Transaction();
-            $transaction->transaction_date = $input->transaction_date;
+            $transaction->transaction_date = $input->transactionDate;
             $transaction->transaction_number = $transaction_number;
-            $transaction->ledger_id = $input->ledger_id;
-            $transaction->asset_id = $input->asset_id;
-            $transaction->voucher_number = $input->voucher_number;
+            $transaction->ledger_id = $input->ledgerId;
+            $transaction->asset_id = $input->assetId;
+            $transaction->voucher_number = $input->voucherNumber;
             $transaction->amount = $input->amount;
-            $transaction->voucher_id = $input->voucher_id;
+            $transaction->voucher_id = $input->voucherId;
             $transaction->particulars = $input->particulars;
             $transaction->user_id = 1;
             $transaction->save();
