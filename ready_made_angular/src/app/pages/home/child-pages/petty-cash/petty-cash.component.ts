@@ -47,12 +47,25 @@ export class PettyCashComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.accountService.getAssetListener().subscribe((response) => {
+      console.log(response);
+      this.assets = response ;
+    });
+    this.accountService.getExpenditureLedgerListener().subscribe((response) => {
+      this.expenditureLedgers = response;
+    });
   }
 
   handleTransactionDateChange($event: MatDatepickerInputEvent<unknown>) {
     let val = this.expenditureForm.value.transaction_date;
     val = formatDate(val, 'yyyy-MM-dd', 'en');
     this.expenditureForm.patchValue({transaction_date: val});
+  }
+  submitExpenditure(){
+
+  }
+  submitIncome(){
+
   }
 
 }
