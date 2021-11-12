@@ -37,19 +37,25 @@ export class AccountService {
     //   this.assetSub.next([...this.assetList]);
     // });
 
-    //---------implementing fork join for multiple api request --------------------
+    // ---------implementing fork join for multiple api request --------------------
 
-    const request1 =  this.http.get(this.commonService.getAPI() + '/expenditureLedgers');
-    const request2 =   this.http.get(this.commonService.getAPI() + '/incomeLedgers');
-    const request3 =  this.http.get(this.commonService.getAPI() + '/assets');
-    forkJoin(request1 , request2 , request3).subscribe((response: any) => {
-      this.expenditureList =  response[0].data;
+
+
+    // @ts-ignore
+    // @ts-ignore
+    forkJoin({
+      request1:  this.http.get<{success: number , data: any[]}>(this.commonService.getAPI() + '/expenditureLedgers'),
+      request2:  this.http.get<{success: number , data: any[]}>(this.commonService.getAPI() + '/incomeLedgers'),
+      request3:  this.http.get<{success: number , data: any[]}>(this.commonService.getAPI() + '/assets'),
+      // tslint:disable-next-line:variable-name
+    }).subscribe(({request1, request2, request3}) => {
+      this.expenditureList =  request1.data;
       this.expenditureSub.next([...this.expenditureList]);
 
-      this.incomeList =  response[1].data;
+      this.incomeList =  request2.data;
       this.incomeSub.next([...this.incomeList]);
 
-      this.assetList =  response[2].data;
+      this.assetList =  request3.data;
       this.assetSub.next([...this.assetList]);
     });
   }
