@@ -139,6 +139,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get('/expenditureLedgers', [LedgerController::class,'get_expenditure']);
     Route::get('/incomeLedgers', [LedgerController::class,'get_income']);
+    Route::get('/assets',[AssetController::class,'index']);
 
 });
 
