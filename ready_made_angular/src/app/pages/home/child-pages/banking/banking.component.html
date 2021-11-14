@@ -16,17 +16,17 @@
                             <mat-hint>Enter your IFSC Code</mat-hint>
                         </mat-form-field>
                         <div style="padding-top: 5px">
-<!--                            <p-fileUpload-->
-<!--                                    multiple="true"-->
-<!--                                    accept="image/*"-->
-<!--                                    maxFileSize="2000000"-->
-<!--                                    formControlName="image"-->
-<!--                                    [showUploadButton]="false"-->
-<!--                                    [showCancelButton]="false"-->
-<!--                                    (change)="onImageUpload($event)"-->
-<!--                                    >-->
-<!--                            </p-fileUpload>-->
-                            <input type="file" formControlName="image" (change)="onImageUpload($event)">
+                            <p-fileUpload
+                                    multiple="true"
+                                    accept="image/*"
+                                    maxFileSize="2000000"
+                                    formControlName="image"
+                                    [showUploadButton]="false"
+                                    [showCancelButton]="false"
+                                    (change)="onImageUpload($event)"
+                                    >
+                            </p-fileUpload>
+<!--                            <input type="file" formControlName="image" (change)="onImageUpload($event)">-->
                         </div>
 
                         <button mat-raised-button color="warn" (click)="getBankDetails()">Get Bank Details</button>
