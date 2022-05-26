@@ -27,7 +27,7 @@ class TransactionController extends ApiController
         $input=(object)($request->json()->all());
         DB::beginTransaction();
         try {
-            $temp_date = explode("-", $input->transaction_date);
+            $temp_date = explode("-", $input->transactionDate);
             $accounting_year = "";
             if ($temp_date[1] > 3) {
                 $x = $temp_date[0] % 100;
@@ -98,7 +98,7 @@ class TransactionController extends ApiController
         DB::beginTransaction();
         try
         {
-            $temp_date = explode("-",$input->transaction_date);
+            $temp_date = explode("-",$input->transactionDate);
             $accounting_year="";
             if($temp_date[1]>3){
                 $x = $temp_date[0]%100;

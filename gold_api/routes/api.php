@@ -143,6 +143,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get('/assets',[AssetController::class,'index']);
 
+    Route::post('/expenditureTransactions',[TransactionController::class,'saveExpenditureTransaction']);
+    Route::post('/incomeTransactions',[TransactionController::class,'saveIncomeTransaction']);
 });
 
 

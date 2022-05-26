@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {formatDate} from '@angular/common';
 import {AccountService} from '../../../../services/account.service';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import {PettyCashService} from "../../../../services/petty-cash.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-petty-cash',
@@ -15,7 +17,7 @@ export class PettyCashComponent implements OnInit {
   incomeLedgers: any[] = [];
   expenditureLedgers: any[] = [];
   assets: any[] = [];
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService , private pettyCashService: PettyCashService) {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
     this.expenditureForm = new FormGroup({
@@ -62,10 +64,28 @@ export class PettyCashComponent implements OnInit {
     this.expenditureForm.patchValue({transaction_date: val});
   }
   submitExpenditure(){
-
+    this.pettyCashService.saveExpenditure(this.expenditureForm.value)
+        .subscribe((response: {success: number , data: any[]}) => {
+          if(response){
+            Swal.fire({
+              title: 'Done',
+              text: 'Expenditure saved successfully',
+              icon: 'success'
+            });
+          }
+        });
   }
-  submitIncome(){
-
+  
+  submitIncome() {
+    this.pettyCashService.saveIncome(this.incomeForm.value)
+        .subscribe((response: { success: number, data: any[] }) => {
+          if (response) {
+            Swal.fire({
+              title: 'Done',
+              text: 'Income saved successfully',
+              icon: 'success'
+            });
+          }
+        });
+    }
   }
-
-}
