@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
 import {FormControl, FormGroup} from '@angular/forms';
+import {AgentService} from '../../../../../services/agent.service';
+import {CommonService} from '../../../../../services/common.service';
 
 @Component({
   selector: 'app-agent-salary',
@@ -13,7 +15,8 @@ export class AgentSalaryComponent implements OnInit {
   year = 2022;
   month = 1;
   isLoading = false;
-  constructor() {
+  agentSalaries: any[];
+  constructor(private agentService: AgentService) {
 
     this.agentSalarySearchForm = new FormGroup({
       year: new FormControl(2022),
@@ -25,6 +28,8 @@ export class AgentSalaryComponent implements OnInit {
   }
 
     getReport() {
-
+      this.agentService.getAgentSalaryByYearAndMonth(this.agentSalarySearchForm.get('year').value, this.agentSalarySearchForm.get('month').value).subscribe((response: {status: any , data: any[]}) => {
+        this.agentSalaries = response.data;
+      });
     }
 }

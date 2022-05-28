@@ -40,4 +40,7 @@ export class AgentService {
   getCustomerReceiptPayment(custId: string){
     return this.http.get(this.commonService.getAPI() + '/customerReceiptPayments/' + custId);
   }
+  getAgentSalaryByYearAndMonth(year: number, month: number){
+    return this.http.get(this.commonService.getAPI() + '/getAgentSalary/' + year + '/' + month);
+  }
 }
