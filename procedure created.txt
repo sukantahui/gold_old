@@ -1,0 +1,12 @@
+DROP PROCEDURE IF EXISTS ses_gold.select_agents_income_year_month;
+CREATE PROCEDURE ses_gold.`select_agents_income_year_month`(in_year int,in_month int)
+BEGIN
+	select agent_id, agent_name, agent_category_id
+, get_agent_sale_qty_year_and_month(agent_id, in_year, in_month) as qty
+, get_agent_salary_year_and_month(agent_id, in_year, in_month) as salary
+, get_agent_ta_year_and_month(agent_id, in_year, in_month) as ta
+, get_agent_commission_year_and_month(agent_id, in_year, in_month) as commission
+, get_agent_salary_year_and_month(agent_id, in_year, in_month)+get_agent_ta_year_and_month(agent_id, in_year, in_month)+get_agent_commission_year_and_month(agent_id, in_year, in_month) as total_income
+from agent_master;
+
+END;
