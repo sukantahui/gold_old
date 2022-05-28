@@ -18,6 +18,7 @@ export class AgentSalaryComponent implements OnInit {
   agentSalaries: any[];
   grossTotalIncome: number;
   grossTotalQuantity: number;
+  months = ['No Month', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   constructor(private agentService: AgentService) {
 
     this.agentSalarySearchForm = new FormGroup({
