@@ -16,6 +16,8 @@ export class AgentSalaryComponent implements OnInit {
   month = 1;
   isLoading = false;
   agentSalaries: any[];
+  grossTotalIncome: number;
+  grossTotalQuantity: number;
   constructor(private agentService: AgentService) {
 
     this.agentSalarySearchForm = new FormGroup({
@@ -35,8 +37,15 @@ export class AgentSalaryComponent implements OnInit {
   }
 
     getReport() {
+      // tslint:disable-next-line:max-line-length
       this.agentService.getAgentSalaryByYearAndMonth(this.agentSalarySearchForm.get('year').value, this.agentSalarySearchForm.get('month').value).subscribe((response: {status: any , data: any[]}) => {
         this.agentSalaries = response.data;
+        this.grossTotalIncome = this.agentSalaries.filter(item => item.total_income > '0').reduce((accumulator, obj) => {
+          return accumulator + obj.total_income;
+        }, 0);
+        this.grossTotalQuantity = this.agentSalaries.filter(item => item.qty > '0').reduce((accumulator, obj) => {
+          return accumulator + obj.qty;
+        }, 0);
       });
     }
 }

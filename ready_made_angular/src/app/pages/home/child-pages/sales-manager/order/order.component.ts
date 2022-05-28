@@ -12,7 +12,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import {StorageMap} from '@ngx-pwa/local-storage';
 import {OrderService} from '../../../../../services/order.service';
-import {environment} from "../../../../../../environments/environment";
+import {environment} from '../../../../../../environments/environment';
 
 export interface Item{
   product_code: string;
@@ -53,11 +53,11 @@ export class OrderComponent implements OnInit {
   orderDetails: Item[] = [];
   orderMasterList: any[] = [];
   expectedGold: any;
-  viewDetails= false;
+  viewDetails = false;
   orderDetailsList: any;
   customerName: any;
   orderMasterListOfDetails: any[] = [];
-  printAbleOrderDetails: {order_details: any[],customer: any,order_master: any};
+  printAbleOrderDetails: {order_details: any[], customer: any, order_master: any};
   faUserEdit = faUserEdit;
   faTrashAlt = faTrashAlt;
   faPencilAlt = faPencilAlt;
@@ -98,10 +98,10 @@ export class OrderComponent implements OnInit {
   }
 
   printDivStyle = {
-    table: {'border-collapse': 'collapse', 'width' : '100%' },
-    label:{'width': '100%'},
-    th: {border: '1px  solid black' , 'fontSize' : 'small'},
-    td: {border: '1px  solid black' , 'fontSize' : 'small'},
+    table: {'border-collapse': 'collapse', width : '100%' },
+    label: {width: '100%'},
+    th: {border: '1px  solid black' , fontSize : 'small'},
+    td: {border: '1px  solid black' , fontSize : 'small'},
 
 };
   searchTerm: any;
@@ -157,8 +157,6 @@ export class OrderComponent implements OnInit {
   customerSelected($event) {
     this.selectedCustomer = $event;
     // this.orderMaster.cust_id=this.selectedCustomer.cust_id;
-    console.log(this.selectedCustomer);
-    console.log('customerSelected');
     this.orderFormMaster.get('cust_mv').patchValue(this.selectedCustomer.markup_value, { onlySelf: true });
     this.orderFormMaster.get('lc_discount_percentage').patchValue(this.selectedCustomer.lc_discount_percentage, { onlySelf: true });
     this.orderMaster = {
@@ -300,7 +298,7 @@ export class OrderComponent implements OnInit {
                 text: 'Order saved successfully',
                 icon: 'success'
               });
-              this.orderService.getOrderMasterList(this.pageSize).subscribe((response:{status:any, data:any[]})=>{
+              this.orderService.getOrderMasterList(this.pageSize).subscribe((response: {status: any, data: any[]}) => {
                 this.orderMasterList = response.data;
               });
 
@@ -316,14 +314,14 @@ export class OrderComponent implements OnInit {
   }
 
   viewOrderList(){
-    this.orderService.getOrderMasterList(this.pageSize).subscribe((response:{status:any, data:any[]})=>{
+    this.orderService.getOrderMasterList(this.pageSize).subscribe((response: {status: any, data: any[]}) => {
       this.orderMasterList = response.data;
     });
 
   }
 
   viewOrderDetailsByOrderMaster(orderId){
-    this.orderService.getOrderDetailsByOrderMaster(orderId).subscribe((response:{status:any, data:any})=>{
+    this.orderService.getOrderDetailsByOrderMaster(orderId).subscribe((response: {status: any, data: any}) => {
       // this.orderDetailsList = response.data.order_details;
       // this.customerName = response.data.customer;
       // this.orderMasterListOfDetails = response.data.order_master;
