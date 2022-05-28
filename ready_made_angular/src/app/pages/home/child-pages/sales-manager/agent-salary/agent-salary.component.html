@@ -1,0 +1,126 @@
+<div id="agent-wise-sale-report-div">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Agent Wise Sale Report</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                <form [formGroup]="agentSalarySearchForm">
+                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                        <div fxLayoutGap="30px" style="padding-top: 10px">
+                                <label for="year">Year</label>
+                                <p-inputNumber formControlName="year" mode="decimal" thousandSeparator=" " [showButtons]="true" inputId="year" [min]="2022" [max]="2032">
+                                </p-inputNumber>
+
+                        </div>
+
+                        <div fxLayoutGap="30px" style="padding-top: 10px">
+                                <label for="month">Month</label>
+                                <p-inputNumber formControlName="month" mode="decimal" thousandSeparator=" " [showButtons]="true" inputId="month" [min]="1" [max]="12">
+                                </p-inputNumber>
+                        </div>
+
+                        <div fxLayoutGap="30px" style="padding-top: 10px">
+                                <p-button label="Search" id="search" (click)="getReport()" icon="pi pi-search" [loading]="isLoading"></p-button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card"  >
+        <div style="text-align: right">
+<!--            <button-->
+<!--                    mat-button color="primary"-->
+<!--                    [printStyle]="printDivStyle"-->
+<!--                    printSectionId="printAgentwiseSalesReportDiv"-->
+<!--                    ngxPrint ><mat-icon>print</mat-icon>-->
+<!--            </button>-->
+        </div>
+        <div id="printAgentwiseSalesReportDiv">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title class="text-center">Sales Report for Agent: </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+
+                <div class="no-print">
+<!--                    <mat-slide-toggle-->
+<!--                            [(ngModel)]="isAllCustomers"-->
+<!--                            class="example-margin"-->
+<!--                            (change)="isAllCustomersChanged()">-->
+<!--                        {{isAllCustomers? "All Customers":"Active Customers for selected period"}}-->
+<!--                    </mat-slide-toggle>-->
+                </div>
+
+
+<!--                <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th class="text-center">SL</th>-->
+<!--                        <th class="text-center" mat-sort-header="cust_name">Customer</th>-->
+<!--                        <th class="text-center" mat-sort-header="qty">Qty</th>-->
+<!--                        <th class="text-center" mat-sort-header="fine_gold">Billed Gold</th>-->
+<!--                        <th class="text-center" mat-sort-header="lc">Billed LC</th>-->
+<!--                        <th class="text-center" mat-sort-header="gold_received">Gold Received</th>-->
+<!--                        <th class="text-center" mat-sort-header="lc_received">LC Received</th>-->
+<!--                        <th class="text-center" >Net Gold</th>-->
+<!--                        <th class="text-center" >Net LC</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr *ngFor="let row of agentWiseSale; let i = index">-->
+<!--                        <ng-container *ngIf="true">-->
+<!--                            <th scope="row">{{i+1}}</th>-->
+<!--                            <td class="text-left">{{row.cust_name}}</td>-->
+<!--                            <td class="text-right">{{row.qty}}</td>-->
+<!--                            <td class="text-right" >{{row.fine_gold | number: '1.3'}}</td>-->
+<!--                            <td class="text-right">{{row.lc}}</td>-->
+<!--                            <td class="text-right">{{row.gold_received | number: '1.3'}}</td>-->
+<!--                            <td class="text-right">{{row.lc_received}}</td>-->
+<!--                            <td class="text-right" [ngClass]="{'positive' : (row.fine_gold - row.gold_received) > 0,'negative' : (row.fine_gold - row.gold_received) < 0}">{{(row.fine_gold - row.gold_received) | number: '1.3'}}</td>-->
+<!--                            <td class="text-right" [ngClass]="{'positive' : (row.lc - row.lc_received) > 0,'negative' : (row.lc - row.lc_received) < 0}">{{row.lc - row.lc_received}}</td>-->
+<!--                        </ng-container>-->
+<!--                    </tr>-->
+
+<!--                    </tbody>-->
+<!--                    <tfoot>-->
+<!--                    <tr>-->
+<!--                        <th colspan="2" class="text-center">Total</th>-->
+<!--                        <th class="text-right">{{qtyTotal}}</th>-->
+<!--                        <th class="text-right">{{billedGoldTotal | number: '1.3'}}</th>-->
+<!--                        <th class="text-right">{{billedLcTotal}}</th>-->
+<!--                        <th class="text-right">{{goldReceivedTotal | number: '1.3'}}</th>-->
+<!--                        <th class="text-right">{{lcReceivedTotal}}</th>-->
+<!--                        <th class="text-right" [ngClass]="{'positive' : (billedGoldTotal-goldReceivedTotal) > 0,'negative' : (billedGoldTotal-goldReceivedTotal) < 0}">{{(billedGoldTotal-goldReceivedTotal) | number: '1.3' }}</th>-->
+<!--                        <th class="text-right" [ngClass]="{'positive' : (billedLcTotal - lcReceivedTotal) > 0,'negative' : (billedLcTotal - lcReceivedTotal) < 0}">{{billedLcTotal - lcReceivedTotal}}</th>-->
+<!--                    </tr>-->
+<!--                    </tfoot>-->
+<!--                </table>-->
+            </mat-card-content>
+        </div>
+
+    </mat-card>
+
+</div>
+
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div fxLayoutAlign="center center">
+                <pre>
+                    selectedAgentIndex = {{agentSalarySearchForm.value | json}}
+                </pre>
+            </div>
+            <div fxFlex="2 1 auto" fxLayoutAlign="center center">
+            </div>
+            <div fxLayoutAlign="center center"> </div>
+            <div fxLayoutAlign="center center"> </div>
+        </div>
+    </div>
+</div>

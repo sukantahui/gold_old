@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {formatDate} from '@angular/common';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AgentWiseSalesReportService} from '../../../../../services/agent-wise-sales-report.service';
-import {ReportService} from "../../../../../services/report.service";
-import {CommonService} from "../../../../../services/common.service";
-import {Sort} from "@angular/material/sort";
+import {ReportService} from '../../../../../services/report.service';
+import {CommonService} from '../../../../../services/common.service';
+import {Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-agent-wise-sale-report',
@@ -39,16 +39,16 @@ export class AgentWiseSaleReportComponent implements OnInit {
     });
   }
   printDivStyle = {
-    table: {'border-collapse': 'collapse', 'width' : '100%' },
-    label:{'width': '100%'},
-    th: {border: '1px  solid black' , 'fontSize' : 'small'},
-    td: {border: '1px  solid black' , 'fontSize' : 'small'},
+    table: {'border-collapse': 'collapse', width : '100%' },
+    label: {width: '100%'},
+    th: {border: '1px  solid black' , fontSize : 'small'},
+    td: {border: '1px  solid black' , fontSize : 'small'},
 
 };
 
 
   ngOnInit(): void {
-    this.agentWiseSalesReportService.getAgentsUpdateListener().subscribe((response)=>{
+    this.agentWiseSalesReportService.getAgentsUpdateListener().subscribe((response) => {
       this.agentList = response;
     });
   }
@@ -69,16 +69,16 @@ export class AgentWiseSaleReportComponent implements OnInit {
       agentId = this.agentWiseSaleReportForm.get('agent_id').value;
 
     }
-    this.reportService.getAgentWiseSaleReport( this.startDate, this.endDate, agentId).subscribe(response=>{
+    this.reportService.getAgentWiseSaleReport( this.startDate, this.endDate, agentId).subscribe(response => {
 
       this.agentWiseSalemaster = response.data;
       this.agentWiseSale = response.data;
       this.agentWiseSale =  this.agentWiseSale.filter(ag => ag.qty !== 0 || ag.gold_received !== 0  || ag.lc_received !== 0);
-      this.qtyTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.qty,0);
-      this.billedGoldTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.fine_gold,0);
-      this.billedLcTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.lc,0);
-      this.goldReceivedTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.gold_received,0);
-      this.lcReceivedTotal = this.agentWiseSale.reduce((prev,next)=>prev+next.lc_received,0);
+      this.qtyTotal = this.agentWiseSale.reduce((prev, next) => prev + next.qty, 0);
+      this.billedGoldTotal = this.agentWiseSale.reduce((prev, next) => prev + next.fine_gold, 0);
+      this.billedLcTotal = this.agentWiseSale.reduce((prev, next) => prev + next.lc, 0);
+      this.goldReceivedTotal = this.agentWiseSale.reduce((prev, next) => prev + next.gold_received, 0);
+      this.lcReceivedTotal = this.agentWiseSale.reduce((prev, next) => prev + next.lc_received, 0);
 
     }, (error) => {
       // when error occured
@@ -109,9 +109,9 @@ export class AgentWiseSaleReportComponent implements OnInit {
   }
 
   isAllCustomersChanged() {
-    this.isAllCustomers=!this.isAllCustomers;
-    if(this.isAllCustomers){
-      this.agentWiseSale=this.agentWiseSalemaster;
+    this.isAllCustomers = !this.isAllCustomers;
+    if (this.isAllCustomers){
+      this.agentWiseSale = this.agentWiseSalemaster;
     }else{
       this.agentWiseSale =  this.agentWiseSalemaster.filter(ag => ag.qty !== 0 || ag.gold_received !== 0  || ag.lc_received !== 0);
     }

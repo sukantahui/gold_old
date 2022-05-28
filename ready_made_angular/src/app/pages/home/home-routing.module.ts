@@ -94,6 +94,9 @@ const routes: Routes = [
                                 },
                                 { path: 'PettyCash', loadChildren: () => import('./child-pages/petty-cash/petty-cash.module')
                                         .then(m => m.PettyCashModule)
+                                },
+                                { path: 'AgentSalary', loadChildren: () => import('./child-pages/sales-manager/agent-salary/agent-salary.module')
+                                        .then(m => m.AgentSalaryModule)
                                 }
                             ]
                           },

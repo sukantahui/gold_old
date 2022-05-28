@@ -83,7 +83,10 @@ const routes: Routes = [
 
   { path: 'WorkingJob', loadChildren: () => import('./pages/home/child-pages/office-staff/working-job/working-job.module').then(m => m.WorkingJobModule) },
 
-  { path: 'menu-petty-cash', loadChildren: () => import('./pages/home/menu/menu-petty-cash/menu-petty-cash.module').then(m => m.MenuPettyCashModule) }
+  { path: 'menu-petty-cash', loadChildren: () => import('./pages/home/menu/menu-petty-cash/menu-petty-cash.module').then(m => m.MenuPettyCashModule) },
+
+  // tslint:disable-next-line:max-line-length
+  // { path: 'AgentSalary', loadChildren: () => import('./pages/home/child-pages/sales-manager/agent-salary/agent-salary.module').then(m => m.AgentSalaryModule) }
 
 
 

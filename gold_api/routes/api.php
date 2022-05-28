@@ -145,6 +145,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::post('/expenditureTransactions',[TransactionController::class,'saveExpenditureTransaction']);
     Route::post('/incomeTransactions',[TransactionController::class,'saveIncomeTransaction']);
+
+
+    //get agent salary
+    Route::get('/getAgentSalary/{year}/{month}',[AgentController::class,'getAgentSalary']);
 });
 
 

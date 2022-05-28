@@ -7,6 +7,8 @@ use App\Models\Agent;
 use App\Models\ItemStockReadyMade;
 use App\Models\Customer;
 use App\Models\AgentToCustomer;
+use Illuminate\Support\Facades\DB;
+
 class AgentController extends ApiController
 {
     public function getAgentsExceptCounterAgent(){
@@ -48,5 +50,9 @@ class AgentController extends ApiController
         $agent = Agent::select()->get();
 
         return $this->successResponse($agent);
+    }
+    public function getAgentSalary($year, $month){
+        $result = DB::select('call select_agents_income_year_month(?,?)',[$year,$month]);
+        return $this->successResponse($result);
     }
 }
