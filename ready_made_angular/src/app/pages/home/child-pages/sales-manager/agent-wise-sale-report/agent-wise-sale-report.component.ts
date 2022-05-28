@@ -44,7 +44,7 @@ export class AgentWiseSaleReportComponent implements OnInit {
     th: {border: '1px  solid black' , fontSize : 'small'},
     td: {border: '1px  solid black' , fontSize : 'small'},
 
-};
+  };
 
 
   ngOnInit(): void {
