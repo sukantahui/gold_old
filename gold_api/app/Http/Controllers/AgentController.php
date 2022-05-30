@@ -55,4 +55,29 @@ class AgentController extends ApiController
         $result = DB::select('call select_agents_income_year_month(?,?)',[$year,$month]);
         return $this->successResponse($result);
     }
+    public function saveAgentSalary($year,$month){
+        $result = DB::statement("insert into agent_salaries (
+       id
+      ,agent_id
+      ,year_number
+      ,month_number
+      ,salary
+      ,ta
+      ,commission
+    ) SELECT
+       NULL AS id,
+       agent_id
+       , $year
+       ,$month
+       ,get_agent_salary_year_and_month(agent_id, $year, $month)
+       ,get_agent_ta_year_and_month(agent_id, $year, $month)
+       ,get_agent_commission_year_and_month(agent_id, $year, $month)
+    FROM agent_master");
+        if($result){
+            return $this->successResponse($result);
+        }else{
+            return $this->errorResponse(404);
+        }
+
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AgentSalaryController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\CustomerController;
@@ -148,7 +149,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
     //get agent salary
-    Route::get('/getAgentSalary/{year}/{month}',[AgentController::class,'getAgentSalary']);
+    Route::get('/agentSalary/{year}/{month}',[AgentController::class,'getAgentSalary']);
+    Route::post('/agentSalary/{year}/{month}',[AgentController::class,'saveAgentSalary']);
 });
 
 

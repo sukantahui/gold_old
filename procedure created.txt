@@ -1,17 +1,19 @@
-insert into agent_salaries (
-   id
-  ,agent_id
-  ,year_number
-  ,month_number
-  ,salary
-  ,ta
-  ,commission
-) SELECT 
-   NULL AS id,
-   agent_id
-   , 2022
-   ,5
-   ,get_agent_salary_year_and_month(agent_id, 2022, 5)
-   ,get_agent_ta_year_and_month(agent_id, 2022, 5)
-   ,get_agent_commission_year_and_month(agent_id, 2022, 5)
-FROM agent_master
+ALTER TABLE `agent_salaries` ADD UNIQUE(`agent_id`, `year_number`, `month_number`);
+
+
+
+
+
+
+drop table agent_salary_withdrawals;
+CREATE TABLE `agent_salary_withdrawals` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `agent_id` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `year_number` int(11) NOT NULL,
+  `month_number` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `agent_salary_withdrawl_ibfk_1` FOREIGN KEY (`agent_id`) REFERENCES `agent_master` (`agent_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
