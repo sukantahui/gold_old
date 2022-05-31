@@ -24,6 +24,7 @@ export class AgentSalaryWithdrawComponent implements OnInit {
       year: new FormControl(2022),
       month: new FormControl(5),
       agent_id: new FormControl(null),
+      amount: new FormControl(100),
     });
   }
   printDivStyle = {
