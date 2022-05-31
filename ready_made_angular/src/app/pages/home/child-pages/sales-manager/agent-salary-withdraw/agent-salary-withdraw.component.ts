@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {environment} from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-agent-salary-withdraw',
@@ -6,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./agent-salary-withdraw.component.scss']
 })
 export class AgentSalaryWithdrawComponent implements OnInit {
-    isProduction = true;
+    isProduction = environment.production;
+    agents: any[];
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    this.route.data.subscribe((response: any) => {
+      this.agents = response.agentSalaryWithdrawResolver.agents.data;
+    });
+  }
 
   ngOnInit(): void {
   }
