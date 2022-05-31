@@ -18,6 +18,7 @@ import {NgxPrinterModule} from 'ngx-printer';
 import {NgxPrintModule} from 'ngx-print';
 import {LayoutModule} from '@angular/cdk/layout';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {InputNumberModule} from 'primeng/inputnumber';
     NgxPrinterModule,
     NgxPrintModule,
     LayoutModule,
-    InputNumberModule
+    InputNumberModule,
+    NgSelectModule,
   ]
 })
 export class AgentSalaryWithdrawModule { }

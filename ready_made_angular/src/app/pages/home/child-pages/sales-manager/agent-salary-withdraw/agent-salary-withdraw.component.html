@@ -1,5 +1,122 @@
 <div id="agent-wise-sale-report-div">
-    this is test
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Agent Wise Sale Report</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                <form [formGroup]="agentSalarySearchForm">
+                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                        <div fxLayoutGap="30px" style="padding-top: 10px">
+                            <label for="year">Year</label>
+                            <p-inputNumber formControlName="year" mode="decimal" thousandSeparator=" " [showButtons]="true" inputId="year" [min]="2022" [max]="2032">
+                            </p-inputNumber>
+
+                        </div>
+
+                        <div fxLayoutGap="30px" style="padding-top: 10px">
+                            <label for="month">Month</label>
+                            <p-inputNumber formControlName="month" mode="decimal" thousandSeparator=" " [showButtons]="true" inputId="month" [min]="1" [max]="12">
+                            </p-inputNumber>
+                        </div>
+                    </div>
+                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+
+
+                        <div fxLayoutGap="30px" style="padding-top: 10px">
+                            <ng-select [items]="agents"
+                                       bindLabel="agent_name"
+                                       class="custom"
+                                       bindValue="agent_id"
+                                       formControlName="agent_id"
+                                       (change)="onAgentSelect($event)"
+                                       placeholder="Select Agent">
+                            </ng-select>
+                        </div>
+
+
+
+                        <div fxLayoutGap="30px" style="padding-top: 10px">
+                            <p-button label="Search" id="search" (click)="getReport()" icon="pi pi-search" [loading]="isLoading"></p-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card"  >
+        <div style="text-align: right">
+            <button
+                    mat-button color="primary"
+                    [printStyle]="printDivStyle"
+                    [useExistingCss]="true"
+                    printSectionId="printAgentSalaryReportDiv"
+                    ngxPrint ><mat-icon>print</mat-icon>
+            </button>
+        </div>
+        <div id="printAgentSalaryReportDiv">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title class="text-center">Agent Salary Report: {{months[agentSalarySearchForm.get('month').value]}}, {{agentSalarySearchForm.get('year').value}} </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+
+                <div class="no-print">
+                    <!--                    <mat-slide-toggle-->
+                    <!--                            [(ngModel)]="isAllCustomers"-->
+                    <!--                            class="example-margin"-->
+                    <!--                            (change)="isAllCustomersChanged()">-->
+                    <!--                        {{isAllCustomers? "All Customers":"Active Customers for selected period"}}-->
+                    <!--                    </mat-slide-toggle>-->
+                </div>
+
+
+<!--                <table  class="table table-bordered table-responsive">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th class="text-center">SL</th>-->
+<!--                        <th class="text-center">Agent ID</th>-->
+<!--                        <th class="text-center">Name</th>-->
+<!--                        <th class="text-center">Qty</th>-->
+<!--                        <th class="text-center">Salary</th>-->
+<!--                        <th class="text-center">TA</th>-->
+<!--                        <th class="text-center">Commission</th>-->
+<!--                        <th class="text-center">Total Income</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr *ngFor="let row of agentSalaries; let i = index">-->
+<!--                        <ng-container *ngIf="true">-->
+<!--                            <th scope="row">{{i+1}}</th>-->
+<!--                            <td class="text-left">{{row.agent_id}}</td>-->
+<!--                            <td class="text-left">{{row.agent_name}}</td>-->
+<!--                            <td class="text-right" >{{row.qty | number: '1.0'}}</td>-->
+<!--                            <td class="text-right">{{row.salary}}</td>-->
+<!--                            <td class="text-right">{{row.ta | number: '1.0'}}</td>-->
+<!--                            <td class="text-right">{{row.commission}}</td>-->
+<!--                            <td class="text-right">{{row.total_income | currency:'INR':'symbol-narrow':'4.0-2'}}</td>-->
+<!--                        </ng-container>-->
+<!--                    </tr>-->
+
+<!--                    </tbody>-->
+<!--                    <tfoot>-->
+<!--                    <tr>-->
+<!--                        <th colspan="3" class="text-center">Total</th>-->
+<!--                        <th class="text-right">{{grossTotalQuantity}}</th>-->
+<!--                        <th colspan="3" class="text-right"></th>-->
+<!--                        <th class="text-right">{{grossTotalIncome | currency:'INR':'symbol-narrow':'4.0-2'}}</th>-->
+
+<!--                    </tr>-->
+<!--                    </tfoot>-->
+<!--                </table>-->
+            </mat-card-content>
+        </div>
+
+    </mat-card>
 
 </div>
 
@@ -12,6 +129,9 @@
                 </pre>
             </div>
             <div fxFlex="2 1 auto" fxLayoutAlign="center center">
+                <pre>
+                    agentSalarySearchForm = {{agentSalarySearchForm.value | json}}
+                </pre>
             </div>
             <div fxLayoutAlign="center center">
             </div>
