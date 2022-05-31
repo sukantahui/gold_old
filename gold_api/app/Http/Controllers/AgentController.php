@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AgentSalaryWithdrawResource;
 use App\Models\AgentSalaryWithdrawal;
 use Illuminate\Http\Request;
 use App\Models\Agent;
@@ -95,4 +96,9 @@ class AgentController extends ApiController
         }
 
     }
+    public function getAgentSalaryWithdraw(){
+        $result=AgentSalaryWithdrawal::get();
+        return $this->successResponse(AgentSalaryWithdrawResource::collection($result));
+    }
+    
 }
