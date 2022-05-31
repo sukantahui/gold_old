@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AgentSalaryWithdrawal;
 use Illuminate\Http\Request;
 use App\Models\Agent;
 use App\Models\ItemStockReadyMade;
@@ -75,6 +76,20 @@ class AgentController extends ApiController
     FROM agent_master");
         if($result){
             return $this->successResponse($result);
+        }else{
+            return $this->errorResponse(404);
+        }
+
+    }
+    public function saveAgentSalaryWithdraw(Request $request){
+        $agentSalaryWithdrawal = new AgentSalaryWithdrawal();
+        $agentSalaryWithdrawal->agent_id = $request->input('agentId');
+        $agentSalaryWithdrawal->year_number = $request->input('yearNumber');
+        $agentSalaryWithdrawal->month_number = $request->input('monthNumber');
+        $agentSalaryWithdrawal->amount = $request->input('amount');
+        $agentSalaryWithdrawal->save();
+        if($agentSalaryWithdrawal){
+            return $this->successResponse($agentSalaryWithdrawal);
         }else{
             return $this->errorResponse(404);
         }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../../../../../environments/environment';
 import {FormControl, FormGroup} from '@angular/forms';
+import {AgentService} from '../../../../../services/agent.service';
 
 @Component({
   selector: 'app-agent-salary-withdraw',
@@ -16,14 +17,14 @@ export class AgentSalaryWithdrawComponent implements OnInit {
     month = 1;
     isLoading = false;
   months = ['No Month', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private agentService: AgentService) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.agentSalaryWithdrawResolver.agents.data;
     });
     this.agentSalarySearchForm = new FormGroup({
-      year: new FormControl(2022),
-      month: new FormControl(5),
-      agent_id: new FormControl(null),
+      yearNumber: new FormControl(2022),
+      monthNumber: new FormControl(5),
+      agentId: new FormControl(null),
       amount: new FormControl(100),
     });
   }
@@ -38,8 +39,12 @@ export class AgentSalaryWithdrawComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getReport() {
-
+  saveAgentSalaryWithdrawal() {
+      this.agentService.saveAgentSalaryWithdraw(this.agentSalarySearchForm.value).subscribe(response => {
+          console.log(response);
+      }, error => {
+          console.log(error);
+      });
   }
 
     onAgentSelect($event: any) {

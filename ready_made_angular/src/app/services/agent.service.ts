@@ -26,6 +26,15 @@ export class AgentService {
 
     }));
   }
+
+  saveAgentSalaryWithdraw(SalaryWithdrawalData: any){
+    console.log(SalaryWithdrawalData);
+    return this.http.post<any>(this.commonService.getAPI() + '/agentSalaryWithdraw', SalaryWithdrawalData)
+        .pipe(catchError(this.errorService.serverError), tap(((response: {success: number, data: any }) => {
+          // this.agentData.unshift(response.data);
+          // this.agentSub.next([...this.agentData]);
+        })));
+  }
   getAgents(){
     return this.agentList;
   }

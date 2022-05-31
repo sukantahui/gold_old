@@ -11,14 +11,14 @@
                     <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
                         <div fxLayoutGap="30px" style="padding-top: 10px">
                             <label for="year">Year</label>
-                            <p-inputNumber formControlName="year" mode="decimal" thousandSeparator=" " [showButtons]="true" inputId="year" [min]="2022" [max]="2032">
+                            <p-inputNumber formControlName="yearNumber" mode="decimal" thousandSeparator=" " [showButtons]="true" inputId="year" [min]="2022" [max]="2032">
                             </p-inputNumber>
 
                         </div>
 
                         <div fxLayoutGap="30px" style="padding-top: 10px">
                             <label for="month">Month</label>
-                            <p-inputNumber formControlName="month" mode="decimal" thousandSeparator=" " [showButtons]="true" inputId="month" [min]="1" [max]="12">
+                            <p-inputNumber formControlName="monthNumber" mode="decimal" thousandSeparator=" " [showButtons]="true" inputId="month" [min]="1" [max]="12">
                             </p-inputNumber>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                                        bindLabel="agent_name"
                                        class="custom"
                                        bindValue="agent_id"
-                                       formControlName="agent_id"
+                                       formControlName="agentId"
                                        (change)="onAgentSelect($event)"
                                        placeholder="Select Agent">
                             </ng-select>
@@ -47,7 +47,7 @@
 
 
                         <div fxLayoutGap="30px" style="padding-top: 10px">
-                            <p-button label="Search" id="search" (click)="getReport()" icon="pi pi-search" [loading]="isLoading"></p-button>
+                            <p-button label="Save" id="search" (click)="saveAgentSalaryWithdrawal()" icon="pi pi-search" [loading]="isLoading"></p-button>
                         </div>
                     </div>
                 </form>
@@ -68,7 +68,7 @@
         <div id="printAgentSalaryReportDiv">
             <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title class="text-center">Agent Salary Report: {{months[agentSalarySearchForm.get('month').value]}}, {{agentSalarySearchForm.get('year').value}} </mat-card-title>
+                <mat-card-title class="text-center">Agent Salary Report: {{months[agentSalarySearchForm.get('monthNumber').value]}}, {{agentSalarySearchForm.get('yearNumber').value}} </mat-card-title>
             </mat-card-header>
             <mat-card-content>
 
