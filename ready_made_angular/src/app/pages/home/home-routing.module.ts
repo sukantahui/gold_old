@@ -97,6 +97,9 @@ const routes: Routes = [
                                 },
                                 { path: 'AgentSalary', loadChildren: () => import('./child-pages/sales-manager/agent-salary/agent-salary.module')
                                         .then(m => m.AgentSalaryModule)
+                                },
+                                { path: 'AgentSalaryWithdraw', loadChildren: () => import('./child-pages/sales-manager/agent-salary-withdraw/agent-salary-withdraw.module')
+                                        .then(m => m.AgentSalaryWithdrawModule)
                                 }
                             ]
                           },

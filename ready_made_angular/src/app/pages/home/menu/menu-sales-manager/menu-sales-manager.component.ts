@@ -134,20 +134,13 @@ export class MenuSalesManagerComponent implements OnInit {
           ]
         },
         {
-          displayName: 'Speakers',
+          displayName: 'Agent Activity',
           iconName: 'group',
           children: [
             {
-              displayName: 'Michael Prentice',
+              displayName: 'Agent Withdraw',
               iconName: 'person',
-              route: 'michael-prentice',
-              children: [
-                {
-                  displayName: 'Create Enterprise UIs',
-                  iconName: 'star_rate',
-                  route: 'material-design'
-                }
-              ]
+              route: 'AgentSalaryWithdraw'
             }
           ]
         }
