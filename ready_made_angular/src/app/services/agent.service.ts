@@ -26,9 +26,14 @@ export class AgentService {
 
     }));
   }
+  fetchAgentSalaryAndWithdrawByYearAndMonth(agentId: string, year: number, month: number){
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<any>(this.commonService.getAPI() + '/agentSalaryWithdraw/' + agentId + '/' + year + '/' + month ).pipe(catchError(this.errorService.serverError), tap(response => {
+
+    }));
+  }
 
   saveAgentSalaryWithdraw(SalaryWithdrawalData: any){
-    console.log(SalaryWithdrawalData);
     return this.http.post<any>(this.commonService.getAPI() + '/agentSalaryWithdraw', SalaryWithdrawalData)
         .pipe(catchError(this.errorService.serverError), tap(((response: {success: number, data: any }) => {
           // this.agentData.unshift(response.data);

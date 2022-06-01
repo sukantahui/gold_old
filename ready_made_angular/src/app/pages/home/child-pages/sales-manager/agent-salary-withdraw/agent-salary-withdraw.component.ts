@@ -48,6 +48,8 @@ export class AgentSalaryWithdrawComponent implements OnInit {
   }
 
     onAgentSelect($event: any) {
-        console.log($event);
+        this.agentService.fetchAgentSalaryAndWithdrawByYearAndMonth($event.agent_id,this.agentSalarySearchForm.get('yearNumber').value, this.agentSalarySearchForm.get('monthNumber').value ).subscribe(response => {
+
+        });
     }
 }
