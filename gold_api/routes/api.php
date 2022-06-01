@@ -154,6 +154,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::post('/agentSalaryWithdraw',[AgentController::class,'saveAgentSalaryWithdraw']);
     Route::get('/agentSalaryWithdraw',[AgentController::class,'getAgentSalaryWithdraw']);
+    Route::get('/agentSalaryWithdraw/{agentId}/{year}/{month}',[AgentController::class,'getAgentSalaryWithdrawByAgentIdYearMont']);
 
 
 });

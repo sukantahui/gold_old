@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AgentSalaryAndWithdrawResource;
 use App\Http\Resources\AgentSalaryWithdrawResource;
+use App\Models\AgentSalary;
 use App\Models\AgentSalaryWithdrawal;
 use Illuminate\Http\Request;
 use App\Models\Agent;
@@ -100,5 +102,13 @@ class AgentController extends ApiController
         $result=AgentSalaryWithdrawal::get();
         return $this->successResponse(AgentSalaryWithdrawResource::collection($result));
     }
-    
+    public function getAgentSalaryWithdrawByAgentIdYearMont($agentId, $year, $month){
+//        $x=array();
+        $totalAmount=AgentSalaryWithdrawal::whereAgentIdAndYearNumberAndMonthNumber($agentId,$year,$month)->sum('amount');
+//        $x['totalWithdraw'] = $totalAmount;
+        $totalSalary= AgentSalary::whereAgentIdAndYearNumberAndMonthNumber($agentId,$year,$month)->first();
+        $totalSalary->setAttribute('salary_withdraw', $totalAmount);
+        return $this->successResponse(new AgentSalaryAndWithdrawResource($totalSalary));
+    }
+
 }
