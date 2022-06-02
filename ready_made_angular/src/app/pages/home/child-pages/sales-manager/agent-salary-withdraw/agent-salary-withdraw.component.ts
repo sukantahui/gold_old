@@ -16,6 +16,8 @@ export class AgentSalaryWithdrawComponent implements OnInit {
     year = 2022;
     month = 1;
     isLoading = false;
+    currentMonthTotalSalary = 0;
+    currentMonthTotalSalaryWithdraw = 0;
   months = ['No Month', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   constructor(private route: ActivatedRoute, private agentService: AgentService) {
     this.route.data.subscribe((response: any) => {
@@ -41,15 +43,18 @@ export class AgentSalaryWithdrawComponent implements OnInit {
 
   saveAgentSalaryWithdrawal() {
       this.agentService.saveAgentSalaryWithdraw(this.agentSalarySearchForm.value).subscribe(response => {
-          console.log(response);
+          this.currentMonthTotalSalary = response.data.totalSalary;
+          this.currentMonthTotalSalaryWithdraw = response.data.salaryWithdraw;
       }, error => {
           console.log(error);
       });
   }
 
     onAgentSelect($event: any) {
-        this.agentService.fetchAgentSalaryAndWithdrawByYearAndMonth($event.agent_id,this.agentSalarySearchForm.get('yearNumber').value, this.agentSalarySearchForm.get('monthNumber').value ).subscribe(response => {
-
+        // tslint:disable-next-line:max-line-length
+        this.agentService.fetchAgentSalaryAndWithdrawByYearAndMonth($event.agent_id, this.agentSalarySearchForm.get('yearNumber').value, this.agentSalarySearchForm.get('monthNumber').value ).subscribe(response => {
+            this.currentMonthTotalSalary = response.data.totalSalary;
+            this.currentMonthTotalSalaryWithdraw = response.data.salaryWithdraw;
         });
     }
 }

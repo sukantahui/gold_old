@@ -92,7 +92,10 @@ class AgentController extends ApiController
         $agentSalaryWithdrawal->amount = $request->input('amount');
         $agentSalaryWithdrawal->save();
         if($agentSalaryWithdrawal){
-            return $this->successResponse($agentSalaryWithdrawal);
+            $totalAmount=AgentSalaryWithdrawal::whereAgentIdAndYearNumberAndMonthNumber($request->input('agentId'),$request->input('yearNumber'),$request->input('monthNumber'))->sum('amount');
+            $totalSalary= AgentSalary::whereAgentIdAndYearNumberAndMonthNumber($request->input('agentId'),$request->input('yearNumber'),$request->input('monthNumber'))->first();
+            $totalSalary->setAttribute('salary_withdraw', $totalAmount);
+            return $this->successResponse(new AgentSalaryAndWithdrawResource($totalSalary));
         }else{
             return $this->errorResponse(404);
         }
