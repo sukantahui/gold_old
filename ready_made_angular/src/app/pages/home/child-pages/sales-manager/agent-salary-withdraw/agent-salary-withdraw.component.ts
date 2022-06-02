@@ -3,6 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../../../../../environments/environment';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AgentService} from '../../../../../services/agent.service';
+import {DownloadService} from '../../../../../services/download.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-agent-salary-withdraw',
@@ -19,7 +21,7 @@ export class AgentSalaryWithdrawComponent implements OnInit {
     currentMonthTotalSalary = 0;
     currentMonthTotalSalaryWithdraw = 0;
   months = ['No Month', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  constructor(private route: ActivatedRoute, private agentService: AgentService) {
+  constructor(private route: ActivatedRoute, private agentService: AgentService, private downloads: DownloadService) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.agentSalaryWithdrawResolver.agents.data;
     });
@@ -57,4 +59,24 @@ export class AgentSalaryWithdrawComponent implements OnInit {
             this.currentMonthTotalSalaryWithdraw = response.data.salaryWithdraw;
         });
     }
+
+    download(): void {
+        this.downloads
+            .download('/downloads/archive.zip')
+            .subscribe(blob => {
+                const a = document.createElement('a')
+                const objectUrl = URL.createObjectURL(blob)
+                a.href = objectUrl
+                a.download = 'archive.zip';
+                a.click();
+                URL.revokeObjectURL(objectUrl);
+            });
+    }
+
+    download2() {
+        this.downloads
+            .download('/downloads/archive.zip')
+            .subscribe(blob => saveAs(blob, 'archive.zip'));
+    }
+
 }
