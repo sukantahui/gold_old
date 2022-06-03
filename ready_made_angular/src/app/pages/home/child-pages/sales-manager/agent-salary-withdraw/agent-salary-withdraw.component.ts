@@ -5,6 +5,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {AgentService} from '../../../../../services/agent.service';
 import {DownloadService} from '../../../../../services/download.service';
 import { saveAs } from 'file-saver';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-agent-salary-withdraw',
@@ -73,10 +74,10 @@ export class AgentSalaryWithdrawComponent implements OnInit {
             });
     }
 
-    download2() {
+    download2(file: string) {
         this.downloads
-            .download('/downloads/archive.zip')
-            .subscribe(blob => saveAs(blob, 'archive.zip'));
+            .download('assets/downloads/' + file)
+            .subscribe(blob => saveAs(blob, file));
     }
 
 }
