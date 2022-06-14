@@ -10,7 +10,6 @@ eel.init("web")
 # Exposing the random_python function to javascript
 @eel.expose    
 def random_python():
-    print("Random function running")
     return randint(1,100)
 
 # using the eel.expose command  
@@ -24,8 +23,9 @@ def add(data_1, data_2):
 
 
 @eel.expose
-def fetchTagDetails(jojobNumberbId):
-    response = requests.get("http://127.0.0.1/gold_project/new_gold_api/public/api/dev/job/tag/jobMaster/JOB-00001-2122")
+def fetchTagDetails(jobId):
+    print(jobId)
+    response = requests.get("http://127.0.0.1/gold_old/gold_api/public/api/dev/job/%s" % (jobId))
     if response.status_code==200:
         jobDetails = response.json().get('data')
         print(jobDetails)

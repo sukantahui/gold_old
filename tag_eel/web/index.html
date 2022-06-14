@@ -1,68 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eel Example</title>
-    <link href="node_modules/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
-    <style>
-      h1{
-        color: green;
-        text-align: center;
-      }
-      .random_number{
-        margin: 50px;
-        font-size: 150px;
-        text-align: center;
-      }
-      button{
-        display: block;
-        margin: 0 auto;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>HUITECH</h1>
-    <div class="random_number"></div>
-    <button id="generate-random">Get a Random number using Python</button>
-    <hr>
-    <label>Enter First Number  
-        <textarea id = "int1"></textarea>  
-        <label>Enter Second Number  
-        <textarea id = "int2"></textarea>  
-        <label>Result  
-        <textarea id = "res"></textarea>  
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eel Example</title>
+  <link href="node_modules/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
+  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    h1 {
+      color: green;
+      text-align: center;
+    }
+
+    .random_number {
+      margin: 50px;
+      font-size: 150px;
+      text-align: center;
+    }
+
+    button {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <h1>HUITECH</h1>
+  <div class="random_number"></div>
+  <button id="generate-random">Get a Random number using Python</button> -->
+  <hr>
+
+  <div class="d-flex flex-row bd-highlight mb-3">
+    <div class="p-2 bd-highlight">
+      <div class="form-group mb-2">
+        <label for="staticEmail2" class="sr-only">JOB ID</label>
+      </div>
+    </div>
+    <div class="p-2 bd-highlight">
+      <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" id="input-job-id" placeholder="Password">
+      </div>
+    </div>
+    <div class="p-2 bd-highlight">
+      <button type="button" id="fetch-request" class="btn btn-primary mb-2">Show JOB</button>
+    </div>
+  </div>
+
+
+  <form class="form-inline">
+    
+    
+    
+  </form> 
+
+
+
   
-        <button type = "button" id = "add-numbers">  
-            Sum  
-        </button>  
-        <hr>
-        <div class="d-flex flex-row bd-highlight mb-3">
-          <div class="p-2 bd-highlight">Flex item 1</div>
-          <div class="p-2 bd-highlight">Flex item 2</div>
-          <div class="p-2 bd-highlight">Flex item 3</div>
-        </div>
-        <div class="d-flex flex-row-reverse bd-highlight">
-          <div class="p-2 bd-highlight">Flex item 1</div>
-          <div class="p-2 bd-highlight">Flex item 2</div>
-          <div class="p-2 bd-highlight">Flex item 3</div>
-        </div>
 
-        <button type = "button" id = "fetch-request">  
-          Fetch Request
-        </button>  
-        <div id="request-output">
-          Output will be here
+  <button type="button" id="test-bat">
+    Test Bat
+  </button>
+  <form class="form-inline">
+    <div class="d-flex flex-row bd-highlight mb-3">
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">JOB ID</label>
+          <input type="text" class="form-control" id="job-id" placeholder="JOB ID">
         </div>
-        <button type = "button" id = "test-bat">  
-          Test Bat
-        </button>
-    <script type="text/javascript" src="../eel.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
-    <script src="node_modules/jquery/dist/jquery.min.js" ></script>
+      </div>
 
-    <script src="./script.js"></script>
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">ORDER ID</label>
+          <input type="text" class="form-control" id="order-id" placeholder="ORDER ID">
+        </div>
+      </div>
 
-  </body>
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">Model</label>
+          <input type="text" class="form-control" id="product-code" placeholder="MODEL">
+        </div>
+      </div>
+
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">SIZE</label>
+          <input type="text" class="form-control" id="product-size" placeholder="SIZE">
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row bd-highlight mb-3">
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">Price Code</label>
+          <input type="text" class="form-control" id="price-code" placeholder="JOB ID">
+        </div>
+      </div>
+
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">PRICE</label>
+          <input type="text" class="form-control" id="price" placeholder="ORDER ID">
+        </div>
+      </div>
+
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">PIECES</label>
+          <input type="text" class="form-control" id="pieces" placeholder="MODEL">
+        </div>
+      </div>
+
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">Status</label>
+          <input type="text" class="form-control" id="status" placeholder="SIZE">
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <script type="text/javascript" src="../eel.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+  <script src="./script.js"></script>
+
+</body>
+
 </html>

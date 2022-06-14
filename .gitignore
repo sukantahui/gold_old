@@ -15,6 +15,7 @@
 gold_api/.env
 # dependencies
 /node_modules
+./tag_eel//node_modules
 /vendor
 /gold_api/vendor
 /gold_api/vendor/*
