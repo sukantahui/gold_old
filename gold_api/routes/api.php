@@ -210,6 +210,7 @@ Route::group(array('prefix' => 'dev'), function() {
 
     Route::get("getJobIdByJobMaster",[JobMasterController::class, 'getJobIdByJobMaster']);
     Route::get("job/{job_id}",[JobMasterController::class, 'getJobById']);
+    Route::get("tag/job/{job_id}",[JobMasterController::class, 'getDetailsForTag']);
 
     Route::get("agents",[AgentController::class, 'getAgents']);
 
