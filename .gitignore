@@ -2,6 +2,7 @@
 
 .venv
 ./tag/.venv
+./tag_eel/.venv
 # compiled output
 /dist
 /tmp
