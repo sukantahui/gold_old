@@ -34,6 +34,7 @@ class JobMasterController extends ApiController
             ->select('job_master.job_id',
                 'order_master.cust_id',
                 'customer_master.cust_name',
+                'customer_master.short_name',
                 'job_master.status',
                 'table_status.status_name',
                 'job_master.order_id',

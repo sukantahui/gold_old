@@ -30,6 +30,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed product_wt
  * @property mixed markup_value
  * @property mixed pan_id
+ * @property mixed short_name
  */
 class TagResource extends JsonResource
 {
@@ -48,6 +49,7 @@ class TagResource extends JsonResource
             "job_id"=>$this->job_id,
             "cust_id"=>$this->cust_id,
             "cust_name"=>$this->cust_name,
+            "short_name"=>$this->short_name,
             "status"=>$this->status,
             "status_name"=>$this->status_name,
             "order_id"=>$this->order_id,
@@ -72,7 +74,8 @@ class TagResource extends JsonResource
             "raw_gold"=>$rm_gold,
             "rm_pan"=>$rm_pan,
             "gold_used"=>round(($this->gold_send + ($this->pan_send * $rm_pan->bill_percentage) - $this->gold_returned - $this->nitrick_returned + ($this->p_loss * $this->pieces) + ($this->markup_value * $this->pieces)),3),
-            "fine_gold"=>round((($this->gold_send + ($this->pan_send * $rm_pan->bill_percentage) - $this->gold_returned - $this->nitrick_returned + ($this->p_loss * $this->pieces) + ($this->markup_value * $this->pieces))*($rm_gold->rm_gold/100)),3)
+            "fine_gold"=>round((($this->gold_send + ($this->pan_send * $rm_pan->bill_percentage) - $this->gold_returned - $this->nitrick_returned + ($this->p_loss * $this->pieces) + ($this->markup_value * $this->pieces))*($rm_gold->rm_gold/100)),3),
+            "total_lc"=>($this->price*$this->pieces)
         ];
     }
 }

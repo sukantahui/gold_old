@@ -50,43 +50,40 @@
   </div>
 
 
- 
 
 
 
-  
 
-  <button type="button" id="test-bat">
-    Test Bat
-  </button>
-  
+
+
+
   <form id="tag-form" class="form-inline">
     <div class="d-flex flex-row bd-highlight mb-3">
       <div class="p-2 bd-highlight col-3">
         <div class="form-group mx-sm-3 mb-2">
           <label for="inputPassword2" class="sr-only">JOB ID</label>
-          <input type="text" class="form-control" id="job-id" placeholder="JOB ID">
+          <input type="text" class="form-control" name="job_id" id="job-id" placeholder="JOB ID">
         </div>
       </div>
 
       <div class="p-2 bd-highlight col-3">
         <div class="form-group mx-sm-3 mb-2">
           <label for="inputPassword2" class="sr-only">ORDER ID</label>
-          <input type="text" class="form-control" id="order-id" placeholder="ORDER ID">
+          <input type="text" class="form-control" name="order_id" id="order-id" placeholder="ORDER ID">
         </div>
       </div>
 
       <div class="p-2 bd-highlight col-3">
         <div class="form-group mx-sm-3 mb-2">
           <label for="inputPassword2" class="sr-only">Model</label>
-          <input type="text" class="form-control" id="product-code" placeholder="MODEL">
+          <input type="text" class="form-control" name="product_code" id="product-code" placeholder="MODEL">
         </div>
       </div>
 
       <div class="p-2 bd-highlight col-3">
         <div class="form-group mx-sm-3 mb-2">
           <label for="inputPassword2" class="sr-only">SIZE</label>
-          <input type="text" class="form-control" id="product-size" placeholder="SIZE">
+          <input type="text" class="form-control" name="size" id="product-size" placeholder="SIZE">
         </div>
       </div>
     </div>
@@ -95,28 +92,70 @@
       <div class="p-2 bd-highlight col-3">
         <div class="form-group mx-sm-3 mb-2">
           <label for="inputPassword2" class="sr-only">Price Code</label>
-          <input type="text" class="form-control" name="price_code" id="price-code" placeholder="JOB ID">
+          <input type="text" class="form-control" name="price_code" id="price-code" placeholder="PRICE CODE">
         </div>
       </div>
 
-      <div class="p-2 bd-highlight col-3">
-        <div class="form-group mx-sm-3 mb-2">
-          <label for="inputPassword2" class="sr-only">PRICE</label>
-          <input type="text" class="form-control" name="price" id="price" placeholder="ORDER ID">
-        </div>
-      </div>
 
-      <div class="p-2 bd-highlight col-3">
-        <div class="form-group mx-sm-3 mb-2">
-          <label for="inputPassword2" class="sr-only">PIECES</label>
-          <input type="text" class="form-control" id="pieces" placeholder="MODEL">
-        </div>
-      </div>
+
+
 
       <div class="p-2 bd-highlight col-3">
         <div class="form-group mx-sm-3 mb-2">
           <label for="inputPassword2" class="sr-only">Status</label>
-          <input type="text" class="form-control" id="status" placeholder="SIZE">
+          <input type="text" class="form-control" name="staus" id="status" placeholder="SIZE">
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row bd-highlight mb-3">
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">Customer</label>
+          <input type="text" class="form-control" name="cust_name" id="cust-name" placeholder="CUST NAME">
+        </div>
+      </div>
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">Short Name</label>
+          <input type="text" class="form-control" name="cust_short_name" id="cust-short-name" placeholder="Short Name">
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row bd-highlight mb-3">
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">LC</label>
+          <input type="text" class="form-control" name="price" id="price" placeholder="LC">
+        </div>
+      </div>
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">Qty</label>
+          <input type="text" class="form-control" name="pieces" id="pieces" placeholder="PCs">
+        </div>
+      </div>
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">Total LC</label>
+          <input type="text" class="form-control" name="total_lc" id="total-lc" placeholder="TOTAL LC">
+        </div>
+      </div>
+      <div class="p-2 bd-highlight col-3">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">Gold(HM)</label>
+          <input type="text" class="form-control" name="gold_used" id="gold-used" placeholder="GOLD HM">
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------- -->
+    <div class="d-flex flex-row bd-highlight mb-3">
+      <div class="p-2 bd-highlight col-1">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="inputPassword2" class="sr-only">Brand</label>
+          <input type="text" class="form-control" value="BB" name="brand" id="brand" placeholder="LC">
         </div>
       </div>
     </div>

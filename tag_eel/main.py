@@ -44,8 +44,70 @@ def runBatch():
 @eel.expose
 def printTag(jobdata):
     #spliting serialize array to dictionary
-    d = dict(x.split("=") for x in jobdata.split("&"))
-    print(d)
-  
+    data = dict(x.split("=") for x in jobdata.split("&"))
+    f = open("tag.txt","w")
+    f.write("N")
+    f.write("\n")
+    f.write("R110,0")
+    f.write("\n")
+    f.write("q831")
+    f.write("\n")
+    f.write("S2")
+    f.write("\n")
+    f.write("D12")
+    f.write("\n")
+    f.write("OEb")
+    f.write("\n")
+    f.write("A395,85,2,1,1,1,N,")
+    f.write('"'+data['cust_short_name']+'"')
+    f.write("\n")
+    f.write('A245,85,2,1,1,1,N,"Of"')
+    f.write("\n")
+    f.write("B405,70,2,1,2,1,33,N,")
+    f.write('"'+data['job_id']+'"')
+    f.write("\n")
+    f.write("A405,33,2,2,1,1,N,")
+    f.write('"'+data['brand']+'"')
+    f.write("\n")
+    
+    f.write("A245,33,2,2,1,1,N,")
+    f.write('"'+data['job_id']+'"')
+    f.write("\n")
+    
+    f.write("A680,80,2,1,1,1,N,")
+    f.write('"'+data['product_code']+'-')
+    f.write(data['price_code']+'"')
+    f.write("\n")
+    
+    f.write('A602,80,2,1,1,1,N,"Size:"')
+    f.write("\n")
+    
+    f.write("A680,80,2,1,1,1,N,")
+    f.write('"'+data['size']+'"')
+    f.write("\n")
+    
+    f.write('A490,80,2,1,1,1,N,"Qty:"')
+    f.write("\n")
+    
+    f.write("A450,80,2,1,1,1,N,")
+    f.write('"'+data['pieces']+'"')
+    f.write("\n")
+    
+    f.write('A680,60,2,1,1,1,N,"Gold Weight:"')
+    f.write("\n")
+    
+    f.write("A550,60,2,1,1,1,N,")
+    f.write('"'+data['gold_used']+'"')
+    f.write("\n")
+    
+    f.write('A480,60,2,1,1,1,N,"HM"')
+    f.write("\n")
+    f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+    f.write("\n")
+    
+    f.close()
+    
+    print(data)
+    
 # Start the index.html file
 eel.start("index.html")
