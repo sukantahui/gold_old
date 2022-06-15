@@ -35,9 +35,18 @@
         $("#price-code").val(jsonobj.price_code);
         $("#price").val(jsonobj.price);
         $("#pieces").val(jsonobj.pieces);
-        $("#status").val(jsonobj.status);
+        $("#status").val(jsonobj.status_name);
           // $('#request-output').text(jsonobj.order_id);
       })
+    });
+
+    $("body").on("click", "#print-tag", ()=> {
+      // var data = $("#tag-form").json();  
+      var data =  $("#tag-form").serialize();
+      console.log(data);
+      eel.printTag(data)(function(){
+
+        });
     });
     
     // $("#fetch-request").click(function() { 

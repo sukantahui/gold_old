@@ -50,11 +50,7 @@
   </div>
 
 
-  <form class="form-inline">
-    
-    
-    
-  </form> 
+ 
 
 
 
@@ -63,7 +59,8 @@
   <button type="button" id="test-bat">
     Test Bat
   </button>
-  <form class="form-inline">
+  
+  <form id="tag-form" class="form-inline">
     <div class="d-flex flex-row bd-highlight mb-3">
       <div class="p-2 bd-highlight col-3">
         <div class="form-group mx-sm-3 mb-2">
@@ -98,14 +95,14 @@
       <div class="p-2 bd-highlight col-3">
         <div class="form-group mx-sm-3 mb-2">
           <label for="inputPassword2" class="sr-only">Price Code</label>
-          <input type="text" class="form-control" id="price-code" placeholder="JOB ID">
+          <input type="text" class="form-control" name="price_code" id="price-code" placeholder="JOB ID">
         </div>
       </div>
 
       <div class="p-2 bd-highlight col-3">
         <div class="form-group mx-sm-3 mb-2">
           <label for="inputPassword2" class="sr-only">PRICE</label>
-          <input type="text" class="form-control" id="price" placeholder="ORDER ID">
+          <input type="text" class="form-control" name="price" id="price" placeholder="ORDER ID">
         </div>
       </div>
 
@@ -124,6 +121,8 @@
       </div>
     </div>
   </form>
+  <hr>
+  <button type="button" id="print-tag" class="btn btn-primary mb-2">Print Tag</button>
 
   <script type="text/javascript" src="../eel.js"></script>
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

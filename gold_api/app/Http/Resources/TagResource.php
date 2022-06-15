@@ -71,7 +71,8 @@ class TagResource extends JsonResource
             "markup_value"=>$this->markup_value,
             "raw_gold"=>$rm_gold,
             "rm_pan"=>$rm_pan,
-            "gold_used"=>round(($this->gold_send + ($this->pan_send * 0.4) - $this->gold_returned - $this->nitrick_returned + ($this->p_loss * $this->pieces) + ($this->markup_value * $this->pieces)),3)
+            "gold_used"=>round(($this->gold_send + ($this->pan_send * $rm_pan->bill_percentage) - $this->gold_returned - $this->nitrick_returned + ($this->p_loss * $this->pieces) + ($this->markup_value * $this->pieces)),3),
+            "fine_gold"=>round((($this->gold_send + ($this->pan_send * $rm_pan->bill_percentage) - $this->gold_returned - $this->nitrick_returned + ($this->p_loss * $this->pieces) + ($this->markup_value * $this->pieces))*($rm_gold->rm_gold/100)),3)
         ];
     }
 }
