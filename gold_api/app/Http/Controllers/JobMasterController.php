@@ -26,8 +26,7 @@ class JobMasterController extends ApiController
         return $this->successResponse($result);
     }
     public function getDetailsForTag($job_id){
-        $result = JobMaster::findOrFail($job_id)
-            ->join('order_details','job_master.order_no','=','order_details.order_no')
+        $result = JobMaster::join('order_details','job_master.order_no','=','order_details.order_no')
             ->join('order_master','order_master.order_id','=','order_details.order_id')
             ->join('customer_master','order_master.cust_id','=','customer_master.cust_id')
             ->join('rm_master','rm_master.rm_ID','=','job_master.rm_id')
@@ -57,7 +56,8 @@ class JobMasterController extends ApiController
                 'job_master.product_wt',
                 'job_master.markup_value'
 
-            )->first();
+            )->whereJobId($job_id)->first();
+//        return $this->successResponse($result);
         return $this->successResponse(new TagResource($result));
     }
 

@@ -41,6 +41,7 @@ class TagResource extends JsonResource
      */
     public function toArray($request)
     {
+        //TRUNCATE(gold_send+(pan_send*.4)-gold_returned-nitrick_returned+(p_loss*pieces)+(markup_value*pieces),3) as gold_used
         $rm_gold=RawMaterial::find($this->rm_id);
         $rm_pan=RawMaterial::find($this->pan_id);
         return [
@@ -69,7 +70,8 @@ class TagResource extends JsonResource
             "product_wt"=>$this->product_wt,
             "markup_value"=>$this->markup_value,
             "raw_gold"=>$rm_gold,
-            "rm_pan"=>$rm_pan
+            "rm_pan"=>$rm_pan,
+            "gold_used"=>round(($this->gold_send + ($this->pan_send * 0.4) - $this->gold_returned - $this->nitrick_returned + ($this->p_loss * $this->pieces) + ($this->markup_value * $this->pieces)),3)
         ];
     }
 }
