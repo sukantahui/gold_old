@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\RawMaterial;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -28,6 +29,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed nitrick_returned
  * @property mixed product_wt
  * @property mixed markup_value
+ * @property mixed pan_id
  */
 class TagResource extends JsonResource
 {
@@ -39,30 +41,35 @@ class TagResource extends JsonResource
      */
     public function toArray($request)
     {
+        $rm_gold=RawMaterial::find($this->rm_id);
+        $rm_pan=RawMaterial::find($this->pan_id);
         return [
             "job_id"=>$this->job_id,
-		"cust_id"=>$this->cust_id,
-		"cust_name"=>$this->cust_name,
-		"status"=>$this->status,
-		"status_name"=>$this->status_name,
-		"order_id"=>$this->order_id,
-		"product_code"=>$this->product_code,
-		"rm_id"=>$this->rm_id,
-		"rm_name"=>$this->rm_name,
-		"product_size"=>$this->product_size,
-		"pieces"=>$this->pieces,
-		"p_loss"=>$this->p_loss,
-		"price"=>$this->price,
-		"price_code"=>$this->price_code,
-		"dal_send"=>$this->dal_send,
-		"dal_returned"=>$this->dal_returned,
-		"gold_send"=>$this->gold_send,
-		"gold_returned"=>$this->gold_returned,
-		"pan_send"=>$this->pan_send,
-		"pan_returned"=>$this->pan_returned,
-		"nitrick_returned"=>$this->nitrick_returned,
-		"product_wt"=>$this->product_wt,
-		"markup_value"=>$this->markup_value
+            "cust_id"=>$this->cust_id,
+            "cust_name"=>$this->cust_name,
+            "status"=>$this->status,
+            "status_name"=>$this->status_name,
+            "order_id"=>$this->order_id,
+            "product_code"=>$this->product_code,
+            "rm_id"=>$this->rm_id,
+            "rm_name"=>$this->rm_name,
+            "product_size"=>$this->product_size,
+            "pieces"=>$this->pieces,
+            "p_loss"=>$this->p_loss,
+            "price"=>$this->price,
+            "price_code"=>$this->price_code,
+            "dal_send"=>$this->dal_send,
+            "dal_returned"=>$this->dal_returned,
+            "gold_send"=>$this->gold_send,
+            "gold_returned"=>$this->gold_returned,
+            "pan_id"=>$this->pan_id,
+            "pan_send"=>$this->pan_send,
+            "pan_returned"=>$this->pan_returned,
+            "nitrick_returned"=>$this->nitrick_returned,
+            "product_wt"=>$this->product_wt,
+            "markup_value"=>$this->markup_value,
+            "raw_gold"=>$rm_gold,
+            "rm_pan"=>$rm_pan
         ];
     }
 }

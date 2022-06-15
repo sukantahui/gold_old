@@ -51,6 +51,7 @@ class JobMasterController extends ApiController
                 'job_master.gold_send',
                 'job_master.gold_returned',
                 'job_master.pan_send',
+                'job_master.pan_id',
                 'job_master.pan_returned',
                 'job_master.nitrick_returned',
                 'job_master.product_wt',
