@@ -1,10 +1,21 @@
 
   
-  $(document).ready(function() {
+  $(function() {
 
+    eel.fetch_ip()(function(output){
+      $('#ip-address').val(output);
+    })
+    
     $("body").on("click", "#generate-random", ()=> {
       eel.random_python()((number)=>{
         $('.random_number').text(number);
+      });
+    });
+
+    $("body").on("click", "#update-ip", ()=> {
+      var ip=$('#ip-address').val();
+      eel.update_ip(ip)((number)=>{
+        
       });
     });
 

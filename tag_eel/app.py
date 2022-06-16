@@ -1,6 +1,7 @@
 import eel
 import requests
 import os
+import json
 from random import randint
 
   
@@ -20,17 +21,28 @@ def random_python():
 # using the eel.expose command  
 @eel.expose  
 # defining the function for addition of two numbers  
-def add(data_1, data_2):  
-    int1 = int(data_1)  
-    int2 = int(data_2)  
-    output = int1 + int2  
-    return output  
+def fetch_ip():  
+    with open('project.json', 'r') as f:
+        data = json.load(f)
+    print(data['ip'])    
+    return data['ip'] 
+
+@eel.expose  
+# defining the function for addition of two numbers  
+def update_ip(new_ip):  
+    print("updating ip")
+    with open('project.json', 'r') as f:
+        data = json.load(f)   
+    data['ip']=new_ip     
+    with open("project.json", "w") as jsonFile:
+        json.dump(data, jsonFile)   
 
 
 @eel.expose
 def fetchTagDetails(jobId):
     print(jobId)
-    response = requests.get("http://192.168.1.179/gold_old/gold_api/public/api/dev/tag/job/%s" % (jobId))
+    ip="127.0.0.1"
+    response = requests.get("http://%s/gold_old/gold_api/public/api/dev/tag/job/%s" % (ip,jobId))
     if response.status_code==200:
         jobDetails = response.json().get('data')
         # create_text_file("testing file")
@@ -82,7 +94,7 @@ def printTag(jobdata):
     f.write('A602,80,2,1,1,1,N,"Size:"')
     f.write("\n")
     
-    f.write("A549,80,2,1,1,1,N")
+    f.write("A549,80,2,1,1,1,N,")
     f.write('"'+data['size']+'"')
     f.write("\n")
     
@@ -136,7 +148,7 @@ def printTag(jobdata):
     
     
     f.close()
-    os.system('print_tag.bat')
+    # os.system('print_tag.bat')
     
     # print(data)
     
