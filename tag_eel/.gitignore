@@ -2,12 +2,10 @@
 
 .venv
 ./tag/.venv
-./tag_eel/.venv
-./tag_eel/__pycache__
-./tag_eel/build/*
-./tag_eel/build
-/build
-./tag_eel/dist
+.venv
+./__pycache__
+./build/*
+./dist
 __pycache__
 
 # compiled output
@@ -63,14 +61,3 @@ testem.log
 .DS_Store
 Thumbs.db
 package-lock.json
-tag_eel/build/
-tag_eel/build/app/base_library.zip
-tag_eel/build/app/Analysis-00.toc
-tag_eel/build/app/app.exe.manifest
-tag_eel/build/app/app.pkg
-tag_eel/build/app/EXE-00.toc
-tag_eel/build/app/PKG-00.toc
-tag_eel/build/app/PYZ-00.pyz
-tag_eel/build/app/PYZ-00.toc
-tag_eel/build/app/warn-app.txt
-tag_eel/build/app/xref-app.html
