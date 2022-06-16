@@ -30,10 +30,10 @@ def add(data_1, data_2):
 @eel.expose
 def fetchTagDetails(jobId):
     print(jobId)
-    response = requests.get("http://127.0.0.1/gold_old/gold_api/public/api/dev/tag/job/%s" % (jobId))
+    response = requests.get("http://192.168.1.179/gold_old/gold_api/public/api/dev/tag/job/%s" % (jobId))
     if response.status_code==200:
         jobDetails = response.json().get('data')
-        create_text_file("testing file")
+        # create_text_file("testing file")
         print(jobDetails)
     return jobDetails
 
@@ -82,7 +82,7 @@ def printTag(jobdata):
     f.write('A602,80,2,1,1,1,N,"Size:"')
     f.write("\n")
     
-    f.write("A680,80,2,1,1,1,N,")
+    f.write("A549,80,2,1,1,1,N")
     f.write('"'+data['size']+'"')
     f.write("\n")
     
@@ -123,6 +123,9 @@ def printTag(jobdata):
     f.write('A535,20,2,1,1,1,N,')
     f.write('"'+data['pieces']+'"')
     f.write("\n")
+
+    f.write('A515,20,2,1,1,1,N,"="')
+    f.write("\n")
     
     f.write("A505,20,2,1,1,1,N,")
     f.write('"'+data['total_lc']+'"')
@@ -133,8 +136,9 @@ def printTag(jobdata):
     
     
     f.close()
+    os.system('print_tag.bat')
     
-    print(data)
+    # print(data)
     
 # Start the index.html file
 eel.start("index.html")
