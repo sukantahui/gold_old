@@ -105,6 +105,33 @@ def printTag(jobdata):
     f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
     f.write("\n")
     
+    f.write("A540,40,2,1,1,1,N,")
+    f.write('"'+data['product_wt']+'"')
+    f.write("\n")
+    
+    f.write("\n")
+    f.write('A680,20,2,1,1,1,N,"Charge:"')
+    f.write("\n")
+    
+    f.write("\n")
+    f.write("A600,20,2,1,1,1,N,")
+    f.write('"'+data['price']+'"')
+    f.write("\n")
+    f.write('A555,20,2,1,1,1,N,"X"')
+    f.write("\n")
+    
+    f.write('A535,20,2,1,1,1,N,')
+    f.write('"'+data['pieces']+'"')
+    f.write("\n")
+    
+    f.write("A505,20,2,1,1,1,N,")
+    f.write('"'+data['total_lc']+'"')
+    f.write("\n")
+    
+    f.write("P1")
+    f.write("\n")
+    
+    
     f.close()
     
     print(data)

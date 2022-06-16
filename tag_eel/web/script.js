@@ -40,6 +40,7 @@
         $("#cust-short-name").val(jsonobj.short_name);
         $("#total-lc").val(jsonobj.total_lc);
         $("#gold-used").val(jsonobj.gold_used);
+        $("#product-wt").val(jsonobj.product_wt);
           // $('#request-output').text(jsonobj.order_id);
       })
     });
