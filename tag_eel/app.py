@@ -6,7 +6,6 @@ from random import randint
 
   
 eel.init("web")  
-
 def create_text_file(data):
     f = open("tag.txt","w")
     f.write(data)
@@ -24,7 +23,8 @@ def random_python():
 def fetch_ip():  
     with open('project.json', 'r') as f:
         data = json.load(f)
-    print(data['ip'])    
+    global current_ip
+    current_ip = data['ip']      
     return data['ip'] 
 
 @eel.expose  
@@ -36,13 +36,13 @@ def update_ip(new_ip):
     data['ip']=new_ip     
     with open("project.json", "w") as jsonFile:
         json.dump(data, jsonFile)   
+    current_ip=new_ip    
 
 
 @eel.expose
 def fetchTagDetails(jobId):
     print(jobId)
-    ip="127.0.0.1"
-    response = requests.get("http://%s/gold_old/gold_api/public/api/dev/tag/job/%s" % (ip,jobId))
+    response = requests.get("http://%s/gold_old/gold_api/public/api/dev/tag/job/%s" % (current_ip,jobId))
     if response.status_code==200:
         jobDetails = response.json().get('data')
         # create_text_file("testing file")
@@ -148,7 +148,7 @@ def printTag(jobdata):
     
     
     f.close()
-    # os.system('print_tag.bat')
+    os.system('print_tag.bat')
     
     # print(data)
     
