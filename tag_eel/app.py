@@ -41,12 +41,10 @@ def update_ip(new_ip):
 
 @eel.expose
 def fetchTagDetails(jobId):
-    print(jobId)
     response = requests.get("http://%s/gold_old/gold_api/public/api/dev/tag/job/%s" % (current_ip,jobId))
     if response.status_code==200:
         jobDetails = response.json().get('data')
         # create_text_file("testing file")
-        print(jobDetails)
     return jobDetails
 
 @eel.expose
