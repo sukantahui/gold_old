@@ -3,11 +3,16 @@
 .venv
 ./tag/.venv
 ./tag_eel/.venv
+./tag_eel_readymade/.venv
+./tag_eel_readymade/.venv
 ./tag_eel/__pycache__
 ./tag_eel/build/*
+./tag_eel_readymade/build/*
 ./tag_eel/build
+./tag_eel_readymade/build
 /build
 ./tag_eel/dist
+./tag_eel_readymade/dist
 __pycache__
 
 # compiled output
