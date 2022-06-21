@@ -2,8 +2,8 @@
   
   $(function() {
 
-    eel.fetch_ip()(function(output){
-      $('#ip-address').val(output);
+    eel.fetch_tag()(function(output){
+      $('#tag').val(output);
     })
     
     $("body").on("click", "#generate-random", ()=> {

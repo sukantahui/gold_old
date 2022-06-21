@@ -20,12 +20,12 @@ def random_python():
 # using the eel.expose command  
 @eel.expose  
 # defining the function for addition of two numbers  
-def fetch_ip():  
+def fetch_tag():  
     with open('project.json', 'r') as f:
         data = json.load(f)
-    global current_ip
-    current_ip = data['ip']      
-    return data['ip'] 
+    global tag_value
+    tag_value = data['tag']      
+    return data['tag'] 
 
 @eel.expose  
 # defining the function for addition of two numbers  
@@ -36,12 +36,12 @@ def update_ip(new_ip):
     data['ip']=new_ip     
     with open("project.json", "w") as jsonFile:
         json.dump(data, jsonFile)   
-    current_ip=new_ip    
+    tag_value=new_ip    
 
 
 @eel.expose
 def fetchTagDetails(jobId):
-    response = requests.get("http://%s/gold_old/gold_api/public/api/dev/tag/job/%s" % (current_ip,jobId))
+    response = requests.get("http://%s/gold_old/gold_api/public/api/dev/tag/job/%s" % (tag_value,jobId))
     if response.status_code==200:
         jobDetails = response.json().get('data')
         # create_text_file("testing file")
@@ -147,6 +147,7 @@ def printTag(jobdata):
     
     f.close()
     os.system('print_tag.bat')
+    tag_value+=1
     
     # print(data)
     
