@@ -82,4 +82,15 @@
        console.log('running batch');
       })
     });
+
+    // readymade codes
+    $("body").on("change", "#price-code", ()=> {
+      // var data = $("#tag-form").json();  
+      console.log();
+      var data=$('#price-code').val();
+      console.log(data);
+      eel.get_price_ploss(data)((response)=>{
+        console.log(response);
+      });
+    });
 });

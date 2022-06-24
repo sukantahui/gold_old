@@ -22,10 +22,11 @@ def random_python():
 # defining the function for addition of two numbers  
 def fetch_tag():  
     with open('project.json', 'r') as f:
-        data = json.load(f)
+        global project_data
+        project_data = json.load(f)
     global tag_value
-    tag_value = data['tag']      
-    return data['tag'] 
+    tag_value = project_data['tag']      
+    return project_data['tag'] 
 
 @eel.expose  
 # defining the function for addition of two numbers  
@@ -150,6 +151,21 @@ def printTag(jobdata):
     tag_value+=1
     
     # print(data)
+
+
+
+
+# for readymade
+@eel.expose
+def get_price_ploss(price_code):
+    print(price_code)
+    return "response"
+
     
 # Start the index.html file
 eel.start("index.html")
+
+
+
+
+
