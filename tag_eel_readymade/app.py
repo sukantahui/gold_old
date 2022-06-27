@@ -175,7 +175,17 @@ def new_tag(tag_number):
     with open("project.json", "w") as jsonFile:
         json.dump(data, jsonFile)   
     return data['current_tag']
-    
+
+@eel.expose
+def increase_tag(tag_number):
+    with open('project.json', 'r') as f:
+        data = json.load(f)
+    current_tag= data['current_tag']   
+    current_tag['tag_number']= tag_number+1   
+    data['current_tag'] = current_tag
+    with open("project.json", "w") as jsonFile:
+        json.dump(data, jsonFile)   
+    return data['current_tag']    
 
     
 # Start the index.html file

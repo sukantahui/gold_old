@@ -107,11 +107,25 @@
       tag_number = parseInt($("#tag").val())
       eel.new_tag(tag_number)((response)=>{
         $("#tag").val(response.tag_number)
+        $('#product-code').val("")
+        $('#pieces').val("")
+        $('#gold-used').val("")
+        $('#fine-gold').val("")
+        $('#gross-weight').val("")
+        $('#size').val("")
+        $('#total-lc').val("")
       });
     });
 
     $("body").on("change", "#gold-used", ()=> {
-      fineGold = parseFloat($("#gold-used").val()) * 92.0/100
+      fineGold = parseFloat((parseFloat($("#gold-used").val()) * 92.0/100)).toFixed(3);
       $("#fine-gold").val(fineGold)
+    });
+
+    $("body").on("click", "#next-tag", ()=> {
+      tag_number = parseInt($("#tag").val())
+      eel.increase_tag(tag_number)((response)=>{
+        $("#tag").val(response.tag_number)
+      });
     });
 });
