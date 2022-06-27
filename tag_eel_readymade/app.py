@@ -56,6 +56,7 @@ def runBatch():
 def printTag(jobdata):
     #spliting serialize array to dictionary
     data = dict(x.split("=") for x in jobdata.split("&"))
+    print(data)
     f = open("tag.txt","w")
     f.write("N")
     f.write("\n")
@@ -75,14 +76,14 @@ def printTag(jobdata):
     f.write('A245,85,2,1,1,1,N,"Of"')
     f.write("\n")
     f.write("B405,70,2,1,2,1,33,N,")
-    f.write('"'+data['job_id']+'"')
+    f.write('"'+data['tag_prefix']+data['tag']+'"')
     f.write("\n")
     f.write("A405,33,2,2,1,1,N,")
     f.write('"'+data['brand']+'"')
     f.write("\n")
     
     f.write("A245,33,2,2,1,1,N,")
-    f.write('"'+data['job_id']+'"')
+    f.write('"'+data['tag_prefix']+data['tag']+'"')
     f.write("\n")
     
     f.write("A680,80,2,1,1,1,N,")
@@ -117,7 +118,7 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("A540,40,2,1,1,1,N,")
-    f.write('"'+data['product_wt']+'"')
+    f.write('"'+data['gross_weight']+'"')
     f.write("\n")
     
     f.write("\n")
@@ -126,7 +127,7 @@ def printTag(jobdata):
     
     f.write("\n")
     f.write("A600,20,2,1,1,1,N,")
-    f.write('"'+data['price']+'"')
+    f.write('"'+data['lc']+'"')
     f.write("\n")
     f.write('A555,20,2,1,1,1,N,"X"')
     f.write("\n")
@@ -148,7 +149,7 @@ def printTag(jobdata):
     
     f.close()
     os.system('print_tag.bat')
-    tag_value+=1
+    
     
     # print(data)
 
