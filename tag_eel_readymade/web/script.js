@@ -102,4 +102,11 @@
       $("#total-ploss").val(parseFloat($("#ploss").val()) * parseInt($("#pieces").val()));
       $("#total-lc").val(parseInt($("#lc").val()) * parseInt($("#pieces").val()));
     });
+
+    $("body").on("click", "#new-tag", ()=> {
+      tag_number = parseInt($("#tag").val())
+      eel.new_tag(tag_number)((response)=>{
+        $("#tag").val(response.tag_number)
+      });
+    });
 });
