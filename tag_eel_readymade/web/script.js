@@ -90,7 +90,15 @@
       var data=$('#price-code').val();
       console.log(data);
       eel.get_price_ploss(data)((response)=>{
-        console.log(response);
+        $("#ploss").val(response.ploss);
+        $("#lc").val(response.price);
+        $("#total-ploss").val(response.ploss * parseInt($("#pieces").val()));
+        $("#total-lc").val(response.price * parseInt($("#pieces").val()));
       });
+    });
+    
+    $("body").on("change", "#pieces", ()=> {
+      $("#total-ploss").val(parseFloat($("#ploss").val()) * parseInt($("#pieces").val()));
+      $("#total-lc").val(parseInt($("#lc").val()) * parseInt($("#pieces").val()));
     });
 });

@@ -158,12 +158,10 @@ def printTag(jobdata):
 # for readymade
 @eel.expose
 def get_price_ploss(price_code):
-    print(price_code)
     with open('project.json', 'r') as f:
         data = json.load(f)   
     price_list=data['price_list']  
-    print(price_list[price_code]) 
-    return price_list
+    return price_list[price_code]
 
     
 # Start the index.html file
