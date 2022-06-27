@@ -2,9 +2,10 @@
   
   $(function() {
 
-    eel.fetch_tag()(function(output){
-      $('#tag').val(output);
-    })
+    eel.fetch_tag()(function(response){
+      $('#tag').val(response.tag_number);
+      $('#tag-prefix').val(response.tag_prefix);
+    });
     
     $("body").on("click", "#generate-random", ()=> {
       eel.random_python()((number)=>{
@@ -96,7 +97,7 @@
         $("#total-lc").val(response.price * parseInt($("#pieces").val()));
       });
     });
-    
+
     $("body").on("change", "#pieces", ()=> {
       $("#total-ploss").val(parseFloat($("#ploss").val()) * parseInt($("#pieces").val()));
       $("#total-lc").val(parseInt($("#lc").val()) * parseInt($("#pieces").val()));

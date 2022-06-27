@@ -24,9 +24,9 @@ def fetch_tag():
     with open('project.json', 'r') as f:
         global project_data
         project_data = json.load(f)
-    global tag_value
-    tag_value = project_data['tag']      
-    return project_data['tag'] 
+    global current_tag
+    current_tag = project_data['current_tag']      
+    return current_tag 
 
 @eel.expose  
 # defining the function for addition of two numbers  
@@ -162,6 +162,11 @@ def get_price_ploss(price_code):
         data = json.load(f)   
     price_list=data['price_list']  
     return price_list[price_code]
+
+@eel.expose
+def new_tag(tag_number):
+    print(tag_number)
+    
 
     
 # Start the index.html file

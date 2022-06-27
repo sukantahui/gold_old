@@ -1,5 +1,8 @@
 {
-    "tag": "100",
+    "current_tag": {
+        "tag_prefix": "B",
+        "tag_number": "100"
+    },
     "size": "medium",
     "toppings": [
         "mushrooms",
