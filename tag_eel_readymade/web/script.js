@@ -109,4 +109,9 @@
         $("#tag").val(response.tag_number)
       });
     });
+
+    $("body").on("change", "#gold-used", ()=> {
+      fineGold = parseFloat($("#gold-used").val()) * 92.0/100
+      $("#fine-gold").val(fineGold)
+    });
 });
