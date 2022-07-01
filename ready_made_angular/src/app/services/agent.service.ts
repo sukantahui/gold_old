@@ -32,7 +32,13 @@ export class AgentService {
 
     }));
   }
-
+  saveAgentSalaryByYearAndMonth(salaryYear: number, salaryMonth: number){
+    return this.http.post<any>(this.commonService.getAPI() + '/agentSalary/' + salaryYear + '/' + salaryMonth, {})
+        .pipe(catchError(this.errorService.serverError), tap(((response: {success: number, data: any }) => {
+          // this.agentData.unshift(response.data);
+          // this.agentSub.next([...this.agentData]);
+        })));
+  }
   saveAgentSalaryWithdraw(SalaryWithdrawalData: any){
     return this.http.post<any>(this.commonService.getAPI() + '/agentSalaryWithdraw', SalaryWithdrawalData)
         .pipe(catchError(this.errorService.serverError), tap(((response: {success: number, data: any }) => {

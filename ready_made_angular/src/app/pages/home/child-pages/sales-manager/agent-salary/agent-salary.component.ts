@@ -49,4 +49,10 @@ export class AgentSalaryComponent implements OnInit {
         }, 0);
       });
     }
+    saveAgentSalary(){
+      // tslint:disable-next-line:max-line-length
+      this.agentService.saveAgentSalaryByYearAndMonth(this.agentSalarySearchForm.get('year').value, this.agentSalarySearchForm.get('month').value).subscribe((response: any) => {
+          console.log(response);
+      });
+    }
 }

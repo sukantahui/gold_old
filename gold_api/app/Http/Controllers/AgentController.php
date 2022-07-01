@@ -76,7 +76,7 @@ class AgentController extends ApiController
        ,get_agent_salary_year_and_month(agent_id, $year, $month)
        ,get_agent_ta_year_and_month(agent_id, $year, $month)
        ,get_agent_commission_year_and_month(agent_id, $year, $month)
-    FROM agent_master");
+    FROM agent_master where show_in_commission=1");
         if($result){
             return $this->successResponse($result);
         }else{
