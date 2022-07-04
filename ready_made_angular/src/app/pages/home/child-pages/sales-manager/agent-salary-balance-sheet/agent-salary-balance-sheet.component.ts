@@ -13,7 +13,7 @@ export class AgentSalaryBalanceSheetComponent implements OnInit {
       console.log(response);
       // this.agents = response.agentSalaryBalanceSheetResolver.agents.data;
     });
-    
+
   }
 
   ngOnInit(): void {
