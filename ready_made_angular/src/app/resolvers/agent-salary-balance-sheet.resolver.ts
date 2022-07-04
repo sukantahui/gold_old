@@ -5,13 +5,15 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import {forkJoin, Observable, of} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {AgentService} from '../services/agent.service';
+import {map} from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class AgentSalaryWithdrawResolver implements Resolve<any> {
+// @ts-ignore
+export class AgentSalaryBalanceSheetResolver implements Resolve<any> {
   constructor(private agentService: AgentService){
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {

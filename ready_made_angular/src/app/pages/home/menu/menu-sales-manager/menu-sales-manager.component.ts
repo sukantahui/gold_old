@@ -94,6 +94,11 @@ export class MenuSalesManagerComponent implements OnInit {
               displayName: 'Agent Salary',
               iconName: 'person',
               route: 'AgentSalary',
+            },
+            {
+              displayName: 'Salary Balance',
+              iconName: 'person',
+              route: 'AgentSalaryBalanceSheet',
             }
           ]
         },

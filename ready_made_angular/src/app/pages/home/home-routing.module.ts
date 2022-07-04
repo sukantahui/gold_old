@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import {AgentSalaryWithdrawResolver} from '../../resolvers/agent-salary-withdraw.resolver';
+import {AgentSalaryBalanceSheetResolver} from '../../resolvers/agent-salary-balance-sheet.resolver';
 
 // @ts-ignore
 // @ts-ignore
@@ -102,6 +103,10 @@ const routes: Routes = [
                                 { path: 'AgentSalaryWithdraw', loadChildren: () => import('./child-pages/sales-manager/agent-salary-withdraw/agent-salary-withdraw.module')
                                         .then(m => m.AgentSalaryWithdrawModule),
                                     resolve: {agentSalaryWithdrawResolver: AgentSalaryWithdrawResolver}
+                                },
+                                { path: 'AgentSalaryBalanceSheet', loadChildren: () => import('./child-pages/sales-manager/agent-salary-balance-sheet/agent-salary-balance-sheet.module')
+                                        .then(m => m.AgentSalaryBalanceSheetModule),
+                                        resolve: {agentSalaryBalanceSheetResolver: AgentSalaryBalanceSheetResolver}
                                 }
                             ]
                           },
