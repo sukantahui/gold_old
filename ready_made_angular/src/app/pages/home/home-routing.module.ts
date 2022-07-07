@@ -107,6 +107,10 @@ const routes: Routes = [
                                 { path: 'AgentSalaryBalanceSheet', loadChildren: () => import('./child-pages/sales-manager/agent-salary-balance-sheet/agent-salary-balance-sheet.module')
                                         .then(m => m.AgentSalaryBalanceSheetModule),
                                         resolve: {agentSalaryBalanceSheetResolver: AgentSalaryBalanceSheetResolver}
+                                },
+                                { path: 'SalaryHolder', loadChildren: () => import('./child-pages/sales-manager/salary-holder/salary-holder.module')
+                                        .then(m => m.SalaryHolderModule),
+                                    resolve: {agentSalaryBalanceSheetResolver: AgentSalaryBalanceSheetResolver}
                                 }
                             ]
                           },

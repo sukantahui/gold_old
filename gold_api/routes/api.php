@@ -11,6 +11,7 @@ use App\Http\Controllers\PriceMasterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SalaryHolderController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Models\Customer;
@@ -156,8 +157,15 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/agentSalaryWithdraw',[AgentController::class,'getAgentSalaryWithdraw']);
     Route::get('/agentSalaryWithdraw/{agentId}/{year}/{month}',[AgentController::class,'getAgentSalaryWithdrawByAgentIdYearMont']);
 
+    //salary holders
+    Route::get('/salaryHolders',[SalaryHolderController::class,'getAgentSalaryHolders']);
 
 });
+
+
+
+
+
 
 
 Route::group(array('prefix' => 'dev'), function() {

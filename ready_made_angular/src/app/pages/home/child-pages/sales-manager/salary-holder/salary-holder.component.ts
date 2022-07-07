@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {environment} from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-salary-holder',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./salary-holder.component.scss']
 })
 export class SalaryHolderComponent implements OnInit {
-
+  isProduction = environment.production;
   constructor() { }
 
   ngOnInit(): void {
