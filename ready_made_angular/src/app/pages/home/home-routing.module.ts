@@ -36,6 +36,11 @@ const routes: Routes = [
                                         .then(mod => mod.SalesManagerModule)
                                 },
                                 {
+                                    path: 'Manager',
+                                    loadChildren: () => import('./child-pages/manager/manager.module')
+                                        .then(mod => mod.ManagerModule)
+                                },
+                                {
 
                                     path: 'OfficeStaff',
                                     loadChildren: () => import('./child-pages/office-staff/office-staff.module')

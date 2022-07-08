@@ -59,6 +59,15 @@ export class AuthService {
       return false;
     }
   }
+
+  isManager(): boolean{
+    if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isManager){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   isManagerSales(): boolean{
     if (this.userBehaviorSubject.value && this.userBehaviorSubject.value.isManagerSales){
       return true;
@@ -101,7 +110,6 @@ export class AuthService {
     }else{
       // tslint:disable-next-line:max-line-length
       this.http.get(this.commonService.getAPI() + '/me').subscribe(response => {
-        console.log(response);
       });
       const loadedUser = new User(userData.uniqueId, userData.userName, userData._authKey, userData.userTypeId, userData.userTypeName);
       if (loadedUser.authKey){

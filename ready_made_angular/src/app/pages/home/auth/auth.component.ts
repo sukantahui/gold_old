@@ -47,6 +47,10 @@ export class AuthComponent implements OnInit {
                 if (this.authService.isOwner()){
                     this.router.navigate(['/owner']).then(r => {});
                 }
+                if (this.authService.isManager()){
+                    console.log('I am manager');
+                    this.router.navigate(['/Manager']).then(r => {});
+                }
                 if (this.authService.isManagerSales){
                     this.router.navigate(['/SalesManager']).then(r => {});
                 }
