@@ -11,6 +11,7 @@ import {MenuDeveloperModule} from './menu-developer/menu-developer.module';
 import {MenuSalesManagerModule} from './menu-sales-manager/menu-sales-manager.module';
 import {MenuOfficeStaffModule} from "./menu-office-staff/menu-office-staff.module";
 import {MenuPettyCashModule} from './menu-petty-cash/menu-petty-cash.module';
+import {MenuManagerModule} from './menu-manager/menu-manager.module';
 
 
 
@@ -30,7 +31,8 @@ import {MenuPettyCashModule} from './menu-petty-cash/menu-petty-cash.module';
         MenuDeveloperModule,
         MenuSalesManagerModule,
         MenuOfficeStaffModule,
-        MenuPettyCashModule
+        MenuPettyCashModule,
+        MenuManagerModule
     ]
 })
 export class MenuModule { }

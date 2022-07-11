@@ -27,27 +27,29 @@ export class User{
   }
   get isOwner(){
     // tslint:disable-next-line:triple-equals
-    return this.userTypeId == 1;
+    return this.userTypeId === 1;
   }
   get isManager(){
     // tslint:disable-next-line:triple-equals
-    return this.userTypeId == 2;
+    // console.log("User type id in isManager: ", this.userTypeId,(this.userTypeId === 2));
+    return this.userTypeId === 2;
   }
   get isManagerSales(){
     // tslint:disable-next-line:triple-equals
-    return this.userTypeId == 3;
+    // console.log("User type id in isManagerSales: ", this.userTypeId, (this.userTypeId === 3));
+    return this.userTypeId === 3;
   }
   get isManagerAccounts(){
     // tslint:disable-next-line:triple-equals
-    return this.userTypeId == 4;
+    return this.userTypeId === 4;
   }
   get isOfficeStaff(){
     // tslint:disable-next-line:triple-equals
-    return this.userTypeId == 5;
+    return this.userTypeId === 5;
   }
   get isWorker(){
     // tslint:disable-next-line:triple-equals
-    return this.userTypeId == 6;
+    return this.userTypeId === 6;
   }
   get isDeveloper(){
     // tslint:disable-next-line:triple-equals
@@ -55,11 +57,11 @@ export class User{
   }
   get isRefinish(){
     // tslint:disable-next-line:triple-equals
-    return this.userTypeId == 9;
+    return this.userTypeId === 9;
   }
   get isPettyCash(){
     // tslint:disable-next-line:triple-equals
-    return this.userTypeId == 10;
+    return this.userTypeId === 10;
   }
 
 }

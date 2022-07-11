@@ -4,6 +4,7 @@
     <app-menu-owner *ngIf="authService.isOwner()"></app-menu-owner>
     <app-menu-developer *ngIf="authService.isDeveloper()"></app-menu-developer>
     <app-menu-sales-manager *ngIf="authService.isManagerSales()"></app-menu-sales-manager>
+    <app-menu-manager *ngIf="authService.isManager()"></app-menu-manager>
     <app-menu-office-staff *ngIf="authService.isOfficeStaff()"></app-menu-office-staff>
     <app-menu-petty-cash *ngIf="authService.isPettyCash()"></app-menu-petty-cash>
 
