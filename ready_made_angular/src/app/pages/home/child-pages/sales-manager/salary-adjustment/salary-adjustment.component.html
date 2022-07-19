@@ -1,4 +1,4 @@
-<div class="d-flex flex-column" style="height: 100vh;">
+<div class="d-flex flex-column" style="min-height: 100vh; margin-bottom: 50px;">
     <div class="p-2 text-center" style="background-color: rgb(77, 68, 68)">I am Header, i will stay here</div>
 
     <div class="p-2">
@@ -25,8 +25,29 @@
                 </form>
             </div>
             <!-- Right -->
-            <div class="bloc_2 p-2 col-xl-8" style="background-color: antiquewhite">
-
+            <div class="bloc_2 p-2 col-xl-8" style="background-color: antiquewhite;">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let salaryHolder of salaryHolders">
+                        <th scope="row">{{salaryHolder.id}}</th>
+                        <td>{{salaryHolder.salaryHolderName}}</td>
+<!--                        <td>{{salaryHolder.salary}}</td>-->
+                        <td>
+                            <input type="number" [(ngModel)]="salaryHolder.deduction" class="form-control"  aria-describedby="emailHelp" placeholder="Enter email">
+                        </td>
+                        <td>
+                            <input type="number" [(ngModel)]="salaryHolder.salary" class="form-control"  aria-describedby="emailHelp" placeholder="Enter email">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -34,8 +55,9 @@
     <div class="mt-auto p-2 text-center" style="background-color: rgb(77, 68, 68)">I am footer, i will stay here</div>
 </div>
 
-<div *ngIf="true && !isProduction" id="developer-div">
-    <div class="outerContainer">
+
+<div *ngIf="true && !isProduction" id="developer-div" class="d-flex flex-column" style="min-height: 100vh; margin-bottom: 50px;">
+    <div class="outerContainer" style="margin-top: 50px; border: 1px solid black;">
         <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
             <div fxLayoutAlign="center center">
                 <pre>

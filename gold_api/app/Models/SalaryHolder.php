@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SalaryHolder extends Model
 {
     use HasFactory;
+    public function getDeductionAttribute()
+    {
+        return 0;
+    }
+
 }
