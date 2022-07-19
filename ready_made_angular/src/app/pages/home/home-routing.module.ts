@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import {AgentSalaryWithdrawResolver} from '../../resolvers/agent-salary-withdraw.resolver';
 import {AgentSalaryBalanceSheetResolver} from '../../resolvers/agent-salary-balance-sheet.resolver';
+import {SalaryAdjustmentResolver} from '../../resolvers/salary-adjustment.resolver';
 
 // @ts-ignore
 // @ts-ignore
@@ -116,7 +117,11 @@ const routes: Routes = [
                                 { path: 'SalaryHolder', loadChildren: () => import('./child-pages/sales-manager/salary-holder/salary-holder.module')
                                         .then(m => m.SalaryHolderModule),
                                     resolve: {agentSalaryBalanceSheetResolver: AgentSalaryBalanceSheetResolver}
-                                }
+                                },
+                                { path: 'SalaryAdjustment', loadChildren: () => import('./child-pages/sales-manager/salary-adjustment/salary-adjustment.module')
+                                        .then(m => m.SalaryAdjustmentModule),
+                                    resolve: {salaryAdjustmentResolver: SalaryAdjustmentResolver}
+                                },
                             ]
                           },
                           // { path: '404', loadChildren: () => import('./home-not-found/home-not-found.module')
