@@ -19,4 +19,10 @@ export class SalaryAdjustmentComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  test() {
+    console.log('testing');
+    this.salaryHolders.map((obj) => {
+      obj.deduction = 10;
+    });
+  }
 }

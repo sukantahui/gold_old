@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed salary_holder_name
  * @property mixed salary_holder_mailing_name
  * @property mixed salary
+ * @property mixed deduction
  */
 class SalaryHolderResource extends JsonResource
 {
@@ -24,7 +25,8 @@ class SalaryHolderResource extends JsonResource
             'salaryHolderName' => $this->salary_holder_name,
             'salaryHolderMailingName' => $this->salary_holder_mailing_name,
             'deduction' => $this->deduction,
-            'salary' => $this->salary
+            'salary' => $this->salary,
+            'calculatedSalary' => 0
         ];
     }
 }
