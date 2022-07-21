@@ -42,7 +42,10 @@
                         <th scope="col">Salary</th>
                         <th scope="col">Hour(-)</th>
                         <th scope="col">Hour Deduction</th>
+                        <th scope="col">Monthly Deduction%</th>
                         <th scope="col">Monthly Deduction</th>
+                        <th scope="col">Extra Pay</th>
+                        <th scope="col">Final Salary</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -55,7 +58,14 @@
                             <input type="number" [(ngModel)]="salaryHolder.hourDeduction" class="form-control" (change)="onHourDeductionChange()"   placeholder="HOUR">
                         </td>
                         <td>{{salaryHolder.hourDeductionAmount}}</td>
+                        <td>
+                            <input type="number" [(ngModel)]="salaryHolder.salaryDeductionPercentage" (change)="onMonthlyDeductionPercentageChange(salaryHolder)"  class="form-control"   placeholder="Percentage">
+                        </td>
                         <td>{{salaryHolder.deduction}}</td>
+                        <td>
+                            <input type="number" [(ngModel)]="salaryHolder.amountAdded" (change)="onAmountAddedChange(salaryHolder)"  class="form-control"   placeholder="Percentage">
+                        </td>
+                        <td>{{salaryHolder.calculatedSalary}}</td>
 
 
                     </tr>

@@ -19,27 +19,32 @@ export class SalaryAdjustmentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  test() {
-    console.log('testing');
-    this.salaryHolders.map((obj) => {
-      obj.deduction = 10;
-    });
-  }
 
-  onDeductionChange() {
-    console.log('testd');
-  }
+
 
     onHourDeductionChange() {
       this.salaryHolders.map((obj) => {
         obj.hourDeductionAmount = obj.hourDeduction * obj.hourlyRate;
+        obj.calculatedSalary = obj.salary - obj.deduction - obj.hourDeductionAmount + obj.amountAdded;
       });
     }
 
   onDeductionPercentageChange(deductionPercentage: string) {
     const dp = Number(deductionPercentage);
     this.salaryHolders.map((obj) => {
+      obj.salaryDeductionPercentage = dp;
       obj.deduction = obj.salary * dp / 100;
+      obj.calculatedSalary = obj.salary - obj.deduction - obj.hourDeductionAmount + obj.amountAdded;
     });
+  }
+
+  onMonthlyDeductionPercentageChange(salaryHolder: any) {
+    // deduction salaryDeductionPercentage
+    salaryHolder.deduction = salaryHolder.salary * salaryHolder.salaryDeductionPercentage / 100;
+    salaryHolder.calculatedSalary = salaryHolder.salary - salaryHolder.deduction - salaryHolder.hourDeductionAmount + salaryHolder.amountAdded;
+  }
+
+  onAmountAddedChange(salaryHolder: any) {
+    salaryHolder.calculatedSalary = salaryHolder.salary - salaryHolder.deduction - salaryHolder.hourDeductionAmount + salaryHolder.amountAdded;
   }
 }
