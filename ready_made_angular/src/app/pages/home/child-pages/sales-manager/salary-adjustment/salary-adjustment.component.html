@@ -14,8 +14,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let salaryHolder of salaryHolders">
-                        <th scope="row">{{salaryHolder.id}}</th>
+                    <tr *ngFor="let salaryHolder of salaryHolders; index as i">
+                        <th scope="row">{{i+1}}</th>
                         <td>{{salaryHolder.salaryHolderName}}</td>
                         <td>{{salaryHolder.calculatedSalary}}</td>
 
@@ -49,8 +49,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let salaryHolder of salaryHolders">
-                        <th scope="row">{{salaryHolder.id}}</th>
+                    <tr *ngFor="let salaryHolder of salaryHolders; index as i">
+                        <th scope="row">{{i+1}}</th>
                         <td>{{salaryHolder.salaryHolderName}}</td>
                         <td>{{salaryHolder.salary}}</td>
 
