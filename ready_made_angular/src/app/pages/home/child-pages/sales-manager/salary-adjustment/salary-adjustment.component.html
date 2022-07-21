@@ -41,6 +41,8 @@
                         <th scope="col">Name</th>
                         <th scope="col">Salary</th>
                         <th scope="col">Hour(-)</th>
+                        <th scope="col">Hour Deduction</th>
+                        <th scope="col">Monthly Deduction</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,9 +55,8 @@
                             <input type="number" [(ngModel)]="salaryHolder.hourDeduction" class="form-control" (change)="onHourDeductionChange()"   placeholder="HOUR">
                         </td>
                         <td>{{salaryHolder.hourDeductionAmount}}</td>
-                        <td>
-                            <input type="number" [(ngModel)]="salaryHolder.deduction" class="form-control" (change)="onDeductionChange()"  aria-describedby="emailHelp" placeholder="Enter email">
-                        </td>
+                        <td>{{salaryHolder.deduction}}</td>
+
 
                     </tr>
                     </tbody>
