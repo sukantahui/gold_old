@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryHolderController;
+use App\Http\Controllers\SalaryHolderSalaryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Models\Customer;
@@ -159,6 +160,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     //salary holders
     Route::get('/salaryHolders',[SalaryHolderController::class,'getAgentSalaryHolders']);
+
+    Route::post('/saveSalary',[SalaryHolderSalaryController::class,'saveMonthlySalary']);
 
 });
 
