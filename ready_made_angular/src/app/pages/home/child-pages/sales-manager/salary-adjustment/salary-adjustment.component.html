@@ -26,26 +26,37 @@
             </div>
             <!-- Right -->
             <div class="bloc_2 p-2 col-xl-8" style="background-color: antiquewhite;">
-                <button (click)="test()">Test</button>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="mr-3">Salary Deduction in percentage </label>
+                        <input type="number" #deductionPercentage class="form-control"  aria-describedby="deductionPercentageHelp" placeholder="Deduction Percentage">
+                        <small id="deductionPercentageHelp" class="form-text text-muted" >%</small>
+                    </div>
+                    <button type="button" class="btn btn-primary" (click)="onDeductionPercentageChange(deductionPercentage.value)">Calculate</button>
+                </form>
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Salary</th>
+                        <th scope="col">Hour(-)</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let salaryHolder of salaryHolders">
                         <th scope="row">{{salaryHolder.id}}</th>
                         <td>{{salaryHolder.salaryHolderName}}</td>
-<!--                        <td>{{salaryHolder.salary}}</td>-->
+                        <td>{{salaryHolder.salary}}</td>
+
                         <td>
-                            <input type="number" [(ngModel)]="salaryHolder.deduction" class="form-control"  aria-describedby="emailHelp" placeholder="Enter email">
+                            <input type="number" [(ngModel)]="salaryHolder.hourDeduction" class="form-control" (change)="onHourDeductionChange()"   placeholder="HOUR">
                         </td>
+                        <td>{{salaryHolder.hourDeductionAmount}}</td>
                         <td>
-                            <input type="number" [(ngModel)]="salaryHolder.salary" class="form-control"  aria-describedby="emailHelp" placeholder="Enter email">
+                            <input type="number" [(ngModel)]="salaryHolder.deduction" class="form-control" (change)="onDeductionChange()"  aria-describedby="emailHelp" placeholder="Enter email">
                         </td>
+
                     </tr>
                     </tbody>
                 </table>

@@ -25,4 +25,21 @@ export class SalaryAdjustmentComponent implements OnInit {
       obj.deduction = 10;
     });
   }
+
+  onDeductionChange() {
+    console.log('testd');
+  }
+
+    onHourDeductionChange() {
+      this.salaryHolders.map((obj) => {
+        obj.hourDeductionAmount = obj.hourDeduction * obj.hourlyRate;
+      });
+    }
+
+  onDeductionPercentageChange(deductionPercentage: string) {
+    const dp = Number(deductionPercentage);
+    this.salaryHolders.map((obj) => {
+      obj.deduction = obj.salary * dp / 100;
+    });
+  }
 }
