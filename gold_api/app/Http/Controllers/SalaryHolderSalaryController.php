@@ -15,7 +15,7 @@ class SalaryHolderSalaryController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index():
     {
         //
     }
