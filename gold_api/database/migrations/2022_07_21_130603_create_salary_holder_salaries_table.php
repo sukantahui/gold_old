@@ -24,6 +24,7 @@ class CreateSalaryHolderSalariesTable extends Migration
             $table->integer('hour_deduction')->default(0);
             $table->integer('hour_deduction_amount')->default(0);
             $table->integer('extra_pay')->default(0); //will be added
+            $table->unique(['salary_holder_id', 'year_number','month_number'],"sh_id_year_month");
             $table->timestamps();
         });
     }
@@ -35,6 +36,9 @@ class CreateSalaryHolderSalariesTable extends Migration
      */
     public function down()
     {
+//        Schema::table('salary_holder_salaries', function (Blueprint $table) {
+//            $table->dropUnique('sh_id_year_month');
+//        });
         Schema::dropIfExists('salary_holder_salaries');
     }
 }

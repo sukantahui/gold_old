@@ -10,15 +10,6 @@ use Illuminate\Http\Request;
 
 class SalaryHolderSalaryController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index():
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -83,31 +74,5 @@ class SalaryHolderSalaryController extends ApiController
      * @param  \App\Models\SalaryHolderSalary  $salaryHolderSalary
      * @return \Illuminate\Http\Response
      */
-    public function edit(SalaryHolderSalary $salaryHolderSalary)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateSalaryHolderSalaryRequest  $request
-     * @param  \App\Models\SalaryHolderSalary  $salaryHolderSalary
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateSalaryHolderSalaryRequest $request, SalaryHolderSalary $salaryHolderSalary)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\SalaryHolderSalary  $salaryHolderSalary
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(SalaryHolderSalary $salaryHolderSalary)
-    {
-        //
-    }
 }

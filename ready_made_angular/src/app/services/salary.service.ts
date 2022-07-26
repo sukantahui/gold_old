@@ -13,9 +13,13 @@ export class SalaryService {
   constructor(private commonService: CommonService, private  http: HttpClient, private  errorService: ErrorService) {
 
   }
+
   fetchSalaryHolders(){
     return this.http.get<any>(this.commonService.getAPI() + '/salaryHolders').pipe(catchError(this.errorService.serverError), tap(response => {
-
     }));
+  }
+
+  saveSalaryHolderSalary(salaryLis: any[]){
+    return this.http.post(this.commonService.getAPI() + '/saveSalary', salaryLis);
   }
 }
