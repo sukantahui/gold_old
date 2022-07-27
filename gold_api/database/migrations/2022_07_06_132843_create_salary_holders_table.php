@@ -18,6 +18,7 @@ class CreateSalaryHoldersTable extends Migration
             $table->string('salary_holder_name',200)->unique();
             $table->string('salary_holder_mailing_name',200);
             $table->integer('salary')->default(0);
+            $table->integer('advance')->default(0);
             $table->tinyInteger('inforced')->default(1);
             $table->tinyInteger('show_in_salary_list')->default(1);
             $table->timestamps();
