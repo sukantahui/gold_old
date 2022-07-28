@@ -14,6 +14,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryHolderController;
 use App\Http\Controllers\SalaryHolderSalaryController;
 use App\Http\Controllers\SalaryHolderSalaryMonthController;
+use App\Http\Controllers\SalaryHolderSalaryPaymentController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Models\Customer;
@@ -164,6 +165,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::post('/saveSalary',[SalaryHolderSalaryController::class,'saveMonthlySalary']);
     Route::get('/currentSalaryMonth',[SalaryHolderSalaryMonthController::class,'getCurrentMonth']);
+
+    Route::post('/saveSalaryPayment',[SalaryHolderSalaryPaymentController::class,'saveSalaryPayment']);
 
 });
 

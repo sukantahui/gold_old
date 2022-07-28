@@ -5,17 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\SalaryHolderSalaryPayment;
 use App\Http\Requests\StoreSalaryHolderSalaryPaymentRequest;
 use App\Http\Requests\UpdateSalaryHolderSalaryPaymentRequest;
+use Illuminate\Http\Request;
 
-class SalaryHolderSalaryPaymentController extends Controller
+class SalaryHolderSalaryPaymentController extends APIController
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
-    public function index()
+    public function saveSalaryPayment(Request $request)
     {
-        //
+        $salaryPayment = new SalaryHolderSalaryPayment();
+        $salaryPayment->salary_holder_id = $request->salaryHolderId;
+        $salaryPayment->year_number = $request->yearNumber;
+        $salaryPayment->month_number = $request->monthNumber;
+        $salaryPayment->salary_paid = $request->salaryPaid;
+        $salaryPayment->advance_adjusted = $request->advanceAdjusted;
+        $salaryPayment->saveOrFail();
+        return $this->successResponse($salaryPayment);
     }
 
     /**

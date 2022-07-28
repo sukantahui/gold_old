@@ -52,6 +52,7 @@ class Request extends SymfonyRequest implements Arrayable, ArrayAccess
      */
     protected $routeResolver;
 
+
     /**
      * Create a new Illuminate HTTP request from server variables.
      *
