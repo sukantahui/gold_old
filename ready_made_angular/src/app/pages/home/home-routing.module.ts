@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import {AgentSalaryWithdrawResolver} from '../../resolvers/agent-salary-withdraw.resolver';
 import {AgentSalaryBalanceSheetResolver} from '../../resolvers/agent-salary-balance-sheet.resolver';
 import {SalaryAdjustmentResolver} from '../../resolvers/salary-adjustment.resolver';
+import {SalaryHolderSalaryPaymentResolver} from '../../resolvers/salary-holder-salary-payment.resolver';
 
 // @ts-ignore
 // @ts-ignore
@@ -122,6 +123,11 @@ const routes: Routes = [
                                         .then(m => m.SalaryAdjustmentModule),
                                     resolve: {salaryAdjustmentResolver: SalaryAdjustmentResolver}
                                 },
+                                { path: 'SalaryHolderSalaryPayment', loadChildren: () => import('./child-pages/sales-manager/salary-holder-salary-payment/salary-holder-salary-payment.module')
+                                        .then(m => m.SalaryHolderSalaryPaymentModule),
+                                    resolve: {salaryHolderSalaryPaymentResolver: SalaryHolderSalaryPaymentResolver}
+                                },
+
                             ]
                           },
                           // { path: '404', loadChildren: () => import('./home-not-found/home-not-found.module')

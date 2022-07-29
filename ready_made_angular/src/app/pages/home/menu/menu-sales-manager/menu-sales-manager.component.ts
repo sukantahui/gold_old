@@ -162,6 +162,11 @@ export class MenuSalesManagerComponent implements OnInit {
               displayName: 'Create Salary',
               iconName: 'person',
               route: 'SalaryAdjustment'
+            },
+            {
+              displayName: 'Pay Salary',
+              iconName: 'person',
+              route: 'SalaryHolderSalaryPayment'
             }
           ]
         }

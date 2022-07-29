@@ -11,11 +11,25 @@ import Swal from 'sweetalert2';
 export class SalaryAdjustmentComponent implements OnInit {
   isProduction = environment.production;
   salaryHolders: any[];
+  sumOfCalculatedSalary = 0;
+  printDivStyle: any;
   constructor(private route: ActivatedRoute, private salaryService: SalaryService) {
     this.route.data.subscribe((response: any) => {
       this.salaryHolders = response.salaryAdjustmentResolver.salaryHolders.data;
+      this.sumOfCalculatedSalary = this.salaryHolders.map(a => a.calculatedSalary).reduce((a, b) => {
+        return a + b;
+      });
     });
+
   }
+  // @ts-ignore
+  printDivStyle = {
+    table: {'border-collapse': 'collapse', width : '100%' },
+    label: {width: '100%'},
+    th: {border: '1px  solid black' , fontSize : 'small'},
+    td: {border: '1px  solid black' , fontSize : 'small'},
+
+  };
 
   ngOnInit(): void {
   }
@@ -28,6 +42,10 @@ export class SalaryAdjustmentComponent implements OnInit {
         obj.hourDeductionAmount = obj.hourDeduction * obj.hourlyRate;
         obj.calculatedSalary = obj.salary - obj.deduction - obj.hourDeductionAmount + obj.amountAdded;
       });
+      this.sumOfCalculatedSalary = this.salaryHolders.map(a => a.calculatedSalary).reduce((a, b) => {
+        return a + b;
+      });
+
     }
 
   onDeductionPercentageChange(deductionPercentage: string) {
@@ -37,6 +55,9 @@ export class SalaryAdjustmentComponent implements OnInit {
       obj.deduction = obj.salary * dp / 100;
       obj.calculatedSalary = obj.salary - obj.deduction - obj.hourDeductionAmount + obj.amountAdded;
     });
+    this.sumOfCalculatedSalary = this.salaryHolders.map(a => a.calculatedSalary).reduce((a, b) => {
+      return a + b;
+    });
   }
 
   onMonthlyDeductionPercentageChange(salaryHolder: any) {
@@ -44,11 +65,17 @@ export class SalaryAdjustmentComponent implements OnInit {
     salaryHolder.deduction = salaryHolder.salary * salaryHolder.salaryDeductionPercentage / 100;
     // tslint:disable-next-line:max-line-length
     salaryHolder.calculatedSalary = salaryHolder.salary - salaryHolder.deduction - salaryHolder.hourDeductionAmount + salaryHolder.amountAdded;
+    this.sumOfCalculatedSalary = this.salaryHolders.map(a => a.calculatedSalary).reduce((a, b) => {
+      return a + b;
+    });
   }
 
   onAmountAddedChange(salaryHolder: any) {
     // tslint:disable-next-line:max-line-length
     salaryHolder.calculatedSalary = salaryHolder.salary - salaryHolder.deduction - salaryHolder.hourDeductionAmount + salaryHolder.amountAdded;
+    this.sumOfCalculatedSalary = this.salaryHolders.map(a => a.calculatedSalary).reduce((a, b) => {
+      return a + b;
+    });
   }
 
   saveSalary() {

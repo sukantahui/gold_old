@@ -1,0 +1,61 @@
+<div class="d-flex flex-column" style="height: 100vh;">
+    <div class="p-2 text-center" style="background-color: rgb(77, 68, 68)">I am Header, i will stay here</div>
+
+    <div class="p-2">
+        <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+            <!-- Left -->
+            <div class="p-2 col-xl-4" style="background-color: rgb(199, 192, 192)">
+                <form id="customer-form" [formGroup]="salaryHolderSalaryPaymentForm">
+                    <div class="mb-3">
+                        <label class="form-label" id="customer-id">ID will be here</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="person-name" class="form-label">Salary Holder</label> <span
+                            class="bi bi-envelope"></span>
+                        <div fxLayoutGap="30px" style="padding-top: 10px">
+                            <ng-select [items]="salaryHolders" id="person-name"
+                                       bindLabel="salaryHolderName"
+                                       class="custom"
+                                       bindValue="id"
+                                       formControlName="salaryHolderId"
+                                       (change)="onSalaryHolderSelect($event)"
+                                       placeholder="Select Salary Holder">
+                            </ng-select>
+
+                        </div>
+                        <div id="person-name-help" class="form-text">Enter Person Name.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="person-age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="person-age" name="person_age">
+                    </div>
+                    <button type="button" id="save-customer" class="btn btn-primary">Save Person</button>
+                    <button type="button" id="show-students" class="btn btn-secondary">Show Students</button>
+                    <button type="button" id="save-to-excel" class="btn btn-warning">Save to Excel</button>
+                </form>
+            </div>
+            <!-- Right -->
+            <div class="bloc_2 p-2 col-xl-8" style="background-color: antiquewhite">
+
+            </div>
+        </div>
+    </div>
+    <!--    Footer area-->
+    <div class="mt-auto p-2 text-center" style="background-color: rgb(77, 68, 68)">I am footer, i will stay here</div>
+</div>
+
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div fxLayoutAlign="center center">
+                <pre>
+                    salaryHolders = {{salaryHolders | json}}
+                </pre>
+            </div>
+            <div fxFlex="2 1 auto" fxLayoutAlign="center center">
+            </div>
+        </div>
+    </div>
+</div>
+
+

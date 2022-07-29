@@ -29,7 +29,7 @@ class SalaryHolderResource extends JsonResource
             'salaryDeductionPercentage' => 0,
             'deduction' => $this->deduction,
             'salary' => $this->salary,
-            'hourlyRate' => round($this->salary/300,0),
+            'hourlyRate' => round($this->salary/360,0),
             'amountAdded' => 0,
             'calculatedSalary' => $this->salary
         ];
