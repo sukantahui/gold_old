@@ -20,6 +20,7 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
   currentSalary: any;
   yearNumber: number;
   monthNumber: number;
+  currentSalaryList: any[];
   constructor(private route: ActivatedRoute, private salaryService: SalaryService, private downloads: DownloadService) {
     this.route.data.subscribe((response: any) => {
       this.salaryHolders = response.salaryHolderSalaryPaymentResolver.salaryHolders.data;
@@ -101,7 +102,26 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
     this.salaryHolderSalaryPaymentForm.get('monthNumber').setValue(monthNumber, { emitEvent: false });
   }
 
-  shaowAllSalaries() {
 
+  showAllSalaries() {
+    // tslint:disable-next-line:max-line-length
+    this.salaryService.getSalaryByMonthAndYear(this.yearNumber, this.monthNumber).subscribe((response: {status: boolean, message: string, data: any}) => {
+      if (response.status === true){
+        this.currentSalaryList = response.data;
+      }else{
+        Swal.fire({
+          title: 'Failed',
+          text: 'Unable to get data',
+          icon: 'error'
+        });
+      }
+    }, error => {
+      console.log(error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Select proper data first',
+        icon: 'error'
+      });
+    });
   }
 }

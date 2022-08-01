@@ -34,4 +34,11 @@ export class SalaryService {
 
          }));
   }
+  getSalaryByMonthAndYear(yearNumber: number, monthNumber: number){
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<any>(this.commonService.getAPI() + '/salaryHolderSalaries/' + yearNumber + '/' + monthNumber)
+        .pipe(catchError(this.errorService.serverError), tap(response => {
+
+        }));
+  }
 }

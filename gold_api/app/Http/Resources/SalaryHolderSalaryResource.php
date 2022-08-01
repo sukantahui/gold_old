@@ -40,7 +40,7 @@ class SalaryHolderSalaryResource extends JsonResource
 
             'extraPay' => $this->extra_pay,
             'calculatedSalary' => ($this->base_salary - ($this->hourly_rate * $this->hour_deduction) - $this->monthly_deduction_amount + $this->extra_pay),
-            'salaryHolder' =>new SalaryHolderResource($salaryHolder)
+            'salaryHolderName' =>$salaryHolder->salary_holder_name
         ];
     }
 }
