@@ -165,6 +165,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::post('/saveSalary',[SalaryHolderSalaryController::class,'saveMonthlySalary']);
     Route::get('/currentSalaryMonth',[SalaryHolderSalaryMonthController::class,'getCurrentMonth']);
+    Route::get('/salaryHolderSalaries/{salaryHolderId}/{yearNumber}/{monthNumber}',[SalaryHolderSalaryController::class,'getSalaryByYearAndMonth']);
 
     Route::post('/saveSalaryPayment',[SalaryHolderSalaryPaymentController::class,'saveSalaryPayment']);
 

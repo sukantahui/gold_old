@@ -28,7 +28,7 @@ class SalaryHolderSalaryController extends ApiController
                 $td = new SalaryHolderSalary();
                 $td->salary_holder_id = $salaryHolder->id;
                 $td->year_number = 2022;
-                $td->month_number = 6;
+                $td->month_number = 7;
                 $td->base_salary = $salaryHolder->salary;
                 $td->hourly_rate = $salaryHolder->hourlyRate;
                 $td->monthly_deduction_amount = $salaryHolder->deduction;
@@ -46,33 +46,9 @@ class SalaryHolderSalaryController extends ApiController
         return $this->successResponse($result_array);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreSalaryHolderSalaryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreSalaryHolderSalaryRequest $request)
-    {
-        //
+    public function getSalaryByYearAndMonth($salaryHolderId, $yearNumber,$monthNumber){
+        $salary = SalaryHolderSalary::whereSalaryHolderIdAndYearNumberAndMonthNumber($salaryHolderId,$yearNumber,$monthNumber)->first();
+        return $this->successResponse($salary);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\SalaryHolderSalary  $salaryHolderSalary
-     * @return \Illuminate\Http\Response
-     */
-    public function show(SalaryHolderSalary $salaryHolderSalary)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\SalaryHolderSalary  $salaryHolderSalary
-     * @return \Illuminate\Http\Response
-     */
 
 }
