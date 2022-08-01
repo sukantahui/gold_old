@@ -18,12 +18,16 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
   salaryHolders: any[];
   savedResponse: any;
   currentSalary: any;
+  yearNumber: number;
+  monthNumber: number;
   constructor(private route: ActivatedRoute, private salaryService: SalaryService, private downloads: DownloadService) {
     this.route.data.subscribe((response: any) => {
       this.salaryHolders = response.salaryHolderSalaryPaymentResolver.salaryHolders.data;
     });
     const salaryMonth = new Date().getMonth();
     const salaryYear = new Date().getFullYear();
+    this.yearNumber = salaryYear;
+    this.monthNumber = salaryMonth;
     this.salaryHolderSalaryPaymentForm = new FormGroup({
       yearNumber: new FormControl(salaryYear),
       monthNumber: new FormControl(salaryMonth),
@@ -88,4 +92,16 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
         });
       });
     }
+
+  onYearChange(yearNumber: any) {
+    this.salaryHolderSalaryPaymentForm.get('yearNumber').setValue(yearNumber, { emitEvent: false });
+  }
+
+  onMonthChange(monthNumber: any) {
+    this.salaryHolderSalaryPaymentForm.get('monthNumber').setValue(monthNumber, { emitEvent: false });
+  }
+
+  shaowAllSalaries() {
+
+  }
 }
