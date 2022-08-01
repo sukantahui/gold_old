@@ -1,4 +1,4 @@
-<div class="d-flex flex-column" style="height: 100vh;">
+<div class="d-flex flex-column" style="min-height: 100vh;">
     <div class="p-2 text-center" style="background-color: rgb(77, 68, 68)">I am Header, i will stay here</div>
 
     <div class="p-2">
@@ -115,13 +115,41 @@
                                         <th colspan="2">Calculated Salary</th>
                                         <th>{{currentSalary.calculatedSalary}}</th>
                                     </tr>
+                                    <tr>
+                                        <th>Less:</th>
+                                        <th>Salary Paid</th>
+                                        <th class="text-right">{{currentSalary.salaryPaid}}</th>
+                                    </tr>
+                                    <tr [ngClass]="{rowStyle: true}">
+                                        <th colspan="2">Salary Due</th>
+                                        <th class="text-right">{{currentSalary.calculatedSalary - currentSalary.salaryPaid}}</th>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
                     <!-- Right -->
                     <div class="bloc_2 p-2 col-xl-8" style="background-color: antiquewhite">
-                        Right
+                        <div *ngIf="currentSalaryList">
+                            <table class="table table-striped">
+                                        <thead>
+                                        <th>SL</th>
+                                        <th>Name</th>
+                                        <th>Base Salary</th>
+                                        <th>Calculated Salary</th>
+                                        <th>Salary Paid</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr [ngClass]="{selectedRow: (salaryHolder.salaryHolderId===selectedSalaryHolderId)}" *ngFor="let salaryHolder of currentSalaryList; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{salaryHolder.salaryHolderName}}</td>
+                                            <td class="text-right">{{salaryHolder.baseSalary}}</td>
+                                            <td class="text-right">{{salaryHolder.calculatedSalary}}</td>
+                                            <td class="text-right">{{salaryHolder.salaryPaid}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                        </div>
                         <pre>
                             {{currentSalaryList | json}}
                         </pre>

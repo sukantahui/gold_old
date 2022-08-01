@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SalaryHolderSalaryResource;
+use App\Models\SalaryHolderSalary;
 use App\Models\SalaryHolderSalaryPayment;
 use App\Http\Requests\StoreSalaryHolderSalaryPaymentRequest;
 use App\Http\Requests\UpdateSalaryHolderSalaryPaymentRequest;
@@ -24,7 +26,9 @@ class SalaryHolderSalaryPaymentController extends APIController
         $salaryPayment->salary_paid = $request->salaryPaid;
         $salaryPayment->advance_adjusted = $request->advanceAdjusted;
         $salaryPayment->saveOrFail();
-        return $this->successResponse($salaryPayment);
+//        return $this->successResponse($salaryPayment);
+        $salary = SalaryHolderSalary::whereSalaryHolderIdAndYearNumberAndMonthNumber($request->salaryHolderId,$request->yearNumber,$request->monthNumber)->first();
+        return $this->successResponse(new SalaryHolderSalaryResource($salary));
     }
 
     /**

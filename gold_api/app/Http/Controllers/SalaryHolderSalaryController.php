@@ -52,7 +52,7 @@ class SalaryHolderSalaryController extends ApiController
         return $this->successResponse(new SalaryHolderSalaryResource($salary));
     }
     public function getSalaryByYearAndMonth($yearNumber,$monthNumber){
-        $salary = SalaryHolderSalary::whereYearNumberAndMonthNumber($yearNumber,$monthNumber)->orderBy('salary_holder_name')->get();
+        $salary = SalaryHolderSalary::whereYearNumberAndMonthNumber($yearNumber,$monthNumber)->get();
         return $this->successResponse(SalaryHolderSalaryResource::collection($salary));
     }
 

@@ -21,6 +21,7 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
   yearNumber: number;
   monthNumber: number;
   currentSalaryList: any[];
+  selectedSalaryHolderId = 0;
   constructor(private route: ActivatedRoute, private salaryService: SalaryService, private downloads: DownloadService) {
     this.route.data.subscribe((response: any) => {
       this.salaryHolders = response.salaryHolderSalaryPaymentResolver.salaryHolders.data;
@@ -48,7 +49,7 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
   saveSalaryPayment() {
     // tslint:disable-next-line:max-line-length
     this.salaryService.saveSalaryHolderPayment(this.salaryHolderSalaryPaymentForm.value).subscribe((response: {status: boolean, message: string, data: any}) => {
-      this.savedResponse = response.data;
+      this.currentSalary = response.data;
       if (response.status === true){
         Swal.fire({
           title: 'Done',
@@ -73,8 +74,9 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
   }
 
     showCurrentSalary() {
+    this.selectedSalaryHolderId = this.salaryHolderSalaryPaymentForm.get('salaryHolderId').value;
       // tslint:disable-next-line:max-line-length
-      this.salaryService.getSalaryByIdMonthAndYear(this.salaryHolderSalaryPaymentForm.value).subscribe((response: {status: boolean, message: string, data: any}) => {
+    this.salaryService.getSalaryByIdMonthAndYear(this.salaryHolderSalaryPaymentForm.value).subscribe((response: {status: boolean, message: string, data: any}) => {
         if (response.status === true){
           this.currentSalary = response.data;
         }else{

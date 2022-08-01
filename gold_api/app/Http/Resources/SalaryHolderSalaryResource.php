@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\SalaryHolder;
+use App\Models\SalaryHolderSalaryPayment;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -27,6 +28,7 @@ class SalaryHolderSalaryResource extends JsonResource
     {
 
         $salaryHolder =SalaryHolder::findOrFail($this->salary_holder_id);
+        $monthSalaryPaid = SalaryHolderSalaryPayment::whereSalaryHolderIdAndYearNumberAndMonthNumber($this->salary_holder_id,$this->year_number,$this->month_number)->sum('salary_paid');
         return [
             'salaryHolderId' => $this->salary_holder_id,
             'yearNumber' => $this->year_number,
@@ -40,7 +42,8 @@ class SalaryHolderSalaryResource extends JsonResource
 
             'extraPay' => $this->extra_pay,
             'calculatedSalary' => ($this->base_salary - ($this->hourly_rate * $this->hour_deduction) - $this->monthly_deduction_amount + $this->extra_pay),
-            'salaryHolderName' =>$salaryHolder->salary_holder_name
+            'salaryHolderName' =>$salaryHolder->salary_holder_name,
+            'salaryPaid' => $monthSalaryPaid
         ];
     }
 }
