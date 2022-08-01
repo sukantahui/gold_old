@@ -22,4 +22,7 @@ export class SalaryService {
   saveSalaryHolderSalary(salaryLis: any[]){
     return this.http.post(this.commonService.getAPI() + '/saveSalary', salaryLis);
   }
+  saveSalaryHolderPayment(salaryHolder: any){
+    return this.http.post(this.commonService.getAPI() + '/saveSalaryPayment', salaryHolder);
+  }
 }

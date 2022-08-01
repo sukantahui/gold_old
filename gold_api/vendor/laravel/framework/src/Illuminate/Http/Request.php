@@ -51,6 +51,26 @@ class Request extends SymfonyRequest implements Arrayable, ArrayAccess
      * @var \Closure
      */
     protected $routeResolver;
+    /**
+     * @var mixed
+     */
+    private $salaryHolderId;
+    /**
+     * @var mixed
+     */
+    private $yearNumber;
+    /**
+     * @var mixed
+     */
+    private $monthNumber;
+    /**
+     * @var mixed
+     */
+    private $salaryPaid;
+    /**
+     * @var mixed
+     */
+    private $advanceAdjusted;
 
 
     /**

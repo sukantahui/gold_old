@@ -46,6 +46,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
     NgxPrintModule,
     LayoutModule,
     NgSelectModule,
+    InputNumberModule,
   ]
 })
 export class SalaryHolderSalaryPaymentModule { }

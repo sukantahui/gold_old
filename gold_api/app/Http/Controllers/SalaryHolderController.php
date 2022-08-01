@@ -12,7 +12,7 @@ class SalaryHolderController extends ApiController
 
     public function getAgentSalaryHolders()
     {
-        $result = SalaryHolder::get();
+        $result = SalaryHolder::orderBy('salary_holder_name')->get();
         return $this->successResponse(SalaryHolderResource::collection($result));
     }
 
