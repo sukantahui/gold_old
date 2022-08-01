@@ -17,14 +17,16 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
   salaryHolderSalaryPaymentForm: FormGroup;
   salaryHolders: any[];
   savedResponse: any;
+  currentSalary: any;
   constructor(private route: ActivatedRoute, private salaryService: SalaryService, private downloads: DownloadService) {
     this.route.data.subscribe((response: any) => {
       this.salaryHolders = response.salaryHolderSalaryPaymentResolver.salaryHolders.data;
     });
-
+    const salaryMonth = new Date().getMonth();
+    const salaryYear = new Date().getFullYear();
     this.salaryHolderSalaryPaymentForm = new FormGroup({
-      yearNumber: new FormControl(2022),
-      monthNumber: new FormControl(5),
+      yearNumber: new FormControl(salaryYear),
+      monthNumber: new FormControl(salaryMonth),
       salaryHolderId: new FormControl(null),
       salaryPaid: new FormControl(0),
       advanceAdjusted: new FormControl(0)
@@ -64,4 +66,26 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
       });
     });
   }
+
+    showCurrentSalary() {
+      // tslint:disable-next-line:max-line-length
+      this.salaryService.getSalaryByIdMonthAndYear(this.salaryHolderSalaryPaymentForm.value).subscribe((response: {status: boolean, message: string, data: any}) => {
+        if (response.status === true){
+          this.currentSalary = response.data;
+        }else{
+          Swal.fire({
+            title: 'Failed',
+            text: 'Unable to get data',
+            icon: 'error'
+          });
+        }
+      }, error => {
+        console.log(error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Select proper data first',
+          icon: 'error'
+        });
+      });
+    }
 }

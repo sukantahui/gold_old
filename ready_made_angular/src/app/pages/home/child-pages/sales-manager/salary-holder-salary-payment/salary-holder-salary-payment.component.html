@@ -51,14 +51,20 @@
                         </div>
                     </div>
 
-                    <button type="button" id="save-customer" (click)="saveSalaryPayment()" class="btn btn-primary">Save Salary</button>
+                    <button type="button"  (click)="showCurrentSalary()" class="btn btn-secondary">Show Current Salary</button>
+                    <button type="button"  (click)="saveSalaryPayment()" class="btn btn-primary">Save Salary</button>
 <!--                    <button type="button" id="show-students" class="btn btn-secondary">Show Students</button>-->
 <!--                    <button type="button" id="save-to-excel" class="btn btn-warning">Save to Excel</button>-->
                 </form>
             </div>
             <!-- Right -->
             <div class="bloc_2 p-2 col-xl-8" style="background-color: antiquewhite">
-
+                <div>
+                    <pre>
+                        currentSalary = {{currentSalary | json}}
+                    </pre>
+                    <h1></h1>
+                </div>
             </div>
         </div>
     </div>

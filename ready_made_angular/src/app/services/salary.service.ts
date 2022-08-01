@@ -15,6 +15,7 @@ export class SalaryService {
   }
 
   fetchSalaryHolders(){
+    // tslint:disable-next-line:max-line-length
     return this.http.get<any>(this.commonService.getAPI() + '/salaryHolders').pipe(catchError(this.errorService.serverError), tap(response => {
     }));
   }
@@ -24,5 +25,13 @@ export class SalaryService {
   }
   saveSalaryHolderPayment(salaryHolder: any){
     return this.http.post(this.commonService.getAPI() + '/saveSalaryPayment', salaryHolder);
+  }
+
+  getSalaryByIdMonthAndYear(salaryData: any){
+    // tslint:disable-next-line:max-line-length
+     return this.http.get<any>(this.commonService.getAPI() + '/salaryHolderSalaries/' + salaryData.salaryHolderId + '/' + salaryData.yearNumber + '/' + salaryData.monthNumber)
+         .pipe(catchError(this.errorService.serverError), tap(response => {
+
+         }));
   }
 }

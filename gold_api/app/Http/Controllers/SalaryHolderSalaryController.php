@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SalaryHolderSalaryResource;
 use App\Models\SalaryHolderSalary;
 use App\Http\Requests\StoreSalaryHolderSalaryRequest;
 use App\Http\Requests\UpdateSalaryHolderSalaryRequest;
@@ -48,7 +49,7 @@ class SalaryHolderSalaryController extends ApiController
 
     public function getSalaryByYearAndMonth($salaryHolderId, $yearNumber,$monthNumber){
         $salary = SalaryHolderSalary::whereSalaryHolderIdAndYearNumberAndMonthNumber($salaryHolderId,$yearNumber,$monthNumber)->first();
-        return $this->successResponse($salary);
+        return $this->successResponse(new SalaryHolderSalaryResource($salary));
     }
 
 }

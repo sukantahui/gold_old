@@ -24,10 +24,12 @@ class SalaryHolderSalaryResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'salaryHolderId' => $this->salary_holder_id,
             'yearNumber' => $this->year_number,
             'monthNumber' => $this->month_number,
+            'monthName' => date('F', mktime(0, 0, 0, $this->month_number, 10)),
             'baseSalary' => $this->base_salary,
             'hourlyRate' => $this->hourly_rate,
             'hourDeduction' => $this->hour_deduction,
