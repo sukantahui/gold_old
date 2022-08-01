@@ -51,6 +51,10 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
     this.salaryService.saveSalaryHolderPayment(this.salaryHolderSalaryPaymentForm.value).subscribe((response: {status: boolean, message: string, data: any}) => {
       this.currentSalary = response.data;
       if (response.status === true){
+        const index =  this.currentSalaryList.findIndex(x => x.salaryHolderId === this.selectedSalaryHolderId);
+        console.log(index);
+        // tslint:disable-next-line:no-unused-expression
+        this.currentSalaryList[index].salaryPaid = this.currentSalaryList[index].salaryPaid + this.salaryHolderSalaryPaymentForm.get('salaryPaid').value;
         Swal.fire({
           title: 'Done',
           text: 'Salary Paid successfully',
