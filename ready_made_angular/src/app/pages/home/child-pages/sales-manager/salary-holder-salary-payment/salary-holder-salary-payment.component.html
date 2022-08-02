@@ -84,6 +84,7 @@
                         <div *ngIf="currentSalary">
                             <h3>{{currentSalary.salaryHolderName}}</h3>
                             <h4>{{currentSalary.monthName}}, {{currentSalary.yearNumber}}</h4>
+                            <h5>Opening Advance: {{currentSalary.openingAdvance}}</h5>
                             <table>
 <!--                                <thead>-->
 <!--                                -->
@@ -140,7 +141,7 @@
                                         <th>Salary Paid</th>
                                         </thead>
                                         <tbody>
-                                        <tr [ngClass]="{selectedRow: (salaryHolder.salaryHolderId===selectedSalaryHolderId)}" *ngFor="let salaryHolder of currentSalaryList; index as i">
+                                        <tr  *ngFor="let salaryHolder of currentSalaryList; index as i" [ngStyle]="salaryHolder.salaryHolderId === selectedSalaryHolderId?{'background-color': '#09FF22'} : {}"  >
                                             <th scope="row">{{i+1}}</th>
                                             <td>{{salaryHolder.salaryHolderName}}</td>
                                             <td class="text-right">{{salaryHolder.baseSalary}}</td>
