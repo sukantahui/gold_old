@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\SalaryHolderSalaryResource;
+use App\Models\SalaryHolder;
 use App\Models\SalaryHolderSalary;
 use App\Http\Requests\StoreSalaryHolderSalaryRequest;
 use App\Http\Requests\UpdateSalaryHolderSalaryRequest;
@@ -54,6 +55,16 @@ class SalaryHolderSalaryController extends ApiController
     public function getSalaryByYearAndMonth($yearNumber,$monthNumber){
         $salary = SalaryHolderSalary::whereYearNumberAndMonthNumber($yearNumber,$monthNumber)->get();
         return $this->successResponse(SalaryHolderSalaryResource::collection($salary));
+    }
+
+    public function getSalariesBySalaryHolderId($salaryHolderId){
+        $salaries = SalaryHolder::find($salaryHolderId)->salaries;
+        return $this->successResponse(SalaryHolderSalaryResource::collection($salaries));
+    }
+    public function getSalaryHolderDueById($salaryHolderId){
+        $openingDue = SalaryHolder::find($salaryHolderId)->advance;
+        $salaryCalculated = SalaryHolderSalary::whereSalaryHolderId($salaryHolderId)->sum(DB::raw ('base_salary-hourly_rate'));
+        return $this->successResponse($salaryCalculated);
     }
 
 }

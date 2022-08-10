@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\SalaryHolderSalary;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -12,6 +13,14 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class SalaryHolderResource extends JsonResource
 {
+    /**
+     * @var mixed
+     */
+    /**
+     * @var mixed
+     */
+
+
     /**
      * Transform the resource into an array.
      *

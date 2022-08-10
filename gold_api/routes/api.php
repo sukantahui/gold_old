@@ -167,8 +167,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/currentSalaryMonth',[SalaryHolderSalaryMonthController::class,'getCurrentMonth']);
     Route::get('/salaryHolderSalaries/{salaryHolderId}/{yearNumber}/{monthNumber}',[SalaryHolderSalaryController::class,'getSalaryByShareHolderIdAndYearAndMonth']);
     Route::get('/salaryHolderSalaries/{yearNumber}/{monthNumber}',[SalaryHolderSalaryController::class,'getSalaryByYearAndMonth']);
+    Route::get('/salaryHolderSalaries/{salaryHolderId}',[SalaryHolderSalaryController::class,'getSalariesBySalaryHolderId']);
+    Route::get('/currentSalaryDues/{salaryHolderId}',[SalaryHolderSalaryController::class,'getSalaryHolderDueById']);
 
     Route::post('/saveSalaryPayment',[SalaryHolderSalaryPaymentController::class,'saveSalaryPayment']);
+
 
 });
 
@@ -180,6 +183,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 Route::group(array('prefix' => 'dev'), function() {
     Route::get("backupDatabase",[AdminController::class,'backup_database']);
+
+
 
 
     Route::get("stocks",[StockController::class,'get_all_instock_items']);

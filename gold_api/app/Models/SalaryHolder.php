@@ -12,5 +12,8 @@ class SalaryHolder extends Model
     {
         return 0;
     }
+    public function salaries() {
+        return $this->hasMany(SalaryHolderSalary::class, 'salary_holder_id');
+    }
 
 }
