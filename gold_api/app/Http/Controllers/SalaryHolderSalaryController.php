@@ -7,6 +7,7 @@ use App\Models\SalaryHolder;
 use App\Models\SalaryHolderSalary;
 use App\Http\Requests\StoreSalaryHolderSalaryRequest;
 use App\Http\Requests\UpdateSalaryHolderSalaryRequest;
+use App\Models\SalaryHolderSalaryPayment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -63,8 +64,12 @@ class SalaryHolderSalaryController extends ApiController
     }
     public function getSalaryHolderDueById($salaryHolderId){
         $openingDue = SalaryHolder::find($salaryHolderId)->advance;
-        $salaryCalculated = SalaryHolderSalary::whereSalaryHolderId($salaryHolderId)->sum(DB::raw ('base_salary-hourly_rate'));
-        return $this->successResponse($salaryCalculated);
+        $salaryCalculated = SalaryHolderSalary::whereSalaryHolderId($salaryHolderId)
+            ->sum(DB::raw ('base_salary-(hourly_rate*hour_deduction)-monthly_deduction_amount+extra_pay'));
+        $salaryPaid = SalaryHolderSalaryPayment::whereSalaryHolderId($salaryHolderId)
+            ->sum('salary_paid');
+        $currentDue = $openingDue + $salaryCalculated - $salaryPaid;
+        return $this->successResponse($currentDue);
     }
 
 }
