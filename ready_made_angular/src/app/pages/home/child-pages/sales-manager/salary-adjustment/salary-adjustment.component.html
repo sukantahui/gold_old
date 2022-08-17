@@ -1,6 +1,25 @@
 <div class="d-flex flex-column" style="min-height: 100vh; margin-bottom: 50px;">
-    <div class="p-2 text-center" style="background-color: rgb(77, 68, 68)">I am Header, i will stay here</div>
-
+    <div class="p-2 text-center" style="background-color: rgb(77, 68, 68)">
+        I am Header, i will stay here
+    </div>
+    <div class="d-flex p-2 justify-content-center" style="background-color: rgb(228,229,215)">
+        <form class="col-6" [formGroup]="salaryYearMonthForm">
+            <div class="form-row">
+                <div class="col-1">
+                    <label>Year</label>
+                </div>
+                <div class="col">
+                    <input type="number" formControlName="yearNumber" class="form-control" placeholder="First name">
+                </div>
+                <div class="col-1">
+                    <label>Month</label>
+                </div>
+                <div class="col">
+                    <input type="number" min="1" max="12" formControlName="monthNumber" class="form-control" placeholder="Last name">
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="p-2">
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
             <!-- Left -->

@@ -3,6 +3,7 @@ import {environment} from '../../../../../../environments/environment';
 import {ActivatedRoute} from '@angular/router';
 import {SalaryService} from '../../../../../services/salary.service';
 import Swal from 'sweetalert2';
+import {FormControl, FormGroup} from '@angular/forms';
 @Component({
   selector: 'app-salary-adjustment',
   templateUrl: './salary-adjustment.component.html',
@@ -13,12 +14,20 @@ export class SalaryAdjustmentComponent implements OnInit {
   salaryHolders: any[];
   sumOfCalculatedSalary = 0;
   printDivStyle: any;
+  salaryYearMonthForm: FormGroup;
   constructor(private route: ActivatedRoute, private salaryService: SalaryService) {
     this.route.data.subscribe((response: any) => {
       this.salaryHolders = response.salaryAdjustmentResolver.salaryHolders.data;
       this.sumOfCalculatedSalary = this.salaryHolders.map(a => a.calculatedSalary).reduce((a, b) => {
         return a + b;
       });
+    });
+
+    const salaryYear = 2022;
+    const salaryMonth = 8;
+    this.salaryYearMonthForm = new FormGroup({
+      yearNumber: new FormControl(salaryYear),
+      monthNumber: new FormControl(salaryMonth)
     });
 
   }
