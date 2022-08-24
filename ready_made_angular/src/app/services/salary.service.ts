@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {CommonService} from './common.service';
+import {APIResponse, CommonService} from './common.service';
 import {HttpClient} from '@angular/common/http';
 import {ErrorService} from './error.service';
 import {catchError, tap} from 'rxjs/operators';
@@ -41,4 +41,10 @@ export class SalaryService {
 
         }));
   }
+   getCurrentSalaryMonth(){
+     return this.http.get<APIResponse>(this.commonService.getAPI() + '/currentSalaryMonth')
+         .pipe(catchError(this.errorService.serverError), tap(response => {
+
+         }));
+   }
 }

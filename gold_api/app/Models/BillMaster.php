@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -74,8 +75,13 @@ class BillMaster extends Model
      * @var float|mixed
      */
     private $discount;
+    /**
+     * @var mixed
+     */
+    private $tr_time;
 
     public function bill_details() {
         return $this->hasMany(BillDetails::class, 'bill_no');
     }
+
 }

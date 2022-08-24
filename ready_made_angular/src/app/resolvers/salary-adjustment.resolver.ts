@@ -18,9 +18,11 @@ export class SalaryAdjustmentResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     // const a = this.jobTaskService.getAll();
     const b = this.salaryService.fetchSalaryHolders();
-    const join = forkJoin(b).pipe(map((allResponses) => {
+    const c = this.salaryService.getCurrentSalaryMonth();
+    const join = forkJoin(b, c).pipe(map((allResponses) => {
       return {
-        salaryHolders: allResponses[0]
+        salaryHolders: allResponses[0],
+        salaryPeriod: allResponses[1]
       };
     }));
     return join;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SalaryPeriodResource;
 use App\Models\SalaryHolderSalaryMonth;
 use App\Http\Requests\StoreSalaryHolderSalaryMonthRequest;
 use App\Http\Requests\UpdateSalaryHolderSalaryMonthRequest;
@@ -16,7 +17,7 @@ class SalaryHolderSalaryMonthController extends ApiController
     public function getCurrentMonth()
     {
         $result=SalaryHolderSalaryMonth::whereIsDone(0)->first();
-        return $this->successResponse($result);
+        return $this->successResponse(new SalaryPeriodResource($result));
     }
 
     /**

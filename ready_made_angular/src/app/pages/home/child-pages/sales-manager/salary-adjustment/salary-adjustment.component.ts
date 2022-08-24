@@ -15,20 +15,24 @@ export class SalaryAdjustmentComponent implements OnInit {
   sumOfCalculatedSalary = 0;
   printDivStyle: any;
   salaryYearMonthForm: FormGroup;
+  salaryYear: number;
+  salaryMonth: number;
   constructor(private route: ActivatedRoute, private salaryService: SalaryService) {
     this.route.data.subscribe((response: any) => {
       this.salaryHolders = response.salaryAdjustmentResolver.salaryHolders.data;
+      this.salaryYear = response.salaryAdjustmentResolver.salaryPeriod.data.yearNumber;
+      this.salaryMonth = response.salaryAdjustmentResolver.salaryPeriod.data.monthNumber;
+      this.salaryYearMonthForm = new FormGroup({
+        yearNumber: new FormControl(this.salaryYear),
+        monthNumber: new FormControl(this.salaryMonth)
+      });
       this.sumOfCalculatedSalary = this.salaryHolders.map(a => a.calculatedSalary).reduce((a, b) => {
         return a + b;
       });
     });
 
-    const salaryYear = 2022;
-    const salaryMonth = 8;
-    this.salaryYearMonthForm = new FormGroup({
-      yearNumber: new FormControl(salaryYear),
-      monthNumber: new FormControl(salaryMonth)
-    });
+
+
 
   }
   // @ts-ignore
@@ -41,6 +45,7 @@ export class SalaryAdjustmentComponent implements OnInit {
   };
 
   ngOnInit(): void {
+
   }
 
 

@@ -10,7 +10,11 @@ import {Router} from "@angular/router";
 import * as XLSX from "xlsx";
 import * as FileSaver from 'file-saver';
 
-
+export interface APIResponse {
+  status?: boolean;
+  message?: string;
+  data?: any;
+}
 @Injectable({
   providedIn: 'root'
 })
