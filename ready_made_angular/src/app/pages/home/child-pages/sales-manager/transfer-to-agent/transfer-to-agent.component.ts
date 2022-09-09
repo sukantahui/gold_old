@@ -31,7 +31,7 @@ export class TransferToAgentComponent implements OnInit {
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
   public sortedProducts: Product[] = [];
-  constructor(public transferAgentService: TransferAgentService , private messageService: MessageService , private confirmationService: ConfirmationService) {
+  constructor(public transferAgentService: TransferAgentService) {
     this.products = this.transferAgentService.getProductsInCounter();
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
     this.sortedProducts = this.products.slice();

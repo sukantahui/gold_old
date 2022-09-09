@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TransferToAgentRoutingModule } from './transfer-to-agent-routing.module';
 import { TransferToAgentComponent } from './transfer-to-agent.component';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MaterialModule} from "../../../../../core/material.module";
+import {MaterialModule} from '../../../../../core/material.module';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
@@ -18,13 +18,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {Ng2SearchPipeModule} from "ng2-search-filter";
 import {NgxPaginationModule} from "ngx-pagination";
 import {MatBadgeModule} from "@angular/material/badge";
-// import {MatSortModule} from "@angular/material/sort";
 import {MatIcon, MatIconModule} from '@angular/material/icon';
-import {MatIconHarness} from '@angular/material/icon/testing';
 import {MatSortModule} from '@angular/material/sort';
-import {ToastModule} from "primeng/toast";
-import {MessageModule} from "primeng/message";
-import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 
 @NgModule({
