@@ -16,6 +16,16 @@ class CreateAllProceduresAndFunctions extends Migration
 
 
 
+        DB::unprepared('DROP PROCEDURE IF EXISTS get_modelwise_sale_by_date;
+            CREATE PROCEDURE get_modelwise_sale_by_date(in in_start_date date, in in_end_date date)
+            BEGIN
+              select bill_details.model_no,sum(bill_details.qty) as sale_qty from bill_master
+              inner join bill_details on bill_master.bill_no=bill_details.bill_no
+              where date(bill_master.tr_time)>=in_start_date and date(bill_master.tr_time)<=in_end_date
+              group by bill_details.model_no
+              order by sale_qty desc;
+            END;'
+        );
 
         DB::unprepared('DROP FUNCTION IF EXISTS get_agent_gold_due;
             CREATE FUNCTION ses_gold.`get_agent_gold_due`(input_agent_id varchar(255)) RETURNS double

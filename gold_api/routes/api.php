@@ -173,6 +173,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/saveSalaryPayment',[SalaryHolderSalaryPaymentController::class,'saveSalaryPayment']);
 
 
+    Route::get('/modelWiseSale/{startDate}/{endDate}',[ReportController::class,'getModelsSaleReportByDate']);
+
+
 });
 
 

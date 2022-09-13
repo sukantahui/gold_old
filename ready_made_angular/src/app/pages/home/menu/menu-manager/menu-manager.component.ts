@@ -102,6 +102,17 @@ export class MenuManagerComponent implements OnInit {
           ]
         },
         {
+          displayName: 'Sale',
+          iconName: 'group',
+          children: [
+            {
+              displayName: 'Modelwise Sale',
+              iconName: 'person',
+              route: 'ModelWiseSaleReport',
+            }
+          ]
+        },
+        {
           displayName: 'Others',
           iconName: 'pie_chart',
           children: [

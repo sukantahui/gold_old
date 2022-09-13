@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends ApiController
 {
+
     public function getSaleReportByDatesAndAgent($startDate,$endDate,$agentId){
 
 
@@ -94,6 +95,11 @@ class ReportController extends ApiController
     public function getCurrentJobStatus(){
 //        $result = DB::select('call get_bill_and_receive_by_date(?, ?)', ['2021-01-01','2021-04-30']);
         $result = DB::select('call get_all_current_jobs');
+        return $this->successResponse($result);
+    }
+    public function getModelsSaleReportByDate($startDate,$endDate)
+    {
+        $result = DB::select('call get_modelwise_sale_by_date(?, ?)', [$startDate,$endDate]);
         return $this->successResponse($result);
     }
 }
