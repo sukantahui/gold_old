@@ -102,4 +102,14 @@ class ReportController extends ApiController
         $result = DB::select('call get_modelwise_sale_by_date(?, ?)', [$startDate,$endDate]);
         return $this->successResponse($result);
     }
+    public function getDiscountableBill($cust_id,$startDate,$endDate,$discount)
+    {
+        $result = DB::select('call get_customer_discountable_bill_by_id_date(?, ?,?,?)', [$cust_id,$startDate,$endDate,$discount]);
+        $totalDiscount=collect($result)->sum('discount');
+        $result_array=array();
+        $result_array['records']=$result;
+        $result_array['totalDiscount']=$totalDiscount;
+        return $this->successResponse($result_array);
+    }
+
 }
