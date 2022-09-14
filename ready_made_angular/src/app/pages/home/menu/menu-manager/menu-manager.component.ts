@@ -117,9 +117,9 @@ export class MenuManagerComponent implements OnInit {
           iconName: 'pie_chart',
           children: [
             {
-              displayName: 'Others report',
+              displayName: 'Discount to Customer',
               iconName: 'star_rate',
-              route: 'Show Stock by Agent'
+              route: 'CustomerDiscountReport'
             }
           ]
         },
