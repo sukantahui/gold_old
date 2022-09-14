@@ -3,7 +3,25 @@
 
     <div class="p-2">
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-center flex-row">
+            <form [formGroup]="reportForm">
+                <div class="form-group">
+                    <div class="d-flex flex-row bd-highlight mb-3">
+                        <div class="p-2 col-4 bd-highlight">
 
+                            <mat-form-field >
+                                <mat-label>Date Of Birth</mat-label>
+                                <input class="col-9" matInput #ref [matDatepicker]="dob" formControlName="startDate" >
+
+                                <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+                                <mat-datepicker #dob></mat-datepicker>
+
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+
+                </div>
+            </form>
 
         </div>
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
