@@ -25,7 +25,7 @@
 
                                 <mat-form-field >
                                     <mat-label>End Date</mat-label>
-                                    <input class="col-9" matInput #ref2 [matDatepicker]="date2" formControlName="startDate" (dateInput)="setEndDateSQL(ref2.value)">
+                                    <input class="col-9" matInput #ref2 [matDatepicker]="date2" formControlName="endDate" (dateInput)="setEndDateSQL(ref2.value)">
 
                                     <mat-datepicker-toggle matSuffix [for]="date2"></mat-datepicker-toggle>
                                     <mat-datepicker #date2></mat-datepicker>

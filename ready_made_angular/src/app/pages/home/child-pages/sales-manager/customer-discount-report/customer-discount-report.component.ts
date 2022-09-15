@@ -19,18 +19,18 @@ export class CustomerDiscountReportComponent implements OnInit {
     this.route.data.subscribe((response: any) => {
       this.customers = response.customerResolver.customers.data;
     });
-    const stDate = new Date();
+    const stDate = new Date('2022-06-16');
     const endDate = new Date();
     this.reportForm = new FormGroup({
       customerId: new FormControl(null),
       startDate: new FormControl(stDate),
       startDateSQL: new FormControl(0),
-      endDate: new FormControl(endDate),
-      endDateSQL: new FormControl(0),
+      endDate: new FormControl(),
+      endDateSQL: new FormControl(null),
       discount: new FormControl(50)
     });
-    this.reportForm.patchValue({stDate: this.datepipe.transform(stDate, 'dd-MM-yyyy')});
-    this.reportForm.patchValue({endDate: this.datepipe.transform(endDate, 'dd-MM-yyyy')});
+    this.reportForm.patchValue({startDateSQL: this.datepipe.transform(stDate, 'yyyy-MM-dd')});
+    this.reportForm.patchValue({endDateSQL: this.datepipe.transform(endDate, 'yyyy-MM-dd')});
   }
 
   ngOnInit(): void {
