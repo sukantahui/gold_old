@@ -15,19 +15,22 @@ export class CustomerDiscountReportComponent implements OnInit {
   isProduction = environment.production;
   customers: any[] = [];
   reportForm: FormGroup;
-  constructor(private route: ActivatedRoute, private commonService: CommonService) {
+  constructor(private route: ActivatedRoute, private commonService: CommonService, public datepipe: DatePipe) {
     this.route.data.subscribe((response: any) => {
       this.customers = response.customerResolver.customers.data;
     });
     const stDate = new Date();
+    const endDate = new Date();
     this.reportForm = new FormGroup({
       customerId: new FormControl(null),
       startDate: new FormControl(stDate),
       startDateSQL: new FormControl(0),
-      endDate: new FormControl(0),
+      endDate: new FormControl(endDate),
       endDateSQL: new FormControl(0),
       discount: new FormControl(50)
     });
+    this.reportForm.patchValue({stDate: this.datepipe.transform(stDate, 'dd-MM-yyyy')});
+    this.reportForm.patchValue({endDate: this.datepipe.transform(endDate, 'dd-MM-yyyy')});
   }
 
   ngOnInit(): void {
