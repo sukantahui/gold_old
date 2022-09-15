@@ -19,13 +19,14 @@ export class CustomerDiscountReportComponent implements OnInit {
     this.route.data.subscribe((response: any) => {
       this.customers = response.customerResolver.customers.data;
     });
+    const stDate = new Date();
     this.reportForm = new FormGroup({
       customerId: new FormControl(null),
-      startDate: new FormControl(0),
+      startDate: new FormControl(stDate),
       startDateSQL: new FormControl(0),
       endDate: new FormControl(0),
       endDateSQL: new FormControl(0),
-      discount: new FormControl(0)
+      discount: new FormControl(50)
     });
   }
 
