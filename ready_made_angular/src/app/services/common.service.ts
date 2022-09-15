@@ -5,9 +5,9 @@ import {HttpClient} from '@angular/common/http';
 import {formatDate} from '@angular/common';
 import {ServerResponse} from '../models/ServerResponse.model';
 import {environment} from '../../environments/environment';
-import {concatMap, tap} from "rxjs/operators";
-import {Router} from "@angular/router";
-import * as XLSX from "xlsx";
+import {concatMap, tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 
 export interface APIResponse {
@@ -35,7 +35,7 @@ export class CommonService {
   private pictures: any;
   private BASE_API_URL = environment.BASE_API_URL;
   route: string;
-  actual_base_api_url="";
+  actual_base_api_url = '';
   constructor() {
 
     setInterval(() => {
@@ -43,10 +43,10 @@ export class CommonService {
       this.value$.next(this.currentValue);
       // just testing if it is working
     }, 1000);
-    let project_url =window.location.origin;
-    let firstArray =  project_url.split("/");
-    let secondArray =  firstArray[2].split(":");
-    this.actual_base_api_url = (firstArray[0]+"//"+secondArray[0]+this.BASE_API_URL);
+    const project_url = window.location.origin;
+    const firstArray =  project_url.split('/');
+    const secondArray =  firstArray[2].split(':');
+    this.actual_base_api_url = (firstArray[0] + '//' + secondArray[0] + this.BASE_API_URL);
   }
   getAPI(){
     return this.actual_base_api_url;
@@ -87,6 +87,14 @@ export class CommonService {
     return currentTime;
   }
 
+  getSQLDate(datePickerDate: any){
+    const dateArray = datePickerDate.split('/');
+    const month = ('00' + dateArray[1]).slice(-2);
+    const day = ('00' + dateArray[0]).slice(-2);
+    const sqlDate = dateArray[2] + '-' + month + '-' + day;
+    return sqlDate;
+  }
+
   loadValue(i) {
     this.currentValue += i;
     this.value$.next(this.currentValue);
@@ -95,12 +103,12 @@ export class CommonService {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
-  exportToExcel(tableId: string, fileName: string, except_col=255 ,sheetName = 'Sheet1'): void
+  exportToExcel(tableId: string, fileName: string, except_col= 255 , sheetName = 'Sheet1'): void
   {
-    const currentTimeInSeconds=Math.floor(Date.now()/1000);
+    const currentTimeInSeconds = Math.floor(Date.now() / 1000);
     /* table id is passed over here */
-    let element = document.getElementById(tableId);
-    let ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+    const element = document.getElementById(tableId);
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
     ws['!cols'] = [];
     ws['!cols'][except_col] = { hidden: true };
     /* generate workbook and add the worksheet */
@@ -108,7 +116,7 @@ export class CommonService {
     XLSX.utils.book_append_sheet(wb, ws, sheetName);
 
     /* save to file */
-    XLSX.writeFile(wb, fileName+'_'+currentTimeInSeconds);
+    XLSX.writeFile(wb, fileName + '_' + currentTimeInSeconds);
 
   }
 
@@ -118,7 +126,7 @@ export class CommonService {
     public arrayToExcel(jsonData: any[], fileName: string): void {
 
       const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(jsonData);
-      const wb: XLSX.WorkBook = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+      const wb: XLSX.WorkBook = { Sheets: { data: ws }, SheetNames: ['data'] };
       const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
       this.saveExcelFile(excelBuffer, fileName);
     }
