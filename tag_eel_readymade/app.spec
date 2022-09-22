@@ -8,7 +8,7 @@ a = Analysis(
     ['app.py'],
     pathex=[],
     binaries=[],
-    datas=[('F:\\Bitnami\\wampstack-8.0.7-0\\apache2\\htdocs\\gold_old\\tag_eel_readymade\\.venv\\lib\\site-packages\\eel\\eel.js', 'eel'), ('web', 'web')],
+    datas=[('E:\\Bitnami\\wampstack-8.1.2-0\\apache2\\htdocs\\gold_old\\tag_eel_readymade\\.venv\\lib\\site-packages\\eel\\eel.js', 'eel'), ('web', 'web')],
     hiddenimports=['bottle_websocket'],
     hookspath=[],
     hooksconfig={},

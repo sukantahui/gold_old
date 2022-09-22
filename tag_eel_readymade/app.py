@@ -147,6 +147,189 @@ def printTag(jobdata):
     f.write("\n")
     
     
+    # second tag
+    
+    f.write("N")
+    f.write("\n")
+    f.write("R110,0")
+    f.write("\n")
+    f.write("q831")
+    f.write("\n")
+    f.write("S2")
+    f.write("\n")
+    f.write("D12")
+    f.write("\n")
+    f.write("OEb")
+    f.write("\n")
+    f.write("A395,85,2,1,1,1,N,")
+    f.write('"'+data['cust_short_name']+'"')
+    f.write("\n")
+    f.write('A245,85,2,1,1,1,N,"Of"')
+    f.write("\n")
+    f.write("B405,70,2,1,2,1,33,N,")
+    f.write('"'+data['tag_prefix']+data['tag']+'"')
+    f.write("\n")
+    f.write("A405,33,2,2,1,1,N,")
+    f.write('"'+data['brand']+'"')
+    f.write("\n")
+    
+    f.write("A245,33,2,2,1,1,N,")
+    f.write('"'+data['tag_prefix']+data['tag']+'"')
+    f.write("\n")
+    
+    f.write("A680,80,2,1,1,1,N,")
+    f.write('"'+data['product_code']+'-')
+    f.write(data['price_code']+'"')
+    f.write("\n")
+    
+    f.write('A602,80,2,1,1,1,N,"Size:"')
+    f.write("\n")
+    
+    f.write("A549,80,2,1,1,1,N,")
+    f.write('"'+data['size']+'"')
+    f.write("\n")
+    
+    f.write('A490,80,2,1,1,1,N,"Qty:"')
+    f.write("\n")
+    
+    f.write("A450,80,2,1,1,1,N,")
+    f.write('"'+data['pieces']+'"')
+    f.write("\n")
+    
+    f.write('A680,60,2,1,1,1,N,"Gold Weight:"')
+    f.write("\n")
+    current_gold_used = float(data['gold_used'])+(int(data['pieces'])*0.100)
+    f.write("A550,60,2,1,1,1,N,")
+    f.write('"'+str(current_gold_used)+'"')
+    f.write("\n")
+    
+    f.write('A480,60,2,1,1,1,N,"HM"')
+    f.write("\n")
+    f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+    f.write("\n")
+    
+    f.write("A540,40,2,1,1,1,N,")
+    f.write('"'+data['gross_weight']+'"')
+    f.write("\n")
+    
+    f.write("\n")
+    f.write('A680,20,2,1,1,1,N,"Charge:"')
+    f.write("\n")
+    
+    f.write("\n")
+    f.write("A600,20,2,1,1,1,N,")
+    f.write('"'+str(int(data['lc'])*3)+'"')
+    f.write("\n")
+    f.write('A555,20,2,1,1,1,N,"X"')
+    f.write("\n")
+    
+    f.write('A535,20,2,1,1,1,N,')
+    f.write('"'+data['pieces']+'"')
+    f.write("\n")
+
+    f.write('A515,20,2,1,1,1,N,"="')
+    f.write("\n")
+    
+    f.write("A505,20,2,1,1,1,N,")
+    f.write('"'+str(int((data['total_lc']))*3)+'"')
+    f.write("\n")
+    
+    f.write("P1")
+    f.write("\n")
+    
+    
+    # third tag
+    
+    f.write("N")
+    f.write("\n")
+    f.write("R110,0")
+    f.write("\n")
+    f.write("q831")
+    f.write("\n")
+    f.write("S2")
+    f.write("\n")
+    f.write("D12")
+    f.write("\n")
+    f.write("OEb")
+    f.write("\n")
+    f.write("A395,85,2,1,1,1,N,")
+    f.write('"'+data['cust_short_name']+'"')
+    f.write("\n")
+    f.write('A245,85,2,1,1,1,N,"Of"')
+    f.write("\n")
+    f.write("B405,70,2,1,2,1,33,N,")
+    f.write('"'+data['tag_prefix']+data['tag']+'"')
+    f.write("\n")
+    f.write("A405,33,2,2,1,1,N,")
+    f.write('"'+data['brand']+'"')
+    f.write("\n")
+    
+    f.write("A245,33,2,2,1,1,N,")
+    f.write('"'+data['tag_prefix']+data['tag']+'"')
+    f.write("\n")
+    
+    f.write("A680,80,2,1,1,1,N,")
+    f.write('"'+data['product_code']+'-')
+    f.write(data['price_code']+'"')
+    f.write("\n")
+    
+    f.write('A602,80,2,1,1,1,N,"Size:"')
+    f.write("\n")
+    
+    f.write("A549,80,2,1,1,1,N,")
+    f.write('"'+data['size']+'"')
+    f.write("\n")
+    
+    f.write('A490,80,2,1,1,1,N,"Qty:"')
+    f.write("\n")
+    
+    f.write("A450,80,2,1,1,1,N,")
+    f.write('"'+data['pieces']+'"')
+    f.write("\n")
+    
+    f.write('A680,60,2,1,1,1,N,"Gold Weight:"')
+    f.write("\n")
+    current_gold_used = float(data['gold_used'])+(int(data['pieces'])*0.200)
+    f.write("A550,60,2,1,1,1,N,")
+    f.write('"'+str(current_gold_used)+'"')
+    f.write("\n")
+    
+    f.write('A480,60,2,1,1,1,N,"HM"')
+    f.write("\n")
+    f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+    f.write("\n")
+    
+    f.write("A540,40,2,1,1,1,N,")
+    f.write('"'+data['gross_weight']+'"')
+    f.write("\n")
+    
+    f.write("\n")
+    f.write('A680,20,2,1,1,1,N,"Charge:"')
+    f.write("\n")
+    
+    f.write("\n")
+    f.write("A600,20,2,1,1,1,N,")
+    f.write('"'+str(int(data['lc'])*3)+'"')
+    f.write("\n")
+    f.write('A555,20,2,1,1,1,N,"X"')
+    f.write("\n")
+    
+    f.write('A535,20,2,1,1,1,N,')
+    f.write('"'+data['pieces']+'"')
+    f.write("\n")
+
+    f.write('A515,20,2,1,1,1,N,"="')
+    f.write("\n")
+    
+    f.write("A505,20,2,1,1,1,N,")
+    f.write('"'+str(int((data['total_lc']))*3)+'"')
+    f.write("\n")
+    
+    f.write("P1")
+    f.write("\n")
+    
+    
+    
     f.close()
     os.system('print_tag.bat')
     
