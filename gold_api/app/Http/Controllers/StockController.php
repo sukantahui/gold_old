@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ItemStockReadyMadeResource;
 use App\Models\ItemStockReadyMade;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
@@ -18,10 +19,28 @@ class StockController extends ApiController
 //        return $this->successResponse(ItemStockReadyMadeResource::collection($result));
 //    }
     public function  get_all_instock_items(){
-        $result = ItemStockReadyMade::select('tag','item_inward_detail_id','model_no','model_size','qty','gold','labour_charge','gross_weight','package_weight','agent_id','employee_id','bill_no','job_id',DB::raw("DATE(record_time) as date"))
+        $result = ItemStockReadyMade::select('tag'
+            ,'item_inward_detail_id'
+            ,'model_no'
+            ,'model_size'
+            ,'qty'
+            ,'gold'
+            ,'labour_charge'
+            ,'gross_weight'
+            ,'package_weight'
+            ,'agent_id'
+            ,'employee_id'
+            ,'bill_no'
+            ,'job_id'
+            ,DB::raw("DATE(record_time) as date"))
                   ->where('in_stock',1)
                   ->get();
 //        return $this->successResponse(ItemStockReadyMadeResource::collection($result));
+        return response()->json(['success'=>1 , 'data'=>$result],200,[],JSON_NUMERIC_CHECK);
+    }
+
+    public function  get_all_instock_items_in_hand(){
+        $result = ItemStockReadyMade::with('productCategory')->limit(10)->get();
         return response()->json(['success'=>1 , 'data'=>$result],200,[],JSON_NUMERIC_CHECK);
     }
 

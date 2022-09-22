@@ -76,6 +76,15 @@ class ItemStockReadyMade extends Model
     {
         return false;
     }
+    public function product() {
+        return $this->belongsTo(Product::class , 'model_no');
+    }
 
+    public function productCategory()
+    {
+        return $this->belongsTo(Product::class, 'model_no')
+            ->join('product_cat as pc', 'pc.ID', '=', 'product_master.product_category');
+//        return $this->belongsToThrough(ProductCategory::class, [Product::class]);
+    }
 
 }

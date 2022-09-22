@@ -23,4 +23,7 @@ class Product extends Model
     private $details;
     private $product_markuped;
     private $product_markup_value;
+    public function productCategory() {
+        return $this->belongsTo(ProductCategory::class , 'ID');
+    }
 }
