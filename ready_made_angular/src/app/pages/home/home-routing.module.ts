@@ -137,6 +137,10 @@ const routes: Routes = [
                                         .then(m => m.ShowItemStockModule),
                                         resolve: {showItemStockResolver: ShowItemStockResolver}
                                 },
+                                { path: 'ProductReport'
+                                    // tslint:disable-next-line:max-line-length
+                                    , loadChildren: () => import('./child-pages/sales-manager/product-report/product-report.module').then(m => m.ProductReportModule)
+                                },
 
                             ]
                           },

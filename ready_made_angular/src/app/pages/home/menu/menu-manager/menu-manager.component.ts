@@ -124,6 +124,17 @@ export class MenuManagerComponent implements OnInit {
           ]
         },
         {
+          displayName: 'Misc.',
+          iconName: 'pie_chart',
+          children: [
+            {
+              displayName: 'Product & Models',
+              iconName: 'star_rate',
+              route: 'ProductReport'
+            }
+          ]
+        },
+        {
           displayName: 'Feedback',
           iconName: 'feedback',
           route: 'feedback'

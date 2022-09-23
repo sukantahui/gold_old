@@ -1,0 +1,57 @@
+
+<div class="p-2">
+        <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+            <div class="p-2 col-xl-10" style="background-color: antiquewhite">
+                <form>
+                    <div class="form-row">
+                        <div class="col">
+                            <mat-form-field class="p-2">
+                                <mat-label>Start Date</mat-label>
+                                <input class="col-9" matInput #ref1 [matDatepicker]="date1">
+
+                                <mat-datepicker-toggle matSuffix [for]="date1"></mat-datepicker-toggle>
+                                <mat-datepicker #date1></mat-datepicker>
+
+                            </mat-form-field>
+
+
+                            <mat-form-field class="p-2">
+                                <mat-label>End Date</mat-label>
+                                <input class="col-9" matInput #ref2 [matDatepicker]="date2">
+
+                                <mat-datepicker-toggle matSuffix [for]="date2"></mat-datepicker-toggle>
+                                <mat-datepicker #date2></mat-datepicker>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Last name">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+
+
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div class="col" fxLayoutAlign="center center">
+                    <pre>
+
+                    </pre>
+
+            </div>
+            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
+                    <pre>
+
+                    </pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
