@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceMasterController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\ReportController;
@@ -178,6 +179,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/discountableBill/{cust_id}/{startDate}/{endDate}/{discount}',[ReportController::class,'getDiscountableBill']);
 
     Route::get("customers",[CustomerController::class, 'index']);
+
+    Route::get("productCategories",[ProductCategoryController::class, 'getProductCategories']);
 
 
 });

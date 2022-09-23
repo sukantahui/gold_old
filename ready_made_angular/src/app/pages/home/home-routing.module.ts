@@ -6,6 +6,7 @@ import {AgentSalaryBalanceSheetResolver} from '../../resolvers/agent-salary-bala
 import {SalaryAdjustmentResolver} from '../../resolvers/salary-adjustment.resolver';
 import {SalaryHolderSalaryPaymentResolver} from '../../resolvers/salary-holder-salary-payment.resolver';
 import {CustomerResolver} from '../../resolvers/customer.resolver';
+import {ShowItemStockResolver} from '../../resolvers/show-item-stock.resolver';
 
 // @ts-ignore
 // @ts-ignore
@@ -131,6 +132,10 @@ const routes: Routes = [
                                 { path: 'CustomerDiscountReport', loadChildren: () => import('./child-pages/sales-manager/customer-discount-report/customer-discount-report.module')
                                         .then(m => m.CustomerDiscountReportModule),
                                     resolve: {customerResolver: CustomerResolver}
+                                },
+                                { path: 'ShowItemStock', loadChildren: () => import('./child-pages/sales-manager/show-item-stock/show-item-stock.module')
+                                        .then(m => m.ShowItemStockModule),
+                                        resolve: {showItemStockResolver: ShowItemStockResolver}
                                 },
 
                             ]

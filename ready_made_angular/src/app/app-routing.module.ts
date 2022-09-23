@@ -93,6 +93,8 @@ const routes: Routes = [
 
 
 
+
+
   // { path: 'Manager', loadChildren: () => import('./pages/home/child-pages/manager/manager.module').then(m => m.ManagerModule) }
   // tslint:disable-next-line:max-line-length
   // { path: 'AgentSalary', loadChildren: () => import('./pages/home/child-pages/sales-manager/agent-salary/agent-salary.module').then(m => m.AgentSalaryModule) }

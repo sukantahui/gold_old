@@ -103,6 +103,17 @@ export class MenuSalesManagerComponent implements OnInit {
           ]
         },
         {
+          displayName: 'Stock',
+          iconName: 'pie_chart',
+          children: [
+            {
+              displayName: 'Stock In Hand',
+              iconName: 'star_rate',
+              route: 'ShowItemStock'
+            }
+          ]
+        },
+        {
           displayName: 'Others',
           iconName: 'pie_chart',
           children: [
