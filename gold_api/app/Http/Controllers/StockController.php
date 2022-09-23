@@ -50,7 +50,8 @@ class StockController extends ApiController
             return $q->where('agent_id', '=', $agentId);
         });
         $result=$query->get();
-        return response()->json(['success'=>1 , 'data'=>$result],200,[],JSON_NUMERIC_CHECK);
+//        return response()->json(['success'=>1 , 'data'=>$result],200,[],JSON_NUMERIC_CHECK);
+        return $this->successResponse(ItemStockReadyMadeResource::collection($result));
     }
 
     public function stock_by_agent_id($agentId){

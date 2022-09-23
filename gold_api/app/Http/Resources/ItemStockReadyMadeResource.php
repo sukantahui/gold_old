@@ -23,6 +23,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed bill_no
  * @property mixed job_id
  * @property mixed is_selected
+ * @property mixed category
+ * @property mixed product_description
  */
 class ItemStockReadyMadeResource extends JsonResource
 {
@@ -52,7 +54,9 @@ class ItemStockReadyMadeResource extends JsonResource
          'reference'=> $this->reference,
          'billNo'=> $this->bill_no,
          'jobId'=> $this->job_id,
-         'isSelected'=>$this->is_selected
+         'isSelected'=>$this->is_selected,
+         'productCategory'=>$this->category,
+         'productDescription' => $this->product_description
         ];
     }
 }
