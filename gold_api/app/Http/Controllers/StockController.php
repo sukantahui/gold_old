@@ -39,8 +39,17 @@ class StockController extends ApiController
         return response()->json(['success'=>1 , 'data'=>$result],200,[],JSON_NUMERIC_CHECK);
     }
 
-    public function  get_all_instock_items_in_hand(){
-        $result = ItemStockReadyMade::with('productCategory')->limit(10)->get();
+    public function  get_all_instock_items_in_hand($categoryID, $agentId){
+        $query = ItemStockReadyMade::select()
+            ->join('product_master as pm','pm.product_code','model_no')
+            ->join('product_cat','product_cat.Id','pm.product_category');
+            $query->when($categoryID >0 , function ($q) use ($categoryID) {
+                return $q->where('product_cat.Id', '=', $categoryID);
+            });
+        $query->when($agentId !='AG0000' , function ($q) use ($agentId) {
+            return $q->where('agent_id', '=', $agentId);
+        });
+        $result=$query->get();
         return response()->json(['success'=>1 , 'data'=>$result],200,[],JSON_NUMERIC_CHECK);
     }
 
