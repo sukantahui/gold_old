@@ -36,8 +36,9 @@ export class ReportService {
 
             }));
     }
-    getModelWiseSaleReport(){
-        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/modelWiseSale/2022-01-01/2022-08-31')
+
+    getModelWiseSaleReport(startDateSql: string, endDateSql: string, reportLimit: number){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/modelWiseSale/' + startDateSql + '/' + endDateSql + '/' + reportLimit)
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
                 if (response.status === true){
 

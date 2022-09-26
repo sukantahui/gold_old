@@ -25,7 +25,10 @@ export class ProductSaleComponent implements OnInit {
     const endDate = new Date();
     this.reportForm = new FormGroup({
       startDate: new FormControl(stDate),
-      endDate: new FormControl(endDate)
+      startDateSql: new FormControl(null),
+      endDate: new FormControl(endDate),
+      endDateSql: new FormControl(null),
+      reportLimit: new FormControl(50)
     });
 
   }
@@ -37,9 +40,19 @@ export class ProductSaleComponent implements OnInit {
 
   loadSaleReport() {
     this.isLoading = true;
-    this.reportService.getModelWiseSaleReport().subscribe((response) =>{
+
+    this.reportService.getModelWiseSaleReport(this.reportForm.value.startDateSql, this.reportForm.value.endDateSql, this.reportForm.value.reportLimit).subscribe((response) => {
       this.modelWiseSales = response.data;
       this.isLoading = false;
     });
   }
+
+  setStartDateSQL(value: string) {
+    this.reportForm.patchValue({startDateSql: this.commonService.getSQLDate2(value)});
+  }
+
+  setEndDateSQL(value: string) {
+    this.reportForm.patchValue({endDateSql: this.commonService.getSQLDate2(value)});
+  }
+
 }

@@ -7,26 +7,37 @@
                         <div class="col">
                             <mat-form-field appearance="outline" class="p-2">
                                 <mat-label>Start Date</mat-label>
-                                <input matInput #ref1 [matDatepicker]="matDatepicker1" formControlName="startDate">
+                                <input matInput #ref1 [matDatepicker]="matDatepicker1" formControlName="startDate" (dateInput)="setStartDateSQL(ref1.value)">
                                 <mat-datepicker-toggle matSuffix [for]="matDatepicker1"></mat-datepicker-toggle>
                                 <mat-datepicker #matDatepicker1 startView="year" [opened]="true"></mat-datepicker>
                             </mat-form-field>
 
                             <mat-form-field appearance="outline" class="p-2">
                                 <mat-label>End Date</mat-label>
-                                <input matInput #ref1 [matDatepicker]="matDatepicker2" formControlName="endDate">
+                                <input matInput #ref2 [matDatepicker]="matDatepicker2" formControlName="endDate" (dateInput)="setEndDateSQL(ref2.value)">
                                 <mat-datepicker-toggle matSuffix [for]="matDatepicker2"></mat-datepicker-toggle>
                                 <mat-datepicker #matDatepicker2 startView="year" [opened]="false"></mat-datepicker>
                             </mat-form-field>
                         </div>
                         <div class="col">
-                            <button pButton type="button" label="Small" icon="pi pi-check" [loading]="isLoading" (click)="loadSaleReport()" ></button>
+                            <mat-form-field>
+                                <input
+                                        type="number"
+                                        class="form-control"
+                                        matInput
+                                        name="value"
+                                        placeholder="Limit"
+                                        formControlName="reportLimit" #limit>
+                            </mat-form-field>
+
+                            <div>Show me first {{limit.value}} Model Sale from {{ref1.value}} to {{ref2.value}}</div>
+                            <button pButton type="button" label="Show Record" icon="pi pi-check" [loading]="isLoading" (click)="loadSaleReport()" ></button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="table-div">
+        <div class="table-div col-xs-6 col-2">
             <p-table [value]="modelWiseSales">
                 <ng-template pTemplate="header">
                     <tr>

@@ -95,9 +95,9 @@ export class CommonService {
     return sqlDate;
   }
   getSQLDate2(datePickerDate: string){
-    const dateArray = datePickerDate.split('-');
-    const month = ('00' + dateArray[1]).slice(-2);
-    const day = ('00' + dateArray[0]).slice(-2);
+    const dateArray = datePickerDate.split('/');
+    const month = dateArray[1];
+    const day = dateArray[0];
     const sqlDate = dateArray[2] + '-' + month + '-' + day;
     return sqlDate;
   }

@@ -97,9 +97,9 @@ class ReportController extends ApiController
         $result = DB::select('call get_all_current_jobs');
         return $this->successResponse($result);
     }
-    public function getModelsSaleReportByDate($startDate,$endDate)
+    public function getModelsSaleReportByDate($startDate,$endDate,$limit)
     {
-        $result = DB::select('call get_modelwise_sale_by_date(?, ?)', [$startDate,$endDate]);
+        $result = DB::select('call get_modelwise_sale_by_date(?, ?,?)', [$startDate,$endDate,$limit]);
         return $this->successResponse($result);
     }
     public function getDiscountableBill($cust_id,$startDate,$endDate,$discount)

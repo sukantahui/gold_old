@@ -9,6 +9,7 @@ import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatDateForma
 import {ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 
 export const DateFormats = {
@@ -48,7 +49,8 @@ export const GRI_DATE_FORMATS: MatDateFormats = {
     MatNativeDateModule,
     ReactiveFormsModule,
     ButtonModule,
-    TableModule
+    TableModule,
+    InputNumberModule,
   ],
   providers: [
 
