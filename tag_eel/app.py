@@ -72,7 +72,7 @@ def printTag(jobdata):
     f.write("A395,85,2,1,1,1,N,")
     f.write('"'+data['cust_short_name']+'"')
     f.write("\n")
-    f.write('A245,85,2,1,1,1,N,"Off"')
+    f.write('A245,85,2,1,1,1,N,"Original"')
     f.write("\n")
     f.write("B405,70,2,1,2,1,33,N,")
     f.write('"'+data['job_id']+'"')

@@ -27,8 +27,17 @@ export class ReportService {
         }));
   }
 
-    getCurrentJobList(){
+  getCurrentJobList(){
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/test')
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
+    getModelWiseSaleReport(){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/modelWiseSale/2022-01-01/2022-08-31')
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
                 if (response.status === true){
 

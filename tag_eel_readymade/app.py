@@ -73,7 +73,7 @@ def printTag(jobdata):
     f.write("A395,85,2,1,1,1,N,")
     f.write('"'+data['cust_short_name']+'"')
     f.write("\n")
-    f.write('A245,85,2,1,1,1,N,"Of"')
+    f.write('A245,85,2,1,1,1,N,"Original"')
     f.write("\n")
     f.write("B405,70,2,1,2,1,33,N,")
     f.write('"'+data['tag_prefix']+data['tag']+'"')
@@ -122,7 +122,7 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("\n")
-    f.write('A680,20,2,1,1,1,N,"Charge:"')
+    f.write('A680,20,2,1,1,1,N,"M. Charge:"')
     f.write("\n")
     
     f.write("\n")
@@ -164,7 +164,7 @@ def printTag(jobdata):
     f.write("A395,85,2,1,1,1,N,")
     f.write('"'+data['cust_short_name']+'"')
     f.write("\n")
-    f.write('A245,85,2,1,1,1,N,"Of"')
+    f.write('A245,85,2,1,1,1,N,"1ff"')
     f.write("\n")
     f.write("B405,70,2,1,2,1,33,N,")
     f.write('"'+data['tag_prefix']+data['tag']+'"')
@@ -198,7 +198,7 @@ def printTag(jobdata):
     
     f.write('A680,60,2,1,1,1,N,"Gold Weight:"')
     f.write("\n")
-    current_gold_used = float(data['gold_used'])+(int(data['pieces'])*0.100)
+    current_gold_used = round(float(data['gold_used'])+(int(data['pieces'])*0.100),3)
     f.write("A550,60,2,1,1,1,N,")
     f.write('"'+str(current_gold_used)+'"')
     f.write("\n")
@@ -213,7 +213,7 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("\n")
-    f.write('A680,20,2,1,1,1,N,"Charge:"')
+    f.write('A680,20,2,1,1,1,N,"M. Charge:"')
     f.write("\n")
     
     f.write("\n")
@@ -255,7 +255,7 @@ def printTag(jobdata):
     f.write("A395,85,2,1,1,1,N,")
     f.write('"'+data['cust_short_name']+'"')
     f.write("\n")
-    f.write('A245,85,2,1,1,1,N,"Of"')
+    f.write('A245,85,2,1,1,1,N,"2ff"')
     f.write("\n")
     f.write("B405,70,2,1,2,1,33,N,")
     f.write('"'+data['tag_prefix']+data['tag']+'"')
@@ -289,7 +289,7 @@ def printTag(jobdata):
     
     f.write('A680,60,2,1,1,1,N,"Gold Weight:"')
     f.write("\n")
-    current_gold_used = float(data['gold_used'])+(int(data['pieces'])*0.200)
+    current_gold_used = round(float(data['gold_used'])+(int(data['pieces'])*0.200),3)
     f.write("A550,60,2,1,1,1,N,")
     f.write('"'+str(current_gold_used)+'"')
     f.write("\n")
@@ -304,7 +304,7 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("\n")
-    f.write('A680,20,2,1,1,1,N,"Charge:"')
+    f.write('A680,20,2,1,1,1,N,"M. Charge:"')
     f.write("\n")
     
     f.write("\n")

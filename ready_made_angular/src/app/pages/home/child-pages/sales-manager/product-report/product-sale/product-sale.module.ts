@@ -7,6 +7,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatDateFormats, MatNativeDateModule} from '@angular/material/core';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ButtonModule} from 'primeng/button';
+import {TableModule} from 'primeng/table';
 
 
 export const DateFormats = {
@@ -45,6 +47,8 @@ export const GRI_DATE_FORMATS: MatDateFormats = {
     MatInputModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    ButtonModule,
+    TableModule
   ],
   providers: [
 
