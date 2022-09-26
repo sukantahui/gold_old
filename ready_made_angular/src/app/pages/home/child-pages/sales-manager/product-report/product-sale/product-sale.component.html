@@ -2,30 +2,25 @@
 <div class="p-2">
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
             <div class="p-2 col-xl-10" style="background-color: antiquewhite">
-                <form>
+                <form [formGroup]="reportForm">
                     <div class="form-row">
                         <div class="col">
-                            <mat-form-field class="p-2">
+                            <mat-form-field appearance="outline" class="p-5">
                                 <mat-label>Start Date</mat-label>
-                                <input class="col-9" matInput #ref1 [matDatepicker]="date1">
-
-                                <mat-datepicker-toggle matSuffix [for]="date1"></mat-datepicker-toggle>
-                                <mat-datepicker #date1></mat-datepicker>
-
+                                <input matInput #ref1 [matDatepicker]="matDatepicker1" formControlName="startDate" formControlName="startDate" (dateInput)="setStartDateSQL(ref1.value)">
+                                <mat-datepicker-toggle matSuffix [for]="matDatepicker1"></mat-datepicker-toggle>
+                                <mat-datepicker #matDatepicker1 startView="year" [opened]="true"></mat-datepicker>
                             </mat-form-field>
 
-
-                            <mat-form-field class="p-2">
+                            <mat-form-field appearance="outline">
                                 <mat-label>End Date</mat-label>
-                                <input class="col-9" matInput #ref2 [matDatepicker]="date2">
-
-                                <mat-datepicker-toggle matSuffix [for]="date2"></mat-datepicker-toggle>
-                                <mat-datepicker #date2></mat-datepicker>
-
+                                <input matInput #ref1 [matDatepicker]="matDatepicker2" formControlName="endDate">
+                                <mat-datepicker-toggle matSuffix [for]="matDatepicker2"></mat-datepicker-toggle>
+                                <mat-datepicker #matDatepicker2 startView="year" [opened]="false"></mat-datepicker>
                             </mat-form-field>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Last name">
+
                         </div>
                     </div>
                 </form>
@@ -39,7 +34,7 @@
         <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
             <div class="col" fxLayoutAlign="center center">
                     <pre>
-
+                            reportForm={{reportForm.value | json}}
                     </pre>
 
             </div>
