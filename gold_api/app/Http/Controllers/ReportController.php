@@ -102,6 +102,11 @@ class ReportController extends ApiController
         $result = DB::select('call get_modelwise_sale_by_date(?, ?,?)', [$startDate,$endDate,$limit]);
         return $this->successResponse($result);
     }
+    public function getSaleReportByModel($startDate,$endDate,$model)
+    {
+        $result = DB::select('call get_model_sale_to_customer_by_date(?, ?,?)', [$startDate,$endDate,$model]);
+        return $this->successResponse($result);
+    }
     public function getDiscountableBill($cust_id,$startDate,$endDate,$discount)
     {
         $result = DB::select('call get_customer_discountable_bill_by_id_date(?, ?,?,?)', [$cust_id,$startDate,$endDate,$discount]);

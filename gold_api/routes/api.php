@@ -176,6 +176,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
     Route::get('/modelWiseSale/{startDate}/{endDate}/{limit}',[ReportController::class,'getModelsSaleReportByDate']);
+    Route::get('/SaleByModel/{startDate}/{endDate}/{model}',[ReportController::class,'getSaleReportByModel']);
+
     Route::get('/discountableBill/{cust_id}/{startDate}/{endDate}/{discount}',[ReportController::class,'getDiscountableBill']);
 
     Route::get("customers",[CustomerController::class, 'index']);

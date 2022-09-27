@@ -38,7 +38,9 @@ export class ProductSaleComponent implements OnInit {
   }
 
 
-  loadSaleReport() {
+  loadSaleReport(dateFrom: string, dateTo: string) {
+    this.reportForm.patchValue({startDateSql: this.commonService.getSQLDate2(dateFrom)});
+    this.reportForm.patchValue({endDateSql: this.commonService.getSQLDate2(dateTo)});
     this.isLoading = true;
 
     this.reportService.getModelWiseSaleReport(this.reportForm.value.startDateSql, this.reportForm.value.endDateSql, this.reportForm.value.reportLimit).subscribe((response) => {

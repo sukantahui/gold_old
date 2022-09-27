@@ -17,13 +17,13 @@ class CreateAllProceduresAndFunctions extends Migration
 
 
         DB::unprepared('DROP PROCEDURE IF EXISTS get_modelwise_sale_by_date;
-            CREATE PROCEDURE get_modelwise_sale_by_date(in in_start_date date, in in_end_date date)
+            CREATE PROCEDURE get_modelwise_sale_by_date(in in_start_date date, in in_end_date date, in in_limit int)
             BEGIN
               select bill_details.model_no,sum(bill_details.qty) as sale_qty from bill_master
               inner join bill_details on bill_master.bill_no=bill_details.bill_no
               where date(bill_master.tr_time)>=in_start_date and date(bill_master.tr_time)<=in_end_date
               group by bill_details.model_no
-              order by sale_qty desc;
+              order by sale_qty desc limit in_limit;
             END;'
         );
 
@@ -125,6 +125,21 @@ class CreateAllProceduresAndFunctions extends Migration
                 END IF;
                     RETURN temp_cust_name;
                 END;'
+        );
+        // sale of product to customers by date
+        DB::unprepared('DROP PROCEDURE IF EXISTS get_model_sale_to_customer_by_date;
+            CREATE PROCEDURE get_model_sale_to_customer_by_date(in in_start_date date, in in_end_date date, in in_model varchar(10))
+            BEGIN
+                select
+              customer_master.cust_id,customer_master.cust_name,agent_master.short_name as agent,bill_master.bill_no,sum(bill_details.qty) as sale_qty
+              from bill_master
+              inner join bill_details on bill_details.bill_no = bill_master.bill_no
+              inner join customer_master ON customer_master.cust_id = bill_master.cust_id
+              inner join agent_to_customer on agent_to_customer.cust_id = customer_master.cust_id
+              inner join agent_master ON agent_master.agent_id = agent_to_customer.agent_id
+              where bill_details.model_no=in_model and date(bill_master.tr_time)>=in_start_date and  date(bill_master.tr_time)<=in_end_date
+              group by customer_master.cust_id, customer_master.cust_name,agent_master.short_name, bill_master.bill_no;
+            END;'
         );
     }
 
