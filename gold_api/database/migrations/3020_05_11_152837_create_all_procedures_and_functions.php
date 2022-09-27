@@ -131,7 +131,10 @@ class CreateAllProceduresAndFunctions extends Migration
             CREATE PROCEDURE get_model_sale_to_customer_by_date(in in_start_date date, in in_end_date date, in in_model varchar(10))
             BEGIN
                 select
-              customer_master.cust_id,customer_master.cust_name,agent_master.short_name as agent,bill_master.bill_no,sum(bill_details.qty) as sale_qty
+                DATE_FORMAT(bill_master.tr_time,"%d/%m/%Y") as bill_date
+              ,customer_master.cust_id
+              ,customer_master.cust_name
+              ,agent_master.short_name as agent,bill_master.bill_no,sum(bill_details.qty) as sale_qty
               from bill_master
               inner join bill_details on bill_details.bill_no = bill_master.bill_no
               inner join customer_master ON customer_master.cust_id = bill_master.cust_id

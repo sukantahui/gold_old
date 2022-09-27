@@ -38,7 +38,19 @@ export class ReportService {
     }
 
     getModelWiseSaleReport(startDateSql: string, endDateSql: string, reportLimit: number){
+        // tslint:disable-next-line:max-line-length
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/modelWiseSale/' + startDateSql + '/' + endDateSql + '/' + reportLimit)
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
+
+    getSaleByModel(startDateSql: string, endDateSql: string, modelNo: string){
+        // tslint:disable-next-line:max-line-length
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/SaleByModel/' + startDateSql + '/' + endDateSql + '/' + modelNo)
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
                 if (response.status === true){
 

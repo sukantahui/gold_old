@@ -5,6 +5,7 @@ import {CommonService} from '../../../../../../services/common.service';
 import {DatePipe} from '@angular/common';
 import {DateAdapter} from '@angular/material/core';
 import {ReportService} from '../../../../../../services/report.service';
+import {Table} from 'primeng/table';
 export enum Month {
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 }
@@ -18,6 +19,9 @@ export class ProductSaleComponent implements OnInit {
   reportForm: FormGroup;
   isLoading = false;
   modelWiseSales: {model_no: string, sale_qty: number}[];
+  isLoadingSale = false;
+  sales: any = [];
+  selectedModel: any;
   constructor(private reportService: ReportService, private commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
     this.adapter.setLocale('in');
     const stDate = new Date();
@@ -57,4 +61,12 @@ export class ProductSaleComponent implements OnInit {
     this.reportForm.patchValue({endDateSql: this.commonService.getSQLDate2(value)});
   }
 
+  showSaleReportByModel(modelNo: any) {
+    // tslint:disable-next-line:max-line-length
+    this.selectedModel = modelNo;
+    this.reportService.getSaleByModel(this.reportForm.value.startDateSql, this.reportForm.value.endDateSql, modelNo).subscribe((response) => {
+      console.log(response.data);
+      this.sales = response.data;
+    });
+  }
 }

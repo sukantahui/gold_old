@@ -37,13 +37,25 @@
                 </form>
             </div>
         </div>
-        <div class="table-div col-xs-6 col-2" *ngIf="modelWiseSales">
-            <p-table [value]="modelWiseSales">
+        <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+            <div class="table-div col-xs-6 col-2" *ngIf="modelWiseSales">
+                <p-table #dt1  [value]="modelWiseSales" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"  styleClass="p-datatable-gridlines"
+                         [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                         [globalFilterFields]="['model_no','sale_qty']">
+                    <ng-template pTemplate="caption">
+                        <div class="flex">
+                            <span class="p-input-icon-left ml-auto">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                            </span>
+                        </div>
+                    </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>SL</th>
                         <th pSortableColumn="model_no">Model <p-sortIcon field="model_no"></p-sortIcon></th>
                         <th pSortableColumn="sale_qty">Qty <p-sortIcon field="sale_qty"></p-sortIcon></th>
+                        <th>Action</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-modelWiseSale let-i="rowIndex">
@@ -51,9 +63,54 @@
                         <td>{{i+1}}</td>
                         <td>{{modelWiseSale.model_no}}</td>
                         <td>{{modelWiseSale.sale_qty}}</td>
+                        <td>
+                            <p-button label="Show" icon="pi pi-search"   styleClass="p-button-link" (click)="showSaleReportByModel(modelWiseSale.model_no)"></p-button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
+            </div>
+            <div class="col-6">
+                <div *ngIf="sales.length>0" class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
+
+                    <p-table #dt2 [value]="sales" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[20,30,50]"  styleClass="p-datatable-gridlines"
+                             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                             [globalFilterFields]="['cust_id','cust_name','agent','bill_date']">
+                        <ng-template pTemplate="caption">
+                            <div class="flex">
+                            <h4>Selected Model: {{selectedModel}}</h4>
+                            <span class="p-input-icon-left ml-auto">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                            </span>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>SL</th>
+                                <th pSortableColumn="bill_date">Date <p-sortIcon field="bill_date"></p-sortIcon></th>
+                                <th pSortableColumn="cust_id">Cust ID <p-sortIcon field="cust_id"></p-sortIcon></th>
+                                <th pSortableColumn="cust_name">Customer <p-sortIcon field="cust_name"></p-sortIcon></th>
+                                <th pSortableColumn="agent">Agent <p-sortIcon field="agent"></p-sortIcon></th>
+                                <th pSortableColumn="bill_no">Bill No. <p-sortIcon field="bill_no"></p-sortIcon></th>
+                                <th pSortableColumn="sale_qty">Sale <p-sortIcon field="sale_qty"></p-sortIcon></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-sale let-i="rowIndex">
+                            <tr>
+                                <td>{{i+1}}</td>
+                                <td>{{sale.bill_date}}</td>
+                                <td>{{sale.cust_id}}</td>
+                                <td>{{sale.cust_name}}</td>
+                                <td>{{sale.agent}}</td>
+                                <td>{{sale.bill_no}}</td>
+                                <td>{{sale.sale_qty}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+
+            </div>
         </div>
 </div>
 
@@ -63,7 +120,7 @@
         <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
             <div class="col" fxLayoutAlign="center center">
                     <pre>
-
+                        sales={{sales | json}}
                     </pre>
 
             </div>
