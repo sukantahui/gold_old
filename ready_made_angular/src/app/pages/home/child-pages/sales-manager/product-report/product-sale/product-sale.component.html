@@ -38,7 +38,8 @@
             </div>
         </div>
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
-            <div class="table-div col-xs-6 col-2" *ngIf="modelWiseSales">
+            <div class="table-div col-6">
+                <div *ngIf="modelWiseSales" class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
                 <p-table #dt1  [value]="modelWiseSales" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"  styleClass="p-datatable-gridlines"
                          [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                          [globalFilterFields]="['model_no','sale_qty']">
@@ -69,13 +70,21 @@
                     </tr>
                 </ng-template>
             </p-table>
+                </div>
             </div>
             <div class="col-6">
                 <div *ngIf="sales.length>0" class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
 
-                    <p-table #dt2 [value]="sales" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[20,30,50]"  styleClass="p-datatable-gridlines"
-                             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                             [globalFilterFields]="['cust_id','cust_name','agent','bill_date']">
+                    <p-table #dt2
+                             [value]="sales"
+                             [rows]="10"
+                             [showCurrentPageReport]="true"
+                             [rowsPerPageOptions]="[20,30,50]"
+                             styleClass="p-datatable-gridlines"
+                             [paginator]="true"
+                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                             [globalFilterFields]="['cust_id','cust_name','agent','bill_date']"
+                             [responsive]="true">
                         <ng-template pTemplate="caption">
                             <div class="flex">
                             <h4>Selected Model: {{selectedModel}}</h4>
