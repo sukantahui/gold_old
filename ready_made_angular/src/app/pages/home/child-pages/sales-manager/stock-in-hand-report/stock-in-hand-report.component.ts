@@ -30,7 +30,7 @@ export class StockInHandReportComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  stockByAgentAndCategory($event: any) {
-    
+  stockByAgentAndCategory($event: any, value: any) {
+    console.log(value);
   }
 }
