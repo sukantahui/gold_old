@@ -31,6 +31,6 @@ export class StockInHandReportComponent implements OnInit {
   }
 
   stockByAgentAndCategory($event: any, value: any) {
-    console.log(value);
+    console.log(value.selectedItems[0].value.ID);
   }
 }
