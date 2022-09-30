@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Agent;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -48,6 +49,7 @@ class ItemStockReadyMadeResource extends JsonResource
          'packageWeight'=> $this->package_weight,
          'inStock'=> $this->in_stock,
          'agentId'=> $this->agent_id,
+         'agentShortName'=> Agent::find($this->agent_id)->short_name,
          'recordTime'=> $this->record_time,
          'employeeId'=> $this->employee_id,
          'inforce'=> $this->inforce,

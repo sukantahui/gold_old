@@ -18,7 +18,6 @@ export class StockInHandReportComponent implements OnInit {
       this.agents = response.showItemStockResolver.agents.data;
       this.productCategories = response.showItemStockResolver.productCategories.data;
       this.stocksInHand = response.showItemStockResolver.stocksInHand.data;
-      console.log(response.showItemStockResolver.agents.data);
     });
   }
 
