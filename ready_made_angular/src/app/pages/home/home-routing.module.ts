@@ -7,7 +7,7 @@ import {SalaryAdjustmentResolver} from '../../resolvers/salary-adjustment.resolv
 import {SalaryHolderSalaryPaymentResolver} from '../../resolvers/salary-holder-salary-payment.resolver';
 import {CustomerResolver} from '../../resolvers/customer.resolver';
 import {ShowItemStockResolver} from '../../resolvers/show-item-stock.resolver';
-import {StockInHandReportResolver} from '../../resolvers/stock-in-hand-report.resolver';
+
 
 // @ts-ignore
 // @ts-ignore
@@ -144,7 +144,7 @@ const routes: Routes = [
                                 },
                                 { path: 'StockInHandReport'
                                     , loadChildren: () => import('./child-pages/sales-manager/stock-in-hand-report/stock-in-hand-report.module').then(m => m.StockInHandReportModule)
-                                    , resolve: {stockInHandResolver: StockInHandReportResolver}
+                                    , resolve: {showItemStockResolver: ShowItemStockResolver}
                                 },
 
                             ]

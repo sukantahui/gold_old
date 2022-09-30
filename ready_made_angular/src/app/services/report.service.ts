@@ -58,5 +58,15 @@ export class ReportService {
 
             }));
     }
+    getStockInHand(productCategoryId: number, agentId: string){
+        // tslint:disable-next-line:max-line-length
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/stocksInHand/' + productCategoryId + '/' + agentId )
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
 
 }

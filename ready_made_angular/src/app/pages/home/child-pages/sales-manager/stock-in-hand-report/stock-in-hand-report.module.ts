@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { StockInHandReportRoutingModule } from './stock-in-hand-report-routing.module';
 import { StockInHandReportComponent } from './stock-in-hand-report.component';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { StockInHandReportComponent } from './stock-in-hand-report.component';
   ],
   imports: [
     CommonModule,
-    StockInHandReportRoutingModule
+    StockInHandReportRoutingModule,
+    TableModule
   ]
 })
 export class StockInHandReportModule { }

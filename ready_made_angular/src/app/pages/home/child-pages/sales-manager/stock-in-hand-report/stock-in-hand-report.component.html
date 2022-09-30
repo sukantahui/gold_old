@@ -1,5 +1,5 @@
 <div class="d-flex flex-column" style="min-height: 100vh;">
-    <div class="p-2 text-center" style="background-color: rgb(77, 68, 68)">I am Header, i will stay here</div>
+    <div class="p-2 text-center" style="background-color: rgb(77, 68, 68)">Stock In Hand Report</div>
 
     <div class="p-2">
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
@@ -7,6 +7,51 @@
             </div>
             <!-- Right -->
             <div class="bloc_2 p-2 col-xl-10" style="background-color: antiquewhite">
+                <div *ngIf="stocksInHand.length>0" class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
+
+                    <p-table #dt2
+                             [value]="stocksInHand"
+                             [rows]="10"
+                             [showCurrentPageReport]="true"
+                             [rowsPerPageOptions]="[20,30,50,100,200,500,1000,10000]"
+                             styleClass="p-datatable-gridlines"
+                             [paginator]="true"
+                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                             [globalFilterFields]="['tag','modelNo','quantity','productCategory']"
+                             [responsive]="true">
+                        <ng-template pTemplate="caption">
+                            <div class="flex">
+                                <h4>Stock In Hand</h4>
+                                <span class="p-input-icon-left ml-auto">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                            </span>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>SL</th>
+                                <th pSortableColumn="tag">Tag <p-sortIcon field="tag"></p-sortIcon></th>
+                                <th pSortableColumn="modelNo">Model <p-sortIcon field="modelNo"></p-sortIcon></th>
+                                <th pSortableColumn="productCategory">Category <p-sortIcon field="productCategory"></p-sortIcon></th>
+                                <th pSortableColumn="agentId">Agent <p-sortIcon field="agentId"></p-sortIcon></th>
+                                <th pSortableColumn="quantity">Qty <p-sortIcon field="quantity"></p-sortIcon></th>
+                                <th pSortableColumn="jobId">Job <p-sortIcon field="jobId"></p-sortIcon></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-sale let-i="rowIndex">
+                            <tr>
+                                <td>{{i+1}}</td>
+                                <td>{{sale.tag}}</td>
+                                <td>{{sale.modelNo}}</td>
+                                <td>{{sale.productCategory}}</td>
+                                <td>{{sale.agentId}}</td>
+                                <td>{{sale.quantity}}</td>
+                                <td>{{sale.jobId}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
             </div>
         </div>
     </div>
@@ -16,16 +61,17 @@
 
 <div *ngIf="true && !isProduction" id="developer-div">
     <div class="outerContainer">
-        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
             <div class="col" fxLayoutAlign="center center">
                     <pre>
-
+                        productCategories = {{productCategories | json}}
+                        stocksInHand = {{stocksInHand | json}}
                     </pre>
 
             </div>
             <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
                     <pre>
-
+                        agents = {{agents | json}}
                     </pre>
             </div>
         </div>
