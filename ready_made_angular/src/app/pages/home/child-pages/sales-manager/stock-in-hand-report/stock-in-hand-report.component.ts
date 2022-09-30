@@ -13,15 +13,24 @@ export class StockInHandReportComponent implements OnInit {
   stocksInHand: any[];
   agents: any[];
   productCategories: any[];
+  reportForm: FormGroup;
   constructor(private route: ActivatedRoute) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.showItemStockResolver.agents.data;
       this.productCategories = response.showItemStockResolver.productCategories.data;
       this.stocksInHand = response.showItemStockResolver.stocksInHand.data;
     });
+
+    this.reportForm = new FormGroup({
+      agentId: new FormControl('AG0000'),
+      productCategoryId: new FormControl(0),
+    });
   }
 
   ngOnInit(): void {
   }
 
+  stockByAgentAndCategory($event: any) {
+    
+  }
 }

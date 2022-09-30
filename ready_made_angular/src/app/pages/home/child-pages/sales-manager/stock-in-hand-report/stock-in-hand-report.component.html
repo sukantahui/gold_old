@@ -1,6 +1,30 @@
 <div class="d-flex flex-column" style="min-height: 100vh;">
     <div class="p-2 text-center" style="background-color: rgb(77, 68, 68)">Stock In Hand Report</div>
+    <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+        <div class="p-2 col-xl-10" style="background-color: #e4e5d7; border-radius: 10px; margin-bottom: 5px;">
+            <form [formGroup]="reportForm">
+                <div class="form-row">
+                    <div class="col">
+                        <div fxFlex="30">
+                            <ng-select [items]="agents"
+                                       bindLabel="agent_name"
+                                       class="custom"
+                                       bindValue="agent_id"
+                                       formControlName="agentId"
+                                       placeholder="Select Agent"
+                                       (change)="stockByAgentAndCategory($event)">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col">
 
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="p-2">
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
             <div class="p-2 col-xl-2" style="background-color: rgb(199, 192, 192)">
@@ -64,8 +88,8 @@
         <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
             <div class="col" fxLayoutAlign="center center">
                     <pre>
-                        productCategories = {{productCategories | json}}
-                        stocksInHand = {{stocksInHand | json}}
+<!--                        productCategories = {{productCategories | json}}-->
+<!--                        stocksInHand = {{stocksInHand | json}}-->
                     </pre>
 
             </div>
