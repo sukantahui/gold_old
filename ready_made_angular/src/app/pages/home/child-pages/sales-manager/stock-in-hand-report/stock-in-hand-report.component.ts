@@ -34,10 +34,12 @@ export class StockInHandReportComponent implements OnInit {
   }
 
   stockByCategory($event: any, value: any) {
-    console.log(value.selectedItems[0].value.ID);
+    // console.log(value.selectedItems[0].value.ID);
+    this.stocksInHandFiltered =  this.stocksInHand.filter(stock => stock.productCategoryId === $event.ID);
   }
 
   stockByAgent($event: any, ref1: any) {
-
+      console.log($event.agent_id);
+      this.stocksInHandFiltered =  this.stocksInHand.filter(stock => stock.agentId === $event.agent_id);
   }
 }

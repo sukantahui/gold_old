@@ -42,7 +42,8 @@ class StockController extends ApiController
     public function  get_all_instock_items_in_hand($categoryID, $agentId){
         $query = ItemStockReadyMade::select()
             ->join('product_master as pm','pm.product_code','model_no')
-            ->join('product_cat','product_cat.Id','pm.product_category');
+            ->join('product_cat','product_cat.Id','pm.product_category')
+        ->whereInStock(1);
             $query->when($categoryID >0 , function ($q) use ($categoryID) {
                 return $q->where('product_cat.Id', '=', $categoryID);
             });

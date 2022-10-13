@@ -57,6 +57,7 @@ class ItemStockReadyMadeResource extends JsonResource
          'billNo'=> $this->bill_no,
          'jobId'=> $this->job_id,
          'isSelected'=>$this->is_selected,
+         'productCategoryId'=>$this->product_category,
          'productCategory'=>$this->category,
          'productDescription' => $this->product_description
         ];
