@@ -16,6 +16,8 @@ export class StockInHandReportComponent implements OnInit {
   productCategories: any[];
   reportForm: FormGroup;
   stocksInHandFiltered: any;
+  private selectedProductCategoryId: any;
+  private selectedAgentId: any;
   constructor(private route: ActivatedRoute) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.showItemStockResolver.agents.data;
@@ -35,11 +37,12 @@ export class StockInHandReportComponent implements OnInit {
 
   stockByCategory($event: any, value: any) {
     // console.log(value.selectedItems[0].value.ID);
-    this.stocksInHandFiltered =  this.stocksInHand.filter(stock => stock.productCategoryId === $event.ID);
+    this.selectedProductCategoryId = $event.ID;
+    this.stocksInHandFiltered =  this.stocksInHand.filter(stock => (stock.productCategoryId === this.selectedProductCategoryId && stock.agentId === this.selectedAgentId ));
   }
 
   stockByAgent($event: any, ref1: any) {
-      console.log($event.agent_id);
-      this.stocksInHandFiltered =  this.stocksInHand.filter(stock => stock.agentId === $event.agent_id);
+      this.selectedAgentId = $event.agent_id;
+      this.stocksInHandFiltered =  this.stocksInHand.filter(stock => stock.agentId === this.selectedAgentId);
   }
 }
