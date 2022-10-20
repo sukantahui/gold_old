@@ -70,7 +70,6 @@ class UserController extends ApiController
     public function updatePassword(Request $request){
         $input = $request->all();
         $userid=$request->user()->id;
-
         $rules = array(
             'oldPassword' => 'required',
             'newPassword' => 'required|min:6',
