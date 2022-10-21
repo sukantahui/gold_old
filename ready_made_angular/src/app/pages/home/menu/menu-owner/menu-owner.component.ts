@@ -115,9 +115,9 @@ export class MenuOwnerComponent implements OnInit {
           iconName: 'group',
           children: [
             {
-              displayName: 'Modelwise Sale',
+              displayName: 'Product Report',
               iconName: 'person',
-              route: 'ModelWiseSaleReport',
+              route: 'ProductReport',
             }
           ]
         },
