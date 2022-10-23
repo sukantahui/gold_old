@@ -18,9 +18,15 @@ class CreateSaleReturnsTable extends Migration
             $table->string('tag');
             $table->string('model_no');
             $table->double('gini_gold');
+            $table->double('fine_gold');
             $table->integer('qty');
             $table->integer('lc');
-            $table->integer('lc');
+            $table->integer('year_number');
+            $table->integer('month_number');
+            $table->string('agent_id',50)->charset('utf8')->collation('utf8_general_ci');
+            $table->foreign('agent_id')->references('agent_id')->on('agent_master');
+            $table->string('customer_id')->charset('utf8')->collation('utf8_general_ci');
+            $table->foreign('customer_id')->references('cust_id')->on('customer_master');
             $table->timestamps();
         });
     }
