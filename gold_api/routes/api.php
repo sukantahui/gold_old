@@ -16,6 +16,7 @@ use App\Http\Controllers\SalaryHolderController;
 use App\Http\Controllers\SalaryHolderSalaryController;
 use App\Http\Controllers\SalaryHolderSalaryMonthController;
 use App\Http\Controllers\SalaryHolderSalaryPaymentController;
+use App\Http\Controllers\SaleReturnController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Models\Customer;
@@ -183,6 +184,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("customers",[CustomerController::class, 'index']);
 
     Route::get("productCategories",[ProductCategoryController::class, 'getProductCategories']);
+
+    //sale return
+    Route::post("saleReturn",[SaleReturnController::class, 'store']);
 
 
 });
