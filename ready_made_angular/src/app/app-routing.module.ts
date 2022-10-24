@@ -87,6 +87,8 @@ const routes: Routes = [
 
   { path: 'MenuManager', loadChildren: () => import('./pages/home/menu/menu-manager/menu-manager.module').then(m => m.MenuManagerModule) },
 
+  // { path: 'SaleReturn', loadChildren: () => import('./pages/home/child-pages/sales-manager/sale-return/sale-return.module').then(m => m.SaleReturnModule) },
+
 
 
 
