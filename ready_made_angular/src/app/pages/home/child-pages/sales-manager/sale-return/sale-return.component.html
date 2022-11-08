@@ -1,1 +1,86 @@
-<p>sale-return works!</p>
+<div id="agent-wise-sale-report-div">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Agent Wise Sale Report</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                <form [formGroup]="saleReturnForm">
+                    <div class="d-flex flex-row">
+                        <div class="mb-3 col-2">
+                            <label for="yearNumber" class="form-label">Year</label>
+                            <input type="number" class="form-control" id="yearNumber" aria-describedby="yearHelp">
+                            <div id="yearHelp" class="form-text">Enter Year</div>
+                        </div>
+                        <div class="mb-3 col-2">
+                            <label for="monthNumber" class="form-label">Month</label>
+                            <input type="number" class="form-control" id="monthNumber" aria-describedby="monthHelp">
+                            <div id="monthHelp" class="form-text">Enter Month</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+<!--                <form [formGroup]="saleReturnForm">-->
+<!--                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">-->
+<!--                        <div fxLayoutGap="30px" style="padding-top: 10px">-->
+<!--                            <label for="year">Year</label>-->
+<!--                            <p-inputNumber formControlName="year" mode="decimal" thousandSeparator=" " [showButtons]="true" inputId="year" [min]="2022" [max]="2032">-->
+<!--                            </p-inputNumber>-->
+<!--                        </div>-->
+
+<!--                        <div fxLayoutGap="30px" style="padding-top: 10px">-->
+<!--                            <label for="month">Month</label>-->
+<!--                            <p-inputNumber formControlName="month" mode="decimal" thousandSeparator=" " [showButtons]="true" inputId="month" [min]="1" [max]="12">-->
+<!--                            </p-inputNumber>-->
+<!--                        </div>-->
+
+<!--                        <div fxLayoutGap="30px" style="padding-top: 10px">-->
+<!--                            <p-button label="Search" id="search" icon="pi pi-search" [loading]="isLoading"></p-button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </form>-->
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card"  >
+        <div style="text-align: right">
+<!--            <button-->
+<!--                    mat-button color="primary"-->
+<!--                    [printStyle]="printDivStyle"-->
+<!--                    [useExistingCss]="true"-->
+<!--                    printSectionId="printAgentSalaryReportDiv"-->
+<!--                    ngxPrint ><mat-icon>print</mat-icon>-->
+<!--            </button>-->
+        </div>
+        <div id="printAgentSalaryReportDiv">
+
+        </div>
+
+    </mat-card>
+
+</div>
+
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div fxLayoutAlign="center center">
+                <pre>
+                    agents = {{agents | json}}
+                </pre>
+            </div>
+            <div fxFlex="2 1 auto" fxLayoutAlign="center center">
+            </div>
+            <div fxLayoutAlign="center center">
+                <pre>
+
+                </pre>
+            </div>
+            <div fxLayoutAlign="center center"> </div>
+        </div>
+    </div>
+</div>

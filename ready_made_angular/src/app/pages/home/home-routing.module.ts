@@ -7,6 +7,7 @@ import {SalaryAdjustmentResolver} from '../../resolvers/salary-adjustment.resolv
 import {SalaryHolderSalaryPaymentResolver} from '../../resolvers/salary-holder-salary-payment.resolver';
 import {CustomerResolver} from '../../resolvers/customer.resolver';
 import {ShowItemStockResolver} from '../../resolvers/show-item-stock.resolver';
+import {SaleReturnResolver} from '../../resolvers/sale-return.resolver';
 
 
 // @ts-ignore
@@ -149,6 +150,7 @@ const routes: Routes = [
                                 { path: 'SaleReturn'
                                     // tslint:disable-next-line:max-line-length
                                     , loadChildren: () => import('./child-pages/sales-manager/sale-return/sale-return.module').then(m => m.SaleReturnModule)
+                                    , resolve: {saleReturnResolver: SaleReturnResolver}
                                 },
 
                             ]

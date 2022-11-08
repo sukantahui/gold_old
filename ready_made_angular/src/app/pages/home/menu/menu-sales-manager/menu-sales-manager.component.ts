@@ -157,6 +157,11 @@ export class MenuSalesManagerComponent implements OnInit {
               displayName: 'Agent Withdraw',
               iconName: 'person',
               route: 'AgentSalaryWithdraw'
+            },
+            {
+              displayName: 'Sale Return',
+              iconName: 'person',
+              route: 'SaleReturn'
             }
           ]
         },

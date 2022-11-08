@@ -19,6 +19,7 @@ export class AgentSalaryComponent implements OnInit {
   grossTotalIncome: number;
   grossTotalQuantity: number;
   months = ['No Month', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  grossTotalReturnQuantity = 0;
   constructor(private agentService: AgentService) {
 
     this.agentSalarySearchForm = new FormGroup({
@@ -46,6 +47,11 @@ export class AgentSalaryComponent implements OnInit {
         }, 0);
         this.grossTotalQuantity = this.agentSalaries.filter(item => item.qty > '0').reduce((accumulator, obj) => {
           return accumulator + obj.qty;
+        }, 0);
+
+        // gross total return
+        this.grossTotalReturnQuantity = this.agentSalaries.filter(item => item.return_qty > '0').reduce((accumulator, obj) => {
+          return accumulator + obj.return_qty;
         }, 0);
       });
     }
