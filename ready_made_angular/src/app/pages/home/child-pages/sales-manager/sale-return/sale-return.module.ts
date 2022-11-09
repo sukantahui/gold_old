@@ -9,6 +9,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {InputNumberModule} from 'primeng/inputnumber';
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
-    InputNumberModule
+    InputNumberModule,
+    NgSelectModule
   ]
 })
 export class SaleReturnModule { }

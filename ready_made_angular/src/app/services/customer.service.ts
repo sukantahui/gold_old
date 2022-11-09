@@ -29,4 +29,10 @@ export class CustomerService {
 
     }));
   }
+  fetchCustomersByAgentId(agentId: string){
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<any>(this.commonService.getAPI() + '/getCustomersByAgent/' + agentId).pipe(catchError(this.errorService.serverError), tap(response => {
+
+    }));
+  }
 }
