@@ -11,12 +11,12 @@
                     <div class="d-flex flex-row">
                         <div class="mb-3 col-2">
                             <label for="yearNumber" class="form-label">Year</label>
-                            <input type="number" class="form-control" id="yearNumber" aria-describedby="yearHelp">
+                            <input type="number" formControlName="yearNumber" min="2022" max="2035" class="form-control" id="yearNumber" aria-describedby="yearHelp">
                             <div id="yearHelp" class="form-text">Enter Year</div>
                         </div>
                         <div class="mb-3 col-2">
                             <label for="monthNumber" class="form-label">Month</label>
-                            <input type="number" class="form-control" id="monthNumber" aria-describedby="monthHelp">
+                            <input type="number" formControlName="monthNumber" min="1" max="12" class="form-control" id="monthNumber" aria-describedby="monthHelp">
                             <div id="monthHelp" class="form-text">Enter Month</div>
                         </div>
                     </div>
