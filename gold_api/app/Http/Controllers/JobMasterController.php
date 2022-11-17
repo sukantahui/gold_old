@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\JobOwnerResource;
 use App\Http\Resources\TagResource;
 use Illuminate\Http\Request;
 use App\Models\JobMaster;
@@ -68,5 +69,12 @@ class JobMasterController extends ApiController
                     ->where('status','=','8')
                     ->get();
         return $this->successResponse($orderId);
+    }
+
+    public function getJobByDate($dateFrom,$dateTo){
+        $result=JobMaster::where('job_master.tr_time','>=',$dateFrom)
+                        ->where('job_master.tr_time','<=',$dateTo)->get();
+//        return $this->successResponse(JobOwnerResource::collection($result));
+        return $this->successResponse($result);
     }
 }
