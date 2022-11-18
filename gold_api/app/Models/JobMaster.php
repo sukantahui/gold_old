@@ -21,6 +21,6 @@ class JobMaster extends Model
         //return $newDate->format('Y-m-d');
     }
     public function statuses() {
-        return $this->belongsTo(ItemStockReadyMade::class , 'tag');
+        return $this->belongsTo(TableStatus::class , 'status');
     }
 }

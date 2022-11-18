@@ -74,7 +74,7 @@ class JobMasterController extends ApiController
     public function getJobByDate($dateFrom,$dateTo){
         $result=JobMaster::where('job_master.tr_time','>=',$dateFrom)
                         ->where('job_master.tr_time','<=',$dateTo)->get();
-//        return $this->successResponse(JobOwnerResource::collection($result));
-        return $this->successResponse($result);
+        return $this->successResponse(JobOwnerResource::collection($result));
+//        return $this->successResponse($result);
     }
 }
