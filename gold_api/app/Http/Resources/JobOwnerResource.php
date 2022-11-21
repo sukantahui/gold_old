@@ -28,6 +28,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed dal_returned
  * @property mixed pan_returned
  * @property mixed bronze_returned
+ * @property mixed nitrick_returned
+ * @property mixed copper_return
+ * @property mixed product_wt
+ * @property mixed comments
+ * @property mixed dal
+ * @property mixed pan
+ * @property mixed bronze
+ * @property mixed copper
+ * @property mixed markup_value
  */
 class JobOwnerResource extends JsonResource
 {
@@ -63,6 +72,14 @@ class JobOwnerResource extends JsonResource
             'dalReturned' =>$this->dal_returned,
             'panReturned' =>$this->pan_returned,
             'bronzeReturned' =>$this->bronze_returned,
+            'nitrickReturned' =>$this->nitrick_returned,
+            'copperReturned' =>$this->copper_return,
+            'productWeight' =>$this->product_wt,
+            'comment' =>$this->comments,
+            'dal'=>new RawMaterialResource($this->dal),
+            'pan'=>new RawMaterialResource($this->pan),
+            'bronze'=>new RawMaterialResource($this->bronze),
+            'markupValue'=>$this->markup_value
         ];
     }
 }
