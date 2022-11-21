@@ -15,6 +15,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed p_loss
  * @property mixed tr_time
  * @property mixed employee
+ * @property mixed statuses
  */
 class JobOwnerResource extends JsonResource
 {
@@ -38,7 +39,7 @@ class JobOwnerResource extends JsonResource
             'pLoss' => $this->p_loss,
             'trTime' => $this->tr_time->format('Y-m-d'),
             'formattedTrTime' => $this->tr_time->format('d-m-Y'),
-            'currentStatus' =>$this->statuses,
+            'currentStatus' =>new TableStatusResource($this->statuses),
             'employee' =>new EmployeeResource($this->employee),
         ];
     }

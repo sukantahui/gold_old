@@ -5,13 +5,10 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @property mixed emp_id
- * @property mixed emp_name
+ * @property mixed designationName
  * @property mixed designation_id
- * @property mixed nick_name
- * @property mixed designation
  */
-class EmployeeResource extends JsonResource
+class DesignationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,10 +19,8 @@ class EmployeeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'employeeId'=>$this->emp_id,
-            'employeeName'=>$this->emp_name,
-            'designation'=>new DesignationResource($this->designation),
-            'nickName'=>$this->nick_name
+            'designationId' => $this->designation_id,
+            'designationName' => $this->designationName,
         ];
     }
 }

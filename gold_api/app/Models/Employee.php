@@ -12,4 +12,7 @@ class Employee extends Model
     protected $primaryKey = 'emp_id'; // or null
     public $timestamps = false;
     public $incrementing = true;
+    public function designation() {
+        return $this->belongsTo(Designation::class , 'designation_id');
+    }
 }
