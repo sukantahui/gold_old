@@ -26,6 +26,9 @@ class JobMaster extends Model
     public function employee() {
         return $this->belongsTo(Employee::class , 'emp_id');
     }
+    public function gold() {
+        return $this->belongsTo(RawMaterial::class , 'rm_id');
+    }
     public function dal() {
         return $this->belongsTo(RawMaterial::class , 'dal_id');
     }

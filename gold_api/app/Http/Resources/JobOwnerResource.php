@@ -39,6 +39,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed copper
  * @property mixed markup_value
  * @property mixed orderDetails
+ * @property mixed gold
  */
 class JobOwnerResource extends JsonResource
 {
@@ -79,6 +80,7 @@ class JobOwnerResource extends JsonResource
             'copperReturned' =>$this->copper_return,
             'productWeight' =>$this->product_wt,
             'comment' =>$this->comments,
+            'gold'=>new RawMaterialResource($this->gold),
             'dal'=>new RawMaterialResource($this->dal),
             'pan'=>new RawMaterialResource($this->pan),
             'bronze'=>new RawMaterialResource($this->bronze),

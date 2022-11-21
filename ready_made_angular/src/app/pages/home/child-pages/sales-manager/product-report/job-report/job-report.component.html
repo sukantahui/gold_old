@@ -54,21 +54,34 @@
                             <th pSortableColumn="jobId">Job Id <p-sortIcon field="jobId"></p-sortIcon></th>
                             <th pSortableColumn="jobDate">Job Date <p-sortIcon field="jobDate"></p-sortIcon></th>
                             <th pSortableColumn="orderId">Order ID <p-sortIcon field="orderId"></p-sortIcon></th>
+                            <th pSortableColumn="orderDetails.OrderMaster.customer.customerName">Customer <p-sortIcon >field="orderDetails.OrderMaster.customer.customerName"</p-sortIcon></th>
+                            <th pSortableColumn="currentStatus.statusName">Status <p-sortIcon >field="currentStatus.statusName"</p-sortIcon></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-job let-i="rowIndex">
                         <tr>
                             <td>{{i+1}}</td>
-                            <td>{{job.jobId}}</td>
+                            <td>
+                                <button pButton type="button" class="p-button-link" (click)="onJobSelect(job)">
+                                    {{job.jobId}}
+                                </button>
+                            </td>
                             <td>{{job.jobDate}}</td>
                             <td>{{job.orderId}}</td>
+                            <td>{{job.orderDetails.OrderMaster.customer.customerName}}</td>
+                            <td>{{job.currentStatus.statusName}}</td>
                         </tr>
                     </ng-template>
                 </p-table>
             </div>
-
         </div>
         <div class="col-6">
+            <div *ngIf="selectedJob">
+                <h3>{{selectedJob.orderDetails.OrderMaster.customer.customerName}}</h3>
+                <h4>Karigar: {{selectedJob.employee.employeeName}}</h4>
+                <div>Gold Type: {{selectedJob.gold.rmName}}</div>
+                <hr>
+            </div>
         </div>
     </div>
 </div>

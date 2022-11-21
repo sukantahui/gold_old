@@ -16,6 +16,7 @@ export class JobReportComponent implements OnInit {
   reportForm: FormGroup;
   isLoading = false;
   jobs: any;
+  selectedJob: any;
   constructor(private reportService: ReportService, private commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
     this.adapter.setLocale('in');
     const stDate = new Date();
@@ -51,4 +52,8 @@ export class JobReportComponent implements OnInit {
     });
   }
 
+  onJobSelect(job) {
+    console.log(job);
+    this.selectedJob=job;
+  }
 }
