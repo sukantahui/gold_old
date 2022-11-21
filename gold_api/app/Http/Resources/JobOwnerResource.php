@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -37,6 +38,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed bronze
  * @property mixed copper
  * @property mixed markup_value
+ * @property mixed orderDetails
  */
 class JobOwnerResource extends JsonResource
 {
@@ -51,6 +53,7 @@ class JobOwnerResource extends JsonResource
 
         return [
             'jobId' => $this->job_id,
+            'jobDate'=> (new Carbon($this->tr_time))->format('Y-m-d'),
             'orderId' => $this->order_id,
             'productCode' => $this->product_code,
             'rmId' => $this->rmId,
@@ -79,7 +82,8 @@ class JobOwnerResource extends JsonResource
             'dal'=>new RawMaterialResource($this->dal),
             'pan'=>new RawMaterialResource($this->pan),
             'bronze'=>new RawMaterialResource($this->bronze),
-            'markupValue'=>$this->markup_value
+            'markupValue'=>$this->markup_value,
+            'orderDetails'=>new OrderDetailResource($this->orderDetails)
         ];
     }
 }

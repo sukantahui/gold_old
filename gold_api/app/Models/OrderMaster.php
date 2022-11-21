@@ -12,6 +12,11 @@ class OrderMaster extends Model
     protected $primaryKey = 'order_autoid'; // or null
     public $timestamps = false;
     public $incrementing = false;
+
+    public function customer() {
+        return $this->belongsTo(Customer::class , 'cust_id');
+    }
+
     // In Laravel 6.0+ make sure to also set $keyType
 //    protected $keyType = 'string';
     // In Laravel 6.0+ make sure to also set $keyType
@@ -44,5 +49,6 @@ class OrderMaster extends Model
      * @var mixed
      */
     private $lc_discount_percentage;
+
 
 }

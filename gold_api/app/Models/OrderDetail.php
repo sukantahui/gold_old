@@ -12,6 +12,7 @@ class OrderDetail extends Model
     protected $primaryKey = 'order_no'; // or null
     public $timestamps = false;
     public $incrementing = true;
+
     /**
      * @var int|mixed
      */
@@ -68,4 +69,7 @@ class OrderDetail extends Model
      * @var mixed
      */
     private $product_mv;
+    public function orderMaster() {
+        return $this->belongsTo(OrderMaster::class , 'order_id','order_id');
+    }
 }

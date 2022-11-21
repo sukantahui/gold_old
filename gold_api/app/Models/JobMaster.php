@@ -38,4 +38,7 @@ class JobMaster extends Model
     public function copper() {
         return $this->belongsTo(RawMaterial::class , 'copper_id');
     }
+    public function orderDetails() {
+        return $this->belongsTo(OrderDetail::class , 'order_no');
+    }
 }
