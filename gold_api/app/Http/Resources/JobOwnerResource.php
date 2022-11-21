@@ -39,7 +39,7 @@ class JobOwnerResource extends JsonResource
             'trTime' => $this->tr_time->format('Y-m-d'),
             'formattedTrTime' => $this->tr_time->format('d-m-Y'),
             'currentStatus' =>$this->statuses,
-            'employee' =>$this->employee,
+            'employee' =>new EmployeeResource($this->employee),
         ];
     }
 }
