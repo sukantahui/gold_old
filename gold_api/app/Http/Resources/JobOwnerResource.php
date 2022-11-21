@@ -16,6 +16,18 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed tr_time
  * @property mixed employee
  * @property mixed statuses
+ * @property mixed price_code
+ * @property mixed price
+ * @property mixed gold_send
+ * @property mixed dal_send
+ * @property mixed pan_send
+ * @property mixed bronze_send
+ * @property mixed copper_send
+ * @property mixed goldReturned
+ * @property mixed gold_returned
+ * @property mixed dal_returned
+ * @property mixed pan_returned
+ * @property mixed bronze_returned
  */
 class JobOwnerResource extends JsonResource
 {
@@ -41,6 +53,16 @@ class JobOwnerResource extends JsonResource
             'formattedTrTime' => $this->tr_time->format('d-m-Y'),
             'currentStatus' =>new TableStatusResource($this->statuses),
             'employee' =>new EmployeeResource($this->employee),
+            'priceCode' =>$this->price_code,
+            'price' =>$this->price,
+            'goldSend' =>$this->gold_send,
+            'dalSend' =>$this->dal_send,
+            'panSend' =>$this->pan_send,
+            'bronzeSend' =>$this->bronze_send,
+            'goldReturned' =>$this->gold_returned,
+            'dalReturned' =>$this->dal_returned,
+            'panReturned' =>$this->pan_returned,
+            'bronzeReturned' =>$this->bronze_returned,
         ];
     }
 }
