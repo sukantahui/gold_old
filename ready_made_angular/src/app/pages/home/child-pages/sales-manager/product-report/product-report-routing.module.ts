@@ -7,7 +7,14 @@ const routes: Routes = [
                             , children: [
                               { path: 'ProductSale'
                                 , loadChildren: () => import('./product-sale/product-sale.module').then(m => m.ProductSaleModule)
+                              },
+                              { path: 'DueReport'
+                                , loadChildren: () => import('./due-report/due-report.module').then(m => m.DueReportModule)
+                              },
+                              { path: 'JobReport'
+                                , loadChildren: () => import('./job-report/job-report.module').then(m => m.JobReportModule)
                               }
+
                             ]
                           },
                        ];

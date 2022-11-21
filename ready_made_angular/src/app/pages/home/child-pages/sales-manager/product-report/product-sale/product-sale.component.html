@@ -40,36 +40,6 @@
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
             <div class="table-div col-6">
                 <div *ngIf="modelWiseSales" class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
-                <p-table #dt1  [value]="modelWiseSales" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"  styleClass="p-datatable-gridlines"
-                         [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                         [globalFilterFields]="['model_no','sale_qty']">
-                    <ng-template pTemplate="caption">
-                        <div class="flex">
-                            <span class="p-input-icon-left ml-auto">
-                                <i class="pi pi-search"></i>
-                                <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-                            </span>
-                        </div>
-                    </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>SL</th>
-                        <th pSortableColumn="model_no">Model <p-sortIcon field="model_no"></p-sortIcon></th>
-                        <th pSortableColumn="sale_qty">Qty <p-sortIcon field="sale_qty"></p-sortIcon></th>
-                        <th>Action</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-modelWiseSale let-i="rowIndex">
-                    <tr>
-                        <td>{{i+1}}</td>
-                        <td>{{modelWiseSale.model_no}}</td>
-                        <td>{{modelWiseSale.sale_qty}}</td>
-                        <td>
-                            <p-button label="Show" icon="pi pi-search"   styleClass="p-button-link" (click)="showSaleReportByModel(modelWiseSale.model_no)"></p-button>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
                 </div>
             </div>
             <div class="col-6">
