@@ -23,4 +23,7 @@ class JobMaster extends Model
     public function statuses() {
         return $this->belongsTo(TableStatus::class , 'status');
     }
+    public function employee() {
+        return $this->belongsTo(Employee::class , 'emp_id');
+    }
 }

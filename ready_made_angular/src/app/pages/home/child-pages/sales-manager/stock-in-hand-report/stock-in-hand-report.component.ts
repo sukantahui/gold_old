@@ -38,6 +38,7 @@ export class StockInHandReportComponent implements OnInit {
   stockByCategory($event: any, value: any) {
     // console.log(value.selectedItems[0].value.ID);
     this.selectedProductCategoryId = $event.ID;
+    // tslint:disable-next-line:max-line-length
     this.stocksInHandFiltered =  this.stocksInHand.filter(stock => (stock.productCategoryId === this.selectedProductCategoryId && stock.agentId === this.selectedAgentId ));
   }
 

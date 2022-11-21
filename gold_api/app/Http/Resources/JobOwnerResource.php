@@ -14,6 +14,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed expected_gold
  * @property mixed p_loss
  * @property mixed tr_time
+ * @property mixed employee
  */
 class JobOwnerResource extends JsonResource
 {
@@ -25,6 +26,7 @@ class JobOwnerResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'jobId' => $this->job_id,
             'orderId' => $this->order_id,
@@ -36,7 +38,8 @@ class JobOwnerResource extends JsonResource
             'pLoss' => $this->p_loss,
             'trTime' => $this->tr_time->format('Y-m-d'),
             'formattedTrTime' => $this->tr_time->format('d-m-Y'),
-            'status' =>$this->status,
+            'currentStatus' =>$this->statuses,
+            'employee' =>$this->employee,
         ];
     }
 }
