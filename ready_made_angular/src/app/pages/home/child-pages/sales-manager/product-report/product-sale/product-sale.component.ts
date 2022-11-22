@@ -69,8 +69,4 @@ export class ProductSaleComponent implements OnInit {
       this.sales = response.data;
     });
   }
-
-  onRowSelect($event) {
-    console.log("test");
-  }
 }
