@@ -57,7 +57,7 @@
                         <tr>
                             <th>SL</th>
                             <th pSortableColumn="jobId">Job Id <p-sortIcon field="jobId"></p-sortIcon></th>
-                            <th pSortableColumn="jobDate">Job Date <p-sortIcon field="jobDate"></p-sortIcon></th>
+                            <th *ngIf="!showJobDetailDiv" pSortableColumn="jobDate">Job Date <p-sortIcon field="jobDate"></p-sortIcon></th>
                             <th pSortableColumn="orderId">Order ID <p-sortIcon field="orderId"></p-sortIcon></th>
                             <th pSortableColumn="pieces">Qty<p-sortIcon field="pieces"></p-sortIcon></th>
 
@@ -79,7 +79,7 @@
                                     {{job.jobId}}
                                 </button>
                             </td>
-                            <td>{{job.formattedTrTime}}</td>
+                            <td *ngIf="!showJobDetailDiv">{{job.formattedTrTime}}</td>
                             <td>{{job.orderId}}</td>
                             <td class="text-right">{{job.pieces}}</td>
                             <td class="text-right">{{job.goldSend | number:'1.3'}}</td>
