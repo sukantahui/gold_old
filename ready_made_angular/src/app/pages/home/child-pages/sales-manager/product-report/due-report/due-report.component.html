@@ -1,1 +1,68 @@
+<div class="p-2">
+    <div  class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+        <div class="table-div">
+            <div  class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
 
+                <p-table #dt2
+                         [value]="agentDues"
+                         [rows]="10"
+                         [showCurrentPageReport]="true"
+                         [rowsPerPageOptions]="[20,30,50]"
+                         styleClass="p-datatable-gridlines"
+                         [paginator]="true"
+                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                         [globalFilterFields]="['jobId','productCode']"
+                         [responsive]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="d-flex justify-content-between">
+                            <div class="p-input-icon-left ml-auto">
+                                <i class="pi pi-search"></i>
+                                <input class="text-right" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>SL</th>
+                            <th pSortableColumn="agent_id">Agent Id <p-sortIcon field="agent_id"></p-sortIcon></th>
+                            <th pSortableColumn="agent_name">Name <p-sortIcon field="agent_name"></p-sortIcon></th>
+                            <th pSortableColumn="gold_due">Gold <p-sortIcon field="gold_due"></p-sortIcon></th>
+                            <th pSortableColumn="lc_due">LC <p-sortIcon field="lc_due"></p-sortIcon></th>
+<!--                            <th *ngIf="!showJobDetailDiv" pSortableColumn="orderId">Order ID <p-sortIcon field="orderId"></p-sortIcon></th>-->
+<!--                            <th pSortableColumn="pieces">Qty<p-sortIcon field="pieces"></p-sortIcon></th>-->
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-agentDue let-i="rowIndex">
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td class="text-left">{{agentDue.agent_id}}</td>
+                            <td class="text-left">{{agentDue.agent_name}}</td>
+                            <td class="text-right">{{agentDue.gold_due}}</td>
+                            <td class="text-right">{{agentDue.lc_due}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class="col-6">
+
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div class="col" fxLayoutAlign="center center">
+                    <pre>
+                        agentDues = {{agentDues | json}}
+                    </pre>
+
+            </div>
+            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
+
+            </div>
+        </div>
+    </div>
+</div>

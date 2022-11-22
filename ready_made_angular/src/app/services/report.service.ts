@@ -26,8 +26,8 @@ export class ReportService {
 
         }));
   }
-    getAgentDues(startDate: string, endDate: string){
-        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/owner/jobs/dates/' + startDate + '/' + endDate)
+    getAgentDues(){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/agentDues')
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
                 if (response.status === true){
 

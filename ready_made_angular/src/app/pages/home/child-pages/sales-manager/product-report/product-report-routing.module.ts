@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductReportComponent } from './product-report.component';
+import {ShowItemStockResolver} from '../../../../../resolvers/show-item-stock.resolver';
+import {JobReportResolver} from '../../../../../resolvers/job-report.resolver';
 
 const routes: Routes = [
                           { path: '', component: ProductReportComponent
@@ -10,6 +12,7 @@ const routes: Routes = [
                               },
                               { path: 'DueReport'
                                 , loadChildren: () => import('./due-report/due-report.module').then(m => m.DueReportModule)
+                                , resolve: {dueReportResolver: JobReportResolver}
                               },
                               { path: 'JobReport'
                                 , loadChildren: () => import('./job-report/job-report.module').then(m => m.JobReportModule)

@@ -4,6 +4,7 @@ import {ReportService} from '../../../../../../services/report.service';
 import {CommonService} from '../../../../../../services/common.service';
 import {DateAdapter} from '@angular/material/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-due-report',
@@ -12,41 +13,15 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class DueReportComponent implements OnInit {
   isProduction: boolean = environment.production;
-  reportForm: FormGroup;
   isLoading = false;
   agentDues: any;
-  constructor(private reportService: ReportService, private commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
-    this.adapter.setLocale('in');
-    const stDate = new Date();
-
-    const endDate = new Date();
-    this.reportForm = new FormGroup({
-      startDate: new FormControl(stDate),
-      startDateSql: new FormControl(null),
-      endDate: new FormControl(endDate),
-      endDateSql: new FormControl(null),
-      reportLimit: new FormControl(50)
+  constructor(private route: ActivatedRoute) {
+    this.route.data.subscribe((response: any) => {
+      console.log(response.dueReportResolver.agentDues.data);
+      this.agentDues = response.dueReportResolver.agentDues.data;
     });
   }
 
   ngOnInit(): void {
   }
-
-  setStartDateSQL(value: string) {
-    this.reportForm.patchValue({startDateSql: this.commonService.getSQLDate2(value)});
-  }
-
-  setEndDateSQL(value: string) {
-    this.reportForm.patchValue({endDateSql: this.commonService.getSQLDate2(value)});
-  }
-
-    loadSaleReport(dateFrom: string, dateTo: string) {
-      this.reportForm.patchValue({startDateSql: this.commonService.getSQLDate2(dateFrom)});
-      this.reportForm.patchValue({endDateSql: this.commonService.getSQLDate2(dateTo)});
-      this.isLoading = true;
-      this.reportService.getAgentDues(this.reportForm.value.startDateSql, this.reportForm.value.endDateSql).subscribe((response) => {
-        this.agentDues = response.data;
-        this.isLoading = false;
-      });
-    }
 }

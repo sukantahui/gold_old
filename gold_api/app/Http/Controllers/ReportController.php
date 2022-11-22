@@ -116,5 +116,14 @@ class ReportController extends ApiController
         $result_array['totalDiscount']=$totalDiscount;
         return $this->successResponse($result_array);
     }
+    public function getAgentwiseDue(){
+        $queries = DB::select("select agent_id
+                                    , agent_name
+                                    , short_name
+                                    , get_agent_gold_due(agent_id) as gold_due
+                                    , get_agent_lc_due(agent_id) as lc_due
+                                    from agent_master");
+        return $this->successResponse($queries);
+    }
 
 }
