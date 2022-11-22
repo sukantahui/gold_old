@@ -54,9 +54,13 @@
                             <th pSortableColumn="jobId">Job Id <p-sortIcon field="jobId"></p-sortIcon></th>
                             <th pSortableColumn="jobDate">Job Date <p-sortIcon field="jobDate"></p-sortIcon></th>
                             <th pSortableColumn="orderId">Order ID <p-sortIcon field="orderId"></p-sortIcon></th>
+                            <th pSortableColumn="pieces">Qty<p-sortIcon field="pieces"></p-sortIcon></th>
+
                             <th pSortableColumn="goldSend">Gold Send <p-sortIcon >field="goldSend"</p-sortIcon></th>
                             <th pSortableColumn="goldReturned">Gold Return <p-sortIcon >field="goldReturned"</p-sortIcon></th>
                             <th pSortableColumn="panSend">Pan <p-sortIcon >field="panSend"</p-sortIcon></th>
+                            <th pSortableColumn="pLoss">Ploss <p-sortIcon >field="pLoss"</p-sortIcon></th>
+                            <th pSortableColumn="markupValue">MV <p-sortIcon >field="markupValue"</p-sortIcon></th>
                             <th pSortableColumn="currentStatus.statusName">Status <p-sortIcon >field="currentStatus.statusName"</p-sortIcon></th>
                         </tr>
                     </ng-template>
@@ -68,11 +72,14 @@
                                     {{job.jobId}}
                                 </button>
                             </td>
-                            <td>{{job.jobDate}}</td>
+                            <td>{{job.formattedTrTime}}</td>
                             <td>{{job.orderId}}</td>
-                            <td class="text-right">{{job.goldSend}}</td>
-                            <td class="text-right">{{job.goldReturned}}</td>
-                            <td class="text-right">{{job.panSend}}</td>
+                            <td class="text-right">{{job.pieces}}</td>
+                            <td class="text-right">{{job.goldSend | number:'1.3'}}</td>
+                            <td class="text-right">{{job.goldReturned | number:'1.3'}}</td>
+                            <td class="text-right">{{job.panSend | number:'1.3'}}</td>
+                            <td class="text-right">{{job.pLoss | number:'1.3'}}</td>
+                            <td class="text-right">{{job.markupValue | number:'1.3'}}</td>
                             <td>{{job.currentStatus.statusName}}</td>
                         </tr>
                     </ng-template>
