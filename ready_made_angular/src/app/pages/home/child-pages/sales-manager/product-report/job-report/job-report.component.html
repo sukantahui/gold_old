@@ -54,7 +54,9 @@
                             <th pSortableColumn="jobId">Job Id <p-sortIcon field="jobId"></p-sortIcon></th>
                             <th pSortableColumn="jobDate">Job Date <p-sortIcon field="jobDate"></p-sortIcon></th>
                             <th pSortableColumn="orderId">Order ID <p-sortIcon field="orderId"></p-sortIcon></th>
-                            <th pSortableColumn="orderDetails.OrderMaster.customer.customerName">Customer <p-sortIcon >field="orderDetails.OrderMaster.customer.customerName"</p-sortIcon></th>
+                            <th pSortableColumn="goldSend">Gold Send <p-sortIcon >field="goldSend"</p-sortIcon></th>
+                            <th pSortableColumn="goldReturned">Gold Return <p-sortIcon >field="goldReturned"</p-sortIcon></th>
+                            <th pSortableColumn="panSend">Pan <p-sortIcon >field="panSend"</p-sortIcon></th>
                             <th pSortableColumn="currentStatus.statusName">Status <p-sortIcon >field="currentStatus.statusName"</p-sortIcon></th>
                         </tr>
                     </ng-template>
@@ -68,7 +70,9 @@
                             </td>
                             <td>{{job.jobDate}}</td>
                             <td>{{job.orderId}}</td>
-                            <td>{{job.orderDetails.OrderMaster.customer.customerName}}</td>
+                            <td class="text-right">{{job.goldSend}}</td>
+                            <td class="text-right">{{job.goldReturned}}</td>
+                            <td class="text-right">{{job.panSend}}</td>
                             <td>{{job.currentStatus.statusName}}</td>
                         </tr>
                     </ng-template>

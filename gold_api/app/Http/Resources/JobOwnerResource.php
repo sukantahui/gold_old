@@ -9,7 +9,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed job_id
  * @property mixed order_id
  * @property mixed product_code
- * @property mixed rmId
  * @property mixed pieces
  * @property mixed productSize
  * @property mixed expected_gold
@@ -40,6 +39,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed markup_value
  * @property mixed orderDetails
  * @property mixed gold
+ * @property mixed rm_id
  */
 class JobOwnerResource extends JsonResource
 {
@@ -57,7 +57,7 @@ class JobOwnerResource extends JsonResource
             'jobDate'=> (new Carbon($this->tr_time))->format('Y-m-d'),
             'orderId' => $this->order_id,
             'productCode' => $this->product_code,
-            'rmId' => $this->rmId,
+            'rmId' => $this->rm_id,
             'pieces' => $this->pieces,
             'productSize' => $this->productSize,
             'expectedGold' => $this->expected_gold,
