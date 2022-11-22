@@ -26,8 +26,8 @@
             </form>
         </div>
     </div>
-    <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
-        <div class="table-div col-8">
+    <div *ngIf="jobs" class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+        <div class="table-div" [ngClass]="showJobDetailDiv == true ? 'col-8':'col-12'">
             <div  class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
 
                 <p-table #dt2
@@ -41,10 +41,15 @@
                          [globalFilterFields]="['jobId','productCode']"
                          [responsive]="true">
                     <ng-template pTemplate="caption">
-                        <div class="flex">
-                            <span class="p-input-icon-left ml-auto">
+                        <div class="d-flex justify-content-between">
+                            <div class="p-input-icon-left ml-auto">
                                 <i class="pi pi-search"></i>
-                                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                                <input class="text-right" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                            </div>
+                            <span *ngIf="showJobDetailDiv">
+                                <button pButton type="button" class="p-button-link" (click)="showJobDetailDiv=!showJobDetailDiv">
+                                    Hide Details
+                                </button>
                             </span>
                         </div>
                     </ng-template>
@@ -89,7 +94,7 @@
                 </p-table>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-6" *ngIf="showJobDetailDiv">
             <div *ngIf="selectedJob">
                 <h3>{{selectedJob.orderDetails.OrderMaster.customer.customerName}}</h3>
                 <h4>Karigar: {{selectedJob.employee.employeeName}}</h4>
@@ -99,7 +104,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="true && !isProduction" id="developer-div">
+<div *ngIf="false && !isProduction" id="developer-div">
     <div class="outerContainer">
         <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
             <div class="col" fxLayoutAlign="center center">
