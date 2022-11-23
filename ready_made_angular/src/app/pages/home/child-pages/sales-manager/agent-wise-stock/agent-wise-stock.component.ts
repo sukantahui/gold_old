@@ -19,7 +19,7 @@ export class AgentWiseStockComponent implements OnInit {
   stoockListByAgent: any[];
   isProduction = environment.production;
   /*name of the excel-file which will be downloaded. */
-  fileName= 'ExcelSheet.xlsx';
+  fileName = 'ExcelSheet.xlsx';
 
   printDivStyle = {
     table: {'border-collapse': 'collapse', 'width' : '100%' },

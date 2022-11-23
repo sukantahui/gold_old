@@ -12,7 +12,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NgxPrinterModule} from "ngx-printer";
 import {NgxPrintModule} from "ngx-print";
-import {MatIconModule} from "@angular/material/icon";
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({

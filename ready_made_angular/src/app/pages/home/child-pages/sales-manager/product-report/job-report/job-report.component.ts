@@ -18,6 +18,7 @@ export class JobReportComponent implements OnInit {
   jobs: any;
   selectedJob: any;
   showJobDetailDiv = false;
+
   constructor(private reportService: ReportService, private commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
     this.adapter.setLocale('in');
     const stDate = new Date();
@@ -49,6 +50,7 @@ export class JobReportComponent implements OnInit {
     this.isLoading = true;
     this.reportService.getJobsByDates(this.reportForm.value.startDateSql, this.reportForm.value.endDateSql).subscribe((response) => {
       this.jobs = response.data;
+
       this.isLoading = false;
     });
   }

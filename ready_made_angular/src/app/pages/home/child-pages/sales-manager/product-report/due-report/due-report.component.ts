@@ -15,10 +15,14 @@ export class DueReportComponent implements OnInit {
   isProduction: boolean = environment.production;
   isLoading = false;
   agentDues: any;
+  agentTotalLcDue: number;
+  agentTotalGoldDue: number;
   constructor(private route: ActivatedRoute) {
     this.route.data.subscribe((response: any) => {
       console.log(response.dueReportResolver.agentDues.data);
       this.agentDues = response.dueReportResolver.agentDues.data;
+      this.agentTotalLcDue = this.agentDues.reduce((prev, next) => prev + next.lc_due, 0);
+      this.agentTotalGoldDue = this.agentDues.reduce((prev, next) => prev + next.gold_due, 0);
     });
   }
 

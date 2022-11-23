@@ -1,7 +1,14 @@
 <div class="p-2">
     <div  class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
         <div class="table-div">
-            <div  class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
+            <button
+                    mat-button color="primary"
+                    printSectionId="printable-table"
+                    [useExistingCss]="true"
+                    styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
+                    ngxPrint><mat-icon>print</mat-icon>
+            </button>
+            <div  class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
 
                 <p-table #dt2
                          [value]="agentDues"
@@ -9,18 +16,21 @@
                          [showCurrentPageReport]="true"
                          [rowsPerPageOptions]="[20,30,50]"
                          styleClass="p-datatable-gridlines"
-                         [paginator]="true"
+                         [paginator]="false"
                          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                          [globalFilterFields]="['jobId','productCode']"
-                         [responsive]="true">
+                         [responsive]="true"
+                         id="printable-table">
                     <ng-template pTemplate="caption">
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between no-print">
                             <div class="p-input-icon-left ml-auto">
                                 <i class="pi pi-search"></i>
                                 <input class="text-right" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
                             </div>
+
                         </div>
                     </ng-template>
+
                     <ng-template pTemplate="header">
                         <tr>
                             <th>SL</th>
@@ -39,6 +49,13 @@
                             <td class="text-left">{{agentDue.agent_name}}</td>
                             <td class="text-right">{{agentDue.gold_due}}</td>
                             <td class="text-right">{{agentDue.lc_due}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer" let-agentDue let-i="rowIndex">
+                        <tr>
+                            <td class="text-center" colspan="3">Total</td>
+                            <td class="text-left">{{agentTotalGoldDue}}</td>
+                            <td class="text-right">{{agentTotalLcDue}}</td>
                         </tr>
                     </ng-template>
                 </p-table>
