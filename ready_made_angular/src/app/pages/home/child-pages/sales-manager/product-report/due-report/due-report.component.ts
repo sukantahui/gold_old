@@ -39,6 +39,7 @@ export class DueReportComponent implements OnInit {
   }
 
   onFilter($event: any) {
+    //https://www.codeusingjava.com/angular/primeng/prime8
     console.log($event.filteredValue);
     this.agentTotalLcDue = $event.filteredValue.reduce((prev, next) => prev + next.lc_due, 0);
     this.agentTotalGoldDue = $event.filteredValue.reduce((prev, next) => prev + next.gold_due, 0);
