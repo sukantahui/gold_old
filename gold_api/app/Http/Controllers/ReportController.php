@@ -136,5 +136,10 @@ class ReportController extends ApiController
         $result_array['totalLcDue']=$totalLcDue;
         return $this->successResponse($result_array);
     }
+    public function getCustomerTransaction($customerId)
+    {
+        $result = DB::select('call get_cutomer_recept_payment_by_id(?)', [$customerId]);
+        return $this->successResponse($result);
+    }
 
 }

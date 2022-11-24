@@ -1,9 +1,8 @@
 <div class="p-2">
     <div  class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
-        <div class="col-6 table-div">
-
+        <div *ngIf="showAgentDues" class="col-6 table-div">
             <div  class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
-
+                <!--Agents-->
                 <p-table #dt1
                          (onFilter)="onFilter($event)"
                          [value]="agentDues"
@@ -34,7 +33,10 @@
                                     ngxPrint
                                     class="no-print"><mat-icon>print</mat-icon>
                             </button>
-
+                            <button mat-button color="primary" (click)="commonService.exportToExcel('printable-agent-dues-table','agent_dues')"><mat-icon>cloud_download</mat-icon></button>
+                            <button mat-button color="primary" (click)="commonService.arrayToExcel(agentDues,'agent_dues')">
+                                <mat-icon class="col-green">arrow_downward</mat-icon>
+                            </button>
                         </div>
                     </ng-template>
 
@@ -59,7 +61,7 @@
                             <td class="text-left" *ngIf="customerDues">{{agentDue.short_name}}</td>
                             <td class="text-right">{{agentDue.gold_due | number:'1.3'}}</td>
                             <td class="text-right">{{agentDue.lc_due | number:'1.2'}}</td>
-                            <td class="text-right no-print">
+                            <td class="text-center no-print">
                                 <span class="p-buttonset">
 <!--                                    <button *ngIf="selectedAgent===agentDue" class="p-button-raised p-button-rounded"  pButton type="button" icon="pi pi-circle-on"></button>-->
 <!--                                    <button *ngIf="selectedAgent!=agentDue" class="p-button-raised p-button-rounded" (click)="onSelectAgent(agentDue)" pButton type="button" icon="pi pi-circle-off"></button>-->
@@ -80,12 +82,13 @@
                 </p-table>
             </div>
         </div>
-        <div class="col-6">
-            <div  *ngIf="customerDues" class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
-
+        <div [ngClass]="customerTransactions==undefined ? 'col-6' : 'col-3'">
+            <div  *ngIf="customerDues" class="p-2"   style="border: 1px solid #454141; border-radius: 10px;" >
+                <!--Customers-->
                 <p-table #dt2
                          [value]="customerDues.records"
                          [rows]="10"
+                         (onRowSelect)="onCustomerDueRowSelect($event)"
                          [showCurrentPageReport]="true"
                          [rowsPerPageOptions]="[20,30,50]"
                          styleClass="p-datatable-gridlines"
@@ -93,6 +96,7 @@
                          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                          [globalFilterFields]="['agent_id','agent_name']"
                          [responsive]="true"
+
                          id="printable-customer-dues-table">
                     <ng-template pTemplate="caption">
 
@@ -116,7 +120,7 @@
                                             ngxPrint
                                             class="no-print"><mat-icon>print</mat-icon>
                                     </button>
-                                    <button  pButton pRipple type="button" icon="pi" class="p-button-danger">x</button>
+                                    <button (click)="onCustomerDueCloseButtonClicked()"  pButton pRipple type="button" icon="pi" class="p-button-danger">x</button>
                                 </span>
 
                         </div>
@@ -124,30 +128,30 @@
 
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>SL</th>
-                            <th pSortableColumn="cust_id">Cust Id <p-sortIcon class="no-print" field="cust_id"></p-sortIcon></th>
+                            <th *ngIf="!customerTransactions">SL</th>
+                            <th *ngIf="!customerTransactions" pSortableColumn="cust_id">Cust Id <p-sortIcon class="no-print" field="cust_id"></p-sortIcon></th>
                             <th pSortableColumn="cust_name">Name <p-sortIcon class="no-print" field="cust_name"></p-sortIcon></th>
                             <th pSortableColumn="gold_due">Gold <p-sortIcon class="no-print" field="gold_due"></p-sortIcon></th>
                             <th pSortableColumn="lc_due">LC <p-sortIcon class="no-print" field="lc_due"></p-sortIcon></th>
-                            <th class="no-print">Action</th>
+                            <th *ngIf="!customerTransactions" class="no-print">Action</th>
                             <!--                            <th *ngIf="!showJobDetailDiv" pSortableColumn="orderId">Order ID <p-sortIcon field="orderId"></p-sortIcon></th>-->
                             <!--                            <th pSortableColumn="pieces">Qty<p-sortIcon field="pieces"></p-sortIcon></th>-->
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customerDue let-i="rowIndex">
+                    <ng-template pTemplate="body"  let-customerDue let-i="rowIndex">
                         <tr>
-                            <td>{{i+1}}</td>
-                            <td class="text-left">{{customerDue.cust_id}}</td>
+                            <td *ngIf="!customerTransactions">{{i+1}}</td>
+                            <td class="text-left" *ngIf="!customerTransactions">{{customerDue.cust_id}}</td>
                             <td class="text-left">{{customerDue.cust_name}}</td>
                             <td class="text-right">{{customerDue.gold_due | number:'1.3'}}</td>
                             <td class="text-right">{{customerDue.lc_due | number:'1.2'}}</td>
-                            <td class="text-right no-print">
+                            <td class="text-right no-print" *ngIf="!customerTransactions">
                                 <span class="p-buttonset">
 <!--                                    <button *ngIf="selectedAgent===agentDue" class="p-button-raised p-button-rounded"  pButton type="button" icon="pi pi-circle-on"></button>-->
                                     <!--                                    <button *ngIf="selectedAgent!=agentDue" class="p-button-raised p-button-rounded" (click)="onSelectAgent(agentDue)" pButton type="button" icon="pi pi-circle-off"></button>-->
 
-                                    <button  pButton pRipple type="button" icon="pi pi-circle-off" class="p-button-rounded p-button-secondary"></button>
-                                    <button  pButton pRipple type="button" icon="pi pi-circle-on" class="p-button-rounded p-button-danger"></button>
+                                    <button *ngIf="customerDue!=selectedCustomer"  pButton pRipple type="button" icon="pi pi-circle-off" class="p-button-rounded p-button-secondary" (click)="onSelectCustomer(customerDue)"></button>
+                                    <button *ngIf="customerDue==selectedCustomer" pButton pRipple type="button" icon="pi pi-circle-on" class="p-button-rounded p-button-danger"></button>
                                 </span>
                             </td>
                         </tr>
@@ -162,6 +166,87 @@
                 </p-table>
             </div>
         </div>
+        <div class="col">
+            <div  *ngIf="customerTransactions && !showAgentDues" class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
+                <!--Transactions-->
+                <p-table #dt3
+                         [value]="customerTransactions"
+                         [rows]="10"
+                         [showCurrentPageReport]="true"
+                         [rowsPerPageOptions]="[20,30,50]"
+                         styleClass="p-datatable-gridlines"
+                         [paginator]="true"
+                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                         [globalFilterFields]="['cust_id','agent_name']"
+                         [responsive]="true"
+                         id="printable-customer-transaction-table">
+                    <ng-template pTemplate="caption">
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h2>Transactions of  {{selectedCustomer.cust_name}}</h2>
+                            </div>
+                            <div class="p-input-icon-left ml-auto no-print">
+                                <i class="pi pi-search"></i>
+                                <input class="text-right" pInputText type="text" (input)="dt3.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                            </div>
+                            <span class="p-buttonset">
+<!--                                    <button *ngIf="selectedAgent===agentDue" class="p-button-raised p-button-rounded"  pButton type="button" icon="pi pi-circle-on"></button>-->
+                                <!--                                    <button *ngIf="selectedAgent!=agentDue" class="p-button-raised p-button-rounded" (click)="onSelectAgent(agentDue)" pButton type="button" icon="pi pi-circle-off"></button>-->
+
+                                    <button
+                                            mat-button color="primary"
+                                            printSectionId="printable-customer-transaction-table"
+                                            [useExistingCss]="true"
+                                            styleSheetFile="assets/print_css/general_print.css"
+                                            ngxPrint
+                                            class="no-print"><mat-icon>print</mat-icon>
+                                    </button>
+                                    <button (click)="onCustomerTransactionCloseButtonClicked()"  pButton pRipple type="button" icon="pi" class="p-button-danger">x</button>
+                                </span>
+
+                        </div>
+                    </ng-template>
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>SL</th>
+                            <th >Date </th>
+                            <th >Particulars </th>
+                            <th >Reference </th>
+                            <th >Qty </th>
+                            <th class="no-print">Action</th>
+                            <!--                            <th *ngIf="!showJobDetailDiv" pSortableColumn="orderId">Order ID <p-sortIcon field="orderId"></p-sortIcon></th>-->
+                            <!--                            <th pSortableColumn="pieces">Qty<p-sortIcon field="pieces"></p-sortIcon></th>-->
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-transaction let-i="rowIndex">
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td class="text-left">{{transaction.formated_tr_date }}</td>
+                            <td class="text-left">{{transaction.particulars}}</td>
+                            <td class="text-right">{{transaction.reference}}</td>
+                            <td class="text-right">{{transaction.billed_qty}}</td>
+                            <td>
+                                <span class="p-buttonset">
+<!--                                    <button *ngIf="selectedAgent===agentDue" class="p-button-raised p-button-rounded"  pButton type="button" icon="pi pi-circle-on"></button>-->
+                                    <!--                                    <button *ngIf="selectedAgent!=agentDue" class="p-button-raised p-button-rounded" (click)="onSelectAgent(agentDue)" pButton type="button" icon="pi pi-circle-off"></button>-->
+
+                                    <button  pButton pRipple type="button" icon="pi pi-circle-off" class="p-button-rounded p-button-secondary"></button>
+                                    <button  pButton pRipple type="button" icon="pi pi-circle-on" class="p-button-rounded p-button-danger"></button>
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer" let-transaction let-i="rowIndex">
+                        <tr>
+                            <td class="text-center" colspan="3">Total</td>
+
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -171,7 +256,7 @@
         <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
             <div class="col" fxLayoutAlign="center center">
                     <pre>
-                        agentDues = {{agentDues | json}}
+                        customerTransactions = {{customerTransactions | json}}
                     </pre>
 
             </div>

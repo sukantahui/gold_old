@@ -16,10 +16,13 @@ export class DueReportComponent implements OnInit {
   isLoading = false;
   agentDues: any;
   agentTotalLcDue: number;
+  showAgentDues = true;
   agentTotalGoldDue: number;
   selectedAgent: any;
   customerDues: any;
-  constructor(private route: ActivatedRoute, private reportService: ReportService) {
+  selectedCustomer: any = undefined;
+  customerTransactions: any = undefined;
+  constructor(private route: ActivatedRoute, private reportService: ReportService,  public commonService: CommonService) {
     this.route.data.subscribe((response: any) => {
       console.log(response.dueReportResolver.agentDues.data);
       this.agentDues = response.dueReportResolver.agentDues.data;
@@ -39,11 +42,32 @@ export class DueReportComponent implements OnInit {
   }
 
   onFilter($event: any) {
-    //https://www.codeusingjava.com/angular/primeng/prime8
+    // https://www.codeusingjava.com/angular/primeng/prime8
     this.selectedAgent = null;
     this.customerDues = undefined;
     this.agentTotalLcDue = $event.filteredValue.reduce((prev, next) => prev + next.lc_due, 0);
     this.agentTotalGoldDue = $event.filteredValue.reduce((prev, next) => prev + next.gold_due, 0);
   }
 
+  onCustomerDueCloseButtonClicked() {
+    this.selectedAgent = undefined;
+    this.customerDues = undefined;
+  }
+
+  onSelectCustomer(customer: any) {
+    this.selectedCustomer = customer;
+    this.reportService.getCustomerTransactionById(customer.cust_id).subscribe(response => {
+      this.customerTransactions = response.data;
+      this.showAgentDues = false;
+    });
+  }
+
+  onCustomerTransactionCloseButtonClicked() {
+    this.customerTransactions = undefined;
+    this.showAgentDues = true;
+  }
+
+  onCustomerDueRowSelect($event: any) {
+    console.log($event);
+  }
 }

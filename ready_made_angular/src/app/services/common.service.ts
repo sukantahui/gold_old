@@ -123,7 +123,7 @@ export class CommonService {
     XLSX.utils.book_append_sheet(wb, ws, sheetName);
 
     /* save to file */
-    XLSX.writeFile(wb, fileName + '_' + currentTimeInSeconds);
+    XLSX.writeFile(wb, fileName + '_' + currentTimeInSeconds + '.xlsx');
 
   }
 

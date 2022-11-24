@@ -35,6 +35,7 @@ export class ReportService {
 
             }));
     }
+
     getCustomerDuesByAgent(agentId){
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/customerDueByAgentId/' + agentId)
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
@@ -44,6 +45,16 @@ export class ReportService {
 
             }));
     }
+    getCustomerTransactionById(customerId){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/customerTransaction/' + customerId)
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
+
     getJobsByDates(startDate: string, endDate: string){
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/owner/jobs/dates/' + startDate + '/' + endDate)
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {

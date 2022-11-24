@@ -26,7 +26,7 @@
                             styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
                             ngxPrint><mat-icon>print</mat-icon>
                     </button>
-                    <button mat-button color="primary" (click)="commonService.exportToExcel('printable-stock-table','stock.xlsx')"><mat-icon>cloud_download</mat-icon></button>
+                    <button mat-button color="primary" (click)="commonService.exportToExcel('printable-stock-table','stock')"><mat-icon>cloud_download</mat-icon></button>
                     <button mat-button color="primary" (click)="commonService.arrayToExcel(agentList,'stock.xlsx')">Save Agents to Excel</button>
                 </div>
                     <div *ngIf="stoockListByAgent" id="stockListDiv" class="table-responsive">
