@@ -37,4 +37,10 @@ export class DueReportComponent implements OnInit {
       this.customerDues = response.data;
     });
   }
+
+  onFilter($event: any) {
+    console.log($event.filteredValue);
+    this.agentTotalLcDue = $event.filteredValue.reduce((prev, next) => prev + next.lc_due, 0);
+    this.agentTotalGoldDue = $event.filteredValue.reduce((prev, next) => prev + next.gold_due, 0);
+  }
 }
