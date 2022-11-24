@@ -190,6 +190,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("owner/jobs/dates/{dateFrom}/{dateTo}",[JobMasterController::class, 'getJobByDate']);
     //get job details for owner
     Route::get("agentDues",[ReportController::class, 'getAgentwiseDue']);
+    Route::get("customerDueByAgentId/{agentId}",[ReportController::class, 'getCustomerDueByAgent']);
 
 
 });

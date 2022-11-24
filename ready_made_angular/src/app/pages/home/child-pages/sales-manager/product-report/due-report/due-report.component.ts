@@ -17,7 +17,9 @@ export class DueReportComponent implements OnInit {
   agentDues: any;
   agentTotalLcDue: number;
   agentTotalGoldDue: number;
-  constructor(private route: ActivatedRoute) {
+  selectedAgent: any;
+  customerDues: any;
+  constructor(private route: ActivatedRoute, private reportService: ReportService) {
     this.route.data.subscribe((response: any) => {
       console.log(response.dueReportResolver.agentDues.data);
       this.agentDues = response.dueReportResolver.agentDues.data;
@@ -27,5 +29,12 @@ export class DueReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onSelectAgent(agentDue: any) {
+    this.selectedAgent = agentDue;
+    this.reportService.getCustomerDuesByAgent(agentDue.agent_id).subscribe(response => {
+      this.customerDues = response.data;
+    });
   }
 }

@@ -125,5 +125,16 @@ class ReportController extends ApiController
                                     from agent_master");
         return $this->successResponse($queries);
     }
+    public function getCustomerDueByAgent($agentId)
+    {
+        $result = DB::select('call get_customer_due_by_agent(?)', [$agentId]);
+        $totalGoldDue=collect($result)->sum('gold_due');
+        $totalLcDue=collect($result)->sum('lc_due');
+        $result_array=array();
+        $result_array['records']=$result;
+        $result_array['totalGoldDue']=$totalGoldDue;
+        $result_array['totalLcDue']=$totalLcDue;
+        return $this->successResponse($result_array);
+    }
 
 }

@@ -1,10 +1,4 @@
-@media print
-{
-    .no-print, .no-print *
-    {
-        display: none !important;
-    }
-}
+
 
 table{
     border-collapse: collapse; width : 100%;
