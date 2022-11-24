@@ -9,13 +9,13 @@
             <div class="p-2 col-xl-1" style="background-color: rgb(199, 192, 192)">
                 <ul>
                     <li>
-                        <a routerLink='./ProductSale'>Modelwise Sale</a>
+                        <a (click)="subject='Model Sale Record'" routerLink='./ProductSale'>Modelwise Sale</a>
                     </li>
                     <li>
-                        <a routerLink='./DueReport'>Due Report</a>
+                        <a (click)="subject='All Due Report'"  routerLink='./DueReport'>Due Report</a>
                     </li>
                     <li>
-                        <a routerLink='./JobReport'>Job Report</a>
+                        <a (click)="subject='Job Report'"  routerLink='./JobReport'>Job Report</a>
                     </li>
                 </ul>
             </div>
