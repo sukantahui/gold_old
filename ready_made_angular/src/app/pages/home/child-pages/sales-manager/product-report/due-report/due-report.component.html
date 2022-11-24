@@ -41,8 +41,9 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th>SL</th>
-                            <th pSortableColumn="agent_id">Agent Id <p-sortIcon class="no-print" field="agent_id"></p-sortIcon></th>
-                            <th pSortableColumn="agent_name">Name <p-sortIcon class="no-print" field="agent_name"></p-sortIcon></th>
+                            <th pSortableColumn="agent_id">Id <p-sortIcon class="no-print" field="agent_id"></p-sortIcon></th>
+                            <th pSortableColumn="agent_name">Agent<p-sortIcon class="no-print" field="agent_name"></p-sortIcon></th>
+                            <th pSortableColumn="short_name">Agent <p-sortIcon class="no-print" field="short_name"></p-sortIcon></th>
                             <th pSortableColumn="gold_due">Gold <p-sortIcon class="no-print" field="gold_due"></p-sortIcon></th>
                             <th pSortableColumn="lc_due">LC <p-sortIcon class="no-print" field="lc_due"></p-sortIcon></th>
                             <th class="no-print">Action</th>
@@ -55,6 +56,7 @@
                             <td>{{i+1}}</td>
                             <td class="text-left">{{agentDue.agent_id}}</td>
                             <td class="text-left">{{agentDue.agent_name}}</td>
+                            <td class="text-left">{{agentDue.short_name}}</td>
                             <td class="text-right">{{agentDue.gold_due | number:'1.3'}}</td>
                             <td class="text-right">{{agentDue.lc_due | number:'1.2'}}</td>
                             <td class="text-right no-print">

@@ -8,6 +8,7 @@ import {environment} from '../../../../../../environments/environment';
 })
 export class ProductReportComponent implements OnInit {
   isProduction: boolean = environment.production;
+  subject = 'Owner Reports';
   constructor() { }
 
   ngOnInit(): void {
