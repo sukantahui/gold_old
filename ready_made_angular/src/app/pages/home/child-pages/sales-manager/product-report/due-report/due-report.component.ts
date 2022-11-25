@@ -70,4 +70,17 @@ export class DueReportComponent implements OnInit {
   onCustomerDueRowSelect($event: any) {
     console.log($event);
   }
+
+  onReferenceSelect(transaction) {
+
+      if (transaction.transaction_code === 1){
+        // show Bill
+      }
+      if (transaction.transaction_code === 2){
+        // show Gold Receipt
+      }
+      if (transaction.transaction_code === 3){
+        // show Gold Receipt
+      }
+  }
 }
