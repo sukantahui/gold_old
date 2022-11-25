@@ -30,7 +30,14 @@ export class SaleReturnComponent implements OnInit {
       monthNumber: new FormControl(this.monthNumber),
       agentId: new FormControl(null),
       customerId: new FormControl(null),
-      amount: new FormControl(100),
+      tag: new FormControl(null),
+      modelNo: new FormControl(null),
+      modelSize: new FormControl(null),
+      gigniGold: new FormControl(null),
+      fineGold: new FormControl(null),
+      grossWeight: new FormControl(null),
+      qty: new FormControl(null),
+      lc: new FormControl(null)
     });
   }
 
