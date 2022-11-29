@@ -63,6 +63,9 @@ export class AuthComponent implements OnInit {
                 if (this.authService.isPettyCash()){
                     this.router.navigate(['/PettyCash']).then(r => {});
                 }
+                if (this.authService.isDeveloper()){
+                    this.router.navigate(['/developer']).then(r => {});
+                }
             }
         }, (error) => {
             console.log(error);
