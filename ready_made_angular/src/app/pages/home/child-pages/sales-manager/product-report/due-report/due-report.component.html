@@ -219,13 +219,22 @@
                             <th rowspan="2">Date </th>
                             <th rowspan="2">Particulars </th>
                             <th rowspan="2">Reference </th>
+                            <th colspan="2" class="text-center">Opening </th>
                             <th colspan="3" class="text-center">Billed </th>
-                            <th class="no-print">Action</th>
+                            <th colspan="2" class="text-center">Received </th>
+                            <th colspan="2" class="text-center">Closing </th>
+                            <th rowspan="2" class="no-print">Action</th>
                             <!--                            <th *ngIf="!showJobDetailDiv" pSortableColumn="orderId">Order ID <p-sortIcon field="orderId"></p-sortIcon></th>-->
                             <!--                            <th pSortableColumn="pieces">Qty<p-sortIcon field="pieces"></p-sortIcon></th>-->
                         </tr>
                         <tr>
+                            <th >Gold </th>
+                            <th >LC </th>
                             <th >Qty </th>
+                            <th >Gold </th>
+                            <th >LC </th>
+                            <th >Gold </th>
+                            <th >LC </th>
                             <th >Gold </th>
                             <th >LC </th>
 
@@ -237,20 +246,23 @@
                             <td>{{i+1}}</td>
                             <td class="text-left">{{transaction.formated_tr_date }}</td>
                             <td class="text-left">{{transaction.particulars}}</td>
-                            <td class="text-right">
+                            <td class="text-left">
                                 <button pButton type="button"  class="p-button-link" (click)="onReferenceSelect(transaction)">
                                     {{transaction.reference}}
                                 </button>
 
                             </td>
-                            <td class="text-right">{{transaction.billed_qty}}</td>
-                            <td class="text-right">{{transaction.billed_gold}}</td>
-                            <td class="text-right">{{transaction.billed_lc}}</td>
+                            <td class="text-right">{{transaction.op_gold_due ==0? "" : (transaction.op_gold_due | number: '1.3')}}</td>
+                            <td class="text-right">{{transaction.op_lc_due ==0? "" : (transaction.op_lc_due)}}</td>
+                            <td class="text-right">{{transaction.billed_qty ==0? "" : (transaction.billed_qty)}}</td>
+                            <td class="text-right">{{transaction.billed_gold ==0? "" : (transaction.billed_gold | number: '1.3')}}</td>
+                            <td class="text-right">{{transaction.billed_lc ==0? "" : (transaction.billed_lc)}}</td>
+                            <td class="text-right">{{transaction.received_gold ==0? "" : (transaction.received_gold | number: '1.3')}}</td>
+                            <td class="text-right">{{transaction.received_lc ==0? "" : (transaction.received_lc | number: '1.2')}}</td>
+                            <td class="text-right">{{transaction.current_gold_due ==0? "" : (transaction.current_gold_due | number: '1.3')}}</td>
+                            <td class="text-right">{{transaction.current_lc_due ==0? "" : (transaction.current_lc_due | number: '1.3')}}</td>
                             <td>
                                 <span class="p-buttonset">
-<!--                                    <button *ngIf="selectedAgent===agentDue" class="p-button-raised p-button-rounded"  pButton type="button" icon="pi pi-circle-on"></button>-->
-                                    <!--                                    <button *ngIf="selectedAgent!=agentDue" class="p-button-raised p-button-rounded" (click)="onSelectAgent(agentDue)" pButton type="button" icon="pi pi-circle-off"></button>-->
-
                                     <button  pButton pRipple type="button" icon="pi pi-circle-off" class="p-button-rounded p-button-secondary"></button>
                                     <button  pButton pRipple type="button" icon="pi pi-circle-on" class="p-button-rounded p-button-danger"></button>
                                 </span>
