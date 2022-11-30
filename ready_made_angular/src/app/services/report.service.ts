@@ -17,7 +17,6 @@ export class ReportService {
 
   }
   getAgentWiseSaleReport(startDate: string, endDate: string, agentId: string){
-      console.log(agentId);
       return this.http.get<ServerResponse>(this.commonService.getAPI() + '/SalesReport/agent/' + startDate + '/' + endDate + '/' + agentId)
         .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
           if (response.status === true){
@@ -99,6 +98,18 @@ export class ReportService {
     getStockInHand(productCategoryId: number, agentId: string){
         // tslint:disable-next-line:max-line-length
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/stocksInHand/' + productCategoryId + '/' + agentId )
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
+
+    // get job by Id
+    getJobById(jobById: string){
+        // tslint:disable-next-line:max-line-length
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/job/' + jobById  )
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
                 if (response.status === true){
 
