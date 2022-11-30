@@ -1,6 +1,6 @@
 <div class="p-2">
     <div  class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
-        <div class="col">
+        <div class="col-6">
             <form [formGroup]="goldAddForm">
                 <div class="d-flex flex-row">
                     <div class="mb-3 col-6">
@@ -9,7 +9,8 @@
                             <input #jobId type="number" formControlName="jobId" class="form-control" id="job-id" aria-describedby="yearHelp">
                             <button pButton type="button" label="Small" icon="pi pi-check" (click)="fetchJob(jobId)" [loading]="isLoading" ></button>
                         </div>
-                        <div id="yearHelp" class="form-text">Enter Job Id</div>
+                        <div *ngIf="!job" id="yearHelp" class="form-text">Enter Job Id</div>
+                        <div *ngIf="job" id="yearHelp" class="form-text">Gold Already Submitted: {{job.gold_send}}</div>
                     </div>
                     <div class="mb-3 col-2">
 
@@ -24,8 +25,10 @@
                 </div>
             </form>
         </div>
-        <div class="col">
-
+        <div class="col-6">
+            <pre>
+                job = {{job | json}}
+            </pre>
         </div>
 
     </div>
