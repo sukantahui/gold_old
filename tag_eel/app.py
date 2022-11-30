@@ -56,7 +56,7 @@ def printTag(jobdata):
     #spliting serialize array to dictionary
     data = dict(x.split("=") for x in jobdata.split("&"))
     f = open("tag.txt","w")
-    
+    # first tag
     f.write("N")
     f.write("\n")
     f.write("R110,0")
@@ -78,7 +78,8 @@ def printTag(jobdata):
     f.write('"'+data['job_id']+'"')
     f.write("\n")
     f.write("A405,33,2,2,1,1,N,")
-    f.write('"'+data['brand']+'"')
+    # f.write('"'+data['brand']+'"')
+    f.write('"'+"9836444999"+'"')
     f.write("\n")
     
     f.write("A245,33,2,2,1,1,N,")
@@ -215,7 +216,7 @@ def printTag(jobdata):
     
     f.write("\n")
     f.write("A600,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['price'])*3)+'"')
+    f.write('"'+str(int(data['price'])*2)+'"')
     f.write("\n")
     f.write('A555,20,2,1,1,1,N,"X"')
     f.write("\n")
@@ -228,7 +229,7 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("A505,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['total_lc'])*3)+'"')
+    f.write('"'+str(int(data['total_lc'])*2)+'"')
     f.write("\n")
     
     f.write("P1")
@@ -305,7 +306,7 @@ def printTag(jobdata):
     
     f.write("\n")
     f.write("A600,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['price'])*3)+'"')
+    f.write('"'+str(int(data['price'])*1.5)+'"')
     f.write("\n")
     f.write('A555,20,2,1,1,1,N,"X"')
     f.write("\n")
@@ -318,7 +319,7 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("A505,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['total_lc'])*3)+'"')
+    f.write('"'+str(int(data['total_lc'])*1.5)+'"')
     f.write("\n")
     
     f.write("P1")
