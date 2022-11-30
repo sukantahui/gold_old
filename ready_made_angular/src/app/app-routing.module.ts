@@ -87,6 +87,10 @@ const routes: Routes = [
 
   { path: 'MenuManager', loadChildren: () => import('./pages/home/menu/menu-manager/menu-manager.module').then(m => m.MenuManagerModule) },
 
+  { path: 'ExtraGoldAdd', loadChildren: () => import('./pages/home/child-pages/developer/extra-gold-add/extra-gold-add.module').then(m => m.ExtraGoldAddModule) },
+
+  { path: 'DeveloperHome', loadChildren: () => import('./pages/home/child-pages/developer/developer-home/developer-home.module').then(m => m.DeveloperHomeModule) },
+
   // { path: 'JobReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/product-report/job-report/job-report.module').then(m => m.JobReportModule) },
 
   // { path: 'DueReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/product-report/due-report/due-report.module').then(m => m.DueReportModule) },
