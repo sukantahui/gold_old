@@ -122,24 +122,24 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("\n")
-    f.write('A680,20,2,1,1,1,N,"M. Charge:"')
+    f.write('A660,20,2,1,1,1,N,"M. Charge:"')
     f.write("\n")
     
     f.write("\n")
-    f.write("A600,20,2,1,1,1,N,")
+    f.write("A580,20,2,1,1,1,N,")
     f.write('"'+data['price']+'"')
     f.write("\n")
-    f.write('A555,20,2,1,1,1,N,"X"')
+    f.write('A535,20,2,1,1,1,N,"X"')
     f.write("\n")
     
-    f.write('A535,20,2,1,1,1,N,')
+    f.write('A515,20,2,1,1,1,N,')
     f.write('"'+data['pieces']+'"')
     f.write("\n")
 
-    f.write('A515,20,2,1,1,1,N,"="')
+    f.write('A495,20,2,1,1,1,N,"="')
     f.write("\n")
     
-    f.write("A505,20,2,1,1,1,N,")
+    f.write("A485,20,2,1,1,1,N,")
     f.write('"'+data['total_lc']+'"')
     f.write("\n")
     
@@ -211,24 +211,24 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("\n")
-    f.write('A680,20,2,1,1,1,N,"M. Charge:"')
+    f.write('A660,20,2,1,1,1,N,"M. Charge:"')
     f.write("\n")
     
     f.write("\n")
-    f.write("A600,20,2,1,1,1,N,")
+    f.write("A580,20,2,1,1,1,N,")
     f.write('"'+str(int(data['price'])*2)+'"')
     f.write("\n")
-    f.write('A555,20,2,1,1,1,N,"X"')
+    f.write('A535,20,2,1,1,1,N,"X"')
     f.write("\n")
     
-    f.write('A535,20,2,1,1,1,N,')
+    f.write('A515,20,2,1,1,1,N,')
     f.write('"'+data['pieces']+'"')
     f.write("\n")
 
-    f.write('A515,20,2,1,1,1,N,"="')
+    f.write('A495,20,2,1,1,1,N,"="')
     f.write("\n")
     
-    f.write("A505,20,2,1,1,1,N,")
+    f.write("A485,20,2,1,1,1,N,")
     f.write('"'+str(int(data['total_lc'])*2)+'"')
     f.write("\n")
     
@@ -301,24 +301,24 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("\n")
-    f.write('A680,20,2,1,1,1,N,"M. Charge:"')
+    f.write('A660,20,2,1,1,1,N,"M. Charge:"')
     f.write("\n")
     
     f.write("\n")
-    f.write("A600,20,2,1,1,1,N,")
+    f.write("A580,20,2,1,1,1,N,")
     f.write('"'+str(int(data['price'])*1.5)+'"')
     f.write("\n")
-    f.write('A555,20,2,1,1,1,N,"X"')
+    f.write('A535,20,2,1,1,1,N,"X"')
     f.write("\n")
     
-    f.write('A535,20,2,1,1,1,N,')
+    f.write('A515,20,2,1,1,1,N,')
     f.write('"'+data['pieces']+'"')
     f.write("\n")
 
-    f.write('A515,20,2,1,1,1,N,"="')
+    f.write('A495,20,2,1,1,1,N,"="')
     f.write("\n")
     
-    f.write("A505,20,2,1,1,1,N,")
+    f.write("A485,20,2,1,1,1,N,")
     f.write('"'+str(int(data['total_lc'])*1.5)+'"')
     f.write("\n")
     
