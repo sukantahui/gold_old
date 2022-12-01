@@ -6,6 +6,7 @@ use App\Http\Controllers\AssetController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LedgerController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceMasterController;
 use App\Http\Controllers\ProductCategoryController;
@@ -193,7 +194,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("customerDueByAgentId/{agentId}",[ReportController::class, 'getCustomerDueByAgent']);
     Route::get("customerTransaction/{customerId}",[ReportController::class, 'getCustomerTransaction']);
     Route::get("job/{job_id}",[JobMasterController::class, 'getJobById']);
-
+    Route::get("logs/{reference}",[LogController::class, 'getLogByReference']);
 });
 
 

@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
     ReactiveFormsModule,
     ButtonModule,
     InputNumberModule,
-    NgSelectModule
+    NgSelectModule,
+    TableModule
   ]
 })
 export class ExtraGoldAddModule { }

@@ -117,5 +117,19 @@ export class ReportService {
 
             }));
     }
+    // get job by Id
+    getExtraGoldAddByJobId(jobById: string){
+        // tslint:disable-next-line:max-line-length
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/logs/' + jobById  )
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
+
+
+
 
 }

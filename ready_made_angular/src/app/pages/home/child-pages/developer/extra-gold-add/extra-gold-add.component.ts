@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {environment} from '../../../../../../environments/environment';
 import {ReportService} from '../../../../../services/report.service';
+import {forkJoin} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-extra-gold-add',
@@ -14,6 +16,7 @@ export class ExtraGoldAddComponent implements OnInit {
   subject = 'Developer Area';
   isLoading: any = false;
   job: any = undefined;
+  previousExtraGoldLists: any;
 
   constructor(private reportService: ReportService) {
     this.goldAddForm = new FormGroup({
@@ -31,5 +34,14 @@ export class ExtraGoldAddComponent implements OnInit {
     }, error => {
       this.job = undefined;
     });
+
+
+    this.reportService.getExtraGoldAddByJobId(jobId.value).subscribe((response) => {
+      this.previousExtraGoldLists = response.data;
+      console.log(this.previousExtraGoldLists);
+    }, error => {
+      this.previousExtraGoldLists = [];
+    });
+
   }
 }
