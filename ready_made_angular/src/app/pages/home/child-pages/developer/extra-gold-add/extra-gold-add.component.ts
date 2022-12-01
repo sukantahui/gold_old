@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {environment} from '../../../../../../environments/environment';
+import {ReportService} from '../../../../../services/report.service';
 
 @Component({
   selector: 'app-extra-gold-add',
@@ -8,8 +10,12 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class ExtraGoldAddComponent implements OnInit {
   goldAddForm: FormGroup;
+  isProduction: boolean = environment.production;
+  subject = 'Developer Area';
+  isLoading: any = false;
+  job: any = undefined;
 
-  constructor() {
+  constructor(private reportService: ReportService) {
     this.goldAddForm = new FormGroup({
       jobId: new FormControl(null),
       gold: new FormControl(null)
@@ -19,4 +25,11 @@ export class ExtraGoldAddComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  fetchJob(jobId: HTMLInputElement) {
+    this.reportService.getJobById(jobId.value).subscribe((response) => {
+      this.job = response.data;
+    }, error => {
+      this.job = undefined;
+    });
+  }
 }

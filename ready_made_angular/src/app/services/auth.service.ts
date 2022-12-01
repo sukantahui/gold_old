@@ -114,6 +114,7 @@ export class AuthService {
       const loadedUser = new User(userData.uniqueId, userData.userName, userData._authKey, userData.userTypeId, userData.userTypeName);
       if (loadedUser.authKey){
         this.userBehaviorSubject.next(loadedUser);
+        // this.router.navigate(['/developer']).then(r => {});
       }
     }
     // tslint:disable-next-line:max-line-length

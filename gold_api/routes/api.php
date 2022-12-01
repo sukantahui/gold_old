@@ -192,7 +192,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("agentDues",[ReportController::class, 'getAgentwiseDue']);
     Route::get("customerDueByAgentId/{agentId}",[ReportController::class, 'getCustomerDueByAgent']);
     Route::get("customerTransaction/{customerId}",[ReportController::class, 'getCustomerTransaction']);
-
+    Route::get("job/{job_id}",[JobMasterController::class, 'getJobById']);
 
 });
 

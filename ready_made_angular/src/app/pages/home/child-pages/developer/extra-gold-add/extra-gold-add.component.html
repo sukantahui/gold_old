@@ -1,1 +1,57 @@
-<p>extra-gold-add works!</p>
+<div class="p-2">
+    <div  class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+        <div class="col-6">
+            <form [formGroup]="goldAddForm">
+                <div class="d-flex flex-row">
+                    <div class="mb-3 col-6">
+                        <label for="job-id" class="form-label">Job ID</label>
+                        <div class="d-flex flex-row">
+                            <input #jobId type="number" formControlName="jobId" class="form-control" id="job-id" aria-describedby="yearHelp">
+                            <button pButton type="button" label="Small" icon="pi pi-check" (click)="fetchJob(jobId)" [loading]="isLoading" ></button>
+                        </div>
+                        <div *ngIf="!job" id="yearHelp" class="form-text">Enter Job Id</div>
+                        <div *ngIf="job" id="yearHelp" class="form-text">Gold Already Submitted: {{job.gold_send}}</div>
+                    </div>
+                    <div class="mb-3 col-2">
+
+                    </div>
+                </div>
+                <div class="d-flex flex-row">
+                    <div class="mb-3 col-2">
+                        <label for="gold" class="form-label">Gold</label>
+                        <input type="number" formControlName="gold"  class="form-control" id="gold" aria-describedby="monthHelp">
+                        <div id="monthHelp" class="form-text">Enter Gold</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-6">
+            <pre>
+                job = {{job | json}}
+            </pre>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div fxLayoutAlign="center center">
+                <pre>
+
+                </pre>
+            </div>
+            <div fxFlex="2 1 auto" fxLayoutAlign="center center">
+            </div>
+            <div fxLayoutAlign="center center">
+                <pre>
+
+                </pre>
+            </div>
+            <div fxLayoutAlign="center center"> </div>
+        </div>
+    </div>
+</div>
