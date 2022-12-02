@@ -7,7 +7,7 @@
                         <label for="job-id" class="form-label">Job ID</label>
                         <div class="d-flex flex-row">
                             <input #jobId type="number" formControlName="jobId" class="form-control" id="job-id" aria-describedby="yearHelp">
-                            <button pButton type="button" label="Small" icon="pi pi-check" (click)="fetchJob(jobId)" [loading]="isLoading" ></button>
+                            <button class="ml-1" pButton type="button" label="Fetch" icon="pi pi-check" (click)="fetchJob(jobId)" [loading]="isLoading" ></button>
                         </div>
                         <div *ngIf="!job" id="yearHelp" class="form-text">Enter Job Id</div>
                         <div *ngIf="job" id="yearHelp" class="form-text">Gold Already Submitted: {{job.gold_send}}</div>
@@ -26,15 +26,15 @@
             </form>
         </div>
         <div class="col-6">
-            <div  class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
+            <div *ngIf="previousExtraGoldLists && previousExtraGoldLists.length>0"  class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
 
                 <p-table #dt2
                          [value]="previousExtraGoldLists"
                          [rows]="10"
-                         [showCurrentPageReport]="true"
-                         [rowsPerPageOptions]="[20,30,50]"
+                         [showCurrentPageReport]="false"
+                         [rowsPerPageOptions]="[20]"
                          styleClass="p-datatable-gridlines"
-                         [paginator]="true"
+                         [paginator]="false"
                          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                          [globalFilterFields]="['jobId','productCode']"
                          [responsive]="true">

@@ -11,55 +11,40 @@ export class MenuDeveloperComponent implements OnInit {
   constructor() { }
   navItems: NavItem[] = [
     {
-      displayName: 'Menu 1',
+      displayName: 'Developer',
       iconName: 'close',
       children: [
         {
-          displayName: 'Speakers',
+          displayName: 'Developer Misc',
           iconName: 'group',
-          children: [
-            {
-              displayName: 'Michael Prentice',
-              iconName: 'person',
-              route: 'michael-prentice',
-              children: [
-                {
-                  displayName: 'This is test',
-                  iconName: 'star_rate',
-                  route: 'test'
-                }
-              ]
-            },
-            {
-              displayName: 'Stephen Fluin',
-              iconName: 'person',
-              route: 'stephen-fluin',
-              children: [
-                {
-                  displayName: 'What\'s up with the Web?',
-                  iconName: 'star_rate',
-                  route: 'what-up-web'
-                }
-              ]
-            },
-            {
-              displayName: 'Mike Brocchi',
-              iconName: 'person',
-              route: 'mike-brocchi',
-              children: [
-                {
-                  displayName: 'My ally, the CLI',
-                  iconName: 'star_rate',
-                  route: 'my-ally-cli'
-                },
-                {
-                  displayName: 'Become an Angular Tailor',
-                  iconName: 'star_rate',
-                  route: 'become-angular-tailer'
-                }
-              ]
-            }
-          ]
+          route: 'developer'
+        }
+      ]
+    },
+    {
+      displayName: 'Transfer',
+      iconName: 'close',
+      children: [
+        {
+          displayName: 'Transfer To Agent',
+          iconName: 'group',
+          route: 'TransferToAgent'
+        },
+        {
+          displayName: 'Transfer From Agents',
+          iconName: 'group',
+          route: 'TransferFromAgents'
+        },
+      ]
+    },
+    {
+      displayName: 'Stocks',
+      iconName: 'close',
+      children: [
+        {
+          displayName: 'Stock Entry',
+          iconName: 'group',
+          route: 'StockEntry'
         },
         {
           displayName: 'Sessions',
@@ -95,79 +80,59 @@ export class MenuDeveloperComponent implements OnInit {
       ]
     },
     {
-      displayName: 'Menu 2',
+      displayName: 'Report',
       iconName: 'close',
       children: [
         {
-          displayName: 'Speakers',
+          displayName: 'Agent',
           iconName: 'group',
           children: [
             {
-              displayName: 'Michael Prentice',
+              displayName: 'Agentwise Sale',
               iconName: 'person',
-              route: 'michael-prentice',
-              children: [
-                {
-                  displayName: 'Create Enterprise UIs',
-                  iconName: 'star_rate',
-                  route: 'material-design'
-                }
-              ]
+              route: 'AgentWiseSaleReport',
             },
             {
-              displayName: 'Stephen Fluin',
+              displayName: 'Agentwise Stock',
               iconName: 'person',
-              route: 'stephen-fluin',
-              children: [
-                {
-                  displayName: 'What\'s up with the Web?',
-                  iconName: 'star_rate',
-                  route: 'what-up-web'
-                }
-              ]
+              route: 'AgentWiseStock',
             },
             {
-              displayName: 'Mike Brocchi',
+              displayName: 'Agentwise Customer',
               iconName: 'person',
-              route: 'mike-brocchi',
-              children: [
-                {
-                  displayName: 'My ally, the CLI',
-                  iconName: 'star_rate',
-                  route: 'my-ally-cli'
-                },
-                {
-                  displayName: 'Become an Angular Tailor',
-                  iconName: 'star_rate',
-                  route: 'become-angular-tailer'
-                }
-              ]
+              route: 'AgentWiseCustomerReport',
+            },
+            {
+              displayName: 'Agent Salary',
+              iconName: 'person',
+              route: 'AgentSalary',
+            },
+            {
+              displayName: 'Salary Balance',
+              iconName: 'person',
+              route: 'AgentSalaryBalanceSheet',
             }
           ]
         },
         {
-          displayName: 'Sessions',
-          iconName: 'speaker_notes',
+          displayName: 'Stock',
+          iconName: 'pie_chart',
           children: [
             {
-              displayName: 'Create Enterprise UIs',
+              displayName: 'Stock In Hand',
               iconName: 'star_rate',
-              route: 'material-design'
-            },
+              route: 'ShowItemStock'
+            }
+          ]
+        },
+        {
+          displayName: 'Others',
+          iconName: 'pie_chart',
+          children: [
             {
-              displayName: 'What\'s up with the Web?',
+              displayName: 'Others report',
               iconName: 'star_rate',
-              route: 'what-up-web'
-            },
-            {
-              displayName: 'My ally, the CLI',
-              iconName: 'star_rate',
-              route: 'my-ally-cli'
-            },
-            {
-              displayName: 'Become an Angular Tailor',
-              iconName: 'star_rate',
-              route: 'become-angular-tailer'
+              route: 'Show Stock by Agent'
             }
           ]
         },
@@ -179,171 +144,59 @@ export class MenuDeveloperComponent implements OnInit {
       ]
     },
     {
-      displayName: 'Menu 3',
+      displayName: 'Activity',
+      disabled: false,
       iconName: 'close',
+      route: 'michael-prentice',
       children: [
         {
-          displayName: 'Speakers',
+          displayName: 'ORDER',
+          iconName: 'label',
+          children: [
+            {
+              displayName: 'Create Order',
+              iconName: 'shopping_cart',
+              color: 'green',
+              route: 'Order',
+            }
+          ]
+        },
+        {
+          displayName: 'Agent Activity',
           iconName: 'group',
           children: [
             {
-              displayName: 'Michael Prentice',
+              displayName: 'Agent Withdraw',
               iconName: 'person',
-              route: 'michael-prentice',
-              children: [
-                {
-                  displayName: 'Create Enterprise UIs',
-                  iconName: 'star_rate',
-                  route: 'material-design'
-                }
-              ]
+              route: 'AgentSalaryWithdraw'
             },
             {
-              displayName: 'Stephen Fluin',
+              displayName: 'Sale Return',
               iconName: 'person',
-              route: 'stephen-fluin',
-              children: [
-                {
-                  displayName: 'What\'s up with the Web?',
-                  iconName: 'star_rate',
-                  route: 'what-up-web'
-                }
-              ]
-            },
-            {
-              displayName: 'Mike Brocchi',
-              iconName: 'person',
-              route: 'mike-brocchi',
-              children: [
-                {
-                  displayName: 'My ally, the CLI',
-                  iconName: 'star_rate',
-                  route: 'my-ally-cli'
-                },
-                {
-                  displayName: 'Become an Angular Tailor',
-                  iconName: 'star_rate',
-                  route: 'become-angular-tailer'
-                }
-              ]
+              route: 'SaleReturn'
             }
           ]
         },
         {
-          displayName: 'Sessions',
-          iconName: 'speaker_notes',
-          children: [
-            {
-              displayName: 'Create Enterprise UIs',
-              iconName: 'star_rate',
-              route: 'material-design'
-            },
-            {
-              displayName: 'What\'s up with the Web?',
-              iconName: 'star_rate',
-              route: 'what-up-web'
-            },
-            {
-              displayName: 'My ally, the CLI',
-              iconName: 'star_rate',
-              route: 'my-ally-cli'
-            },
-            {
-              displayName: 'Become an Angular Tailor',
-              iconName: 'star_rate',
-              route: 'become-angular-tailer'
-            }
-          ]
-        },
-        {
-          displayName: 'Feedback',
-          iconName: 'feedback',
-          route: 'feedback'
-        }
-      ]
-    },
-    {
-      displayName: 'Menu 4',
-      disabled: true,
-      iconName: 'close',
-      children: [
-        {
-          displayName: 'Speakers',
+          displayName: 'Salary',
           iconName: 'group',
           children: [
             {
-              displayName: 'Michael Prentice',
+              displayName: 'Salary Holders',
               iconName: 'person',
-              route: 'michael-prentice',
-              children: [
-                {
-                  displayName: 'Create Enterprise UIs',
-                  iconName: 'star_rate',
-                  route: 'material-design'
-                }
-              ]
+              route: 'SalaryHolder'
             },
             {
-              displayName: 'Stephen Fluin',
+              displayName: 'Create Salary',
               iconName: 'person',
-              route: 'stephen-fluin',
-              children: [
-                {
-                  displayName: 'What\'s up with the Web?',
-                  iconName: 'star_rate',
-                  route: 'what-up-web'
-                }
-              ]
+              route: 'SalaryAdjustment'
             },
             {
-              displayName: 'Mike Brocchi',
+              displayName: 'Pay Salary',
               iconName: 'person',
-              route: 'mike-brocchi',
-              children: [
-                {
-                  displayName: 'My ally, the CLI',
-                  iconName: 'star_rate',
-                  route: 'my-ally-cli'
-                },
-                {
-                  displayName: 'Become an Angular Tailor',
-                  iconName: 'star_rate',
-                  route: 'become-angular-tailer'
-                }
-              ]
+              route: 'SalaryHolderSalaryPayment'
             }
           ]
-        },
-        {
-          displayName: 'Sessions',
-          iconName: 'speaker_notes',
-          children: [
-            {
-              displayName: 'Create Enterprise UIs',
-              iconName: 'star_rate',
-              route: 'material-design'
-            },
-            {
-              displayName: 'What\'s up with the Web?',
-              iconName: 'star_rate',
-              route: 'what-up-web'
-            },
-            {
-              displayName: 'My ally, the CLI',
-              iconName: 'star_rate',
-              route: 'my-ally-cli'
-            },
-            {
-              displayName: 'Become an Angular Tailor',
-              iconName: 'star_rate',
-              route: 'become-angular-tailer'
-            }
-          ]
-        },
-        {
-          displayName: 'Feedback',
-          iconName: 'feedback',
-          route: 'feedback'
         }
       ]
     }
