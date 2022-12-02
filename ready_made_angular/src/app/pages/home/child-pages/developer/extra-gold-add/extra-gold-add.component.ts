@@ -29,10 +29,13 @@ export class ExtraGoldAddComponent implements OnInit {
   }
 
   fetchJob(jobId: HTMLInputElement) {
+    this.isLoading = true;
     this.reportService.getJobById(jobId.value).subscribe((response) => {
       this.job = response.data;
+      this.isLoading = false;
     }, error => {
       this.job = undefined;
+      this.isLoading = false;
     });
 
 
