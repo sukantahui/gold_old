@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\InventoryDayBook;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -52,6 +53,7 @@ class JobOwnerResource extends JsonResource
     public function toArray($request)
     {
 
+        $nitricReturnedActual = InventoryDayBook::whereReferenceAndRmId($this->job_id,45)->first();
         return [
             'jobId' => $this->job_id,
             'jobDate'=> (new Carbon($this->tr_time))->format('Y-m-d'),
@@ -77,6 +79,7 @@ class JobOwnerResource extends JsonResource
             'panReturned' =>$this->pan_returned,
             'bronzeReturned' =>$this->bronze_returned,
             'nitrickReturned' =>$this->nitrick_returned,
+            'nitricReturnedActual' => $nitricReturnedActual?$nitricReturnedActual->rm_value:0,
             'copperReturned' =>$this->copper_return,
             'productWeight' =>$this->product_wt,
             'comment' =>$this->comments,

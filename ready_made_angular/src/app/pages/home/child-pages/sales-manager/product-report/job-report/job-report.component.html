@@ -104,6 +104,15 @@
                     <div class="p-2">
                         <div id="job-details col-2">
                             <table class="table table-responsivem">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Particulars</th>
+                                    <th></th>
+                                    <th>Taken</th>
+                                    <th>Actual</th>
+                                </tr>
+                                </thead>
                                 <tbody>
                                 <tr>
                                     <th scope="row"></th>
@@ -126,8 +135,9 @@
                                 <tr>
                                     <th scope="row">Less:</th>
                                     <th scope="row">Nitrick Return</th>
-                                    <td></td>
+                                    <td>{{(selectedJob.nitrickReturned/selectedJob.nitricReturnedActual)*100 | number:'1.3'}} %</td>
                                     <td>{{selectedJob.nitrickReturned | number:'1.3'}}</td>
+                                    <td>{{selectedJob.nitricReturnedActual | number:'1.3'}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Add:</th>
