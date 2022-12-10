@@ -6,7 +6,7 @@ import { CustomerDiscountReportComponent } from './customer-discount-report.comp
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule} from '@angular/material/core';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
 import {InputNumberModule} from 'primeng/inputnumber';
@@ -14,6 +14,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {NgxPrinterModule} from 'ngx-printer';
 import {NgxPrintModule} from 'ngx-print';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 
 @NgModule({
@@ -34,7 +35,9 @@ import {NgxPrintModule} from 'ngx-print';
     MatInputModule,
     MatButtonModule,
     NgxPrinterModule,
-    NgxPrintModule
+    NgxPrintModule,
+    ToggleButtonModule,
+    FormsModule
   ]
 })
 export class CustomerDiscountReportModule { }

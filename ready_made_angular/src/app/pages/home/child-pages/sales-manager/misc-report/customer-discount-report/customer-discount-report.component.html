@@ -98,7 +98,7 @@
             <div class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
                 <!--Transactions-->
                 <p-table #dt4
-                         [value]="bills"
+                         [value]="filtereddBills"
                          [rows]="100"
                          [showCurrentPageReport]="true"
                          [rowsPerPageOptions]="[50,100,150,200]"
@@ -109,7 +109,9 @@
                          [responsive]="true"
                          id="printable-bills-table">
                     <ng-template pTemplate="caption">
-
+<!--                        <p-toggleButton [(ngModel)]="showDiscountable">Show only Discount allowable list</p-toggleButton>-->
+                        <p-toggleButton class="no-print" onLabel="Show All Bills" offLabel="Only Discount Allowable Bills"
+                                        onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="onlyDiscountable" (onChange)="buttonClicked()" ></p-toggleButton>
                         <div class="d-flex justify-content-between">
                             <div class="p-input-icon-left ml-auto no-print">
                                 <i class="pi pi-search"></i>
@@ -127,7 +129,8 @@
                                             ngxPrint
                                             class="no-print"><mat-icon>print</mat-icon>
                                     </button>
-                                    <button  pButton pRipple type="button" icon="pi" class="p-button-danger">x</button>
+                                    <button class="no-print" mat-button color="primary"  (click)="commonService.exportToExcel('printable-bills-table','customer-bills-'+selectedCustomer.cust_name)"><mat-icon>cloud_download</mat-icon></button>
+                                    <button  pButton pRipple type="button" icon="pi" class="p-button-danger no-print">x</button>
                                 </span>
 
                         </div>
@@ -152,7 +155,7 @@
                             <td>{{i+1}}</td>
                             <td class="text-left">
                                 <button pButton type="button"  class="p-button-link" (click)="onSelectedBill(bill)">
-                                    {{bill.tr_time }}
+                                    {{bill.tr_time | date :  "dd/MM/y" }}
                                 </button>
                             </td>
                             <td class="text-left">
@@ -160,10 +163,10 @@
                                     {{bill.bill_no }}
                                 </button>
                             </td>
-                            <td class="text-left">{{bill.qty}}</td>
-                            <td class="text-left">{{bill.lc }}</td>
-                            <td class="text-left">{{bill.fine | number: '1.3'}}</td>
-                            <td class="text-left">{{bill.discount}}</td>
+                            <td class="text-right">{{bill.qty}}</td>
+                            <td class="text-right">{{bill.lc }}</td>
+                            <td class="text-right">{{bill.fine | number: '1.3'}}</td>
+                            <td class="text-right">{{bill.discount}}</td>
                             <!--                            <td class="text-right">{{transaction.op_gold_due ==0? "" : (transaction.op_gold_due | number: '1.3')}}</td>-->
                             <!--                            <td class="text-right">{{transaction.op_lc_due ==0? "" : (transaction.op_lc_due)}}</td>-->
                             <!--                            <td class="text-right">{{transaction.billed_qty ==0? "" : (transaction.billed_qty)}}</td>-->
@@ -183,7 +186,8 @@
                     </ng-template>
                     <ng-template pTemplate="footer" let-transaction let-i="rowIndex">
                         <tr>
-                            <td class="text-center" colspan="3">Total</td>
+                            <td class="text-center" colspan="6">Total</td>
+                            <td class="text-right">{{discountTotal}}</td>
 
                         </tr>
                     </ng-template>
