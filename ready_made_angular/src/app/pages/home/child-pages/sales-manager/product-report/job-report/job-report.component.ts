@@ -31,6 +31,7 @@ export class JobReportComponent implements OnInit {
       endDateSql: new FormControl(null),
       reportLimit: new FormControl(50)
     });
+
   }
 
   ngOnInit(): void {

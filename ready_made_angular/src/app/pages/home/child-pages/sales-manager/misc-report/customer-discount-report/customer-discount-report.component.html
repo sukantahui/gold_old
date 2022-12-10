@@ -2,6 +2,25 @@
     <div  class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
         <div class="col-5">
             <div class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
+                <form [formGroup]="reportForm">
+                    <div class="form-row">
+                        <div class="col">
+                            <mat-form-field appearance="outline" class="p-2">
+                                <mat-label>Start Date</mat-label>
+                                <input matInput #ref1 [matDatepicker]="matDatepicker1" formControlName="startDate" (dateInput)="setStartDateSQL(ref1.value)">
+                                <mat-datepicker-toggle matSuffix [for]="matDatepicker1"></mat-datepicker-toggle>
+                                <mat-datepicker #matDatepicker1 startView="year" [opened]="true"></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="p-2">
+                                <mat-label>End Date</mat-label>
+                                <input matInput #ref2 [matDatepicker]="matDatepicker2" formControlName="endDate" (dateInput)="setEndDateSQL(ref2.value)">
+                                <mat-datepicker-toggle matSuffix [for]="matDatepicker2"></mat-datepicker-toggle>
+                                <mat-datepicker #matDatepicker2 startView="year" [opened]="false"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
                 <!--Transactions-->
                 <p-table #dt3
                          [value]="customers"
@@ -51,7 +70,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-customer let-i="rowIndex">
 
-                        <tr>
+                        <tr [ngStyle]="{'background-color':customer.isEmptyBills ? '#f0e5e8' : '#f0ebe5' }">
                             <td>{{i+1}}</td>
                             <td class="text-left">
                                 <button pButton type="button"  class="p-button-link" (click)="onSelectedCustomer(customer)">
@@ -95,7 +114,10 @@
             </div>
         </div>
         <div class="col-7">
-            <div class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
+            <div *ngIf="bills && bills.length == 0" class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
+                <h2>Customer {{selectedCustomer.cust_name}} has no bill to display</h2>
+            </div>
+            <div *ngIf="bills && bills.length>0" class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
                 <!--Transactions-->
                 <p-table #dt4
                          [value]="filtereddBills"
@@ -186,7 +208,10 @@
                     </ng-template>
                     <ng-template pTemplate="footer" let-transaction let-i="rowIndex">
                         <tr>
-                            <td class="text-center" colspan="6">Total</td>
+                            <td class="text-center" colspan="3">Total</td>
+                            <td class="text-right">{{quantityTotal}}</td>
+                            <td class="text-right">{{lcTotal}}</td>
+                            <td class="text-right"></td>
                             <td class="text-right">{{discountTotal}}</td>
 
                         </tr>
