@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\InventoryDayBook;
+use App\Models\RawMaterial;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -54,6 +55,7 @@ class JobOwnerResource extends JsonResource
     {
 
         $nitricReturnedActual = InventoryDayBook::whereReferenceAndRmId($this->job_id,45)->first();
+        $pan = new RawMaterialResource($this->pan);
         return [
             'jobId' => $this->job_id,
             'jobDate'=> (new Carbon($this->tr_time))->format('Y-m-d'),
@@ -71,6 +73,7 @@ class JobOwnerResource extends JsonResource
             'priceCode' =>$this->price_code,
             'price' =>$this->price,
             'goldSend' =>$this->gold_send,
+            'billedPan' => $this->pan_send,
             'dalSend' =>$this->dal_send,
             'panSend' =>$this->pan_send,
             'bronzeSend' =>$this->bronze_send,
@@ -85,10 +88,11 @@ class JobOwnerResource extends JsonResource
             'comment' =>$this->comments,
             'gold'=>new RawMaterialResource($this->gold),
             'dal'=>new RawMaterialResource($this->dal),
-            'pan'=>new RawMaterialResource($this->pan),
+            'pan'=>$pan,
             'bronze'=>new RawMaterialResource($this->bronze),
             'markupValue'=>$this->markup_value,
             'orderDetails'=>new OrderDetailResource($this->orderDetails)
+
         ];
     }
 }
