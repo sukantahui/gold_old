@@ -141,5 +141,9 @@ class ReportController extends ApiController
         $result = DB::select('call get_cutomer_recept_payment_by_id(?)', [$customerId]);
         return $this->successResponse($result);
     }
-
+    public function getCustomerDiscountReport($custId,$startDate,$endDate,$discount)
+    {
+        $result = DB::select('call get_cutomer_discountable_bill_by_id_date(?,?,?,?)', [$custId,$startDate,$endDate,$discount]);
+        return $this->successResponse($result);
+    }
 }

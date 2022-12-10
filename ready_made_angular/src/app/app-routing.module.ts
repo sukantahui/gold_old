@@ -91,6 +91,16 @@ const routes: Routes = [
 
   { path: 'DeveloperHome', loadChildren: () => import('./pages/home/child-pages/developer/developer-home/developer-home.module').then(m => m.DeveloperHomeModule) },
 
+
+
+  // { path: 'CustomerDiscountReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/customer-discount-report/customer-discount-report.module').then(m => m.CustomerDiscountReportModule) },
+
+  // { path: 'CustomerDiscountReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/customer-discount-report/customer-discount-report.module').then(m => m.CustomerDiscountReportModule) },
+
+  // { path: 'CustomerDueCalculation', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/customer-due-calculation/customer-due-calculation.module').then(m => m.CustomerDueCalculationModule) },
+
+
+
   // { path: 'JobReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/product-report/job-report/job-report.module').then(m => m.JobReportModule) },
 
   // { path: 'DueReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/product-report/due-report/due-report.module').then(m => m.DueReportModule) },

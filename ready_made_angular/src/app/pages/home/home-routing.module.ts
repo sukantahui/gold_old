@@ -152,6 +152,10 @@ const routes: Routes = [
                                     , loadChildren: () => import('./child-pages/sales-manager/sale-return/sale-return.module').then(m => m.SaleReturnModule)
                                     , resolve: {saleReturnResolver: SaleReturnResolver}
                                 },
+                                { path: 'MiscReport'
+                                    // tslint:disable-next-line:max-line-length
+                                    , loadChildren: () => import('./child-pages/sales-manager/misc-report/misc-report.module').then(m => m.MiscReportModule)
+                                },
 
                             ]
                           },

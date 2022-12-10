@@ -114,15 +114,9 @@ export class MenuSalesManagerComponent implements OnInit {
           ]
         },
         {
-          displayName: 'Others',
+          displayName: 'Misc. Report',
           iconName: 'pie_chart',
-          children: [
-            {
-              displayName: 'Others report',
-              iconName: 'star_rate',
-              route: 'Show Stock by Agent'
-            }
-          ]
+          route: 'MiscReport'
         },
         {
           displayName: 'Feedback',

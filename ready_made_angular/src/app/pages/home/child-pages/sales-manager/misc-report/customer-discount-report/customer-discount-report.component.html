@@ -1,0 +1,212 @@
+<div class="p-2">
+    <div  class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+        <div class="col-5">
+            <div class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
+                <!--Transactions-->
+                <p-table #dt3
+                         [value]="customers"
+                         [rows]="10"
+                         [showCurrentPageReport]="true"
+                         [rowsPerPageOptions]="[20,30,50]"
+                         styleClass="p-datatable-gridlines"
+                         [paginator]="true"
+                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                         [globalFilterFields]="['cust_id','cust_name']"
+                         [responsive]="true"
+                         id="printable-customer-transaction-table">
+                    <ng-template pTemplate="caption">
+
+                        <div class="d-flex justify-content-between">
+                            <div class="p-input-icon-left ml-auto no-print">
+                                <i class="pi pi-search"></i>
+                                <input class="text-right" pInputText type="text" (input)="dt3.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                            </div>
+                            <span class="p-buttonset">
+<!--                                    <button *ngIf="selectedAgent===agentDue" class="p-button-raised p-button-rounded"  pButton type="button" icon="pi pi-circle-on"></button>-->
+                                <!--                                    <button *ngIf="selectedAgent!=agentDue" class="p-button-raised p-button-rounded" (click)="onSelectAgent(agentDue)" pButton type="button" icon="pi pi-circle-off"></button>-->
+
+                                    <button
+                                            mat-button color="primary"
+                                            printSectionId="printable-customer-transaction-table"
+                                            [useExistingCss]="true"
+                                            styleSheetFile="assets/print_css/general_print.css"
+                                            ngxPrint
+                                            class="no-print"><mat-icon>print</mat-icon>
+                                    </button>
+                                    <button  pButton pRipple type="button" icon="pi" class="p-button-danger">x</button>
+                                </span>
+
+                        </div>
+                    </ng-template>
+
+                    <ng-template pTemplate="header">
+
+                        <tr>
+                            <th>SL</th>
+                            <th>CustID </th>
+                            <th>Name</th>
+                            <th>City</th>
+                        </tr>
+
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer let-i="rowIndex">
+
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td class="text-left">
+                                <button pButton type="button"  class="p-button-link" (click)="onSelectedCustomer(customer)">
+                                    {{customer.cust_id }}
+                                </button>
+                            </td>
+                            <td class="text-left">
+                                <button pButton type="button"  class="p-button-link" (click)="onSelectedCustomer(customer)">
+                                    {{customer.cust_name }}
+                                </button>
+                            </td>
+                            <td class="text-left">{{customer.city}}</td>
+                            <td class="text-left">
+
+
+                            </td>
+<!--                            <td class="text-right">{{transaction.op_gold_due ==0? "" : (transaction.op_gold_due | number: '1.3')}}</td>-->
+<!--                            <td class="text-right">{{transaction.op_lc_due ==0? "" : (transaction.op_lc_due)}}</td>-->
+<!--                            <td class="text-right">{{transaction.billed_qty ==0? "" : (transaction.billed_qty)}}</td>-->
+<!--                            <td class="text-right">{{transaction.billed_gold ==0? "" : (transaction.billed_gold | number: '1.3')}}</td>-->
+<!--                            <td class="text-right">{{transaction.billed_lc ==0? "" : (transaction.billed_lc)}}</td>-->
+<!--                            <td class="text-right">{{transaction.received_gold ==0? "" : (transaction.received_gold | number: '1.3')}}</td>-->
+<!--                            <td class="text-right">{{transaction.received_lc ==0? "" : (transaction.received_lc | number: '1.2')}}</td>-->
+<!--                            <td class="text-right">{{transaction.current_gold_due ==0? "" : (transaction.current_gold_due | number: '1.3')}}</td>-->
+<!--                            <td class="text-right">{{transaction.current_lc_due ==0? "" : (transaction.current_lc_due | number: '1.3')}}</td>-->
+<!--                            <td>-->
+<!--                                <span class="p-buttonset">-->
+<!--                                    <button  pButton pRipple type="button" icon="pi pi-circle-off" class="p-button-rounded p-button-secondary"></button>-->
+<!--                                    <button  pButton pRipple type="button" icon="pi pi-circle-on" class="p-button-rounded p-button-danger"></button>-->
+<!--                                </span>-->
+<!--                            </td>-->
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer" let-transaction let-i="rowIndex">
+                        <tr>
+                            <td class="text-center" colspan="3">Total</td>
+
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="p-2" style="border: 1px solid #454141; border-radius: 10px;" >
+                <!--Transactions-->
+                <p-table #dt4
+                         [value]="bills"
+                         [rows]="100"
+                         [showCurrentPageReport]="true"
+                         [rowsPerPageOptions]="[50,100,150,200]"
+                         styleClass="p-datatable-gridlines"
+                         [paginator]="true"
+                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                         [globalFilterFields]="['bill_no','is_dicountable']"
+                         [responsive]="true"
+                         id="printable-bills-table">
+                    <ng-template pTemplate="caption">
+
+                        <div class="d-flex justify-content-between">
+                            <div class="p-input-icon-left ml-auto no-print">
+                                <i class="pi pi-search"></i>
+                                <input class="text-right" pInputText type="text" (input)="dt4.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                            </div>
+                            <span class="p-buttonset">
+<!--                                    <button *ngIf="selectedAgent===agentDue" class="p-button-raised p-button-rounded"  pButton type="button" icon="pi pi-circle-on"></button>-->
+                                <!--                                    <button *ngIf="selectedAgent!=agentDue" class="p-button-raised p-button-rounded" (click)="onSelectAgent(agentDue)" pButton type="button" icon="pi pi-circle-off"></button>-->
+
+                                    <button
+                                            mat-button color="primary"
+                                            printSectionId="printable-bills-table"
+                                            [useExistingCss]="true"
+                                            styleSheetFile="assets/print_css/general_print.css"
+                                            ngxPrint
+                                            class="no-print"><mat-icon>print</mat-icon>
+                                    </button>
+                                    <button  pButton pRipple type="button" icon="pi" class="p-button-danger">x</button>
+                                </span>
+
+                        </div>
+                    </ng-template>
+
+                    <ng-template pTemplate="header">
+
+                        <tr>
+                            <th>SL</th>
+                            <th>Date </th>
+                            <th>Bill No</th>
+                            <th>Qty</th>
+                            <th>LC</th>
+                            <th>fine</th>
+                            <th>Discount</th>
+                        </tr>
+
+                    </ng-template>
+                    <ng-template pTemplate="body" let-bill let-i="rowIndex">
+
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td class="text-left">
+                                <button pButton type="button"  class="p-button-link" (click)="onSelectedBill(bill)">
+                                    {{bill.tr_time }}
+                                </button>
+                            </td>
+                            <td class="text-left">
+                                <button pButton type="button"  class="p-button-link" (click)="onSelectedBill(bill)">
+                                    {{bill.bill_no }}
+                                </button>
+                            </td>
+                            <td class="text-left">{{bill.qty}}</td>
+                            <td class="text-left">{{bill.lc }}</td>
+                            <td class="text-left">{{bill.fine | number: '1.3'}}</td>
+                            <td class="text-left">{{bill.discount}}</td>
+                            <!--                            <td class="text-right">{{transaction.op_gold_due ==0? "" : (transaction.op_gold_due | number: '1.3')}}</td>-->
+                            <!--                            <td class="text-right">{{transaction.op_lc_due ==0? "" : (transaction.op_lc_due)}}</td>-->
+                            <!--                            <td class="text-right">{{transaction.billed_qty ==0? "" : (transaction.billed_qty)}}</td>-->
+                            <!--                            <td class="text-right">{{transaction.billed_gold ==0? "" : (transaction.billed_gold | number: '1.3')}}</td>-->
+                            <!--                            <td class="text-right">{{transaction.billed_lc ==0? "" : (transaction.billed_lc)}}</td>-->
+                            <!--                            <td class="text-right">{{transaction.received_gold ==0? "" : (transaction.received_gold | number: '1.3')}}</td>-->
+                            <!--                            <td class="text-right">{{transaction.received_lc ==0? "" : (transaction.received_lc | number: '1.2')}}</td>-->
+                            <!--                            <td class="text-right">{{transaction.current_gold_due ==0? "" : (transaction.current_gold_due | number: '1.3')}}</td>-->
+                            <!--                            <td class="text-right">{{transaction.current_lc_due ==0? "" : (transaction.current_lc_due | number: '1.3')}}</td>-->
+                            <!--                            <td>-->
+                            <!--                                <span class="p-buttonset">-->
+                            <!--                                    <button  pButton pRipple type="button" icon="pi pi-circle-off" class="p-button-rounded p-button-secondary"></button>-->
+                            <!--                                    <button  pButton pRipple type="button" icon="pi pi-circle-on" class="p-button-rounded p-button-danger"></button>-->
+                            <!--                                </span>-->
+                            <!--                            </td>-->
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer" let-transaction let-i="rowIndex">
+                        <tr>
+                            <td class="text-center" colspan="3">Total</td>
+
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div class="col" fxLayoutAlign="center center">
+                    <pre>
+                        customers={{customers | json}}
+                    </pre>
+
+            </div>
+            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
+
+            </div>
+        </div>
+    </div>
+</div>
+
