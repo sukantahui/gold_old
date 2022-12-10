@@ -7,6 +7,7 @@ use App\Models\AgentToCustomer;
 use App\Models\Customer;
 use App\Models\Maxtable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends ApiController
 {
@@ -76,4 +77,13 @@ class CustomerController extends ApiController
         return $this->successResponse($customer);
 
     }
+    public function getCustomerDues($custId,$startDate,$endDate,$discount){
+        $dues = (object)(DB::select('select cust_id, get_customer_lc_due(cust_id) as lc_due, round(get_customer_gold_due(cust_id),3) as gold_due from customer_master where cust_id=?', [$custId])[0]);
+        $result = DB::select('call get_cutomer_discountable_bill_by_id_date(?,?,?,?)', [$custId,$startDate,$endDate,$discount]);
+        $lcDiscount = collect($result)->sum('discount');
+//        $dues->setAttribute('lc_discount', $lcDiscount);
+        $dues->discount = $lcDiscount;
+        return $this->successResponse($dues);
+    }
+
 }

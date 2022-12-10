@@ -21,10 +21,11 @@ export class CustomerDiscountReportComponent implements OnInit {
   reportForm: FormGroup;
   quantityTotal = 0;
   lcTotal = 0 ;
+  currentCustomerDues: any = undefined;
 
   constructor(private route: ActivatedRoute, private reportService: ReportService,  public commonService: CommonService) {
     this.route.data.subscribe((response: any) => {
-      console.log(response.customerResolvers.customers.data);
+      // console.log(response.customerResolvers.customers.data);
       this.customers = response.customerResolvers.customers.data;
     });
 
@@ -40,7 +41,7 @@ export class CustomerDiscountReportComponent implements OnInit {
       reportLimit: new FormControl(50)
     });
     this.reportForm.patchValue({startDateSql: stDate.getFullYear() + '-' + stDate.getMonth() + '-' + stDate.getDay()});
-    this.reportForm.patchValue({endDateSql: endDate.getFullYear() + '-' + endDate.getMonth() + '-' + endDate.getDay()});
+    this.reportForm.patchValue({endDateSql: endDate.getFullYear() + '-' + endDate.getMonth() + '-' + (endDate.getDay() + 1)});
   }
 
   ngOnInit(): void {
@@ -66,6 +67,11 @@ export class CustomerDiscountReportComponent implements OnInit {
       this.discountTotal = this.bills.reduce((prev, next) => prev + next.discount, 0);
       this.quantityTotal = this.bills.reduce((prev, next) => prev + next.qty, 0);
       this.lcTotal = this.bills.reduce((prev, next) => prev + next.lc, 0);
+    });
+    this.reportService.getCustomerBalanceWithDiscount(customer.cust_id, this.reportForm.value.startDateSql, this.reportForm.value.endDateSql, 25).subscribe((response: any) => {
+      console.log('checking');
+      this.currentCustomerDues = response.data;
+      console.log(response.data);
     });
   }
 

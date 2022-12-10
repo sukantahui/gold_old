@@ -140,6 +140,17 @@ export class ReportService {
             }));
     }
 
+    getCustomerBalanceWithDiscount(custId: string, startDate: string, endDate: string, discount: number){
+        // tslint:disable-next-line:max-line-length
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/customer/balance/' + custId + '/' + startDate + '/' + endDate + '/' + discount )
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
+
 
 
 

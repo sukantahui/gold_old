@@ -70,7 +70,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-customer let-i="rowIndex">
 
-                        <tr [ngStyle]="{'background-color':customer.isEmptyBills ? '#f0e5e8' : '#f0ebe5' }">
+                        <tr [ngStyle]="{'background-color':customer.isEmptyBills ? '#d17d61' : '#f0ebe5' }">
                             <td>{{i+1}}</td>
                             <td class="text-left">
                                 <button pButton type="button"  class="p-button-link" (click)="onSelectedCustomer(customer)">
@@ -159,7 +159,26 @@
                     </ng-template>
 
                     <ng-template pTemplate="header">
-
+                        <tr>
+                            <th colspan="5"></th>
+                            <th>Gold </th>
+                            <th>LC</th>
+                        </tr>
+                        <tr>
+                            <th colspan="5">Current Due</th>
+                            <th>{{currentCustomerDues.gold_due}} </th>
+                            <th>{{currentCustomerDues.lc_due}}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="5">Less: Discount</th>
+                            <th></th>
+                            <th>{{currentCustomerDues.discount}}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="5">Due after discount</th>
+                            <th></th>
+                            <th>{{currentCustomerDues.lc_due - currentCustomerDues.discount}}</th>
+                        </tr>
                         <tr>
                             <th>SL</th>
                             <th>Date </th>
