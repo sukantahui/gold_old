@@ -38,7 +38,8 @@ export class CustomerDiscountReportComponent implements OnInit {
       startDateSql: new FormControl(null),
       endDate: new FormControl(endDate),
       endDateSql: new FormControl(null),
-      reportLimit: new FormControl(50)
+      reportLimit: new FormControl(50),
+      discount: new FormControl(25)
     });
     this.reportForm.patchValue({startDateSql: stDate.getFullYear() + '-' + stDate.getMonth() + '-' + stDate.getDay()});
     this.reportForm.patchValue({endDateSql: endDate.getFullYear() + '-' + endDate.getMonth() + '-' + (endDate.getDay() + 1)});
@@ -68,7 +69,7 @@ export class CustomerDiscountReportComponent implements OnInit {
       this.quantityTotal = this.bills.reduce((prev, next) => prev + next.qty, 0);
       this.lcTotal = this.bills.reduce((prev, next) => prev + next.lc, 0);
     });
-    this.reportService.getCustomerBalanceWithDiscount(customer.cust_id, this.reportForm.value.startDateSql, this.reportForm.value.endDateSql, 25).subscribe((response: any) => {
+    this.reportService.getCustomerBalanceWithDiscount(customer.cust_id, this.reportForm.value.startDateSql, this.reportForm.value.endDateSql, this.reportForm.value.discount).subscribe((response: any) => {
       console.log('checking');
       this.currentCustomerDues = response.data;
       console.log(response.data);
