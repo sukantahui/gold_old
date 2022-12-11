@@ -1,0 +1,1 @@
+select cust_id, round(get_customer_gold_due(cust_id),3) as gold_due  ,get_customer_lc_due(cust_id) as lc_due, get_total_lc_discount_by_date_id(cust_id,'2021-10-01','2022-11-01',25) as discount from customer_master
