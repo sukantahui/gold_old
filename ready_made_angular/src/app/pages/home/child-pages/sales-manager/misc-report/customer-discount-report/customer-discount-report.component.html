@@ -5,14 +5,14 @@
                 <form [formGroup]="reportForm">
                     <div class="form-row">
                         <div class="col">
-                            <mat-form-field appearance="outline" class="p-2">
+                            <mat-form-field *ngIf="false" appearance="outline" class="p-2">
                                 <mat-label>Start Date</mat-label>
                                 <input matInput #ref1 [matDatepicker]="matDatepicker1" formControlName="startDate" (dateInput)="setStartDateSQL(ref1.value)">
                                 <mat-datepicker-toggle matSuffix [for]="matDatepicker1"></mat-datepicker-toggle>
                                 <mat-datepicker #matDatepicker1 startView="year" [opened]="false"></mat-datepicker>
                             </mat-form-field>
 
-                            <mat-form-field appearance="outline" class="p-2">
+                            <mat-form-field *ngIf="false" appearance="outline" class="p-2">
                                 <mat-label>End Date</mat-label>
                                 <input matInput #ref2 [matDatepicker]="matDatepicker2" formControlName="endDate" (dateInput)="setEndDateSQL(ref2.value)">
                                 <mat-datepicker-toggle matSuffix [for]="matDatepicker2"></mat-datepicker-toggle>
@@ -164,7 +164,7 @@
 
                     <ng-template pTemplate="header">
                         <tr>
-                            <th class="text-center" colspan="7">Due report of {{selectedCustomer.cust_name}} as on </th>
+                            <th class="text-center" colspan="7">Due report of {{selectedCustomer.mailing_name}} as on 14/12/2022</th>
                         </tr>
                         <tr>
                             <th colspan="5"></th>
@@ -173,11 +173,11 @@
                         </tr>
                         <tr>
                             <th colspan="5">Current Due</th>
-                            <th class="text-right">{{currentCustomerDues.gold_due | number:'1.3'}} </th>
+                            <th class="text-right">{{currentCustomerDues.gold_due | number:'1.3'}}   </th>
                             <th class="text-right">{{currentCustomerDues.lc_due}}</th>
                         </tr>
                         <tr>
-                            <th colspan="5">Less: Discount</th>
+                            <th colspan="5">Less: Discount for the period of {{stDate | date:'dd/MM/yyyy'}} to {{endDate | date:'dd/MM/yyyy'}} ({{reportForm.value.discount}}%)</th>
                             <th></th>
                             <th class="text-right">{{currentCustomerDues.discount}}</th>
                         </tr>

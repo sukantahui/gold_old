@@ -22,6 +22,8 @@ export class CustomerDiscountReportComponent implements OnInit {
   quantityTotal = 0;
   lcTotal = 0 ;
   currentCustomerDues: any = undefined;
+  endDate: Date;
+  stDate: Date;
 
   constructor(private route: ActivatedRoute, private reportService: ReportService,  public commonService: CommonService) {
     this.route.data.subscribe((response: any) => {
@@ -30,19 +32,19 @@ export class CustomerDiscountReportComponent implements OnInit {
     });
 
 
-    const endDate = new Date();
-    const stDate = new Date();
-    stDate.setDate(endDate.getDate() - 365);
+    this.stDate = new Date('2022-04-01');
+    this.endDate = new Date('2022-11-30');
+    // stDate.setDate(endDate.getDate() - 365);
     this.reportForm = new FormGroup({
-      startDate: new FormControl(stDate),
+      startDate: new FormControl(this.stDate),
       startDateSql: new FormControl(null),
-      endDate: new FormControl(endDate),
+      endDate: new FormControl(this.endDate),
       endDateSql: new FormControl(null),
       reportLimit: new FormControl(50),
       discount: new FormControl(25)
     });
-    this.reportForm.patchValue({startDateSql: stDate.getFullYear() + '-' + stDate.getMonth() + '-' + stDate.getDay()});
-    this.reportForm.patchValue({endDateSql: endDate.getFullYear() + '-' + endDate.getMonth() + '-' + (endDate.getDay() + 1)});
+    this.reportForm.patchValue({startDateSql: this.stDate.getFullYear() + '-' + this.stDate.getMonth() + '-' + this.stDate.getDay()});
+    this.reportForm.patchValue({endDateSql: this.endDate.getFullYear() + '-' + this.endDate.getMonth() + '-' + (this.endDate.getDay() + 1)});
   }
 
   ngOnInit(): void {
