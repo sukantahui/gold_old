@@ -14,7 +14,7 @@ export class CustomerDiscountReportComponent implements OnInit {
   isProduction: boolean = environment.production;
   customers: any[] = [];
   bills: any[] = undefined;
-  onlyDiscountable = false;
+  onlyDiscountable = true;
   filtereddBills: any[] = [];
   discountTotal = 0;
   selectedCustomer: any;
