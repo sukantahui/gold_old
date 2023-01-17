@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../../environments/environment';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {ReportService} from '../../../../../../services/report.service';
 import {CommonService} from '../../../../../../services/common.service';
 import {DateAdapter} from '@angular/material/core';
@@ -13,7 +13,7 @@ import {DateAdapter} from '@angular/material/core';
 export class JobReportComponent implements OnInit {
 
   isProduction: boolean = environment.production;
-  reportForm: FormGroup;
+  reportForm: UntypedFormGroup;
   isLoading = false;
   jobs: any;
   selectedJob: any;
@@ -24,12 +24,12 @@ export class JobReportComponent implements OnInit {
     const stDate = new Date();
 
     const endDate = new Date();
-    this.reportForm = new FormGroup({
-      startDate: new FormControl(stDate),
-      startDateSql: new FormControl(null),
-      endDate: new FormControl(endDate),
-      endDateSql: new FormControl(null),
-      reportLimit: new FormControl(50)
+    this.reportForm = new UntypedFormGroup({
+      startDate: new UntypedFormControl(stDate),
+      startDateSql: new UntypedFormControl(null),
+      endDate: new UntypedFormControl(endDate),
+      endDateSql: new UntypedFormControl(null),
+      reportLimit: new UntypedFormControl(50)
     });
 
   }

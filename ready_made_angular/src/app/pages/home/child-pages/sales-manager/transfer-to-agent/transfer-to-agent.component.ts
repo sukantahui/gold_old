@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import {TransferAgentService} from '../../../../../services/transfer-agent.service';
 import {Product} from '../../../../../models/product.model';
 import {Sort} from '@angular/material/sort';
@@ -17,7 +17,7 @@ export class TransferToAgentComponent implements OnInit {
   agents: any[] = [];
   products: Product[] = [];
   selectedProducts: any[] = [];
-  transferForm: FormGroup;
+  transferForm: UntypedFormGroup;
   disabled: any;
   searchTerm: any;
   searchTag: any;
@@ -35,9 +35,9 @@ export class TransferToAgentComponent implements OnInit {
     this.products = this.transferAgentService.getProductsInCounter();
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
     this.sortedProducts = this.products.slice();
-    this.transferForm = new FormGroup({
-      agentId: new FormControl(null),
-      shortName: new FormControl(null)
+    this.transferForm = new UntypedFormGroup({
+      agentId: new UntypedFormControl(null),
+      shortName: new UntypedFormControl(null)
     });
   }
 

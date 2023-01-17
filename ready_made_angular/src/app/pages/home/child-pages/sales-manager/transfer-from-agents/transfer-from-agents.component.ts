@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TransferAgentService} from '../../../../../services/transfer-agent.service';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {Product} from '../../../../../models/product.model';
 import {Sort} from '@angular/material/sort';
 import Swal from 'sweetalert2';
@@ -24,8 +24,8 @@ export class TransferFromAgentsComponent implements OnInit {
   billMaster: any ;
   billNumber: any;
   billDetails: any[] = [];
-  transferForm: FormGroup;
-  salesForm: FormGroup;
+  transferForm: UntypedFormGroup;
+  salesForm: UntypedFormGroup;
   searchTerm: any;
   counterAgentId: any;
   pageSize = 50;
@@ -43,14 +43,14 @@ export class TransferFromAgentsComponent implements OnInit {
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
     this.ipAddress = window.location.origin.split(':');
     console.log(window.location.origin.split(':'));
-    this.transferForm = new FormGroup({
-      agent_id: new FormControl(null),
-      short_name: new FormControl(null),
+    this.transferForm = new UntypedFormGroup({
+      agent_id: new UntypedFormControl(null),
+      short_name: new UntypedFormControl(null),
     });
-    this.salesForm =  new FormGroup({
-      customerId: new FormControl(null),
-      agentId: new FormControl(null),
-      employeeId: new FormControl(null)
+    this.salesForm =  new UntypedFormGroup({
+      customerId: new UntypedFormControl(null),
+      agentId: new UntypedFormControl(null),
+      employeeId: new UntypedFormControl(null)
     });
   }
   ngOnInit(): void {

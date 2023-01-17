@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
 import {AgentService} from '../../../../../services/agent.service';
 import {StockService} from '../../../../../services/stock.service';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 
 
 import {CommonService} from '../../../../../services/common.service';
@@ -14,7 +14,7 @@ import {CommonService} from '../../../../../services/common.service';
   styleUrls: ['./agent-wise-stock.component.scss']
 })
 export class AgentWiseStockComponent implements OnInit {
-  agentStockForm: FormGroup;
+  agentStockForm: UntypedFormGroup;
   agentList: any[];
   stoockListByAgent: any[];
   isProduction = environment.production;
@@ -32,8 +32,8 @@ export class AgentWiseStockComponent implements OnInit {
 
   constructor(private  agentService: AgentService , private stockService: StockService, public commonService: CommonService) {
     this.agentList = this.agentService.getAgents();
-    this.agentStockForm = new FormGroup({
-      agent_id : new FormControl(null)
+    this.agentStockForm = new UntypedFormGroup({
+      agent_id : new UntypedFormControl(null)
     });
   }
 

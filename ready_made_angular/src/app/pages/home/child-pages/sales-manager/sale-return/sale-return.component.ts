@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
 import {ActivatedRoute} from '@angular/router';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {CustomerService} from '../../../../../services/customer.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class SaleReturnComponent implements OnInit {
   isProduction = environment.production;
   agents: any[];
   customers: any[] = [];
-  saleReturnForm: FormGroup;
+  saleReturnForm: UntypedFormGroup;
   isLoading = false;
   monthNumber: number;
   yearNumber: number;
@@ -25,19 +25,19 @@ export class SaleReturnComponent implements OnInit {
     const salaryYear = new Date().getFullYear();
     this.yearNumber = salaryYear;
     this.monthNumber = salaryMonth;
-    this.saleReturnForm = new FormGroup({
-      yearNumber: new FormControl(this.yearNumber),
-      monthNumber: new FormControl(this.monthNumber),
-      agentId: new FormControl(null),
-      customerId: new FormControl(null),
-      tag: new FormControl(null),
-      modelNo: new FormControl(null),
-      modelSize: new FormControl(null),
-      gigniGold: new FormControl(null),
-      fineGold: new FormControl(null),
-      grossWeight: new FormControl(null),
-      qty: new FormControl(null),
-      lc: new FormControl(null)
+    this.saleReturnForm = new UntypedFormGroup({
+      yearNumber: new UntypedFormControl(this.yearNumber),
+      monthNumber: new UntypedFormControl(this.monthNumber),
+      agentId: new UntypedFormControl(null),
+      customerId: new UntypedFormControl(null),
+      tag: new UntypedFormControl(null),
+      modelNo: new UntypedFormControl(null),
+      modelSize: new UntypedFormControl(null),
+      gigniGold: new UntypedFormControl(null),
+      fineGold: new UntypedFormControl(null),
+      grossWeight: new UntypedFormControl(null),
+      qty: new UntypedFormControl(null),
+      lc: new UntypedFormControl(null)
     });
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {AgentService} from '../../../../../services/agent.service';
 import {CommonService} from '../../../../../services/common.service';
 
@@ -10,7 +10,7 @@ import {CommonService} from '../../../../../services/common.service';
   styleUrls: ['./agent-salary.component.scss']
 })
 export class AgentSalaryComponent implements OnInit {
-  agentSalarySearchForm: FormGroup;
+  agentSalarySearchForm: UntypedFormGroup;
   isProduction = environment.production;
   year = 2022;
   month = 1;
@@ -22,9 +22,9 @@ export class AgentSalaryComponent implements OnInit {
   grossTotalReturnQuantity = 0;
   constructor(private agentService: AgentService) {
 
-    this.agentSalarySearchForm = new FormGroup({
-      year: new FormControl(2022),
-      month: new FormControl(5),
+    this.agentSalarySearchForm = new UntypedFormGroup({
+      year: new UntypedFormControl(2022),
+      month: new UntypedFormControl(5),
     });
   }
   printDivStyle = {

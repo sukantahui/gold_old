@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {formatDate} from '@angular/common';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {AgentWiseSalesReportService} from '../../../../../services/agent-wise-sales-report.service';
 import {ReportService} from '../../../../../services/report.service';
 import {CommonService} from '../../../../../services/common.service';
@@ -12,7 +12,7 @@ import {Sort} from '@angular/material/sort';
   styleUrls: ['./agent-wise-sale-report.component.scss']
 })
 export class AgentWiseSaleReportComponent implements OnInit {
-  agentWiseSaleReportForm: FormGroup;
+  agentWiseSaleReportForm: UntypedFormGroup;
   startDate: string;
   endDate: string;
   agentList: any[];
@@ -32,10 +32,10 @@ export class AgentWiseSaleReportComponent implements OnInit {
     this.startDate = formatDate(now, 'yyyy-MM-dd', 'en');
     this.endDate = formatDate(now, 'yyyy-MM-dd', 'en');
 
-    this.agentWiseSaleReportForm = new FormGroup({
-      start_date: new FormControl(currentSQLDate),
-      end_date: new FormControl(currentSQLDate),
-      agent_id: new FormControl(null)
+    this.agentWiseSaleReportForm = new UntypedFormGroup({
+      start_date: new UntypedFormControl(currentSQLDate),
+      end_date: new UntypedFormControl(currentSQLDate),
+      agent_id: new UntypedFormControl(null)
     });
   }
   printDivStyle = {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {ConfirmationService, MessageService, PrimeIcons} from "primeng/api";
 
@@ -10,14 +10,14 @@ import {ConfirmationService, MessageService, PrimeIcons} from "primeng/api";
   providers: [MessageService , ConfirmationService]
 })
 export class BankingComponent implements OnInit {
-  bankingForm: FormGroup;
+  bankingForm: UntypedFormGroup;
   bankDetails: any;
   uploadedFile: Array<any> = [];
   constructor(private http: HttpClient , private  messageService: MessageService , private  confirmationService: ConfirmationService) {
-    this.bankingForm = new FormGroup({
-      ifsc: new FormControl(null),
+    this.bankingForm = new UntypedFormGroup({
+      ifsc: new UntypedFormControl(null),
       // testing
-      image: new FormControl(null, [Validators.required])
+      image: new UntypedFormControl(null, [Validators.required])
     });
   }
   ngOnInit(): void {

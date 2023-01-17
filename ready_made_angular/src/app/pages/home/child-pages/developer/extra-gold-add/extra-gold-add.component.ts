@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {environment} from '../../../../../../environments/environment';
 import {ReportService} from '../../../../../services/report.service';
 import {forkJoin} from 'rxjs';
@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./extra-gold-add.component.scss']
 })
 export class ExtraGoldAddComponent implements OnInit {
-  goldAddForm: FormGroup;
+  goldAddForm: UntypedFormGroup;
   isProduction: boolean = environment.production;
   subject = 'Developer Area';
   isLoading: any = false;
@@ -19,9 +19,9 @@ export class ExtraGoldAddComponent implements OnInit {
   previousExtraGoldLists: any;
 
   constructor(private reportService: ReportService) {
-    this.goldAddForm = new FormGroup({
-      jobId: new FormControl(null),
-      gold: new FormControl(null)
+    this.goldAddForm = new UntypedFormGroup({
+      jobId: new UntypedFormControl(null),
+      gold: new UntypedFormControl(null)
     });
   }
 

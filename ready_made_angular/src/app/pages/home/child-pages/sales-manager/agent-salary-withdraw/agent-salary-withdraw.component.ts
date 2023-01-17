@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../../../../../environments/environment';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {AgentService} from '../../../../../services/agent.service';
 import {DownloadService} from '../../../../../services/download.service';
 import { saveAs } from 'file-saver';
@@ -13,7 +13,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./agent-salary-withdraw.component.scss']
 })
 export class AgentSalaryWithdrawComponent implements OnInit {
-    agentSalarySearchForm: FormGroup;
+    agentSalarySearchForm: UntypedFormGroup;
     isProduction = environment.production;
     agents: any[];
     year = 2022;
@@ -26,11 +26,11 @@ export class AgentSalaryWithdrawComponent implements OnInit {
     this.route.data.subscribe((response: any) => {
       this.agents = response.agentSalaryWithdrawResolver.agents.data;
     });
-    this.agentSalarySearchForm = new FormGroup({
-      yearNumber: new FormControl(2022),
-      monthNumber: new FormControl(5),
-      agentId: new FormControl(null),
-      amount: new FormControl(100),
+    this.agentSalarySearchForm = new UntypedFormGroup({
+      yearNumber: new UntypedFormControl(2022),
+      monthNumber: new UntypedFormControl(5),
+      agentId: new UntypedFormControl(null),
+      amount: new UntypedFormControl(100),
     });
   }
   printDivStyle = {

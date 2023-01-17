@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {Md5} from 'ts-md5';
 import {AuthResponseData, AuthService} from '../../../services/auth.service';
 import {Observable} from 'rxjs';
@@ -13,7 +13,7 @@ import {ErrorService} from '../../../services/error.service';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
     isLoading = false;
 
 
@@ -26,9 +26,9 @@ export class AuthComponent implements OnInit {
               // tslint:disable-next-line:align
               , private errorService: ErrorService
   ) {
-    this.loginForm = new FormGroup({
-      email: new FormControl(null, [Validators.required]),
-      password: new FormControl(null, [Validators.required]),
+    this.loginForm = new UntypedFormGroup({
+      email: new UntypedFormControl(null, [Validators.required]),
+      password: new UntypedFormControl(null, [Validators.required]),
     });
   }
 

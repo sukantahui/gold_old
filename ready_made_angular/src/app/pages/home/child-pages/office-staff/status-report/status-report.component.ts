@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {formatDate} from '@angular/common';
 import {OfficeStaffStatusReportService} from '../../../../../services/office-staff-status-report.service';
 import Swal from 'sweetalert2';
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./status-report.component.scss']
 })
 export class StatusReportComponent implements OnInit {
-  statusReportForm: FormGroup;
+  statusReportForm: UntypedFormGroup;
   startDate: string;
   endDate: string;
   totalGoldReceived: number;
@@ -28,9 +28,9 @@ export class StatusReportComponent implements OnInit {
     this.endDate = formatDate(now, 'yyyy-MM-dd', 'en');
 
 
-    this.statusReportForm =  new FormGroup({
-      start_date: new FormControl(currentSQLDate),
-      end_date: new FormControl(currentSQLDate),
+    this.statusReportForm =  new UntypedFormGroup({
+      start_date: new UntypedFormControl(currentSQLDate),
+      end_date: new UntypedFormControl(currentSQLDate),
     });
   }
 

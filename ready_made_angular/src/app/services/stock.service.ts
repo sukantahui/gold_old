@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {environment} from '../../environments/environment';
 import {catchError, tap} from 'rxjs/operators';
 import {ErrorService} from './error.service';
@@ -13,7 +13,7 @@ import {CommonService} from "./common.service";
   providedIn: 'root'
 })
 export class StockService {
-  stockForm: FormGroup;
+  stockForm: UntypedFormGroup;
   productData: Product[] = [];
   stockData: Stock[] = [];
   jobData: any[] = [];
@@ -31,21 +31,21 @@ export class StockService {
       this.jobData = response.data;
       this.jobsSub.next([...this.jobData]);
     });
-    this.stockForm = new FormGroup({
-      tag:  new FormControl(null, [Validators.required]),
-      modelNo:  new FormControl(null, [Validators.required]),
-      modelSize:  new FormControl(null, [Validators.required]),
-      quantity:  new FormControl(null, [Validators.required]),
-      gold:  new FormControl(null , [Validators.required]),
-      labourCharge:  new FormControl(null, [Validators.required]),
-      grossWeight:  new FormControl(null, [Validators.required]),
-      packageWeight:  new FormControl(null, [Validators.required]),
-      inStock:  new FormControl(1),
-      agentId:  new FormControl('AG2018'),
-      employeeId:  new FormControl(46),
-      reference:  new FormControl(null),
-      billNo:  new FormControl(null, [Validators.required]),
-      jobId:  new FormControl(null),
+    this.stockForm = new UntypedFormGroup({
+      tag:  new UntypedFormControl(null, [Validators.required]),
+      modelNo:  new UntypedFormControl(null, [Validators.required]),
+      modelSize:  new UntypedFormControl(null, [Validators.required]),
+      quantity:  new UntypedFormControl(null, [Validators.required]),
+      gold:  new UntypedFormControl(null , [Validators.required]),
+      labourCharge:  new UntypedFormControl(null, [Validators.required]),
+      grossWeight:  new UntypedFormControl(null, [Validators.required]),
+      packageWeight:  new UntypedFormControl(null, [Validators.required]),
+      inStock:  new UntypedFormControl(1),
+      agentId:  new UntypedFormControl('AG2018'),
+      employeeId:  new UntypedFormControl(46),
+      reference:  new UntypedFormControl(null),
+      billNo:  new UntypedFormControl(null, [Validators.required]),
+      jobId:  new UntypedFormControl(null),
     });
   }
   getStocksUpdateListener(){

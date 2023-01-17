@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../../environments/environment';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {CommonService} from '../../../../../../services/common.service';
 import {DatePipe} from '@angular/common';
 import {DateAdapter} from '@angular/material/core';
@@ -16,7 +16,7 @@ export enum Month {
 })
 export class ProductSaleComponent implements OnInit {
   isProduction: boolean = environment.production;
-  reportForm: FormGroup;
+  reportForm: UntypedFormGroup;
   isLoading = false;
   modelWiseSales: {model_no: string, sale_qty: number}[];
   isLoadingSale = false;
@@ -27,12 +27,12 @@ export class ProductSaleComponent implements OnInit {
     const stDate = new Date();
 
     const endDate = new Date();
-    this.reportForm = new FormGroup({
-      startDate: new FormControl(stDate),
-      startDateSql: new FormControl(null),
-      endDate: new FormControl(endDate),
-      endDateSql: new FormControl(null),
-      reportLimit: new FormControl(50)
+    this.reportForm = new UntypedFormGroup({
+      startDate: new UntypedFormControl(stDate),
+      startDateSql: new UntypedFormControl(null),
+      endDate: new UntypedFormControl(endDate),
+      endDateSql: new UntypedFormControl(null),
+      reportLimit: new UntypedFormControl(50)
     });
 
   }
