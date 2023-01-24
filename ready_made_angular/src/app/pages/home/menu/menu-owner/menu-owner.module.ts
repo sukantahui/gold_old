@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { MenuOwnerRoutingModule } from './menu-owner-routing.module';
 import { MenuOwnerComponent } from './menu-owner.component';
-import {MatMenuModule} from '@angular/material/menu';
+import {MatLegacyMenuModule as MatMenuModule} from '@angular/material/legacy-menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
+import {MatLegacyListModule as MatListModule} from '@angular/material/legacy-list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MenuItemModule} from '../menu-item/menu-item.module';
 import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import {MatLegacyButtonModule as MatButtonModule} from '@angular/material/legacy-button';
 
 
 @NgModule({

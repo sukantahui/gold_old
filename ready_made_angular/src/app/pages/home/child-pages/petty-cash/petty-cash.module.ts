@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { PettyCashRoutingModule } from './petty-cash-routing.module';
 import { PettyCashComponent } from './petty-cash.component';
-import {MatCardModule} from '@angular/material/card';
+import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-card';
 import {FlexModule} from '@angular/flex-layout';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';
+import {MatLegacySelectModule as MatSelectModule} from '@angular/material/legacy-select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
+import {MatLegacyInputModule as MatInputModule} from '@angular/material/legacy-input';
 import {DateAdapter, MatNativeDateModule} from '@angular/material/core';
 
 

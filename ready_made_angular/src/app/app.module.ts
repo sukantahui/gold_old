@@ -9,9 +9,9 @@ import { DateAdapter } from '@angular/material/core';
 import { DateFormat } from './date-format';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatSliderModule} from '@angular/material/slider';
-import {MatListModule} from '@angular/material/list';
+import {MatLegacyMenuModule as MatMenuModule} from '@angular/material/legacy-menu';
+import {MatLegacySliderModule as MatSliderModule} from '@angular/material/legacy-slider';
+import {MatLegacyListModule as MatListModule} from '@angular/material/legacy-list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 

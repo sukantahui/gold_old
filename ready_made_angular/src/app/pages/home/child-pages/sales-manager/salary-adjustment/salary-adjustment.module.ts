@@ -6,7 +6,7 @@ import { SalaryAdjustmentComponent } from './salary-adjustment.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {NgxPrintModule} from 'ngx-print';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatLegacyFormFieldModule as MatFormFieldModule} from '@angular/material/legacy-form-field';
 
 
 @NgModule({
