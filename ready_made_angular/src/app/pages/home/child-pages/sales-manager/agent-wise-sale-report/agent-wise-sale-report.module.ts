@@ -18,6 +18,7 @@ import {MatLegacySlideToggle as MatSlideToggle, MatLegacySlideToggleModule as Ma
 import {NgxPrinterModule} from 'ngx-printer';
 import {NgxPrintModule} from 'ngx-print';
 import {LayoutModule} from '@angular/cdk/layout';
+import {CalendarModule} from 'primeng/calendar';
 
 
 
@@ -44,7 +45,8 @@ import {LayoutModule} from '@angular/cdk/layout';
     MatSlideToggleModule,
     NgxPrinterModule,
     NgxPrintModule,
-    LayoutModule
+    LayoutModule,
+    CalendarModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })

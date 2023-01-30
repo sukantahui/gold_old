@@ -26,6 +26,18 @@ export class AgentWiseSaleReportComponent implements OnInit {
   isAllCustomers = false;
   color = 'accent';
   private agentWiseSalemaster: any[];
+  dates: Date[];
+
+  rangeDates: Date[];
+
+  minDate: Date;
+
+  maxDate: Date;
+
+  es: any;
+
+  invalidDates: Array<Date>
+
   constructor(private agentWiseSalesReportService: AgentWiseSalesReportService, private reportService: ReportService, private commonService: CommonService ) {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
@@ -45,12 +57,43 @@ export class AgentWiseSaleReportComponent implements OnInit {
     td: {border: '1px  solid black' , fontSize : 'small'},
 
   };
+  date2: Date;
+  date3: Date;
 
 
   ngOnInit(): void {
+    this.es = {
+      firstDayOfWeek: 1,
+      dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
+      dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+      dayNamesMin: [ "D","L","M","X","J","V","S" ],
+      monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
+      monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
+      today: 'Hoy',
+      clear: 'Borrar'
+    }
+    let today = new Date();
+    let month = today.getMonth();
+    let year = today.getFullYear();
+    let prevMonth = (month === 0) ? 11 : month -1;
+    let prevYear = (prevMonth === 11) ? year - 1 : year;
+    let nextMonth = (month === 11) ? 0 : month + 1;
+    let nextYear = (nextMonth === 0) ? year + 1 : year;
+    this.minDate = new Date();
+    this.minDate.setMonth(prevMonth);
+    this.minDate.setFullYear(prevYear);
+    this.maxDate = new Date();
+    this.maxDate.setMonth(nextMonth);
+    this.maxDate.setFullYear(nextYear);
+
+    let invalidDate = new Date();
+    invalidDate.setDate(today.getDate() - 1);
+    this.invalidDates = [today,invalidDate];
+
     this.agentWiseSalesReportService.getAgentsUpdateListener().subscribe((response) => {
       this.agentList = response;
     });
+
   }
   startDateChangeEvent($event: any) {
     this.startDate = formatDate(new Date($event.value), 'yyyy-MM-dd', 'en');
