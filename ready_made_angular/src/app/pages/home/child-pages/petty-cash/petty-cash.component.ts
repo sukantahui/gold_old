@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {formatDate} from '@angular/common';
 import {AccountService} from '../../../../services/account.service';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
@@ -12,36 +12,36 @@ import Swal from 'sweetalert2';
   styleUrls: ['./petty-cash.component.scss']
 })
 export class PettyCashComponent implements OnInit {
-  expenditureForm: UntypedFormGroup;
-  incomeForm: UntypedFormGroup;
+  expenditureForm: FormGroup;
+  incomeForm: FormGroup;
   incomeLedgers: any[] = [];
   expenditureLedgers: any[] = [];
   assets: any[] = [];
   constructor(private accountService: AccountService , private pettyCashService: PettyCashService) {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
-    this.expenditureForm = new UntypedFormGroup({
-      id: new UntypedFormControl(null),
-      transactionDate: new UntypedFormControl(currentSQLDate, [Validators.required]),
-      ledgerId: new UntypedFormControl(null, [Validators.required]),
-      assetId: new UntypedFormControl(1, [Validators.required]),           // purchase
-      voucherNumber: new UntypedFormControl(null),
-      amount: new UntypedFormControl(0, [Validators.required]),
-      voucherId: new UntypedFormControl(2, [Validators.required]),
-      particulars: new UntypedFormControl(null, [Validators.maxLength(255)]),
-      userId: new UntypedFormControl(5, [Validators.required])
+    this.expenditureForm = new FormGroup({
+      id: new FormControl(null),
+      transactionDate: new FormControl(currentSQLDate, [Validators.required]),
+      ledgerId: new FormControl(null, [Validators.required]),
+      assetId: new FormControl(1, [Validators.required]),           // purchase
+      voucherNumber: new FormControl(null),
+      amount: new FormControl(0, [Validators.required]),
+      voucherId: new FormControl(2, [Validators.required]),
+      particulars: new FormControl(null, [Validators.maxLength(255)]),
+      userId: new FormControl(5, [Validators.required])
     });
 
-    this.incomeForm = new UntypedFormGroup({
-      id: new UntypedFormControl(null),
-      transactionDate: new UntypedFormControl(currentSQLDate, [Validators.required]),
-      ledgerId: new UntypedFormControl(null, [Validators.required]),
-      assetId: new UntypedFormControl(1, [Validators.required]),           // purchase
-      voucherNumber: new UntypedFormControl(null),
-      amount: new UntypedFormControl(0, [Validators.required]),
-      voucherId: new UntypedFormControl(1, [Validators.required]),
-      particulars: new UntypedFormControl(null, [Validators.maxLength(255)]),
-      userId: new UntypedFormControl(5, [Validators.required])
+    this.incomeForm = new FormGroup({
+      id: new FormControl(null),
+      transactionDate: new FormControl(currentSQLDate, [Validators.required]),
+      ledgerId: new FormControl(null, [Validators.required]),
+      assetId: new FormControl(1, [Validators.required]),           // purchase
+      voucherNumber: new FormControl(null),
+      amount: new FormControl(0, [Validators.required]),
+      voucherId: new FormControl(1, [Validators.required]),
+      particulars: new FormControl(null, [Validators.maxLength(255)]),
+      userId: new FormControl(5, [Validators.required])
     });
     this.incomeLedgers = this.accountService.getIncomeLedgers();
     this.expenditureLedgers = this.accountService.getExpenditureLedgers();

@@ -3,7 +3,7 @@ import {environment} from '../../../../../../../environments/environment';
 import {ActivatedRoute} from '@angular/router';
 import {ReportService} from '../../../../../../services/report.service';
 import {CommonService} from '../../../../../../services/common.service';
-import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-customer-discount-report',
@@ -18,7 +18,7 @@ export class CustomerDiscountReportComponent implements OnInit {
   filtereddBills: any[] = [];
   discountTotal = 0;
   selectedCustomer: any;
-  reportForm: UntypedFormGroup;
+  reportForm: FormGroup;
   quantityTotal = 0;
   lcTotal = 0 ;
   currentCustomerDues: any = undefined;
@@ -35,13 +35,13 @@ export class CustomerDiscountReportComponent implements OnInit {
     this.stDate = new Date('2022-04-01');
     this.endDate = new Date('2022-11-30');
     // stDate.setDate(endDate.getDate() - 365);
-    this.reportForm = new UntypedFormGroup({
-      startDate: new UntypedFormControl(this.stDate),
-      startDateSql: new UntypedFormControl(null),
-      endDate: new UntypedFormControl(this.endDate),
-      endDateSql: new UntypedFormControl(null),
-      reportLimit: new UntypedFormControl(50),
-      discount: new UntypedFormControl(25)
+    this.reportForm = new FormGroup({
+      startDate: new FormControl(this.stDate),
+      startDateSql: new FormControl(null),
+      endDate: new FormControl(this.endDate),
+      endDateSql: new FormControl(null),
+      reportLimit: new FormControl(50),
+      discount: new FormControl(25)
     });
     this.reportForm.patchValue({startDateSql: this.stDate.getFullYear() + '-' + this.stDate.getMonth() + '-' + this.stDate.getDay()});
     this.reportForm.patchValue({endDateSql: this.endDate.getFullYear() + '-' + this.endDate.getMonth() + '-' + (this.endDate.getDay() + 1)});

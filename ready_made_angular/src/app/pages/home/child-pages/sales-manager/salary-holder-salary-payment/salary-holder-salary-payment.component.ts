@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
-import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {AgentService} from '../../../../../services/agent.service';
 import {DownloadService} from '../../../../../services/download.service';
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class SalaryHolderSalaryPaymentComponent implements OnInit {
   isProduction = environment.production;
-  salaryHolderSalaryPaymentForm: UntypedFormGroup;
+  salaryHolderSalaryPaymentForm: FormGroup;
   salaryHolders: any[];
   savedResponse: any;
   currentSalary: any;
@@ -30,12 +30,12 @@ export class SalaryHolderSalaryPaymentComponent implements OnInit {
     const salaryYear = new Date().getFullYear();
     this.yearNumber = salaryYear;
     this.monthNumber = salaryMonth;
-    this.salaryHolderSalaryPaymentForm = new UntypedFormGroup({
-      yearNumber: new UntypedFormControl(salaryYear),
-      monthNumber: new UntypedFormControl(salaryMonth),
-      salaryHolderId: new UntypedFormControl(null),
-      salaryPaid: new UntypedFormControl(0),
-      advanceAdjusted: new UntypedFormControl(0)
+    this.salaryHolderSalaryPaymentForm = new FormGroup({
+      yearNumber: new FormControl(salaryYear),
+      monthNumber: new FormControl(salaryMonth),
+      salaryHolderId: new FormControl(null),
+      salaryPaid: new FormControl(0),
+      advanceAdjusted: new FormControl(0)
     });
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
 import {ActivatedRoute} from '@angular/router';
-import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {NgSelectComponent} from '@ng-select/ng-select';
 
 @Component({
@@ -14,7 +14,7 @@ export class StockInHandReportComponent implements OnInit {
   stocksInHand: any[];
   agents: any[];
   productCategories: any[];
-  reportForm: UntypedFormGroup;
+  reportForm: FormGroup;
   stocksInHandFiltered: any;
   private selectedProductCategoryId: any;
   private selectedAgentId: any;
@@ -26,9 +26,9 @@ export class StockInHandReportComponent implements OnInit {
       this.stocksInHandFiltered = response.showItemStockResolver.stocksInHand.data;
     });
 
-    this.reportForm = new UntypedFormGroup({
-      agentId: new UntypedFormControl('AG0000'),
-      productCategoryId: new UntypedFormControl(0),
+    this.reportForm = new FormGroup({
+      agentId: new FormControl('AG0000'),
+      productCategoryId: new FormControl(0),
     });
   }
 

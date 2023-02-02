@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {StockService} from '../../../../../services/stock.service';
-import {UntypedFormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {Stock} from '../../../../../models/stock.model';
 import {Product} from '../../../../../models/product.model';
@@ -16,7 +16,7 @@ import {CommonService} from '../../../../../services/common.service';
   styleUrls: ['./stock-entry.component.scss']
 })
 export class StockEntryComponent implements OnInit {
-  stockForm: UntypedFormGroup;
+  stockForm: FormGroup;
   productList: Product[] = [];
   stockList: Stock[] = [];
   sortedStockList: any[] = [];

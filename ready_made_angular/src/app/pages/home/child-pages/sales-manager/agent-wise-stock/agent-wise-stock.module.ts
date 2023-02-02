@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { AgentWiseStockRoutingModule } from './agent-wise-stock-routing.module';
 import { AgentWiseStockComponent } from './agent-wise-stock.component';
-import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-card';
+import {MatCardModule} from '@angular/material/card';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {FlexModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatLegacyInputModule as MatInputModule} from "@angular/material/legacy-input";
-import {MatLegacyButtonModule as MatButtonModule} from "@angular/material/legacy-button";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NgxPrinterModule} from "ngx-printer";
 import {NgxPrintModule} from "ngx-print";

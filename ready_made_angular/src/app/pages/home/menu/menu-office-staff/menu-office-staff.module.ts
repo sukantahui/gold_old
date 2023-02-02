@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MenuOfficeStaffRoutingModule } from './menu-office-staff-routing.module';
 import { MenuOfficeStaffComponent } from './menu-office-staff.component';
 import {MenuItemModule} from "../menu-item/menu-item.module";
-import {MatLegacyMenuModule as MatMenuModule} from "@angular/material/legacy-menu";
-import {MatLegacyButtonModule as MatButtonModule} from "@angular/material/legacy-button";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({

@@ -18,57 +18,73 @@
         </div>
     </div>
     <div class="d-flex flex-row bd-highlight mb-3">
-
         <div class="col-6 flex-column">
             <div  id="product-table-div">
                 <form class="example-form">
-                    <div class="d-flex flex-column">
-                        <div class="d-flex justify-content-around">
-                            <div class="p-2">
-                                <mat-slide-toggle
-                                        [(ngModel)]="checkedAvailableAllProducts"
-                                        class="example-margin"
-                                        [color]="color"
-                                        (change)="changeProductSlideToggle()"
-                                        [ngModelOptions]="{standalone: true}">
-                                    {{checkedAvailableAllProducts?'Deselect':'Select All'}}
-                                </mat-slide-toggle>
-                            </div>
-                            <div class="p-2">
+                    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
+                        <mat-slide-toggle
+                                [(ngModel)]="checkedAvailableAllProducts"
+                                class="example-margin"
+                                [color]="color"
+                                (change)="changeProductSlideToggle()"
+                                [ngModelOptions]="{standalone: true}">
+                                {{checkedAvailableAllProducts?'Deselect':'Select All'}}
+                        </mat-slide-toggle>
+                        <mat-form-field fxFlex="15">
+                            <input matInput placeholder="Search..." [(ngModel)]="searchTerm" name="search" type="text" autofocus>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="10">
+                            <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="10">
+                            <input type="text" matInput placeholder="Total Products" [disabled]="true" value="{{countSelectedAvailableProduct()}}/{{products.length}}" name="totalProducts" >
+                        </mat-form-field>
+                        <button (click)="selectForTransfer()" [disabled]="!isAnyAvailableProductSelected()"   mat-mini-fab aria-label="Send all"  [matBadge]="countSelectedAvailableProduct()" matBadgePosition="before" matBadgeColor="primary">
+                            <i class="ri-send-plane-2-fill"></i>
+                        </button>
 
-                                <span class="nl-2 p-input-icon-left">
-                                    <i class="pi pi-search"></i>
-                                    <input class="form-control text-right" pInputText [(ngModel)]="searchTerm" name="search">
-
-                                </span>
-                            </div>
-                            <div class="p-2">
-                                <input class="form-control col-3" pInputText [(ngModel)]="pageSize" name="PageSize">
-                            </div>
-                            <div class="p-2">
-                                <input class="form-control" pInputText [disabled]="true" value="{{countSelectedAvailableProduct()}}/{{products.length}}" name="totalProducts">
-<!--                                <span class="ml-2 p-input-icon-left">-->
-<!--                                    <input type="text" pInputText [disabled]="true" value="{{countSelectedAvailableProduct()}}/{{products.length}}" name="totalProducts"/>-->
-<!--                                </span>-->
-                            </div>
-                            <div class="p-2">
-                                <button (click)="selectForTransfer()" [disabled]="!isAnyAvailableProductSelected()"   mat-mini-fab aria-label="Send all"  [matBadge]="countSelectedAvailableProduct()" matBadgePosition="before" matBadgeColor="primary">
-                                    <i class="ri-send-plane-2-fill"></i>
-                                </button>
-                            </div>
-                        </div>
                     </div>
                     <div>
-                        <span class="nl-2 p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input type="text" class="text-right" pInputText placeholder="Enter tag..." #myInput (click)="myInput.select()" [(ngModel)]="searchTag" name="search"  (blur)="selectForDirectTagTransfer()">
-                        </span>
-<!--                        <mat-form-field fxFlex="15">-->
-<!--                            <input matInput placeholder="Enter tag..." #myInput (click)="myInput.select()" [(ngModel)]="searchTag" name="search" type="text" (blur)="selectForDirectTagTransfer()">-->
-<!--                        </mat-form-field>-->
+                        <mat-form-field fxFlex="15">
+                            <input matInput placeholder="Enter tag..." #myInput (click)="myInput.select()" [(ngModel)]="searchTag" name="search" type="text" (blur)="selectForDirectTagTransfer()">
+                        </mat-form-field>
                     </div>
                 </form>
+<!--                <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive" style="border: none !important;">-->
 
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th mat-sort-header="selected">Select</th>-->
+<!--                        <th>Index</th>-->
+<!--                        <th mat-sort-header="tag">Tag</th>-->
+<!--                        <th mat-sort-header="model">Model</th>-->
+<!--                        <th mat-sort-header="size">Size</th>-->
+<!--                        <th mat-sort-header="quantity">Quantity</th>-->
+<!--                        <th>Gold</th>-->
+<!--                        <th>LC</th>-->
+<!--                        <th>Selected</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr [ngClass]="{selectedRow: product.is_selected}" *ngFor="let product of sortedProducts | filter:searchTerm | paginate: {id: 'pagination1', itemsPerPage: pageSize, currentPage: currentPageProducts };let indexOfElement=index">-->
+<!--                        <td><mat-checkbox class="example-margin" [(ngModel)]="product.is_selected"></mat-checkbox></td>-->
+<!--                        <td>{{(currentPageProducts-1)*10+indexOfElement+1}}</td>-->
+<!--                        <td>{{product.tag}}</td>-->
+<!--                        <td>{{product.model_no}}</td>-->
+<!--                        <td>{{product.model_size}}</td>-->
+<!--                        <td>{{product.qty}}</td>-->
+<!--                        <td>{{product.gold}}</td>-->
+<!--                        <td>{{product.labour_charge}}</td>-->
+<!--                        <td>{{product.is_selected}}</td>-->
+<!--&lt;!&ndash;                        <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <button (click)="sendProduct(product)" [disabled]="!product.is_selected" mat-mini-fab aria-label="Example icon button with a home icon">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <i class="ri-send-plane-2-fill"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </td>&ndash;&gt;-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+
+<!--                </table>-->
                 <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive" style="border: none !important;">
 
                     <thead>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../../../../services/common.service';
 import {formatDate} from '@angular/common';
 import {AgentService} from '../../../../../services/agent.service';
@@ -38,8 +38,8 @@ export interface Item{
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
-  orderFormMaster: UntypedFormGroup;
-  orderFormDetails: UntypedFormGroup;
+  orderFormMaster: FormGroup;
+  orderFormDetails: FormGroup;
   agents: any[];
   customers: any[];
   products: any[];
@@ -76,24 +76,24 @@ export class OrderComponent implements OnInit {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
 
-    this.orderFormMaster = new UntypedFormGroup({
-      order_date: new UntypedFormControl(currentSQLDate),
-      delivery_date: new UntypedFormControl(currentSQLDate),
-      agent_id: new UntypedFormControl(null, [Validators.required]),
-      cust_id: new UntypedFormControl(null, [Validators.required]),
-      cust_mv: new UntypedFormControl(null, [Validators.required]),
-      lc_discount_percentage: new UntypedFormControl(null, [Validators.required]),
+    this.orderFormMaster = new FormGroup({
+      order_date: new FormControl(currentSQLDate),
+      delivery_date: new FormControl(currentSQLDate),
+      agent_id: new FormControl(null, [Validators.required]),
+      cust_id: new FormControl(null, [Validators.required]),
+      cust_mv: new FormControl(null, [Validators.required]),
+      lc_discount_percentage: new FormControl(null, [Validators.required]),
     });
-    this.orderFormDetails = new UntypedFormGroup({
-      product_code: new UntypedFormControl(null, [Validators.required]),
-      customer_category_id: new UntypedFormControl(null, [Validators.required]),
-      lc: new UntypedFormControl(null, [Validators.required]),
-      ploss: new UntypedFormControl(null, [Validators.required]),
-      product_mv: new UntypedFormControl(null, [Validators.required]),
-      qty: new UntypedFormControl(null, [Validators.required]),
-      expected_gold: new UntypedFormControl(null, [Validators.required]),
-      rm_id: new UntypedFormControl(48, [Validators.required]),
-      product_size: new UntypedFormControl(null, [Validators.required])
+    this.orderFormDetails = new FormGroup({
+      product_code: new FormControl(null, [Validators.required]),
+      customer_category_id: new FormControl(null, [Validators.required]),
+      lc: new FormControl(null, [Validators.required]),
+      ploss: new FormControl(null, [Validators.required]),
+      product_mv: new FormControl(null, [Validators.required]),
+      qty: new FormControl(null, [Validators.required]),
+      expected_gold: new FormControl(null, [Validators.required]),
+      rm_id: new FormControl(48, [Validators.required]),
+      product_size: new FormControl(null, [Validators.required])
     });
   }
 

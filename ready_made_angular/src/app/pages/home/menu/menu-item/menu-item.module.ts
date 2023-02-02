@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MenuItemRoutingModule } from './menu-item-routing.module';
 import { MenuItemComponent } from './menu-item.component';
-import {MatLegacyMenuModule as MatMenuModule} from '@angular/material/legacy-menu';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 
 
