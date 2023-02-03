@@ -8,13 +8,28 @@
                            class="custom"
                            bindValue="agent_id"
                            formControlName="agentId"
+                           (change)="onAgentSelect($event)"
                            placeholder="Select Agent">
                 </ng-select>
             </form>
 
         </div>
         <div class="col-6">
-
+            <div *ngIf="selectedAgent" class="d-flex flex-column">
+                <div class="d-flex justify-content-around">
+                    <div class="p-2">
+                        LC: {{selectAgentReadyMadeBalance.qty}}
+                    </div>
+                    <div class="p-2">
+                        GOLD: {{selectAgentReadyMadeBalance.gold}}
+                    </div>
+                    <div class="p-2">
+                        LC: {{selectAgentReadyMadeBalance.lc}}
+                    </div>
+                </div>
+                <div class="p-2">Flex item 2</div>
+                <div class="p-2">Flex item 3</div>
+            </div>
         </div>
     </div>
     <div class="d-flex flex-row bd-highlight mb-3">

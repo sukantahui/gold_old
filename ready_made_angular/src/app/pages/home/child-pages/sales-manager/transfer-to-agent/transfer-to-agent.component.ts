@@ -6,6 +6,7 @@ import {Sort} from '@angular/material/sort';
 import Swal from 'sweetalert2';
 import { BaseRowDef } from '@angular/cdk/table';
 import {ConfirmationService, MessageService} from "primeng/api";
+import {ServerResponse} from '../../../../../models/ServerResponse.model';
 
 @Component({
   selector: 'app-transfer-to-agent',
@@ -31,6 +32,8 @@ export class TransferToAgentComponent implements OnInit {
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
   public sortedProducts: Product[] = [];
+  selectAgentReadyMadeBalance: {agentId: string, gold: number, lc: number, qty: number};
+  selectedAgent: null;
   constructor(public transferAgentService: TransferAgentService) {
     this.products = this.transferAgentService.getProductsInCounter();
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
@@ -271,6 +274,17 @@ export class TransferToAgentComponent implements OnInit {
 
 
   }
+
+    onAgentSelect(agent: any) {
+      if (agent === undefined){
+          this.selectedAgent = null;
+      }else{
+          this.selectedAgent = agent;
+          this.transferAgentService.getAgentReadyMadeBalance(agent.agent_id).subscribe((response: ServerResponse) => {
+              this.selectAgentReadyMadeBalance = response.data;
+          });
+      }
+    }
 }// end of class
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
