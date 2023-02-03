@@ -79,6 +79,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("getStockByAgent/{id}",[StockController::class,'get_stock_by_agent']);
     Route::get("getCounterAgent",[AgentController::class,'get_counter_agent_id']);
     Route::get("getCustomersByAgent/{id}",[AgentController::class,'get_customers_by_agent']);
+    Route::get("agentReadyMadeBalance/{agentId}",[StockController::class,'getReadyMadeBalance']);
 
     //for stock
     Route::get("stocks",[StockController::class,'get_all_instock_items']);

@@ -134,4 +134,10 @@ class StockController extends ApiController
                   ->first();
         return $this->successResponse($result);
     }
+    public function getReadyMadeBalance($agentId){
+        $gold=ItemStockReadyMade::whereAgentIdAndInStock($agentId,1)->sum('gold');
+        $lc=ItemStockReadyMade::whereAgentIdAndInStock($agentId,1)->sum('labour_charge');
+        $result=array('agentId'=>$agentId, 'gold'=>$gold, 'lc'=>$lc);
+        return $this->successResponse($result);
+    }
 }

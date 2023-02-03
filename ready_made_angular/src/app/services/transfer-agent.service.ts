@@ -66,4 +66,7 @@ export class TransferAgentService {
   getCustomersByAgent(agentId){
    return this.http.get(this.commonService.getAPI() + '/getCustomersByAgent/' + agentId);
   }
+  getAgentReadyMadeBalance(agentId){
+    return this.http.get(this.commonService.getAPI() + '/agentReadyMadeBalance/' + agentId);
+  }
 }
