@@ -1,3 +1,4 @@
+-- functions
 DROP FUNCTION IF EXISTS ses_gold.get_customer_sale_gold_total_by_date;
 CREATE FUNCTION ses_gold.`get_customer_sale_gold_total_by_date`(customer_id varchar(255), in_start_date varchar(20),in_end_date varchar(20)) RETURNS double
     DETERMINISTIC
