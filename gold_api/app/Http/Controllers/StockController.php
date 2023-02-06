@@ -138,7 +138,8 @@ class StockController extends ApiController
         $gold=ItemStockReadyMade::whereAgentIdAndInStock($agentId,1)->sum('gold');
         $lc=ItemStockReadyMade::whereAgentIdAndInStock($agentId,1)->sum('labour_charge');
         $qty=ItemStockReadyMade::whereAgentIdAndInStock($agentId,1)->sum('qty');
-        $result=array('agentId'=>$agentId, 'gold'=>$gold, 'lc'=>$lc, 'qty'=>$qty);
+        $sets=ItemStockReadyMade::whereAgentIdAndInStock($agentId,1)->count();
+        $result=array('agentId'=>$agentId, 'gold'=>$gold, 'lc'=>$lc, 'qty'=>$qty, 'sets'=>$sets);
         return $this->successResponse($result);
     }
 }

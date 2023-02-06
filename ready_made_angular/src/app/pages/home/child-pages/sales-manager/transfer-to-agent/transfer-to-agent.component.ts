@@ -5,7 +5,7 @@ import {Product} from '../../../../../models/product.model';
 import {Sort} from '@angular/material/sort';
 import Swal from 'sweetalert2';
 import { BaseRowDef } from '@angular/cdk/table';
-import {ConfirmationService, MessageService} from "primeng/api";
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {ServerResponse} from '../../../../../models/ServerResponse.model';
 
 @Component({
@@ -32,8 +32,8 @@ export class TransferToAgentComponent implements OnInit {
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
   public sortedProducts: Product[] = [];
-  selectAgentReadyMadeBalance: {agentId: string, gold: number, lc: number, qty: number};
-  selectedAgent: null;
+  selectAgentReadyMadeBalance: {agentId: string, gold: number, lc: number, qty: number, sets: number};
+  selectedAgent: { 'agent_id': string, 'short_name': string, 'agent_name': string } = null;
   constructor(public transferAgentService: TransferAgentService) {
     this.products = this.transferAgentService.getProductsInCounter();
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
@@ -253,11 +253,12 @@ export class TransferToAgentComponent implements OnInit {
     this.products.unshift(item);
   }
   selectForDirectTagTransfer(){
-    if(this.searchTag.length==0)
+    if (this.searchTag.length == 0) {
       return;
+    }
 
     const newArray = this.sortedProducts.filter(el => el.tag == this.searchTag.toUpperCase());
-    if(newArray.length === 0){
+    if (newArray.length === 0){
       Swal.fire( {
             title: 'Not found',
             text: 'No element of the tag found',
