@@ -33,7 +33,8 @@ export class TransferToAgentComponent implements OnInit {
   checkedTransferableAllProducts = false;
   public sortedProducts: Product[] = [];
   selectAgentReadyMadeBalance: {agentId: string, gold: number, lc: number, qty: number, sets: number};
-  selectedAgent: { 'agent_id': string, 'short_name': string, 'agent_name': string } = null;
+  selectedAgent: { 'agent_id': string, 'short_name': string, 'agent_name': string, max_gold_limit_ready_made } = null;
+  finalSelectedGoldTotal: any;
   constructor(public transferAgentService: TransferAgentService) {
     this.products = this.transferAgentService.getProductsInCounter();
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
@@ -47,7 +48,6 @@ export class TransferToAgentComponent implements OnInit {
   ngOnInit(): void {
     this.transferAgentService.getAgentsUpdateListener().subscribe(response => {
       this.agents = response;
-      console.log(response);
     });
     this.transferAgentService.getProductsUpdateListener().subscribe(response => {
       this.products = response;
@@ -60,6 +60,7 @@ export class TransferToAgentComponent implements OnInit {
     this.sortedProducts = this.sortedProducts.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.selectedProducts.push(...newArray);
+    this.finalSelectedGoldTotal = this.selectedProducts.reduce((accumulator: number, currentValue) => accumulator + parseFloat(currentValue.gold), 0);
   }
 
   // sendProduct(selectedProduct: any) {
@@ -174,6 +175,10 @@ export class TransferToAgentComponent implements OnInit {
               background: 'rgba(38,39,47,0.95)'
             }) ;
 
+            // tslint:disable-next-line:no-shadowed-variable
+            this.transferAgentService.getAgentReadyMadeBalance(this.selectedAgent.agent_id).subscribe((response: ServerResponse) => {
+              this.selectAgentReadyMadeBalance = response.data;
+            });
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire(
               'Cancelled',

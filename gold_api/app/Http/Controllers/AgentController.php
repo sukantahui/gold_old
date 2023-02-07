@@ -17,7 +17,7 @@ class AgentController extends ApiController
 {
     public function getAgentsExceptCounterAgent(){
 
-        $agent = Agent::select('agent_id','short_name','agent_name')
+        $agent = Agent::select('agent_id','short_name','agent_name','max_gold_limit_ready_made')
                  ->whereNotIn('agent_id',['AG2018'])
                  ->whereInforce(1)
                  ->get();
