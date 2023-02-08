@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { BaseRowDef } from '@angular/cdk/table';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ServerResponse} from '../../../../../models/ServerResponse.model';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-transfer-to-agent',
@@ -256,6 +257,8 @@ export class TransferToAgentComponent implements OnInit {
     item.is_selected = false;
     this.sortedProducts.unshift(item);
     this.products.unshift(item);
+    // tslint:disable-next-line:max-line-length
+    this.finalSelectedGoldTotal = this.selectedProducts.reduce((accumulator: number, currentValue) => accumulator + parseFloat(currentValue.gold), 0);
   }
   selectForDirectTagTransfer(){
     if (this.searchTag.length == 0) {
@@ -291,6 +294,16 @@ export class TransferToAgentComponent implements OnInit {
           });
       }
     }
+
+  onStockItemSelectionChange($event: MatCheckboxChange, product: any) {
+    console.log($event);
+    console.log(product);
+  }
+
+
+  onSelectedProductSelectionChange($event: MatCheckboxChange, product: any) {
+    console.log($event);
+  }
 }// end of class
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
