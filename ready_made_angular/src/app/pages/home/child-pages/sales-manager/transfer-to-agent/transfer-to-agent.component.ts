@@ -35,7 +35,7 @@ export class TransferToAgentComponent implements OnInit {
   public sortedProducts: Product[] = [];
   selectAgentReadyMadeBalance: {agentId: string, gold: number, lc: number, qty: number, sets: number};
   selectedAgent: { 'agent_id': string, 'short_name': string, 'agent_name': string, max_gold_limit_ready_made } = null;
-  finalSelectedGoldTotal: any;
+  finalSelectedGoldTotal = 0;
   constructor(public transferAgentService: TransferAgentService) {
     this.products = this.transferAgentService.getProductsInCounter();
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
@@ -180,6 +180,8 @@ export class TransferToAgentComponent implements OnInit {
             this.transferAgentService.getAgentReadyMadeBalance(this.selectedAgent.agent_id).subscribe((response: ServerResponse) => {
               this.selectAgentReadyMadeBalance = response.data;
             });
+            this.selectedProducts = [];
+            this.finalSelectedGoldTotal = 0;
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire(
               'Cancelled',
