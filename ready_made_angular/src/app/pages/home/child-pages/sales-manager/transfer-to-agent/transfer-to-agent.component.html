@@ -227,7 +227,9 @@
                 <button *ngIf="getSelectedAgentName().length>1 && selectedProducts.length>0" mat-button color="primary" [disabled]="(selectAgentReadyMadeBalance.gold + finalSelectedGoldTotal)>selectedAgent.max_gold_limit_ready_made" (click)="transferToAgent()">
                     Send to {{getSelectedAgentName()}}
                 </button>
-
+                <div>
+                    <a [routerLink] = "['/AgentWiseStock']" fragment="Test">Go to Agentwise Stock </a>
+                </div>
             </div>
         </div>
     </div>
