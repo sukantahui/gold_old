@@ -8,6 +8,9 @@ import { BaseRowDef } from '@angular/cdk/table';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ServerResponse} from '../../../../../models/ServerResponse.model';
 import {MatCheckboxChange} from '@angular/material/checkbox';
+import {StockService} from '../../../../../services/stock.service';
+import {CommonService} from '../../../../../services/common.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-transfer-to-agent',
@@ -36,13 +39,26 @@ export class TransferToAgentComponent implements OnInit {
   selectAgentReadyMadeBalance: {agentId: string, gold: number, lc: number, qty: number, sets: number};
   selectedAgent: { 'agent_id': string, 'short_name': string, 'agent_name': string, max_gold_limit_ready_made } = null;
   finalSelectedGoldTotal = 0;
-  constructor(public transferAgentService: TransferAgentService) {
+  stoockListByAgent: any[];
+  stockListByAgentChangeSubject = new Subject<any[]>();
+
+
+  constructor(public transferAgentService: TransferAgentService, private stockService: StockService, public commonService: CommonService) {
     this.products = this.transferAgentService.getProductsInCounter();
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
     this.sortedProducts = this.products.slice();
     this.transferForm = new FormGroup({
       agentId: new FormControl(null),
       shortName: new FormControl(null)
+    });
+    this.stockListByAgentChangeSubject.asObservable().subscribe((response) => {
+      console.log('change detected is stockListByAgent');
+      // tslint:disable-next-line:max-line-length
+      this.selectAgentReadyMadeBalance.gold = this.stoockListByAgent.reduce((accumulator: number, currentValue) => accumulator + parseFloat(currentValue.gold), 0);
+      // tslint:disable-next-line:max-line-length
+      this.selectAgentReadyMadeBalance.qty = this.stoockListByAgent.reduce((accumulator: number, currentValue) => accumulator + parseFloat(currentValue.quantity), 0);
+      // tslint:disable-next-line:max-line-length
+      this.selectAgentReadyMadeBalance.lc = this.stoockListByAgent.reduce((accumulator: number, currentValue) => accumulator + parseFloat(currentValue.labourCharge), 0);
     });
   }
 
@@ -280,7 +296,8 @@ export class TransferToAgentComponent implements OnInit {
       this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
       this.selectedProducts.push(...newArray);
       this.selectedProducts.filter(el => el.is_selected = true);
-
+      // tslint:disable-next-line:max-line-length
+      this.finalSelectedGoldTotal = this.selectedProducts.reduce((accumulator: number, currentValue) => accumulator + parseFloat(currentValue.gold), 0);
     }
 
 
@@ -289,11 +306,17 @@ export class TransferToAgentComponent implements OnInit {
     onAgentSelect(agent: any) {
       if (agent === undefined){
           this.selectedAgent = null;
+          this.stoockListByAgent = null;
       }else{
           this.selectedAgent = agent;
           this.transferAgentService.getAgentReadyMadeBalance(agent.agent_id).subscribe((response: ServerResponse) => {
               this.selectAgentReadyMadeBalance = response.data;
           });
+          this.stockService.getStockByAgent(agent.agent_id)
+            .subscribe((response: {status: any , data: any[]}) => {
+              this.stoockListByAgent = response.data;
+              this.stockListByAgentChangeSubject.next();
+            });
       }
     }
 

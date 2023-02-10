@@ -20,6 +20,7 @@ import {NgxPaginationModule} from "ngx-pagination";
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {MatSortModule} from '@angular/material/sort';
+import {NgxPrintModule} from 'ngx-print';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import {MatSortModule} from '@angular/material/sort';
         NgxPaginationModule,
         MatBadgeModule,
         MatSortModule,
-        MatIconModule
+        MatIconModule,
+        NgxPrintModule
 
     ]
 })
