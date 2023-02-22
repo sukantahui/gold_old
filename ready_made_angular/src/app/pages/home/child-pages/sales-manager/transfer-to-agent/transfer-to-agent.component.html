@@ -284,9 +284,20 @@
         </div>
     </div>
 </div>
-<div>
-    this.selectedProducts = {{this.stoockListByAgent | json}}
+<div *ngIf="!isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div fxLayoutAlign="center center">
+                this.selectedProducts = {{this.stoockListByAgent | json}}
+            </div>
+            <div fxFlex="2 1 auto" fxLayoutAlign="center center">
+            </div>
+            <div fxLayoutAlign="center center">3</div>
+            <div fxLayoutAlign="center center">4</div>
+        </div>
+    </div>
 </div>
+
 
 
 

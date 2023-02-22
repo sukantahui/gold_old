@@ -11,6 +11,7 @@ import {MatCheckboxChange} from '@angular/material/checkbox';
 import {StockService} from '../../../../../services/stock.service';
 import {CommonService} from '../../../../../services/common.service';
 import {Subject} from 'rxjs';
+import {environment} from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-transfer-to-agent',
@@ -41,6 +42,7 @@ export class TransferToAgentComponent implements OnInit {
   finalSelectedGoldTotal = 0;
   stoockListByAgent: any[];
   stockListByAgentChangeSubject = new Subject<any[]>();
+  isProduction = environment.production;
 
 
   constructor(public transferAgentService: TransferAgentService, private stockService: StockService, public commonService: CommonService) {
