@@ -36,6 +36,7 @@ export class TransferToAgentComponent implements OnInit {
   checked = false;
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
+  currentDate = new Date();
   public sortedProducts: Product[] = [];
   selectAgentReadyMadeBalance: {agentId: string, gold: number, lc: number, qty: number, sets: number};
   selectedAgent: { 'agent_id': string, 'short_name': string, 'agent_name': string, max_gold_limit_ready_made } = null;

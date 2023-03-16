@@ -267,6 +267,7 @@ Route::group(array('prefix' => 'dev'), function() {
     //Customers
     Route::get("customers",[CustomerController::class, 'index']);
     Route::get("customers/agent/{agentId}",[CustomerController::class, 'getCustomerByAgent']);
+    Route::get("customersInforced",[CustomerController::class, 'getInforcedCustomers']);
     Route::get("customers/agent/{agentId}/inforced",[CustomerController::class, 'getInforcedCustomerByAgent']);
 
 

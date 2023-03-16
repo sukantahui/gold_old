@@ -21,10 +21,12 @@ export class AgentSalaryComponent implements OnInit {
   months = ['No Month', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   grossTotalReturnQuantity = 0;
   constructor(private agentService: AgentService) {
-
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
     this.agentSalarySearchForm = new FormGroup({
-      year: new FormControl(2022),
-      month: new FormControl(5),
+      year: new FormControl(currentYear),
+      month: new FormControl(currentMonth),
     });
   }
   printDivStyle = {

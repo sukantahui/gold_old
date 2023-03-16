@@ -68,9 +68,9 @@
                         <th class="text-center">Name</th>
                         <th class="text-center">Sale Qty</th>
                         <th class="text-center">Return Qty</th>
-                        <th class="text-center">Salary</th>
-                        <th class="text-center">TA</th>
-                        <th class="text-center">Commission</th>
+                        <th class="text-center">Actual Qty</th>
+<!--                        <th class="text-center">TA</th>-->
+<!--                        <th class="text-center">Commission</th>-->
                         <th class="text-center">Total Income</th>
                     </tr>
                     </thead>
@@ -82,9 +82,10 @@
                             <td class="text-left">{{row.agent_name}}</td>
                             <td class="text-right" >{{row.qty | number: '1.0'}}</td>
                             <td class="text-right" >{{row.return_qty | number: '1.0'}}</td>
-                            <td class="text-right">{{row.salary}}</td>
-                            <td class="text-right">{{row.ta | number: '1.0'}}</td>
-                            <td class="text-right">{{row.commission}}</td>
+                            <td class="text-right" >{{(row.qty - row.return_qty) | number: '1.0'}}</td>
+<!--                            <td class="text-right">{{row.salary}}</td>-->
+<!--                            <td class="text-right">{{row.ta | number: '1.0'}}</td>-->
+<!--                            <td class="text-right">{{row.commission}}</td>-->
                             <td class="text-right">{{row.total_income | currency:'INR':'symbol-narrow':'4.0-2'}}</td>
                         </ng-container>
                     </tr>
@@ -95,7 +96,7 @@
                         <th colspan="3" class="text-center">Total</th>
                         <th class="text-right">{{grossTotalQuantity}}</th>
                         <th colspan="1" class="text-right">{{grossTotalReturnQuantity}}</th>
-                        <th colspan="3" class="text-right"></th>
+                        <th colspan="1" class="text-right"> {{grossTotalQuantity - grossTotalReturnQuantity}} </th>
                         <th class="text-right">{{grossTotalIncome | currency:'INR':'symbol-narrow':'4.0-2'}}</th>
 
                     </tr>

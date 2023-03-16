@@ -149,7 +149,10 @@ export class OrderComponent implements OnInit {
     this.orderFormMaster.get('cust_id').patchValue(null, { onlySelf: true });
     this.orderFormMaster.get('cust_mv').patchValue(null, { onlySelf: true });
     // tslint:disable-next-line:max-line-length
-    this.http.get(this.commonService.getAPI() + '/dev/customers/agent/' + agent_id + '/inforced').subscribe((response: {success: number , data: any[]}) => {
+    // this.http.get(this.commonService.getAPI() + '/dev/customers/agent/' + agent_id + '/inforced').subscribe((response: {success: number , data: any[]}) => {
+    //   this.customers =  response.data;
+    // });
+    this.http.get(this.commonService.getAPI() + '/dev/customersInforced').subscribe((response: {success: number , data: any[]}) => {
       this.customers =  response.data;
     });
   }

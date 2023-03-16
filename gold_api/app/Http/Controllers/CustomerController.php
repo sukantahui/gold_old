@@ -34,6 +34,11 @@ class CustomerController extends ApiController
 
         return $this->successResponse($result);
     }
+    public function getInforcedCustomers(){
+        $result = Customer::whereOrderInforce(1)->orderBy('cust_name')->get();
+
+        return $this->successResponse($result);
+    }
 
     public function saveCustomer(Request $request){
 
