@@ -79,7 +79,7 @@ def printTag(jobdata):
     f.write("\n")
     f.write("A405,33,2,2,1,1,N,")
     # f.write('"'+data['brand']+'"')
-    f.write('"'+"9836444999"+'"')
+    f.write('"'+"SRIKRISHNA"+'"')
     f.write("\n")
     
     f.write("A245,33,2,2,1,1,N,")
@@ -112,13 +112,13 @@ def printTag(jobdata):
     f.write('"'+data['gold_used']+'"')
     f.write("\n")
     
-    f.write('A480,60,2,1,1,1,N,"HM"')
+    f.write('A480,60,2,1,1,1,N,"92%"')
     f.write("\n")
-    f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
     f.write("\n")
     
-    f.write("A540,40,2,1,1,1,N,")
-    f.write('"'+data['product_wt']+'"')
+    # f.write("A540,40,2,1,1,1,N,")
+    # f.write('"'+data['product_wt']+'"')
     f.write("\n")
     
     f.write("\n")
@@ -201,13 +201,13 @@ def printTag(jobdata):
     f.write('"'+str(round(float(data['gold_used'])+int(data['pieces'])*0.100,3))+'"')
     f.write("\n")
     
-    f.write('A480,60,2,1,1,1,N,"HM"')
+    f.write('A480,60,2,1,1,1,N,"92%"')
     f.write("\n")
-    f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
     f.write("\n")
     
-    f.write("A540,40,2,1,1,1,N,")
-    f.write('"'+data['product_wt']+'"')
+    # f.write("A540,40,2,1,1,1,N,")
+    # f.write('"'+data['product_wt']+'"')
     f.write("\n")
     
     f.write("\n")
@@ -216,7 +216,7 @@ def printTag(jobdata):
     
     f.write("\n")
     f.write("A580,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['price'])*2)+'"')
+    f.write('"'+str(int(data['price'])*7)+'"')
     f.write("\n")
     f.write('A535,20,2,1,1,1,N,"X"')
     f.write("\n")
@@ -229,7 +229,7 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("A485,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['total_lc'])*2)+'"')
+    f.write('"'+str(int(data['total_lc'])*7)+'"')
     f.write("\n")
     
     f.write("P1")
@@ -291,13 +291,13 @@ def printTag(jobdata):
     f.write('"'+str(round(float(data['gold_used'])+int(data['pieces'])*0.200,3))+'"')
     f.write("\n")
     
-    f.write('A480,60,2,1,1,1,N,"HM"')
+    f.write('A480,60,2,1,1,1,N,"92%"')
     f.write("\n")
-    f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
     f.write("\n")
     
-    f.write("A540,40,2,1,1,1,N,")
-    f.write('"'+data['product_wt']+'"')
+    # f.write("A540,40,2,1,1,1,N,")
+    # f.write('"'+data['product_wt']+'"')
     f.write("\n")
     
     f.write("\n")
@@ -306,7 +306,7 @@ def printTag(jobdata):
     
     f.write("\n")
     f.write("A580,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['price'])*1.5)+'"')
+    f.write('"'+str(int(data['price'])*7)+'"')
     f.write("\n")
     f.write('A535,20,2,1,1,1,N,"X"')
     f.write("\n")
@@ -319,7 +319,7 @@ def printTag(jobdata):
     f.write("\n")
     
     f.write("A485,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['total_lc'])*1.5)+'"')
+    f.write('"'+str(int(data['total_lc'])*7)+'"')
     f.write("\n")
     
     f.write("P1")
