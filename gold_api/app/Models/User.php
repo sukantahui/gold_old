@@ -35,4 +35,7 @@ class User extends Authenticatable
     public function user_type(){
         return $this->belongsTo('App\Models\UserType','user_type_id');
     }
+    public function employee(){
+        return $this->belongsTo('App\Models\Employee','emp_id');
+    }
 }
