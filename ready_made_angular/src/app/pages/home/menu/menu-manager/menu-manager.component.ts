@@ -166,6 +166,18 @@ export class MenuManagerComponent implements OnInit {
           ]
         },
         {
+          displayName: 'Customer Receipt',
+          iconName: 'label',
+          children: [
+            {
+              displayName: 'LC Receipt',
+              iconName: 'shopping_cart',
+              color: 'green',
+              route: 'Order',
+            }
+          ]
+        },
+        {
           displayName: 'Agent Activity',
           iconName: 'group',
           children: [
