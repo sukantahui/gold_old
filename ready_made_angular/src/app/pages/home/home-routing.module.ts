@@ -158,8 +158,9 @@ const routes: Routes = [
                                 },
                                 { path: 'LcReceipt'
                                     // tslint:disable-next-line:max-line-length
-                                    , loadChildren: () => import('./child-pages/sales-manager/lc-receipt/lc-receipt.module').then(m => m.LcReceiptModule)
+                                    , loadChildren: () => import('./child-pages/sales-manager/Customer-Receipt/customer-receipt.module').then(m => m.CustomerReceiptModule)
                                 },
+
 
 
 

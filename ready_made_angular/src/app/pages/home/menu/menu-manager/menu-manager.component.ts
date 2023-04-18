@@ -173,7 +173,7 @@ export class MenuManagerComponent implements OnInit {
               displayName: 'LC Receipt',
               iconName: 'shopping_cart',
               color: 'green',
-              route: 'Order',
+              route: 'LcReceipt',
             }
           ]
         },

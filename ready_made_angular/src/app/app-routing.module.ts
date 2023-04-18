@@ -95,6 +95,8 @@ const routes: Routes = [
 
 
 
+
+
   // { path: 'CustomerDiscountReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/customer-discount-report/customer-discount-report.module').then(m => m.CustomerDiscountReportModule) },
 
   // { path: 'CustomerDiscountReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/customer-discount-report/customer-discount-report.module').then(m => m.CustomerDiscountReportModule) },
