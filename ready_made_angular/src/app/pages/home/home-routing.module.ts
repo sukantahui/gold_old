@@ -8,6 +8,7 @@ import {SalaryHolderSalaryPaymentResolver} from '../../resolvers/salary-holder-s
 import {CustomerResolver} from '../../resolvers/customer.resolver';
 import {ShowItemStockResolver} from '../../resolvers/show-item-stock.resolver';
 import {SaleReturnResolver} from '../../resolvers/sale-return.resolver';
+import {CustomerReceiptResolver} from '../../resolvers/customer-receipt.resolver';
 
 
 // @ts-ignore
@@ -156,9 +157,11 @@ const routes: Routes = [
                                     // tslint:disable-next-line:max-line-length
                                     , loadChildren: () => import('./child-pages/sales-manager/misc-report/misc-report.module').then(m => m.MiscReportModule)
                                 },
-                                { path: 'LcReceipt'
+                                { path: 'CustomerReceipt'
                                     // tslint:disable-next-line:max-line-length
-                                    , loadChildren: () => import('./child-pages/sales-manager/Customer-Receipt/customer-receipt.module').then(m => m.CustomerReceiptModule)
+                                    , loadChildren: () => import('./child-pages/sales-manager/Customer-Receipt/customer-receipt.module')
+                                        .then(m => m.CustomerReceiptModule)
+                                    , resolve: {customerReceiptResolver: CustomerReceiptResolver}
                                 },
 
 

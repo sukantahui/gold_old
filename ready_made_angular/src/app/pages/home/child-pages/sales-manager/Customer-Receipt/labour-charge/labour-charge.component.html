@@ -1,1 +1,19 @@
-<p>labour-charge works!</p>
+<div id="agent-wise-stock-div">
+
+</div>
+<div *ngIf="!isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div fxLayoutAlign="center center">
+                <pre>
+                    agents= {{agents | json}}
+                </pre>
+            </div>
+            <div fxFlex="2 1 auto" fxLayoutAlign="center center">
+            </div>
+            <div fxLayoutAlign="center center">3</div>
+            <div fxLayoutAlign="center center">4</div>
+        </div>
+    </div>
+</div>
+
