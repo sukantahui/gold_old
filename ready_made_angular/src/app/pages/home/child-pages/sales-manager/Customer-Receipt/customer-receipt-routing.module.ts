@@ -15,8 +15,10 @@ const routes: Routes = [
   },
 ];
 
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
+// @ts-ignore
 export class CustomerReceiptRoutingModule { }
