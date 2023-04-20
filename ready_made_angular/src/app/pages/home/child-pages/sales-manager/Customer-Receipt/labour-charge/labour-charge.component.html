@@ -1,18 +1,43 @@
-<div id="agent-wise-stock-div">
-
+<div class="d-flex flex-row">
+    <div class="p-2 col-4">
+        <form [formGroup] = LcReceiptForm>
+            <ng-select [items]="agents"
+                       bindLabel="agent_name"
+                       class="custom"
+                       (change)="agentSelected()"
+                       bindValue="agent_id"
+                       formControlName="agent_id"
+                       placeholder="Select Agent">
+            </ng-select>
+            <ng-select [items]="customers"
+                       bindLabel="cust_name"
+                       class="custom"
+                       (change)="agentSelected()"
+                       bindValue="cust_id"
+                       formControlName="cust_id"
+                       placeholder="Select Customer">
+            </ng-select>
+        </form>
+    </div>
+    <div class="p-2 col-8">Flex item 2</div>
 </div>
+
 <div *ngIf="!isProduction" id="developer-div">
-    <div class="outerContainer">
-        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
-            <div fxLayoutAlign="center center">
-                <pre>
-                    agents= {{agents | json}}
-                </pre>
-            </div>
-            <div fxFlex="2 1 auto" fxLayoutAlign="center center">
-            </div>
-            <div fxLayoutAlign="center center">3</div>
-            <div fxLayoutAlign="center center">4</div>
+    <div class="d-flex flex-row">
+        <div class="p-2">
+            <pre>
+                agents= {{agents | json}}
+            </pre>
+        </div>
+        <div class="p-2">
+            <pre>
+                customers= {{customers | json}}
+            </pre>
+        </div>
+        <div class="p-2">
+            <pre>
+                LcReceiptForm.value={{LcReceiptForm.value | json}}
+            </pre>
         </div>
     </div>
 </div>

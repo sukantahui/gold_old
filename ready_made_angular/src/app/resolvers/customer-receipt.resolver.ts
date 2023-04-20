@@ -9,6 +9,7 @@ import {map} from 'rxjs/operators';
 import {AgentService} from '../services/agent.service';
 import {ProductService} from '../services/product.service';
 import {ReportService} from '../services/report.service';
+import {CustomerService} from '../services/customer.service';
 
 
 @Injectable({
@@ -16,14 +17,16 @@ import {ReportService} from '../services/report.service';
 })
 // @ts-ignore
 export class CustomerReceiptResolver implements Resolve<boolean> {
-  constructor(private agentService: AgentService){
+  constructor(private agentService: AgentService, private customerService: CustomerService){
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     // const a = this.jobTaskService.getAll();
     const b = this.agentService.fetchAgents();
-    const join = forkJoin(b).pipe(map((allResponses) => {
+    const c = this.customerService.fetchCustomers();
+    const join = forkJoin(b, c).pipe(map((allResponses) => {
       return {
-        agents: allResponses[0]
+        agents: allResponses[0],
+        customers: allResponses[1]
       };
     }));
     return join;
