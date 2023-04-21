@@ -14,6 +14,7 @@ export class LabourChargeComponent implements OnInit {
   customers: any[];
   isProduction = environment.production;
   LcReceiptForm: FormGroup;
+    showChequeDetails = false;
   constructor(private route: ActivatedRoute) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.customerReceiptResolver.agents.data;
@@ -39,4 +40,13 @@ export class LabourChargeComponent implements OnInit {
   agentSelected() {
 
   }
+
+    onPaymentModeChange(event: any) {
+        console.log(event.value);
+        if(event.value==2){
+            this.showChequeDetails=true;
+        }else{
+            this.showChequeDetails=false;
+        }
+    }
 }

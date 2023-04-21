@@ -17,6 +17,14 @@
                        formControlName="cust_id"
                        placeholder="Select Customer">
             </ng-select>
+            <mat-radio-group class="payment-mode" aria-label="Select an option" formControlName="payment_mode">
+                <mat-radio-button value="1" (change)="onPaymentModeChange($event)">Cahs</mat-radio-button>
+                <mat-radio-button value="2" (change)="onPaymentModeChange($event)">Cheque</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field class="example-full-width" *ngIf="showChequeDetails" >
+                <mat-label>Cheque Details</mat-label>
+                <input type="text" matInput formControlName="cheque_details" placeholder="Ex. pat@example.com">
+            </mat-form-field>
         </form>
     </div>
     <div class="p-2 col-8">Flex item 2</div>
@@ -26,7 +34,7 @@
     <div class="d-flex flex-row">
         <div class="p-2">
             <pre>
-                agents= {{agents | json}}
+                LcReceiptForm.value={{LcReceiptForm.value | json}}
             </pre>
         </div>
         <div class="p-2">
@@ -36,7 +44,7 @@
         </div>
         <div class="p-2">
             <pre>
-                LcReceiptForm.value={{LcReceiptForm.value | json}}
+                agents= {{agents | json}}
             </pre>
         </div>
     </div>
