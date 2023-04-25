@@ -18,13 +18,24 @@
                        placeholder="Select Customer">
             </ng-select>
             <mat-radio-group class="payment-mode" aria-label="Select an option" formControlName="payment_mode">
-                <mat-radio-button value="1" (change)="onPaymentModeChange($event)">Cahs</mat-radio-button>
-                <mat-radio-button value="2" (change)="onPaymentModeChange($event)">Cheque</mat-radio-button>
+                <mat-radio-button value="1" >Cahs</mat-radio-button>
+                <mat-radio-button value="2" >Cheque</mat-radio-button>
             </mat-radio-group>
-            <mat-form-field class="example-full-width" *ngIf="showChequeDetails" >
-                <mat-label>Cheque Details</mat-label>
-                <input type="text" matInput formControlName="cheque_details" placeholder="Ex. pat@example.com">
+
+
+            <mat-form-field class="example-full-width" *ngIf="showChequeDetails">
+                <mat-label>Enter Cheque Details</mat-label>
+                <textarea matInput formControlName="cheque_details" placeholder="Cheque No. Bank Name"></textarea>
             </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Enter LC Received</mat-label>
+                <input type="number" class="text-right" matInput formControlName="amount" placeholder="LC Amount" >
+            </mat-form-field>
+
+            <div class="example-button-row">
+                <button class="text-right" mat-button color="primary" [disabled]="!LcReceiptForm.valid">Save Record</button>
+            </div>
+
         </form>
     </div>
     <div class="p-2 col-8">Flex item 2</div>

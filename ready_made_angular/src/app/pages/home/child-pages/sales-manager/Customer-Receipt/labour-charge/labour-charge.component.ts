@@ -27,7 +27,7 @@ export class LabourChargeComponent implements OnInit {
       agent_id: new FormControl(null, [Validators.required]),
       cust_id: new FormControl(null, [Validators.required]),
       payment_mode: new FormControl(1, [Validators.required]),
-      emp_id: new FormControl(null, [Validators.required]),
+      emp_id: new FormControl(72, [Validators.required]),
       amount: new FormControl(null, [Validators.required]),
       discount: new FormControl(0),
       cheque_details: new FormControl(null),
@@ -35,18 +35,29 @@ export class LabourChargeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onLcReceiptFormValueChange();
+    this.onPaymentModeValueChanged();
   }
 
   agentSelected() {
 
   }
 
-    onPaymentModeChange(event: any) {
-        console.log(event.value);
-        if(event.value==2){
-            this.showChequeDetails=true;
-        }else{
-            this.showChequeDetails=false;
-        }
-    }
+
+
+
+  private onLcReceiptFormValueChange() {
+    this.LcReceiptForm.valueChanges.subscribe(val => {
+      console.log('value changed', val);
+    });
+  }
+  private onPaymentModeValueChanged() {
+    this.LcReceiptForm.get('payment_mode').valueChanges.subscribe(val => {
+      if (val === '2'){
+        this.showChequeDetails = true;
+      }else{
+        this.showChequeDetails = false;
+      }
+    });
+  }
 }

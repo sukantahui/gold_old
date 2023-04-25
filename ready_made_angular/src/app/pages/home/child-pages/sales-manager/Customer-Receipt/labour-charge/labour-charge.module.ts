@@ -7,6 +7,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         ReactiveFormsModule,
         NgSelectModule,
         MatRadioModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule
     ]
 })
 export class LabourChargeModule { }
