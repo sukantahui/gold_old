@@ -12,15 +12,21 @@
             <ng-select [items]="customers"
                        bindLabel="cust_name"
                        class="custom"
-                       (change)="agentSelected()"
+                       (change)="onCustomerSelected($event)"
                        bindValue="cust_id"
                        formControlName="cust_id"
                        placeholder="Select Customer">
             </ng-select>
-            <mat-radio-group class="payment-mode" aria-label="Select an option" formControlName="payment_mode">
-                <mat-radio-button value="1" >Cahs</mat-radio-button>
-                <mat-radio-button value="2" >Cheque</mat-radio-button>
-            </mat-radio-group>
+            <div *ngIf="customerDues">
+                <span> Gold Due: {{customerDues.gold_due}}</span> and <span> LC Due: {{customerDues.lc_due}}</span>
+            </div>
+            <div>
+                <mat-radio-group class="payment-mode" aria-label="Select an option" formControlName="payment_mode">
+                    <mat-radio-button value="1" >Cahs</mat-radio-button>
+                    <mat-radio-button value="2" >Cheque</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
 
 
             <mat-form-field class="example-full-width" *ngIf="showChequeDetails">

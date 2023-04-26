@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\JobMaster;
 use App\Models\OrderMaster;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends ApiController
@@ -146,4 +147,17 @@ class ReportController extends ApiController
         $result = DB::select('call get_cutomer_discountable_bill_by_id_date(?,?,?,?)', [$custId,$startDate,$endDate,$discount]);
         return $this->successResponse($result);
     }
+
+    public function getCustomerDueByCustId($customerId)
+    {
+
+        // return Auth::user()->emp_id;
+        $result = collect(DB::select('select get_customer_gold_due(cust_id) as gold_due
+                ,get_customer_lc_due(cust_id) as lc_due 
+                from customer_master
+                where cust_id=?', [$customerId]))->first();
+        return $this->successResponse($result);
+    }
 }
+
+

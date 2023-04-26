@@ -194,11 +194,13 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("agentDues",[ReportController::class, 'getAgentwiseDue']);
     Route::get("customerDueByAgentId/{agentId}",[ReportController::class, 'getCustomerDueByAgent']);
     Route::get("customerTransaction/{customerId}",[ReportController::class, 'getCustomerTransaction']);
+
     Route::get("job/{job_id}",[JobMasterController::class, 'getJobById']);
     Route::get("logs/{reference}",[LogController::class, 'getLogByReference']);
 
     Route::get("customer/discount/{custId}/{startDate}/{endDate}/{discount}",[ReportController::class, 'getCustomerDiscountReport']);
     Route::get("customer/balance/{custId}/{startDate}/{endDate}/{discount}",[CustomerController::class, 'getCustomerDues']);
+    Route::get("customer/dues/{customerId}",[ReportController::class, 'getCustomerDueByCustId']);
 });
 
 

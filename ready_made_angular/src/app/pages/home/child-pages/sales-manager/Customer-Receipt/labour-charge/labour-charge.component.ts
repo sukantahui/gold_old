@@ -3,6 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../../../../../../environments/environment';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {formatDate} from '@angular/common';
+import {ReportService} from '../../../../../../services/report.service';
+import {CustomerService} from '../../../../../../services/customer.service';
 
 @Component({
   selector: 'app-labour-charge',
@@ -12,10 +14,11 @@ import {formatDate} from '@angular/common';
 export class LabourChargeComponent implements OnInit {
   agents: any[];
   customers: any[];
+  customerDues: {'gold_due': number, 'lc_due': number};
   isProduction = environment.production;
   LcReceiptForm: FormGroup;
     showChequeDetails = false;
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,private customerService: CustomerService,private reportService: ReportService) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.customerReceiptResolver.agents.data;
       this.customers = response.customerReceiptResolver.customers.data;
@@ -35,7 +38,7 @@ export class LabourChargeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.onLcReceiptFormValueChange();
+    // this.onLcReceiptFormValueChange();
     this.onPaymentModeValueChanged();
   }
 
@@ -58,6 +61,14 @@ export class LabourChargeComponent implements OnInit {
       }else{
         this.showChequeDetails = false;
       }
+    });
+  }
+
+  onCustomerSelected($event) {
+    console.log($event.cust_id);
+    this.customerService.getCustomerDues($event.cust_id).subscribe(response => {
+      console.log('value changed', response.data);
+      this.customerDues = response.data;
     });
   }
 }

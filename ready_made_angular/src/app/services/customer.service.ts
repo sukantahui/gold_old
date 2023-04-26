@@ -35,4 +35,13 @@ export class CustomerService {
 
     }));
   }
+
+  getCustomerDues(customerId: string){
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<any>(this.commonService.getAPI() + '/customer/dues/' + customerId).pipe(catchError(this.errorService.serverError), tap(response => {
+
+    }));
+  }
+
+
 }
