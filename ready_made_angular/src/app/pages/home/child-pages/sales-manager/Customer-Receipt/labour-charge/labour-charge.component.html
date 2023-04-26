@@ -39,7 +39,7 @@
             </mat-form-field>
 
             <div class="example-button-row">
-                <button class="text-right" mat-button color="primary" [disabled]="!LcReceiptForm.valid">Save Record</button>
+                <button class="text-right" mat-button color="primary" [disabled]="!LcReceiptForm.valid" (click)="saveLcReceipt()">Save Record</button>
             </div>
 
         </form>
@@ -47,7 +47,7 @@
     <div class="p-2 col-8">Flex item 2</div>
 </div>
 
-<div *ngIf="!isProduction" id="developer-div">
+<div *ngIf="!isProduction && false" id="developer-div">
     <div class="d-flex flex-row">
         <div class="p-2">
             <pre>

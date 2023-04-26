@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {formatDate} from '@angular/common';
 import {ReportService} from '../../../../../../services/report.service';
 import {CustomerService} from '../../../../../../services/customer.service';
+import {ReceiptService} from '../../../../../../services/receipt.service';
 
 @Component({
   selector: 'app-labour-charge',
@@ -18,7 +19,7 @@ export class LabourChargeComponent implements OnInit {
   isProduction = environment.production;
   LcReceiptForm: FormGroup;
     showChequeDetails = false;
-  constructor(private route: ActivatedRoute,private customerService: CustomerService,private reportService: ReportService) {
+  constructor(private route: ActivatedRoute, private customerService: CustomerService, private reportService: ReportService, private receiptService: ReceiptService) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.customerReceiptResolver.agents.data;
       this.customers = response.customerReceiptResolver.customers.data;
@@ -70,5 +71,12 @@ export class LabourChargeComponent implements OnInit {
       console.log('value changed', response.data);
       this.customerDues = response.data;
     });
+  }
+
+  saveLcReceipt() {
+    this.receiptService.saveLcReceipt(this.LcReceiptForm.value)
+        .subscribe((response: { status: any, data: any }) => {
+          console.log(response);
+        });
   }
 }

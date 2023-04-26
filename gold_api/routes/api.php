@@ -5,6 +5,7 @@ use App\Http\Controllers\AgentSalaryController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LcReceiptMasterController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\OrderController;
@@ -201,6 +202,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("customer/discount/{custId}/{startDate}/{endDate}/{discount}",[ReportController::class, 'getCustomerDiscountReport']);
     Route::get("customer/balance/{custId}/{startDate}/{endDate}/{discount}",[CustomerController::class, 'getCustomerDues']);
     Route::get("customer/dues/{customerId}",[ReportController::class, 'getCustomerDueByCustId']);
+
+    Route::post("lcReceipt/save",[LcReceiptMasterController::class, 'save_lc_receipt']);
 });
 
 
