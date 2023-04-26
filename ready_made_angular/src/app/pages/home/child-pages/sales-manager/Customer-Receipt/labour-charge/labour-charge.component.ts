@@ -6,7 +6,7 @@ import {formatDate} from '@angular/common';
 import {ReportService} from '../../../../../../services/report.service';
 import {CustomerService} from '../../../../../../services/customer.service';
 import {ReceiptService} from '../../../../../../services/receipt.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-labour-charge',
   templateUrl: './labour-charge.component.html',
@@ -17,7 +17,7 @@ export class LabourChargeComponent implements OnInit {
   customers: any[];
   customerDues: {'gold_due': number, 'lc_due': number};
   isProduction = environment.production;
-  LcReceiptForm: FormGroup;
+  lcReceiptForm: FormGroup;
     showChequeDetails = false;
   constructor(private route: ActivatedRoute, private customerService: CustomerService, private reportService: ReportService, private receiptService: ReceiptService) {
     this.route.data.subscribe((response: any) => {
@@ -26,11 +26,11 @@ export class LabourChargeComponent implements OnInit {
     });
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
-    this.LcReceiptForm = new FormGroup({
+    this.lcReceiptForm = new FormGroup({
       lc_receipt_date: new FormControl(currentSQLDate),
       agent_id: new FormControl(null, [Validators.required]),
       cust_id: new FormControl(null, [Validators.required]),
-      payment_mode: new FormControl(1, [Validators.required]),
+      mode: new FormControl('1', [Validators.required]),
       emp_id: new FormControl(72, [Validators.required]),
       amount: new FormControl(null, [Validators.required]),
       discount: new FormControl(0),
@@ -51,12 +51,12 @@ export class LabourChargeComponent implements OnInit {
 
 
   private onLcReceiptFormValueChange() {
-    this.LcReceiptForm.valueChanges.subscribe(val => {
+    this.lcReceiptForm.valueChanges.subscribe(val => {
       console.log('value changed', val);
     });
   }
   private onPaymentModeValueChanged() {
-    this.LcReceiptForm.get('payment_mode').valueChanges.subscribe(val => {
+    this.lcReceiptForm.get('mode').valueChanges.subscribe(val => {
       if (val === '2'){
         this.showChequeDetails = true;
       }else{
@@ -74,9 +74,30 @@ export class LabourChargeComponent implements OnInit {
   }
 
   saveLcReceipt() {
-    this.receiptService.saveLcReceipt(this.LcReceiptForm.value)
+    this.receiptService.saveLcReceipt(this.lcReceiptForm.value)
         .subscribe((response: { status: any, data: any }) => {
-          console.log(response);
+          if (response.status === true){
+            Swal.fire({
+              title: 'Done',
+              text: 'LC Received added successfully',
+              icon: 'success'
+            });
+            // tslint:disable-next-line:no-unused-expression
+            this.customerDues.lc_due  = this.customerDues.lc_due - this.lcReceiptForm.value.amount;
+            console.log(response.data);
+            this.lcReceiptForm.markAsPristine();
+          }
+        }, (error) => {
+          Swal.fire({
+            title: 'Done',
+            text: 'Error saving LC',
+            icon: 'error'
+          });
         });
+  }
+
+  resetForm() {
+    this.lcReceiptForm.reset();
+    this.customerDues = null;
   }
 }

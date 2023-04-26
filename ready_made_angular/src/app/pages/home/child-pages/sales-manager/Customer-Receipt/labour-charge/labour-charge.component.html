@@ -1,6 +1,6 @@
 <div class="d-flex flex-row">
     <div class="p-2 col-4">
-        <form [formGroup] = LcReceiptForm>
+        <form [formGroup] = lcReceiptForm>
             <ng-select [items]="agents"
                        bindLabel="agent_name"
                        class="custom"
@@ -21,8 +21,8 @@
                 <span> Gold Due: {{customerDues.gold_due}}</span> and <span> LC Due: {{customerDues.lc_due}}</span>
             </div>
             <div>
-                <mat-radio-group class="payment-mode" aria-label="Select an option" formControlName="payment_mode">
-                    <mat-radio-button value="1" >Cahs</mat-radio-button>
+                <mat-radio-group class="payment-mode" aria-label="Select an option" formControlName="mode">
+                    <mat-radio-button value="1" >Cash</mat-radio-button>
                     <mat-radio-button value="2" >Cheque</mat-radio-button>
                 </mat-radio-group>
             </div>
@@ -37,11 +37,18 @@
                 <mat-label>Enter LC Received</mat-label>
                 <input type="number" class="text-right" matInput formControlName="amount" placeholder="LC Amount" >
             </mat-form-field>
-
-            <div class="example-button-row">
-                <button class="text-right" mat-button color="primary" [disabled]="!LcReceiptForm.valid" (click)="saveLcReceipt()">Save Record</button>
+            <div class="d-flex flex-row bd-highlight mb-3">
+                <div class="p-2 bd-highlight">
+                    <div class="example-button-row">
+                        <button class="text-right" mat-button color="primary"  (click)="resetForm()">Reset</button>
+                    </div>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <div class="example-button-row">
+                        <button class="text-right" mat-button color="primary" [disabled]="!lcReceiptForm.valid || lcReceiptForm.pristine" (click)="saveLcReceipt()">Save Record</button>
+                    </div>
+                </div>
             </div>
-
         </form>
     </div>
     <div class="p-2 col-8">Flex item 2</div>
@@ -51,7 +58,7 @@
     <div class="d-flex flex-row">
         <div class="p-2">
             <pre>
-                LcReceiptForm.value={{LcReceiptForm.value | json}}
+                LcReceiptForm.value={{lcReceiptForm.value | json}}
             </pre>
         </div>
         <div class="p-2">
