@@ -51,7 +51,43 @@
             </div>
         </form>
     </div>
-    <div class="p-2 col-8">Flex item 2</div>
+    <div class="p-2 col-8">
+        <div style="text-align: right">
+            <button
+                    mat-button color="primary"
+                    [printStyle]="printDivStyle"
+                    [useExistingCss]="true"
+                    printSectionId="lc-receipt-report"
+                    ngxPrint ><mat-icon>print</mat-icon>
+            </button>
+        </div>
+        <div *ngIf="afterSaveResponse" id="lc-receipt-report">
+            <pre>
+                <h4>Labour Charge Received</h4>
+                <table>
+                    <tr>
+                        <td>Transaction No.</td>
+                        <td>{{afterSaveResponse.lc_receipt.lc_receipt_no}}</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>{{afterSaveResponse.lc_receipt.lc_receipt_date}}</td>
+                    </tr>
+                    <tr>
+                        <td>Amount</td>
+                        <td>Rs. {{afterSaveResponse.lc_receipt.amount}}</td>
+                    </tr>
+                    <tr>
+                        <td>Agent</td>
+                        <td>{{afterSaveResponse.agent.agent_name}}</td>
+                    </tr>
+                </table>
+                <div>Thanking you</div>
+
+
+            </pre>
+        </div>
+    </div>
 </div>
 
 <div *ngIf="!isProduction && false" id="developer-div">

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +13,7 @@ class LcReceiptMaster extends Model
     protected $primaryKey = 'lc_receipt_no'; // or null
     public $timestamps = false;
     public $incrementing = false;
+
     /**
      * @var mixed|string
      */
@@ -45,4 +47,9 @@ class LcReceiptMaster extends Model
      * @var mixed
      */
     private $mode;
+
+    public function getLcReceiptDateAttribute($value)
+    {
+        return date('d-m-Y', strtotime($this->attributes['lc_receipt_date']));
+    }
 }

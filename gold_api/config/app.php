@@ -68,7 +68,7 @@ return [
     */
 
     'timezone' => 'Asia/Kolkata',
-
+    'date_format' =>'d/m/Y',
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

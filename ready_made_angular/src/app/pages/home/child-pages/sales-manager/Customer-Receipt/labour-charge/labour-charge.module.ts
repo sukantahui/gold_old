@@ -9,6 +9,9 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {NgxPrinterModule} from 'ngx-printer';
+import {NgxPrintModule} from 'ngx-print';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import {MatButtonModule} from '@angular/material/button';
         MatRadioModule,
         MatFormFieldModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        MatIconModule,
+        NgxPrinterModule,
+        NgxPrintModule,
     ]
 })
 export class LabourChargeModule { }

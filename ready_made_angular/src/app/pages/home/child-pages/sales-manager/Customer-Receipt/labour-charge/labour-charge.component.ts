@@ -13,12 +13,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./labour-charge.component.scss']
 })
 export class LabourChargeComponent implements OnInit {
-  agents: any[];
-  customers: any[];
-  customerDues: {'gold_due': number, 'lc_due': number};
-  isProduction = environment.production;
-  lcReceiptForm: FormGroup;
-    showChequeDetails = false;
   constructor(private route: ActivatedRoute, private customerService: CustomerService, private reportService: ReportService, private receiptService: ReceiptService) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.customerReceiptResolver.agents.data;
@@ -37,6 +31,21 @@ export class LabourChargeComponent implements OnInit {
       cheque_details: new FormControl(null),
     });
   }
+  agents: any[];
+  customers: any[];
+  afterSaveResponse: any = null;
+  customerDues: {'gold_due': number, 'lc_due': number};
+  isProduction = environment.production;
+  lcReceiptForm: FormGroup;
+    showChequeDetails = false;
+
+  printDivStyle = {
+    table: {'border-collapse': 'collapse', width : '100%' },
+    label: {width: '100%'},
+    th: {border: '1px  solid black' , fontSize : 'small'},
+    td: {border: '1px  solid black' , fontSize : 'small'},
+
+  };
 
   ngOnInit(): void {
     // this.onLcReceiptFormValueChange();
@@ -85,6 +94,7 @@ export class LabourChargeComponent implements OnInit {
             // tslint:disable-next-line:no-unused-expression
             this.customerDues.lc_due  = this.customerDues.lc_due - this.lcReceiptForm.value.amount;
             console.log(response.data);
+            this.afterSaveResponse = response.data;
             this.lcReceiptForm.markAsPristine();
           }
         }, (error) => {
