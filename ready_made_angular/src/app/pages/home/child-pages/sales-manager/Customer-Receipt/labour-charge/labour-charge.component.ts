@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./labour-charge.component.scss']
 })
 export class LabourChargeComponent implements OnInit {
+  selectedCustomer: string;
+    // tslint:disable-next-line:max-line-length
   constructor(private route: ActivatedRoute, private customerService: CustomerService, private reportService: ReportService, private receiptService: ReceiptService) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.customerReceiptResolver.agents.data;
@@ -75,7 +77,7 @@ export class LabourChargeComponent implements OnInit {
   }
 
   onCustomerSelected($event) {
-    console.log($event.cust_id);
+    this.selectedCustomer = $event.cust_id;
     this.customerService.getCustomerDues($event.cust_id).subscribe(response => {
       console.log('value changed', response.data);
       this.customerDues = response.data;
