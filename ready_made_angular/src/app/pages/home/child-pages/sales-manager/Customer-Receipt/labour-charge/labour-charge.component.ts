@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 export class LabourChargeComponent implements OnInit {
   selectedCustomer: string;
     // tslint:disable-next-line:max-line-length
+  lcReceipts: any[];
   constructor(private route: ActivatedRoute, private customerService: CustomerService, private reportService: ReportService, private receiptService: ReceiptService) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.customerReceiptResolver.agents.data;
@@ -81,6 +82,10 @@ export class LabourChargeComponent implements OnInit {
     this.customerService.getCustomerDues($event.cust_id).subscribe(response => {
       console.log('value changed', response.data);
       this.customerDues = response.data;
+    });
+    this.receiptService.getLcReceiptsByCustomer(this.selectedCustomer)
+        .subscribe((response: {status: string, message: string, data: any[]}) => {
+      this.lcReceipts = response.data;
     });
   }
 

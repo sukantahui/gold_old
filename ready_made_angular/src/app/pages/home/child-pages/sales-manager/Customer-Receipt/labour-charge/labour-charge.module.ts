@@ -12,6 +12,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {NgxPrinterModule} from 'ngx-printer';
 import {NgxPrintModule} from 'ngx-print';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {NgxPrintModule} from 'ngx-print';
         MatIconModule,
         NgxPrinterModule,
         NgxPrintModule,
+        TableModule
     ]
 })
 export class LabourChargeModule { }

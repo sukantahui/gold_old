@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\DB;
 class LcReceiptMasterController extends APIController
 {
     public function getLcReceiptsByCustomer($customer_id){
-        return $this->successResponse($customer_id);
+        $lcReceipt = LcReceiptMaster::whereCustId($customer_id)->orderBy('lc_receipt_date', 'DESC')->get();
+        return $this->successResponse($lcReceipt);
     }
     public function save_lc_receipt(Request $request){
         DB::beginTransaction();

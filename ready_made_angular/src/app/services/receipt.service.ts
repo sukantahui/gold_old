@@ -14,4 +14,7 @@ export class ReceiptService {
   saveLcReceipt(lcReceiptData: any){
     return this.http.post(this.commonService.getAPI() + '/lcReceipt/save', lcReceiptData);
   }
+  getLcReceiptsByCustomer(customer_id: any){
+    return this.http.get(this.commonService.getAPI() + '/lcReceipt/' + customer_id);
+  }
 }

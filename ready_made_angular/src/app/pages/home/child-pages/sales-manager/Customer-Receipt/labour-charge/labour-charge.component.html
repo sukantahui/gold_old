@@ -88,7 +88,29 @@
             </pre>
         </div>
         <div>
-            Previous list
+            <p-table #myTab [value]="lcReceipts">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-receipts>
+                    <tr>
+                        <td>
+                            {{ receipts.lc_receipt_date }}
+                        </td>
+                        <td>
+                            {{ receipts.lc_receipt_no }}
+                        </td>
+                        <td>
+                            {{ receipts.amount }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
     </div>
 </div>
