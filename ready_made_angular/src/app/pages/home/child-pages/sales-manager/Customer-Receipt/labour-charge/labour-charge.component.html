@@ -91,9 +91,9 @@
             <p-table #myTab [value]="lcReceipts">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Age</th>
+                        <th>Date</th>
+                        <th>Receipt No.</th>
+                        <th>Amount</th>
                     </tr>
                 </ng-template>
 
@@ -102,10 +102,10 @@
                         <td>
                             {{ receipts.lc_receipt_date }}
                         </td>
-                        <td>
-                            {{ receipts.lc_receipt_no }}
+                        <td class="text-right">
+                            <a [routerLink]="" (click)="onLcReceiptSelected(receipts)">{{ receipts.lc_receipt_no }}</a>
                         </td>
-                        <td>
+                        <td class="text-right">
                             {{ receipts.amount }}
                         </td>
                     </tr>

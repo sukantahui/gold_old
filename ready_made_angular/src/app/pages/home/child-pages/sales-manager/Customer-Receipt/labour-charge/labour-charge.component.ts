@@ -83,8 +83,8 @@ export class LabourChargeComponent implements OnInit {
       console.log('value changed', response.data);
       this.customerDues = response.data;
     });
-    this.receiptService.getLcReceiptsByCustomer(this.selectedCustomer)
-        .subscribe((response: {status: string, message: string, data: any[]}) => {
+    this.receiptService.getLcReceiptsByCustomer(this.selectedCustomer).subscribe((response: {status: string, message: string, data: any[]}) => {
+      console.log(response);
       this.lcReceipts = response.data;
     });
   }
@@ -116,5 +116,9 @@ export class LabourChargeComponent implements OnInit {
   resetForm() {
     this.lcReceiptForm.reset();
     this.customerDues = null;
+  }
+
+  onLcReceiptSelected(receipts) {
+    console.log(receipts.lc_receipt_no);
   }
 }

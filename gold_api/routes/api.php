@@ -205,6 +205,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::post("lcReceipt/save",[LcReceiptMasterController::class, 'save_lc_receipt']);
     Route::get("lcReceipt/{customer_id}",[LcReceiptMasterController::class, 'getLcReceiptsByCustomer']);
+    Route::post("lcReceipt/byReceiptNumber",[LcReceiptMasterController::class, 'getLcReceiptsByReceiptNo']);
 });
 
 

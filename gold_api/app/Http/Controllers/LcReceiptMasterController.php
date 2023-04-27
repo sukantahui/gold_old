@@ -12,12 +12,18 @@ use App\Models\Maxtable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Input\Input;
 
 class LcReceiptMasterController extends APIController
 {
     public function getLcReceiptsByCustomer($customer_id){
         $lcReceipt = LcReceiptMaster::whereCustId($customer_id)->orderBy('lc_receipt_date', 'DESC')->get();
         return $this->successResponse($lcReceipt);
+    }
+    public function getLcReceiptsByReceiptNo(Request $request){
+        $receipt_number = $request->lc_receipt_number;
+        $return_array['lc_receipt']=LcReceiptMaster::findOrFail($receipt_number);
+        return $this->successResponse($return_array);
     }
     public function save_lc_receipt(Request $request){
         DB::beginTransaction();
