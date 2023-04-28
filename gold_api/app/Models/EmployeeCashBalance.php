@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class EmployeeCashBalance extends Model
 {
     use HasFactory;
+    protected $table = 'employees_cash_balance';
+    protected $primaryKey = 'emp_id'; // or null
+    public $timestamps = false;
+    public $incrementing = false;
 }
