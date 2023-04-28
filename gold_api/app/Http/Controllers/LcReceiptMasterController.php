@@ -23,6 +23,9 @@ class LcReceiptMasterController extends APIController
     public function getLcReceiptsByReceiptNo(Request $request){
         $receipt_number = $request->lc_receipt_number;
         $return_array['lc_receipt']=LcReceiptMaster::findOrFail($receipt_number);
+        $return_array['customer']=Customer::findOrFail($return_array['lc_receipt']->cust_id);
+        $return_array['agent']=Agent::findOrFail($return_array['lc_receipt']->agent_id);
+        $return_array['employee']=Employee::findOrFail($return_array['lc_receipt']->emp_id);
         return $this->successResponse($return_array);
     }
     public function save_lc_receipt(Request $request){
@@ -60,15 +63,15 @@ class LcReceiptMasterController extends APIController
             $lcReceiptMaster->discount = $request->discount;
             $lcReceiptMaster->cheque_details =$request->cheque_details? $request->cheque_details: null;
             $lcReceiptMaster->save();
-            $agent = Agent::findOrFail($request->agent_id);
-            $customer = Customer::findOrFail($request->cust_id);
-            $return_array['agent']=$agent;
-            $return_array['customer']=$customer;
-            $return_array['user']=Auth::user();
-            $return_array['employee']=Employee::find($return_array['user']->emp_id);
-
             DB::commit();
-            $return_array['lc_receipt']=LcReceiptMaster::find($voucher_number);
+//            $return_array['lc_receipt']=$lcReceiptMaster;
+            $return_array['lc_receipt']=LcReceiptMaster::findOrFail($voucher_number);
+            $return_array['customer']=Customer::findOrFail($return_array['lc_receipt']->cust_id);
+            $return_array['agent']=Agent::findOrFail($return_array['lc_receipt']->agent_id);
+            $return_array['employee']=Employee::findOrFail($return_array['lc_receipt']->emp_id);
+
+
+
             return $this->successResponse($return_array);
         }catch(\Exception $e){
             DB::rollBack();

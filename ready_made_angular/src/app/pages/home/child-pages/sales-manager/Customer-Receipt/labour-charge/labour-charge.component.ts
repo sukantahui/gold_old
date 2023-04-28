@@ -79,12 +79,12 @@ export class LabourChargeComponent implements OnInit {
 
   onCustomerSelected($event) {
     this.selectedCustomer = $event.cust_id;
+    this.afterSaveResponse = null;
     this.customerService.getCustomerDues($event.cust_id).subscribe(response => {
       console.log('value changed', response.data);
       this.customerDues = response.data;
     });
     this.receiptService.getLcReceiptsByCustomer(this.selectedCustomer).subscribe((response: {status: string, message: string, data: any[]}) => {
-      console.log(response);
       this.lcReceipts = response.data;
     });
   }
@@ -120,5 +120,8 @@ export class LabourChargeComponent implements OnInit {
 
   onLcReceiptSelected(receipts) {
     console.log(receipts.lc_receipt_no);
+    this.receiptService.getLcReceiptById(receipts.lc_receipt_no).subscribe((response: { status: any, data: any }) => {
+        this.afterSaveResponse = response.data;
+    });
   }
 }

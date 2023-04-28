@@ -62,8 +62,8 @@
             </button>
         </div>
         <div *ngIf="afterSaveResponse" id="lc-receipt-report">
-            <pre>
                 <h4>Labour Charge Received</h4>
+                <h4>Customer: {{afterSaveResponse.customer.cust_name}}</h4>
                 <table>
                     <tr>
                         <td>Transaction No.</td>
@@ -78,6 +78,10 @@
                         <td>Rs. {{afterSaveResponse.lc_receipt.amount}}</td>
                     </tr>
                     <tr>
+                        <td>Mode</td>
+                        <td>Rs. {{afterSaveResponse.lc_receipt.amount}}</td>
+                    </tr>
+                    <tr>
                         <td>Agent</td>
                         <td>{{afterSaveResponse.agent.agent_name}}</td>
                     </tr>
@@ -85,7 +89,6 @@
                 <div>Thanking you</div>
 
 
-            </pre>
         </div>
         <div>
             <p-table #myTab [value]="lcReceipts">

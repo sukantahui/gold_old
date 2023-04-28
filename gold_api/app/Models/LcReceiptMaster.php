@@ -9,11 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 class LcReceiptMaster extends Model
 {
     use HasFactory;
+    protected $appends = array('payment_mode_name');
     protected $table = 'lc_receipt_master';
     protected $primaryKey = 'lc_receipt_no'; // or null
     public $timestamps = false;
     public $incrementing = false;
-
+    public function getPaymentModeNameAttribute()
+    {
+        return ($this->attributes['mode']==1?"Cash": "Cheque");
+    }
     /**
      * @var mixed|string
      */
