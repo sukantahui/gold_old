@@ -62,33 +62,27 @@
             </button>
         </div>
         <div *ngIf="afterSaveResponse" id="lc-receipt-report">
-                <h4>Labour Charge Received</h4>
-                <h4>Customer: {{afterSaveResponse.customer.cust_name}}</h4>
-                <table>
-                    <tr>
-                        <td>Transaction No.</td>
-                        <td>{{afterSaveResponse.lc_receipt.lc_receipt_no}}</td>
+            ID: {{afterSaveResponse.lc_receipt.lc_receipt_no}}<br>
+            From {{afterSaveResponse.customer.mailing_name}}
+            of {{afterSaveResponse.customer.city}}<br>
+            through {{afterSaveResponse.agent.agent_name}}<br>
+            Received by <br>;
+            <table>
+                <tbody>
+                    <tr style="border-top: 1px solid black">
+                        <td>Previous Dues:    </td>
+                        <td  align="right">00000000</td>
                     </tr>
                     <tr>
-                        <td>Date</td>
-                        <td>{{afterSaveResponse.lc_receipt.lc_receipt_date}}</td>
+                        <td>Less: Now refund</td>
+                        <td align="right">{{afterSaveResponse.lc_receipt.amount}}</td>
                     </tr>
-                    <tr>
-                        <td>Amount</td>
-                        <td>Rs. {{afterSaveResponse.lc_receipt.amount}}</td>
+                    <tr style="border-top: 1px solid black; border-bottom: 1px double black">
+                        <td>Current Due     </td><td align="right">000000000</td>
                     </tr>
-                    <tr>
-                        <td>Mode</td>
-                        <td>Rs. {{afterSaveResponse.lc_receipt.amount}}</td>
-                    </tr>
-                    <tr>
-                        <td>Agent</td>
-                        <td>{{afterSaveResponse.agent.agent_name}}</td>
-                    </tr>
-                </table>
-                <div>Thanking you</div>
-
-
+                </tbody>
+            </table>
+            
         </div>
         <div>
             <p-table #myTab [value]="lcReceipts">
