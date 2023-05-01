@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agent;
 use App\Models\Customer;
 use App\Models\Employee;
+use App\Models\EmployeeCashBalance;
 use App\Models\LcReceiptMaster;
 use App\Http\Requests\StoreLcReceiptMasterRequest;
 use App\Http\Requests\UpdateLcReceiptMasterRequest;
@@ -63,8 +64,14 @@ class LcReceiptMasterController extends APIController
             $lcReceiptMaster->discount = $request->discount;
             $lcReceiptMaster->cheque_details =$request->cheque_details? $request->cheque_details: null;
             $lcReceiptMaster->save();
+            $employeeCashBalance = EmployeeCashBalance::findOrFail(Auth::user()->emp_id);
+            $employeeCashBalance->inward=$employeeCashBalance->inward + $request->amount;
+            $employeeCashBalance->balance=$employeeCashBalance->balance + $request->amount;
+            $employeeCashBalance->save();
             DB::commit();
 //            $return_array['lc_receipt']=$lcReceiptMaster;
+
+            $return_array['employee_cash_balance']=$employeeCashBalance;
             $return_array['lc_receipt']=LcReceiptMaster::findOrFail($voucher_number);
             $return_array['customer']=Customer::findOrFail($return_array['lc_receipt']->cust_id);
             $return_array['agent']=Agent::findOrFail($return_array['lc_receipt']->agent_id);
