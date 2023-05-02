@@ -98,10 +98,10 @@ export class OrderComponent implements OnInit {
   }
 
   printDivStyle = {
-    table: {'border-collapse': 'collapse', width : '100%' },
-    label: {width: '100%'},
-    th: {border: '1px  solid black' , fontSize : 'small'},
-    td: {border: '1px  solid black' , fontSize : 'small'},
+    // table: {'border-collapse': 'collapse' },
+    // // label: {width: '100%'},
+    // th: {border: '1px  solid black' },
+    // td: {border: '1px  solid black' },
 
 };
   searchTerm: any;

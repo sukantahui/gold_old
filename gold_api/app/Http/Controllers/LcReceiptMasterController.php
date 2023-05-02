@@ -23,6 +23,8 @@ class LcReceiptMasterController extends APIController
     }
     public function getLcReceiptsByReceiptNo(Request $request){
         $receipt_number = $request->lc_receipt_number;
+        $lc_dues = (object)(DB::select('select get_customer_total_lc_due_before_lc_receipt_no(?) as lc_due_before', [$receipt_number])[0]);
+        $return_array['lc_due']=$lc_dues;
         $return_array['lc_receipt']=LcReceiptMaster::findOrFail($receipt_number);
         $return_array['customer']=Customer::findOrFail($return_array['lc_receipt']->cust_id);
         $return_array['agent']=Agent::findOrFail($return_array['lc_receipt']->agent_id);

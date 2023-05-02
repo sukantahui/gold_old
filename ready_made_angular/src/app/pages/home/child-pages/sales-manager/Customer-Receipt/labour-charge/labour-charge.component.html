@@ -63,26 +63,26 @@
         </div>
         <div *ngIf="afterSaveResponse" id="lc-receipt-report">
             ID: {{afterSaveResponse.lc_receipt.lc_receipt_no}}<br>
-            From {{afterSaveResponse.customer.mailing_name}}
+            From {{afterSaveResponse.customer.mailing_name}}<br>
             of {{afterSaveResponse.customer.city}}<br>
             through {{afterSaveResponse.agent.agent_name}}<br>
-            Received by <br>;
+            Received by {{afterSaveResponse.employee.emp_name}}<br>
             <table>
                 <tbody>
                     <tr style="border-top: 1px solid black">
                         <td>Previous Dues:    </td>
-                        <td  align="right">00000000</td>
+                        <td  align="right">{{afterSaveResponse.lc_due.lc_due_before}}</td>
                     </tr>
                     <tr>
                         <td>Less: Now refund</td>
                         <td align="right">{{afterSaveResponse.lc_receipt.amount}}</td>
                     </tr>
                     <tr style="border-top: 1px solid black; border-bottom: 1px double black">
-                        <td>Current Due     </td><td align="right">000000000</td>
+                        <td>Current Due     </td><td align="right">{{afterSaveResponse.lc_due.lc_due_before - afterSaveResponse.lc_receipt.amount}}</td>
                     </tr>
                 </tbody>
             </table>
-            
+
         </div>
         <div>
             <p-table #myTab [value]="lcReceipts">
