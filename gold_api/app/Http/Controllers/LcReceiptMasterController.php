@@ -72,7 +72,8 @@ class LcReceiptMasterController extends APIController
             $employeeCashBalance->save();
             DB::commit();
 //            $return_array['lc_receipt']=$lcReceiptMaster;
-
+            $lc_dues = (object)(DB::select('select get_customer_total_lc_due_before_lc_receipt_no(?) as lc_due_before', [$voucher_number])[0]);
+            $return_array['lc_due']=$lc_dues;
             $return_array['employee_cash_balance']=$employeeCashBalance;
             $return_array['lc_receipt']=LcReceiptMaster::findOrFail($voucher_number);
             $return_array['customer']=Customer::findOrFail($return_array['lc_receipt']->cust_id);

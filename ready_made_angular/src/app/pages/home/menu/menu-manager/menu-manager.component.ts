@@ -166,11 +166,11 @@ export class MenuManagerComponent implements OnInit {
           ]
         },
         {
-          displayName: 'Customer Receipt',
+          displayName: 'Customer',
           iconName: 'label',
           children: [
             {
-              displayName: 'LC Receipt',
+              displayName: 'Lc/Gold Receipt',
               iconName: 'shopping_cart',
               color: 'green',
               route: 'CustomerReceipt',

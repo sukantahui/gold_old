@@ -11,6 +11,10 @@ const routes: Routes = [
       { path: 'LabourCharge'
         , loadChildren: () => import('./labour-charge/labour-charge.module').then(m => m.LabourChargeModule)
         , resolve: {customerReceiptResolver: CustomerReceiptResolver}
+      },
+      { path: 'GoldReceived'
+        , loadChildren: () => import('./gold-received/gold-received.module').then(m => m.GoldReceivedModule)
+        , resolve: {goldReceiptResolver: CustomerReceiptResolver}
       }
     ]
   },
