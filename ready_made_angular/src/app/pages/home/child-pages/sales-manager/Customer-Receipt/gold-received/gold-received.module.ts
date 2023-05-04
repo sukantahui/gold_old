@@ -11,6 +11,7 @@ import {NgxPrintModule} from 'ngx-print';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import {MatInputModule} from '@angular/material/input';
         NgxPrintModule,
         MatButtonModule,
         MatInputModule,
-
+        TableModule,
     ]
 })
 export class GoldReceivedModule { }

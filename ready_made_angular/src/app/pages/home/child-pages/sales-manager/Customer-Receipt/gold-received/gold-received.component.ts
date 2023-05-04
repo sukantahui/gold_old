@@ -22,6 +22,7 @@ export class GoldReceivedComponent implements OnInit {
   goldReceiptForm: FormGroup;
   selectedCustomer: string = null;
   printDivStyle: any;
+  goldReceipts: any[];
 
   // tslint:disable-next-line:max-line-length
   constructor(private route: ActivatedRoute, private customerService: CustomerService, private reportService: ReportService, private receiptService: ReceiptService) {
@@ -32,14 +33,13 @@ export class GoldReceivedComponent implements OnInit {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
     this.goldReceiptForm = new FormGroup({
-      lc_receipt_date: new FormControl(currentSQLDate),
+      gold_receipt_date: new FormControl(currentSQLDate),
       agent_id: new FormControl(null, [Validators.required]),
       cust_id: new FormControl(null, [Validators.required]),
       mode: new FormControl('1', [Validators.required]),
-      emp_id: new FormControl(72, [Validators.required]),
-      amount: new FormControl(null, [Validators.required]),
+      gold: new FormControl(null, [Validators.required]),
       discount: new FormControl(0),
-      cheque_details: new FormControl(null),
+      gold_rate: new FormControl(null),
     });
   }
 
@@ -55,6 +55,9 @@ export class GoldReceivedComponent implements OnInit {
     this.customerService.getCustomerDues($event.cust_id).subscribe(response => {
       console.log('value changed', response.data);
       this.customerDues = response.data;
+    });
+    this.receiptService.getGoldReceiptsByCustomer(this.selectedCustomer).subscribe((response: {status: string, message: string, data: any[]}) => {
+      this.goldReceipts = response.data;
     });
   }
   saveLcReceipt() {
@@ -84,5 +87,9 @@ export class GoldReceivedComponent implements OnInit {
   resetForm() {
     this.goldReceiptForm.reset();
     this.customerDues = null;
+  }
+
+  onLcReceiptSelected(receipts: string) {
+
   }
 }

@@ -14,4 +14,10 @@ class GoldReceiptMaster extends Model
     public $incrementing = false;
     // In Laravel 6.0+ make sure to also set $keyType
     protected $keyType = 'string';
+    protected $appends = ['gold_receipt_date'];
+
+    public function getGoldReceiptDateAttribute($value)
+    {
+        return date('d-m-Y', strtotime($this->attributes['tr_date']));
+    }
 }

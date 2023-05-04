@@ -6,6 +6,7 @@ use App\Http\Controllers\AssetController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeCashBalanceController;
+use App\Http\Controllers\GoldReceiptController;
 use App\Http\Controllers\LcReceiptMasterController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\LogController;
@@ -210,7 +211,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get("employee/cash/currentBalance",[EmployeeCashBalanceController::class, 'getCurrentCashBalance']);
 
-    Route::get("goldReceipt/{customer_id}",[GoldReceiptController::class, 'getLcReceiptsByCustomer']);
+    Route::get("customer/goldReceipt/{customer_id}",[GoldReceiptController::class, 'getLcReceiptsByCustomer']);
 });
 
 
