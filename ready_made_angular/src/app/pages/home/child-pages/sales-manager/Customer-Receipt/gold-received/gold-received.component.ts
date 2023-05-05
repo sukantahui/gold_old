@@ -36,10 +36,15 @@ export class GoldReceivedComponent implements OnInit {
       gold_receipt_date: new FormControl(currentSQLDate),
       agent_id: new FormControl(null, [Validators.required]),
       cust_id: new FormControl(null, [Validators.required]),
-      mode: new FormControl('1', [Validators.required]),
-      gold: new FormControl(null, [Validators.required]),
+      rm_id: new FormControl(36, [Validators.required]),
+      payment_mode: new FormControl('1', [Validators.required]),
+      gold_value: new FormControl(null, [Validators.required]),
       discount: new FormControl(0),
-      gold_rate: new FormControl(null),
+      gold_rate: new FormControl(60000),
+      cash: new FormControl(null),
+      last_gold_balance: new FormControl(0, [Validators.required]),
+      current_gold_balance: new FormControl(0, [Validators.required]),
+      current_lc_balance: new FormControl(0, [Validators.required]),
     });
   }
 
@@ -91,5 +96,10 @@ export class GoldReceivedComponent implements OnInit {
 
   onLcReceiptSelected(receipts: string) {
 
+  }
+
+  onGoldRateChange(goldRate: HTMLInputElement, cash: HTMLInputElement) {
+    console.log('Gold rate', goldRate.value);
+    console.log('cash', cash.value);
   }
 }
