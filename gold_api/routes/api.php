@@ -212,6 +212,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("employee/cash/currentBalance",[EmployeeCashBalanceController::class, 'getCurrentCashBalance']);
 
     Route::get("customer/goldReceipt/{customer_id}",[GoldReceiptController::class, 'getLcReceiptsByCustomer']);
+
+    Route::post("goldReceipt/save",[GoldReceiptController::class, 'save_gold_receipt']);
 });
 
 
