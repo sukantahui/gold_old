@@ -1,3 +1,43 @@
-<pre>
-    {{materials_balance | json}}
-</pre>
+<div class="d-flex flex-row">
+    <div class="p-2 col-4">
+
+    </div>
+    <div class="p-2 col-8">
+        <table class="table table-striped col-xl-2 col-lg-4 col-xs-8">
+            <thead>
+            <tr>
+                <th scope="col">Material Name</th>
+                <th scope="col">Value</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let material of materialBalance">
+                <td>{{material.rawMaterialName}}</td>
+                <td>{{material.closingBalance}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="!isProduction && true" id="developer-div">
+    <div class="d-flex flex-row">
+        <div class="p-2">
+            <pre>
+
+            </pre>
+        </div>
+        <div class="p-2">
+            <pre>
+                materials_balance= {{materialBalance | json}}
+            </pre>
+        </div>
+        <div class="p-2">
+            <pre>
+
+            </pre>
+        </div>
+    </div>
+</div>
+

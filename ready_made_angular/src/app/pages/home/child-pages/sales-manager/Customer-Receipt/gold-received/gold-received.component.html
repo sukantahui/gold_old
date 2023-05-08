@@ -35,7 +35,7 @@
             <div>
                 <mat-form-field class="example-full-width">
                     <mat-label>Enter Cash against Gold</mat-label>
-                    <input type="number" #cash class="text-right" matInput formControlName="cash" placeholder="Cash" >
+                    <input type="number" #cash class="text-right" matInput formControlName="cash" (keypress)="onGoldRateChange(goldRate, cash)" placeholder="Cash" >
                 </mat-form-field>
             </div>
 

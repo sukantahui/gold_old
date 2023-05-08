@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {environment} from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'app-fine-to-ninety-two',
@@ -7,16 +8,19 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./fine-to-ninety-two.component.scss']
 })
 export class FineToNinetyTwoComponent implements OnInit {
-  materials_balance: any[];
+  materialBalance: any[];
+  isProduction = environment.production;
 
   constructor(private route: ActivatedRoute) {
     this.route.data.subscribe((response: any) => {
-      this.materials_balance = response.fineToNinetyTwoResolver.agents.data;
+      this.materialBalance = response.fineToNinetyTwoResolver.materialBalance.data;
       console.log('Response ', response);
     });
   }
 
   ngOnInit(): void {
+
   }
+
 
 }

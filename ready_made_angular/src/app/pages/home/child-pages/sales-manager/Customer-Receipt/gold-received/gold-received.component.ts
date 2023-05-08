@@ -101,5 +101,7 @@ export class GoldReceivedComponent implements OnInit {
   onGoldRateChange(goldRate: HTMLInputElement, cash: HTMLInputElement) {
     console.log('Gold rate', goldRate.value);
     console.log('cash', cash.value);
+    const gold = (Number(cash.value) / (Number(goldRate.value) / 10) ).toFixed(3);
+    this.goldReceiptForm.patchValue({ gold_value: gold});
   }
 }

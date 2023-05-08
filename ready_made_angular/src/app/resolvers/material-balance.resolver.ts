@@ -20,7 +20,7 @@ export class MaterialBalanceResolver implements Resolve<any> {
     const b = this.reportService.getMaterialBalance();
     const join = forkJoin(b).pipe(map((allResponses) => {
       return {
-        customers: allResponses[0]
+        materialBalance: allResponses[0]
       };
     }));
     return join;
