@@ -178,6 +178,11 @@ export class MenuManagerComponent implements OnInit {
           ]
         },
         {
+          displayName: 'Misc. Manage',
+          iconName: 'label',
+          route: 'MiscManager',
+        },
+        {
           displayName: 'Agent Activity',
           iconName: 'group',
           children: [

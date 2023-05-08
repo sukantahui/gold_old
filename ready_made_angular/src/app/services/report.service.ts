@@ -150,7 +150,17 @@ export class ReportService {
 
             }));
     }
+    // user id will be fetched as per current user
+    getMaterialBalance(){
+        // tslint:disable-next-line:max-line-length
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/materialBalance' )
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
 
+                }
+
+            }));
+    }
 
 
 

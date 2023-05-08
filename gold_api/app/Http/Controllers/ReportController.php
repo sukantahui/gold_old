@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MaterialBalanceResource;
 use App\Models\AgentToCustomer;
 use App\Models\BillDetails;
 use App\Models\BillMaster;
 use App\Models\Customer;
 use App\Models\JobMaster;
+use App\Models\MaterialToEmployeeBalance;
 use App\Models\OrderMaster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +18,10 @@ use Illuminate\Support\Facades\DB;
 class ReportController extends ApiController
 {
 
+    public function getEmployeeMaterialBalance(){
+        $result = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
+        return $this->successResponse(MaterialBalanceResource::collection($result));
+    }
     public function getSaleReportByDatesAndAgent($startDate,$endDate,$agentId){
 
 

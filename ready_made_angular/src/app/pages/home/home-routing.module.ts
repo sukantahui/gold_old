@@ -163,6 +163,11 @@ const routes: Routes = [
                                         .then(m => m.CustomerReceiptModule)
                                     , resolve: {customerReceiptResolver: CustomerReceiptResolver}
                                 },
+                                { path: 'MiscManager'
+                                    // tslint:disable-next-line:max-line-length
+                                    , loadChildren: () => import('./child-pages/sales-manager/misc-manager/misc-manager.module')
+                                        .then(m => m.MiscManagerModule)
+                                },
 
 
 
