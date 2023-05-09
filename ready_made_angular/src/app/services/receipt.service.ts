@@ -23,4 +23,8 @@ export class ReceiptService {
   getLcReceiptById(lcReceiptNumber: string){
     return this.http.post(this.commonService.getAPI() + '/lcReceipt/byReceiptNumber',{lc_receipt_number: lcReceiptNumber});
   }
+
+    saveGoldReceipt(goldReceiptData: any) {
+      return this.http.post(this.commonService.getAPI() + '/goldReceipt/save', goldReceiptData);
+    }
 }

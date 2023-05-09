@@ -70,12 +70,12 @@ export class GoldReceivedComponent implements OnInit {
     });
   }
   saveGoldReceipt() {
-    this.receiptService.saveLcReceipt(this.goldReceiptForm.value)
+    this.receiptService.saveGoldReceipt(this.goldReceiptForm.value)
         .subscribe((response: { status: any, data: any }) => {
           if (response.status === true){
             Swal.fire({
               title: 'Done',
-              text: 'LC Received added successfully',
+              text: 'Gold Received added successfully',
               icon: 'success'
             });
             // tslint:disable-next-line:no-unused-expression
@@ -87,7 +87,7 @@ export class GoldReceivedComponent implements OnInit {
         }, (error) => {
           Swal.fire({
             title: 'Done',
-            text: 'Error saving LC',
+            text: 'Error saving Gold Receipt',
             icon: 'error'
           });
         });
