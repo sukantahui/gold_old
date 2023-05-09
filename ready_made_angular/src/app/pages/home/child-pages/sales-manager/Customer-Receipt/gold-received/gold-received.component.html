@@ -17,7 +17,7 @@
                        formControlName="cust_id"
                        placeholder="Select Customer">
             </ng-select>
-            <div *ngIf="customerDues">
+            <div *ngIf="customerDues" class="border-glow">
                 <span> Gold Due: {{customerDues.gold_due | number : '1.3'}} gm. </span> and <span> LC Due: Rs. {{customerDues.lc_due}}</span>
             </div>
             <div>
@@ -26,17 +26,19 @@
                     <mat-radio-button value="2" >In Cash</mat-radio-button>
                 </mat-radio-group>
             </div>
-            <div>
-                <mat-form-field class="example-full-width">
-                    <mat-label>Enter Gold Rate(10Gm)</mat-label>
-                    <input type="number"  #goldRate class="text-right" (blur)="onGoldRateChange(goldRate, cash)" matInput formControlName="gold_rate" placeholder="Gold Rate" >
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field class="example-full-width">
-                    <mat-label>Enter Cash against Gold</mat-label>
-                    <input type="number" #cash class="text-right" matInput formControlName="cash" (keypress)="onGoldRateChange(goldRate, cash)" placeholder="Cash" >
-                </mat-form-field>
+            <div *ngIf="showCashEntry">
+                <div>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Enter Gold Rate(10Gm)</mat-label>
+                        <input type="number"  #goldRate class="text-right" (keyup)="onGoldRateChange(goldRate, cash)" matInput formControlName="gold_rate" placeholder="Gold Rate" >
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Enter Cash against Gold</mat-label>
+                        <input type="number" #cash class="text-right" matInput formControlName="cash" (keyup)="onGoldRateChange(goldRate, cash)" placeholder="Cash" >
+                    </mat-form-field>
+                </div>
             </div>
 
 
@@ -55,15 +57,16 @@
                 </div>
                 <div class="p-2 bd-highlight">
                     <div class="example-button-row">
-                        <button class="text-right" mat-button color="primary" [disabled]="!goldReceiptForm.valid || goldReceiptForm.pristine" (click)="saveLcReceipt()">Save Record</button>
+                        <button class="text-right" mat-button color="primary" [disabled]="!goldReceiptForm.valid || goldReceiptForm.pristine" (click)="saveGoldReceipt()">Save Record</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
     <div class="p-2 col-8">
+        <h3 *ngIf="goldReceipts && goldReceipts.length>0">Gold Receipts</h3>
+        <h3 *ngIf="!goldReceipts || goldReceipts.length==0">No Receipts recorded</h3>
         <p-table #myTab [value]="goldReceipts">
-            <h3>Gold Receipts</h3>
             <ng-template pTemplate="header">
                 <tr>
                     <th>Date</th>

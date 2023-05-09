@@ -17,7 +17,7 @@
                        formControlName="cust_id"
                        placeholder="Select Customer">
             </ng-select>
-            <div *ngIf="customerDues">
+            <div *ngIf="customerDues" class="border-glow">
                 <span> Gold Due: {{customerDues.gold_due}}</span> and <span> LC Due: {{customerDues.lc_due}}</span>
             </div>
             <div>

@@ -40,7 +40,7 @@ export class LabourChargeComponent implements OnInit {
   customerDues: {'gold_due': number, 'lc_due': number};
   isProduction = environment.production;
   lcReceiptForm: FormGroup;
-    showChequeDetails = false;
+  showChequeDetails = false;
 
   printDivStyle = {
     table: {'border-collapse': 'collapse', width : '100%' },

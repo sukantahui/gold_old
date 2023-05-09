@@ -23,6 +23,7 @@ export class GoldReceivedComponent implements OnInit {
   selectedCustomer: string = null;
   printDivStyle: any;
   goldReceipts: any[];
+  showCashEntry = false;
 
   // tslint:disable-next-line:max-line-length
   constructor(private route: ActivatedRoute, private customerService: CustomerService, private reportService: ReportService, private receiptService: ReceiptService) {
@@ -38,17 +39,18 @@ export class GoldReceivedComponent implements OnInit {
       cust_id: new FormControl(null, [Validators.required]),
       rm_id: new FormControl(36, [Validators.required]),
       payment_mode: new FormControl('1', [Validators.required]),
-      gold_value: new FormControl(null, [Validators.required]),
+      gold_value: new FormControl(null, [Validators.required, Validators.min(0.001)]),
       discount: new FormControl(0),
       gold_rate: new FormControl(60000),
-      cash: new FormControl(null),
+      cash: new FormControl(0),
       last_gold_balance: new FormControl(0, [Validators.required]),
-      current_gold_balance: new FormControl(0, [Validators.required]),
+      // current_gold_balance: new FormControl(0, [Validators.required]),
       current_lc_balance: new FormControl(0, [Validators.required]),
     });
   }
 
   ngOnInit(): void {
+    this.onPaymentModeValueChanged();
   }
 
   agentSelected() {
@@ -67,7 +69,7 @@ export class GoldReceivedComponent implements OnInit {
 
     });
   }
-  saveLcReceipt() {
+  saveGoldReceipt() {
     this.receiptService.saveLcReceipt(this.goldReceiptForm.value)
         .subscribe((response: { status: any, data: any }) => {
           if (response.status === true){
@@ -103,7 +105,21 @@ export class GoldReceivedComponent implements OnInit {
   onGoldRateChange(goldRate: HTMLInputElement, cash: HTMLInputElement) {
     console.log('Gold rate', goldRate.value);
     console.log('cash', cash.value);
-    const gold = (Number(cash.value) / (Number(goldRate.value) / 10) ).toFixed(3);
-    this.goldReceiptForm.patchValue({ gold_value: gold});
+    if (Number(cash.value) > 0 && Number(goldRate.value) > 0 ) {
+      const gold = (Number(cash.value) / (Number(goldRate.value) / 10)).toFixed(3);
+      this.goldReceiptForm.patchValue({gold_value: gold});
+    }else{
+      this.goldReceiptForm.patchValue({gold_value: null});
+    }
+  }
+
+  private onPaymentModeValueChanged() {
+    this.goldReceiptForm.get('payment_mode').valueChanges.subscribe(val => {
+      if (val === '2'){
+        this.showCashEntry = true;
+      }else{
+        this.showCashEntry = false;
+      }
+    });
   }
 }
