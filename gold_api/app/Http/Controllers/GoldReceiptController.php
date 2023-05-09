@@ -59,7 +59,7 @@ class GoldReceiptController extends ApiController
 
             $materialToEmployeeBalance = MaterialToEmployeeBalance::whereEmpIdAndRmId(Auth::user()->emp_id, $request->rm_id)->first();
             $materialToEmployeeBalance->inward=$materialToEmployeeBalance->inward + $request->gold_value;
-            $materialToEmployeeBalance->balance=$materialToEmployeeBalance->balance + $request->gold_value;
+            $materialToEmployeeBalance->closing_balance=$materialToEmployeeBalance->balance + $request->gold_value;
             $materialToEmployeeBalance->save();
             DB::commit();
 //            $return_array['lc_receipt']=$goldReceiptMaster;

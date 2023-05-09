@@ -60,9 +60,11 @@ export class GoldReceivedComponent implements OnInit {
     this.customerService.getCustomerDues($event.cust_id).subscribe(response => {
       console.log('value changed', response.data);
       this.customerDues = response.data;
+      this.goldReceiptForm.patchValue({ last_gold_balance: this.customerDues.gold_due, current_lc_balance: this.customerDues.lc_due});
     });
     this.receiptService.getGoldReceiptsByCustomer(this.selectedCustomer).subscribe((response: {status: string, message: string, data: any[]}) => {
       this.goldReceipts = response.data;
+
     });
   }
   saveLcReceipt() {

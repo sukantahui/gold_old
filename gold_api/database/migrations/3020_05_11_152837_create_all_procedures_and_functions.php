@@ -144,6 +144,95 @@ class CreateAllProceduresAndFunctions extends Migration
               group by customer_master.cust_id, customer_master.cust_name,agent_master.short_name, bill_master.bill_no;
             END;'
         );
+        DB::unprepared("DROP PROCEDURE IF EXISTS ses_gold.huitech_generate_pivot_table;
+        CREATE PROCEDURE ses_gold.`huitech_generate_pivot_table`(IN sql_statement longtext)
+        proc_label: BEGIN
+         drop table if exists main_table;
+         -- to create temporary table
+         set @r=concat(\"CREATE temporary table main_table as \",sql_statement);
+         PREPARE stmt1 FROM @r;
+         EXECUTE stmt1;
+         DEALLOCATE PREPARE stmt1;
+
+          -- to create xyz_temp_view
+         set @x=concat(\"CREATE or REPLACE view xyz_temp_view as \",sql_statement);
+         PREPARE stmt1 FROM @x;
+         EXECUTE stmt1;
+         DEALLOCATE PREPARE stmt1;
+
+         set @x=concat(\"SELECT COLUMN_NAME into @field1 FROM information_schema.columns WHERE  table_name = 'xyz_temp_view' limit 0,1\");
+         PREPARE stmt1 FROM @x;
+         EXECUTE stmt1;
+         DEALLOCATE PREPARE stmt1;
+
+         set @x=concat(\"SELECT COLUMN_NAME into @field2 FROM information_schema.columns WHERE  table_name = 'xyz_temp_view' limit 1,1\");
+         PREPARE stmt1 FROM @x;
+         EXECUTE stmt1;
+         DEALLOCATE PREPARE stmt1;
+
+         set @x=concat(\"SELECT COLUMN_NAME into @field3 FROM information_schema.columns WHERE  table_name = 'xyz_temp_view' limit 2,1\");
+         PREPARE stmt1 FROM @x;
+         EXECUTE stmt1;
+         DEALLOCATE PREPARE stmt1;
+
+
+
+            BEGIN
+                DECLARE v_finished INTEGER DEFAULT 0;
+                DECLARE employee_name varchar(255) DEFAULT \"\";
+                DECLARE field1 varchar(255) DEFAULT \"\";
+
+                DECLARE pivot_data varchar(255) DEFAULT \"\";
+
+                DECLARE material_value Double;
+                DECLARE case_script_1 longtext DEFAULT \"\";
+                DECLARE case_script_0 longtext DEFAULT \"\";
+
+                DECLARE temp_script_1 longtext DEFAULT \"\";
+                -- declare cursor for pivot_data
+
+                DECLARE curs CURSOR FOR
+                  select * from test_prepare_view;
+
+
+                -- declare NOT FOUND handler
+                DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_finished = 1;
+                drop table if exists test_prepare_view;
+                SET @query = CONCAT('CREATE temporary table test_prepare_view as select distinct ', @field2, ' from main_table');
+                -- LEAVE proc_label;
+                PREPARE stmt from @query;
+                EXECUTE stmt;
+                DEALLOCATE PREPARE stmt;
+
+                set @s1=\"\";
+
+                OPEN curs;
+                -- loop start
+                set @s2=\"\";
+                get_material: LOOP
+                FETCH curs INTO pivot_data;
+                IF v_finished = 1 THEN
+                  LEAVE get_material;
+                END IF;
+                set @s1=concat(@s1,',max(`',pivot_data,\"`) as '\",pivot_data,\"'\");
+                set @s2=CONCAT(@s2,',round((CASE WHEN ',@field2,' =\'',pivot_data,'\' THEN ',@field3,' else 0 END),3) as \'',pivot_data,'\' ');
+
+
+                END LOOP get_material;
+                -- loop end
+
+                CLOSE curs;
+                DROP table if exists test_prepare_view;
+                 -- first table is created
+                set @s2=concat('select ',@field1,' ',@s2,' from main_table');
+                set @s1=concat('select ',@field1,' ',@s1,'from (',@s2,') as table2 group by ',@field1);
+                PREPARE stmt FROM @s1;
+                EXECUTE stmt;
+                DEALLOCATE PREPARE stmt;
+            END;
+
+        END;"
+        );
     }
 
     /**
