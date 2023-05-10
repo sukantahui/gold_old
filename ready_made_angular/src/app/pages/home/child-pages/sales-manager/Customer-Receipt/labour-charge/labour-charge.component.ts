@@ -43,6 +43,7 @@ export class LabourChargeComponent implements OnInit {
   showChequeDetails = false;
 
   printDivStyle = {
+
     table: {'border-collapse': 'collapse', width : '100%' },
     label: {width: '100%'},
     th: {border: '1px  solid black' , fontSize : 'small'},

@@ -1,0 +1,10 @@
+@page {
+    size: 5.5in 8.5in;
+}
+body{
+    color: #090808;
+}
+
+tr{
+    border: 1px solid black;
+}

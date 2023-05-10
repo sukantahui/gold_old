@@ -80,9 +80,9 @@ export class GoldReceivedComponent implements OnInit {
             });
             // tslint:disable-next-line:no-unused-expression
             this.customerDues.lc_due  = this.customerDues.lc_due - this.goldReceiptForm.value.amount;
-            console.log(response.data);
             this.afterSaveResponse = response.data;
             this.goldReceiptForm.markAsPristine();
+            this.goldReceipts.unshift(this.afterSaveResponse.gold_receipt);
           }
         }, (error) => {
           Swal.fire({
