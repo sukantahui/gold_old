@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\MaterialBalanceResource;
 use App\Models\AgentToCustomer;
 use App\Models\BillDetails;
 use App\Models\BillMaster;
 use App\Models\Customer;
+use App\Models\Employee;
 use App\Models\JobMaster;
 use App\Models\MaterialToEmployeeBalance;
 use App\Models\OrderMaster;
@@ -17,7 +19,11 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends ApiController
 {
-
+    public function getKarigars(){
+        $result = Employee::whereDesignationIdAndInforce(9,1)->get();
+//        return $this->successResponse(EmployeeResource::collection($result));
+        return $this->successResponse($result);
+    }
     public function getEmployeeMaterialBalance(){
         $result = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
         return $this->successResponse(MaterialBalanceResource::collection($result));

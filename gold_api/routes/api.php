@@ -215,6 +215,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::post("goldReceipt/save",[GoldReceiptController::class, 'save_gold_receipt']);
     Route::get("materialBalance",[ReportController::class, 'getEmployeeMaterialBalance']);
+    Route::get("karigars/inforce",[ReportController::class, 'getKarigars']);
+
+
 });
 
 

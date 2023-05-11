@@ -18,9 +18,13 @@ export class MaterialBalanceResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     // const a = this.jobTaskService.getAll();
     const b = this.reportService.getMaterialBalance();
-    const join = forkJoin(b).pipe(map((allResponses) => {
+    const c = this.reportService.getUser();
+    const d = this.reportService.geKarigars();
+    const join = forkJoin(b, c, d).pipe(map((allResponses) => {
       return {
-        materialBalance: allResponses[0]
+        materialBalance: allResponses[0],
+        user: allResponses[1],
+        karigars: allResponses[1]
       };
     }));
     return join;
