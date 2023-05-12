@@ -1,6 +1,52 @@
 <div class="d-flex flex-row">
     <div class="p-2 col-4">
+        <form [formGroup] = goldConversionForm>
+            <ng-select [items]="karigars"
+                       bindLabel="emp_name"
+                       class="custom"
+                       bindValue="karigar_id"
+                       formControlName="karigar_id"
+                       placeholder="Select karigar">
+            </ng-select>
 
+
+
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter Fine Gold</mat-label>
+                    <input type="number"  #fineGoldValue class="text-right" (keyup)="onFineGoldChange(fineGoldValue, copperValue)" matInput formControlName="fine_gold_value" placeholder="Fine Gold" >
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter Copper</mat-label>
+                    <input type="number" #copperValue class="text-right" matInput formControlName="copper_value" (keyup)="onCopperChange(fineGoldValue, copperValue)" placeholder="Cash" >
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>92 Gold Value</mat-label>
+                    <input type="number" #copperValue class="text-right" matInput formControlName="gini_value"  placeholder="92 Gold" >
+                </mat-form-field>
+            </div>
+
+
+
+
+
+            <div class="d-flex flex-row bd-highlight mb-3">
+                <div class="p-2 bd-highlight">
+                    <div class="example-button-row">
+                        <button class="text-right" mat-button color="primary"  (click)="resetForm()">Reset</button>
+                    </div>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <div class="example-button-row">
+                        <button class="text-right" mat-button color="primary" [disabled]="!goldConversionForm.valid || goldConversionForm.pristine" (click)="saveGoldConversion()">Save Record</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="p-2 col-8">
         <table class="table table-striped col-xl-4 col-lg-4 col-xs-8">
@@ -25,17 +71,17 @@
     <div class="d-flex flex-row">
         <div class="p-2">
             <pre>
-
+                goldConversionForm = {{goldConversionForm.value | json}}
             </pre>
         </div>
         <div class="p-2">
             <pre>
-                materials_balance= {{materialBalance | json}}
+                projectDetails= {{projectDetails | json}}
             </pre>
         </div>
         <div class="p-2">
             <pre>
-                user= {{user | json}}
+                karigars= {{karigars | json}}
             </pre>
         </div>
     </div>

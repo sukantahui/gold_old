@@ -24,7 +24,7 @@ export class MaterialBalanceResolver implements Resolve<any> {
       return {
         materialBalance: allResponses[0],
         user: allResponses[1],
-        karigars: allResponses[1]
+        karigars: allResponses[2]
       };
     }));
     return join;

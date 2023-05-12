@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 class ReportController extends ApiController
 {
     public function getKarigars(){
-        $result = Employee::whereDesignationIdAndInforce(9,1)->get();
+        $result = Employee::whereDesignationIdAndInforce(9,1)->orderBy('emp_name')->get();
 //        return $this->successResponse(EmployeeResource::collection($result));
         return $this->successResponse($result);
     }
@@ -165,7 +165,7 @@ class ReportController extends ApiController
 
         // return Auth::user()->emp_id;
         $result = collect(DB::select('select get_customer_gold_due(cust_id) as gold_due
-                ,get_customer_lc_due(cust_id) as lc_due 
+                ,get_customer_lc_due(cust_id) as lc_due
                 from customer_master
                 where cust_id=?', [$customerId]))->first();
         return $this->successResponse($result);

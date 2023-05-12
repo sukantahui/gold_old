@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../../../../../../environments/environment';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-fine-to-ninety-two',
@@ -14,13 +15,17 @@ export class FineToNinetyTwoComponent implements OnInit {
   goldConversionForm: FormGroup;
   user: any;
   karigars: any;
+  projectDetails: any;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private http: HttpClient ) {
     this.route.data.subscribe((response: any) => {
       this.materialBalance = response.fineToNinetyTwoResolver.materialBalance.data;
       this.user = response.fineToNinetyTwoResolver.user;
       this.karigars = response.fineToNinetyTwoResolver.karigars.data;
       // console.log(response.fineToNinetyTwoResolver.user);
+    });
+    this.http.get('assets/projectDetails.json').subscribe((data: any) => {
+      this.projectDetails = data;
     });
     this.goldConversionForm = new FormGroup({
       employee_id: new FormControl(this.user.emp_id, [Validators.required]),
@@ -42,4 +47,24 @@ export class FineToNinetyTwoComponent implements OnInit {
   }
 
 
+  onFineGoldChange(fineGoldValue: HTMLInputElement, copperValue: HTMLInputElement) {
+      console.log(fineGoldValue.value);
+      const fine = this.projectDetails.fineToNinetyTwoRatio.fine;
+      const copper = this.projectDetails.fineToNinetyTwoRatio.copper;
+      // @ts-ignore
+      const copper_value: any = fineGoldValue.value * (copper / fine);
+      this.goldConversionForm.patchValue({copper_value});
+  }
+
+  onCopperChange(fineGoldValue: HTMLInputElement, copperValue: HTMLInputElement) {
+
+  }
+
+  resetForm() {
+
+  }
+
+  saveGoldConversion() {
+
+  }
 }
