@@ -16,6 +16,8 @@ export class FineToNinetyTwoComponent implements OnInit {
   user: any;
   karigars: any;
   projectDetails: any;
+  expectedCopperValue: any;
+  expectedGiniValue: any;
 
   constructor(private route: ActivatedRoute, private http: HttpClient ) {
     this.route.data.subscribe((response: any) => {
@@ -37,7 +39,7 @@ export class FineToNinetyTwoComponent implements OnInit {
 
       fine_gold_value: new FormControl(0, [Validators.required]),
       copper_value: new FormControl(0, [Validators.required]),
-      gini_value: new FormControl(0, [Validators.required])
+      gini_value: new FormControl(0, [Validators.required, Validators.min(0.001)])
 
     });
   }
@@ -52,12 +54,15 @@ export class FineToNinetyTwoComponent implements OnInit {
       const fine = this.projectDetails.fineToNinetyTwoRatio.fine;
       const copper = this.projectDetails.fineToNinetyTwoRatio.copper;
       // @ts-ignore
-      const copper_value: any = fineGoldValue.value * (copper / fine);
-      this.goldConversionForm.patchValue({copper_value});
+      this.expectedCopperValue = Number((fineGoldValue.value * (copper / fine)).toFixed(3));
+      this.goldConversionForm.patchValue({copper_value: this.expectedCopperValue});
+      this.expectedGiniValue = Number(fineGoldValue.value) + this.expectedCopperValue;
+      this.goldConversionForm.patchValue({gini_value: this.expectedGiniValue});
   }
 
   onCopperChange(fineGoldValue: HTMLInputElement, copperValue: HTMLInputElement) {
-
+    this.expectedGiniValue = Number((Number(fineGoldValue.value) + Number(copperValue.value)).toFixed(3));
+    this.goldConversionForm.patchValue({gini_value: this.expectedGiniValue});
   }
 
   resetForm() {
