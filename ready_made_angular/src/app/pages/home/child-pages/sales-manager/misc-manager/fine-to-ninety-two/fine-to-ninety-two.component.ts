@@ -18,7 +18,7 @@ export class FineToNinetyTwoComponent implements OnInit {
   projectDetails: any;
   expectedCopperValue: any;
   expectedGiniValue: any;
-
+  extraCopperValue: number;
   constructor(private route: ActivatedRoute, private http: HttpClient ) {
     this.route.data.subscribe((response: any) => {
       this.materialBalance = response.fineToNinetyTwoResolver.materialBalance.data;
@@ -38,8 +38,8 @@ export class FineToNinetyTwoComponent implements OnInit {
       gini_id: new FormControl(48, [Validators.required]),
 
       fine_gold_value: new FormControl(0, [Validators.required]),
-      copper_value: new FormControl(0, [Validators.required]),
-      gini_value: new FormControl(0, [Validators.required, Validators.min(0.001)])
+      copper_value: new FormControl({value: 0, disables: false}, [Validators.required]),
+      gini_value: new FormControl({value: 0, disabled: false}, [Validators.required, Validators.min(0.001)])
 
     });
   }
@@ -53,11 +53,12 @@ export class FineToNinetyTwoComponent implements OnInit {
       console.log(fineGoldValue.value);
       const fine = this.projectDetails.fineToNinetyTwoRatio.fine;
       const copper = this.projectDetails.fineToNinetyTwoRatio.copper;
-      // @ts-ignore
-      this.expectedCopperValue = Number((fineGoldValue.value * (copper / fine)).toFixed(3));
-      this.goldConversionForm.patchValue({copper_value: this.expectedCopperValue});
-      this.expectedGiniValue = Number(fineGoldValue.value) + this.expectedCopperValue;
-      this.goldConversionForm.patchValue({gini_value: this.expectedGiniValue});
+      this.extraCopperValue = Number(fineGoldValue.value) * 0.001;
+    // @ts-ignore
+      this.expectedCopperValue = Number((fineGoldValue.value * (copper / fine) + this.extraCopperValue).toFixed(3));
+      this.goldConversionForm.patchValue({copper_value: this.expectedCopperValue.toFixed(3)});
+      this.expectedGiniValue = Number(fineGoldValue.value) + this.expectedCopperValue - this.extraCopperValue;
+      this.goldConversionForm.patchValue({gini_value: this.expectedGiniValue.toFixed(3)});
   }
 
   onCopperChange(fineGoldValue: HTMLInputElement, copperValue: HTMLInputElement) {
