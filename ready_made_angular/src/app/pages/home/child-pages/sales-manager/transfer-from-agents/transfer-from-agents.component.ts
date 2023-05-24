@@ -176,7 +176,7 @@ export class TransferFromAgentsComponent implements OnInit {
   }
   transferToSales(){
     // tslint:disable-next-line:max-line-length
-    this.transferAgentService.getCustomersByAgent(this.transferForm.value.agent_id).subscribe((response: {success: number , data: any[]}) => {
+    this.transferAgentService.getBillableCustomers().subscribe((response: {success: number , data: any[]}) => {
       this.customerByAgentList = response.data;
     });
   }
