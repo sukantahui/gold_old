@@ -113,7 +113,7 @@ class BillController extends ApiController
                 $bill_details =  new BillDetails();
                 $bill_details->bill_details_id = $bill_master->bill_no.'-'.($x++);
                 $bill_details->bill_no =  $bill_master->bill_no;
-                $bill_details->job_id = $item['jobId'] ;
+                $bill_details->job_id = 0 ;
                 $bill_details->tag =  $item['tag'];
                 $bill_details->model_no =  $item['modelNo'];
                 $bill_details->price_code =  $product->price_code;
@@ -136,6 +136,7 @@ class BillController extends ApiController
                 $stock->in_stock = 0;
                 $stock->update();
 
+
                 $return_array['billDetails'] = $bill_details;
                 $return_array['stock'] = $stock;
             }
@@ -143,6 +144,11 @@ class BillController extends ApiController
             $total_labour_charge =  BillDetails::whereBillNo($bill_master->bill_no)->sum('labour_charge');
             $return_array['totalGold'] = $total_fine_gold;
             $return_array['totalLabourCharge'] = $total_labour_charge;
+
+            $billMaster2 = BillMaster::find($bill_master->bill_no);
+            $billMaster2->bill_gold = $total_fine_gold;
+            $billMaster2->bill_labour_charge = $total_labour_charge;
+            $billMaster2->update();
 
             $customer_balance = CustomerBalance::whereCustId($bill_master->cust_id)->first();
             $customer_balance->billed_gold = $customer_balance->billed_gold + $total_fine_gold;

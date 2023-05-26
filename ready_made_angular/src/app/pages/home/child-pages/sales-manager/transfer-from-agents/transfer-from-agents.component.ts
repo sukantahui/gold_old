@@ -8,6 +8,7 @@ import {CommonService} from '../../../../../services/common.service';
 import {BillService} from '../../../../../services/bill.service';
 import {BillMaster} from '../../../../../models/billMaster.model';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {environment} from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-transfer-from-agents',
@@ -33,6 +34,7 @@ export class TransferFromAgentsComponent implements OnInit {
   searchTermSelectedProducts: any;
   pageSizeSelectedProducts = 50;
   currentPageSelectedProducts = 1;
+  isProduction = environment.production;
   color = 'accent';
   checked = false;
   ipAddress: any;
