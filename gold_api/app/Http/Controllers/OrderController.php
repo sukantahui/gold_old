@@ -42,6 +42,7 @@ class OrderController extends ApiController
             $orderMaster->order_id = 'ORD/'.$maxTable->mainfield.'/'.$maxTable->financial_year;
             $orderMaster->order_serial = $maxTable->mainfield;
             $orderMaster->cust_id = $orderMasterInput->cust_id;
+            $orderMaster->agent_id = $orderMasterInput->agent_id;
             $orderMaster->order_date = $orderMasterInput->order_date;
             $orderMaster->delivery_date = $orderMasterInput->delivery_date;
             $orderMaster->lc_discount_percentage = $orderMasterInput->lc_discount_percentage;
