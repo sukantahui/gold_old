@@ -6,6 +6,8 @@ use App\Models\RawMaterial;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class RawMaterialController extends ApiController
 {
@@ -13,4 +15,7 @@ class RawMaterialController extends ApiController
         $rawMaterial = RawMaterial::findOrFail($rmId);
         return $this->successResponse($rawMaterial);
     }
+
+
 }
+

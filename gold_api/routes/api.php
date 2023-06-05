@@ -10,6 +10,7 @@ use App\Http\Controllers\GoldReceiptController;
 use App\Http\Controllers\LcReceiptMasterController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\MaterialTransformationMasterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceMasterController;
 use App\Http\Controllers\ProductCategoryController;
@@ -217,6 +218,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("goldReceipt/save",[GoldReceiptController::class, 'save_gold_receipt']);
     Route::get("materialBalance",[ReportController::class, 'getEmployeeMaterialBalance']);
     Route::get("karigars/inforce",[ReportController::class, 'getKarigars']);
+
+    Route::post("fineTwoNinetyTwo",[MaterialTransformationMasterController::class, 'fineToNinetyTwo']);
 
 
 });
