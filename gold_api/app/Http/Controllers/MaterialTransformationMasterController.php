@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MaterialTransformationDetail;
 use App\Models\MaterialTransformationMaster;
 use App\Http\Requests\StoreMaterialTransformationMasterRequest;
 use App\Http\Requests\UpdateMaterialTransformationMasterRequest;
@@ -27,11 +28,20 @@ class MaterialTransformationMasterController extends ApiController
         }
         $data=(object)($input);
         DB::beginTransaction();
+        $return_array=[];
         try{
             $mtm =new MaterialTransformationMaster();
             $mtm->employee_id =$data->employee_id;
             $mtm->karigar_id =$data->karigar_id;
             $mtm->save();
+            $return_array['mtm']=$mtm;
+            $mtd=new MaterialTransformationDetail();
+            $mtd->mtm_id = $mtm->id;
+            $mtd->rm_id = $data->fine_gold_id;
+            $mtd->rm_value = $data->fine_gold_value;
+            $mtd->tr_type = -1;
+            $mtd->save();
+            $return_array['mtd']=$mtd;
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();
@@ -39,6 +49,6 @@ class MaterialTransformationMasterController extends ApiController
         }
 
 
-        return $this->successResponse($input);
+        return $this->successResponse($return_array);
     }
 }
