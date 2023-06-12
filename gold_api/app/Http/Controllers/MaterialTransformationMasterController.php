@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MaterialToEmployeeBalance;
 use App\Models\MaterialTransformationDetail;
 use App\Models\MaterialTransformationMaster;
 use App\Http\Requests\StoreMaterialTransformationMasterRequest;
 use App\Http\Requests\UpdateMaterialTransformationMasterRequest;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -57,8 +59,30 @@ class MaterialTransformationMasterController extends ApiController
             $mtdGini->tr_type = 1;
             $mtdGini->save();
             $return_array['mtdGini']=$mtdGini;
+            // updating material_to_employee balance for fineGold
+            $mtebgold= MaterialToEmployeeBalance::whereRmIdAndEmpId($data->fine_gold_id,$data->employee_id)->first();
+            $mtebgold->outward=$data->fine_gold_value;
+            $mtebgold->closing_balance=$mtebgold->closing_balance-$data->fine_gold_value;
+            $mtebgold->update();
+            $return_array['mtebGold']=$mtebgold;
+
+            // updating material_to_employee balance for Copper
+            $mtebCopper= MaterialToEmployeeBalance::whereRmIdAndEmpId($data->copper_id,$data->employee_id)->first();
+            $mtebCopper->outward=$data->copper_value;
+            $mtebCopper->closing_balance=$mtebCopper->closing_balance-$data->copper_value;
+            $mtebCopper->update();
+            $return_array['mtebCopper']=$mtebCopper;
+
+            // updating material_to_employee balance for Gini
+            $mtebGini= MaterialToEmployeeBalance::whereRmIdAndEmpId($data->gini_id,$data->employee_id)->first();
+            $mtebGini->inward=$data->gini_value;
+            $mtebGini->closing_balance=$mtebGini->closing_balance+$data->gini_value;
+            $mtebGini->update();
+            $return_array['mtebGini']=$mtebGini;
 
             DB::commit();
+            $materialBalance = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
+            $return_array['material_balance']=$materialBalance;
         }catch (\Exception $e){
             DB::rollBack();
             return $this->errorResponse($e->getMessage(),500);
