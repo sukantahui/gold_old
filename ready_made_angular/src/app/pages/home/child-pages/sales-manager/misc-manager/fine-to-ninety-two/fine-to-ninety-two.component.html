@@ -50,8 +50,10 @@
             </div>
         </form>
     </div>
-    <div class="p-2 col-8">
-        <table class="table table-striped col-xl-4 col-lg-4 col-xs-8">
+    <div class="p-2 col-4">
+        <h2 *ngIf="SavedResponse">Previous balance</h2>
+        <h2 *ngIf="!SavedResponse">Current balance</h2>
+        <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
             <thead>
             <tr>
                 <th scope="col">Material Name</th>
@@ -61,6 +63,24 @@
             </thead>
             <tbody>
             <tr *ngFor="let material of materialBalance">
+                <td>{{material.rawMaterialName}}</td>
+                <td>{{material.closingBalance}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="SavedResponse" class="p-2 col-4">
+        <h2 *ngIf="SavedResponse">Current balance</h2>
+        <table class="table col-xl-12 col-lg-12 col-xs-12">
+            <thead>
+            <tr>
+                <th scope="col">Material Name</th>
+                <th scope="col">Value</th>
+
+            </tr>
+            </thead>
+            <tbody style="border: 1px solid #10e523;">
+            <tr *ngFor="let material of SavedResponse.data.material_balance">
                 <td>{{material.rawMaterialName}}</td>
                 <td>{{material.closingBalance}}</td>
             </tr>
@@ -83,7 +103,7 @@
         </div>
         <div class="p-2">
             <pre>
-                karigars= {{karigars | json}}
+                SavedResponse= {{SavedResponse | json}}
             </pre>
         </div>
     </div>

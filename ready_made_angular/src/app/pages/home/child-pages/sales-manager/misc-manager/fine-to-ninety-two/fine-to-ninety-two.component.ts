@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../../../../../../environments/environment';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
+import {ManagerService} from '../../../../../../services/manager.service';
 
 @Component({
   selector: 'app-fine-to-ninety-two',
@@ -19,7 +20,8 @@ export class FineToNinetyTwoComponent implements OnInit {
   expectedCopperValue: any;
   expectedGiniValue: any;
   extraCopperValue: number;
-  constructor(private route: ActivatedRoute, private http: HttpClient ) {
+  SavedResponse: any;
+  constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService ) {
     this.route.data.subscribe((response: any) => {
       this.materialBalance = response.fineToNinetyTwoResolver.materialBalance.data;
       this.user = response.fineToNinetyTwoResolver.user;
@@ -71,6 +73,8 @@ export class FineToNinetyTwoComponent implements OnInit {
   }
 
   saveGoldConversion() {
-
+      this.managerService.saveFineToNinetyTwo(this.goldConversionForm.value).subscribe(response => {
+        this.SavedResponse = response;
+      });
   }
 }

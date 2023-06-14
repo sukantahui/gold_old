@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MaterialBalanceResource;
 use App\Models\MaterialToEmployeeBalance;
 use App\Models\MaterialTransformationDetail;
 use App\Models\MaterialTransformationMaster;
@@ -82,7 +83,7 @@ class MaterialTransformationMasterController extends ApiController
 
             DB::commit();
             $materialBalance = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
-            $return_array['material_balance']=$materialBalance;
+            $return_array['material_balance']=MaterialBalanceResource::collection($materialBalance);
         }catch (\Exception $e){
             DB::rollBack();
             return $this->errorResponse($e->getMessage(),500);
