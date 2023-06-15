@@ -4,6 +4,8 @@ import {environment} from '../../../../../../../environments/environment';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {ManagerService} from '../../../../../../services/manager.service';
+import Swal from 'sweetalert2';
+import {Stock} from '../../../../../../models/stock.model';
 
 @Component({
   selector: 'app-fine-to-ninety-two',
@@ -21,6 +23,7 @@ export class FineToNinetyTwoComponent implements OnInit {
   expectedGiniValue: any;
   extraCopperValue: number;
   SavedResponse: any;
+  showDeveloperDiv = false;
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService ) {
     this.route.data.subscribe((response: any) => {
       this.materialBalance = response.fineToNinetyTwoResolver.materialBalance.data;
@@ -73,8 +76,51 @@ export class FineToNinetyTwoComponent implements OnInit {
   }
 
   saveGoldConversion() {
-      this.managerService.saveFineToNinetyTwo(this.goldConversionForm.value).subscribe(response => {
-        this.SavedResponse = response;
-      });
+    Swal.fire({
+      title: 'Fine to 92 Conversion',
+      text: 'Are you sure?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Convert',
+      cancelButtonText: 'No!',
+      background: 'rgba(38,39,47,0.95)'
+    }).then((result) => {
+      if (result.value){
+        this.managerService.saveFineToNinetyTwo(this.goldConversionForm.value).subscribe((response: {status: any , data: Stock}) => {
+          if (response.status === true) {
+            Swal.fire({
+              timer: 2000,
+              title: 'Saved',
+              text: 'Converted successfully',
+              icon: 'success',
+              showCancelButton: false,
+              confirmButtonColor: '#1661a0',
+              cancelButtonColor: '#d33',
+              background: 'rgba(38,39,47,0.95)'
+            });
+            this.SavedResponse = response;
+          }
+        }, error => {
+          Swal.fire({
+            title: error.message,
+            text: 'Conversion unsuccessful',
+            icon: 'error',
+            showConfirmButton: false,
+            background: 'rgba(38,39,47,0.95)',
+            timer: 3000
+          });
+        });
+      }
+      else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+            'Cancelled',
+        );
+      }
+    });
+
+    // -------------
+    // this.managerService.saveFineToNinetyTwo(this.goldConversionForm.value).subscribe(response => {
+    //   this.SavedResponse = response;
+    // });
   }
 }
