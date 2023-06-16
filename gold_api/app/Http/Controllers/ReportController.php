@@ -164,7 +164,7 @@ class ReportController extends ApiController
     {
 
         // return Auth::user()->emp_id;
-        $result = collect(DB::select('select get_customer_gold_due(cust_id) as gold_due
+        $result = collect(DB::select('select round(get_customer_gold_due(cust_id),3) as gold_due
                 ,get_customer_lc_due(cust_id) as lc_due
                 from customer_master
                 where cust_id=?', [$customerId]))->first();

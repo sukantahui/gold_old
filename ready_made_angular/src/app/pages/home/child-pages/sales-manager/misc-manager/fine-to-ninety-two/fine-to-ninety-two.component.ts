@@ -55,7 +55,6 @@ export class FineToNinetyTwoComponent implements OnInit {
 
 
   onFineGoldChange(fineGoldValue: HTMLInputElement, copperValue: HTMLInputElement) {
-      console.log(fineGoldValue.value);
       const fine = this.projectDetails.fineToNinetyTwoRatio.fine;
       const copper = this.projectDetails.fineToNinetyTwoRatio.copper;
       this.extraCopperValue = Number(fineGoldValue.value) * 0.001;
@@ -72,7 +71,15 @@ export class FineToNinetyTwoComponent implements OnInit {
   }
 
   resetForm() {
-
+    if (this.SavedResponse){
+      this.materialBalance = this.SavedResponse.data.material_balance;
+      this.SavedResponse = null;
+    }
+    this.goldConversionForm.reset();
+    // this.goldConversionForm.patchValue({fine_gold_value: 0});
+    // this.goldConversionForm.patchValue({copper_value: 0});
+    // this.goldConversionForm.patchValue({gini_value: 0});
+    // this.goldConversionForm.patchValue({karigar_id: null});
   }
 
   saveGoldConversion() {
