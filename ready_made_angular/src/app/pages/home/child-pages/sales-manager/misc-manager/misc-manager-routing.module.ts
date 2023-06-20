@@ -10,6 +10,10 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
       , loadChildren: () => import('./fine-to-ninety-two/fine-to-ninety-two.module').then(m => m.FineToNinetyTwoModule)
       , resolve: {fineToNinetyTwoResolver: MaterialBalanceResolver}
     },
+    { path: 'DalCreation'
+      , loadChildren: () => import('./dal-creation/dal-creation.module').then(m => m.DalCreationModule)
+      , resolve: {fineToNinetyTwoResolver: MaterialBalanceResolver}
+    },
   ]
 }];
 
