@@ -1,4 +1,27 @@
-<p>dal-creation works!</p>
+<div class="d-flex flex-row" style="min-height: 80vh;">
+    <div class="p-2 col-4">
+
+    </div>
+    <div class="p-2 col-4">
+        <h2 *ngIf="SavedResponse">Previous balance</h2>
+        <h2 *ngIf="!SavedResponse">Current balance</h2>
+        <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
+            <thead>
+            <tr>
+                <th scope="col">Material Name</th>
+                <th scope="col">Value</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let material of materialBalance">
+                <td>{{material.rawMaterialName}}</td>
+                <td>{{material.closingBalance}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 <mat-button-toggle-group name="fontStyle" aria-label="Font Style" *ngIf="!isProduction">
     <mat-button-toggle (click)="showDeveloperDiv=true">Show</mat-button-toggle>
     <mat-button-toggle (click)="showDeveloperDiv=false">Hide</mat-button-toggle>
@@ -10,7 +33,7 @@
         <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
             <div class="col" fxLayoutAlign="center center">
                     <pre>
-
+                        materialBalance={{materialBalance | json}}
                     </pre>
 
             </div>
