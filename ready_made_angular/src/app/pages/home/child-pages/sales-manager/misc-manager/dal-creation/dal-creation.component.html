@@ -30,18 +30,22 @@
 <div *ngIf="showDeveloperDiv && !isProduction" id="developer-div">
     <div class="outerContainer">
         <h2>Developer Area</h2>
-        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
-            <div class="col" fxLayoutAlign="center center">
-                    <pre>
-                        materialBalance={{materialBalance | json}}
-                    </pre>
+        <mat-tab-group mat-align-tabs="center" backgroundColor="accent">
+            <mat-tab label="Sec 1">
+                <pre>
+                    materialBalance={{materialBalance|json}}
+                </pre>
+            </mat-tab>
+            <mat-tab label="Sec 2">
+                <pre>
 
-            </div>
-            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
-                    <pre>
+                </pre>
+            </mat-tab>
+            <mat-tab label="Sec 3">
+                <pre>
 
-                    </pre>
-            </div>
-        </div>
+                </pre>
+            </mat-tab>
+        </mat-tab-group>
     </div>
 </div>
