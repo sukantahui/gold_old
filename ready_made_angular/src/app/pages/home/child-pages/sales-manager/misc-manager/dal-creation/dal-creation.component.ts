@@ -8,6 +8,7 @@ import {environment} from '../../../../../../../environments/environment';
 })
 export class DalCreationComponent implements OnInit {
   isProduction = environment.production;
+    showDeveloperDiv = false;
   constructor() { }
 
   ngOnInit(): void {

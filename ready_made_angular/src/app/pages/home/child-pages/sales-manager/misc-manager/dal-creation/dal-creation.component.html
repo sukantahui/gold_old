@@ -1,7 +1,10 @@
 <p>dal-creation works!</p>
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style" *ngIf="!isProduction">
+    <mat-button-toggle (click)="showDeveloperDiv=true">Show</mat-button-toggle>
+    <mat-button-toggle (click)="showDeveloperDiv=false">Hide</mat-button-toggle>
+</mat-button-toggle-group>
 
-
-<div *ngIf="true && !isProduction" id="developer-div">
+<div *ngIf="showDeveloperDiv && !isProduction" id="developer-div">
     <div class="outerContainer">
         <h2>Developer Area</h2>
         <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
