@@ -220,6 +220,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("karigars/inforce",[ReportController::class, 'getKarigars']);
 
     Route::post("fineTwoNinetyTwo",[MaterialTransformationMasterController::class, 'fineToNinetyTwo']);
+    Route::post("dalCreation",[MaterialTransformationMasterController::class, 'dalCreation']);
 
 
 });

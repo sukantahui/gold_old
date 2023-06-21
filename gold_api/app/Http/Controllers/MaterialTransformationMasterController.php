@@ -16,15 +16,84 @@ use Illuminate\Support\Facades\Validator;
 
 class MaterialTransformationMasterController extends ApiController
 {
+    public function dalCreation(Request $request){
+        $input=($request->json()->all());
+        $validator = Validator::make($input,[
+            'employee_id' => 'required',
+            'karigar_id' => 'required',
+            'silver_id' => 'required',
+            'copper_id' => 'required',
+            'zinc_id' => 'required',
+            'dal_id' => 'required',
+            'silver_value'=>'required'
+        ]);
+        if($validator->fails()){
+            return $this->errorResponse($validator->messages(),406);
+        }
+        $data=(object)($input);
+        DB::beginTransaction();
+        $return_array=[];
+        try{
+            //master saved
+            $mtm =new MaterialTransformationMaster();
+            $mtm->employee_id =$data->employee_id;
+            $mtm->karigar_id =$data->karigar_id;
+            $mtm->save();
+            $return_array['mtm']=$mtm;
+
+            //silver out recording
+            $mtdSilver=new MaterialTransformationDetail();
+            $mtdSilver->mtm_id = $mtm->id;
+            $mtdSilver->rm_id = $data->silver_id;
+            $mtdSilver->rm_value = $data->silver_value;
+            $mtdSilver->tr_type = -1;
+            $mtdSilver->save();
+            $return_array['mtdSilver']=$mtdSilver;
+
+            //copper out
+            $mtdCopper=new MaterialTransformationDetail();
+            $mtdCopper->mtm_id = $mtm->id;
+            $mtdCopper->rm_id = $data->copper_id;
+            $mtdCopper->rm_value = $data->copper_value;
+            $mtdCopper->tr_type = -1;
+            $mtdCopper->save();
+            $return_array['mtdCopper']=$mtdCopper;
+
+            //Zinc out
+            $mtdZinc=new MaterialTransformationDetail();
+            $mtdZinc->mtm_id = $mtm->id;
+            $mtdZinc->rm_id = $data->zinc_id;
+            $mtdZinc->rm_value = $data->zinc_value;
+            $mtdZinc->tr_type = -1;
+            $mtdZinc->save();
+            $return_array['mtdZinc']=$mtdZinc;
+
+            //Dal in
+            $mtdDal=new MaterialTransformationDetail();
+            $mtdDal->mtm_id = $mtm->id;
+            $mtdDal->rm_id = $data->dal_id;
+            $mtdDal->rm_value = $data->dal_value;
+            $mtdDal->tr_type = 1;
+            $mtdDal->save();
+            $mtdDal['mtdZinc']=$mtdDal;
+            DB::commit();
+            $materialBalance = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
+            $return_array['material_balance']=MaterialBalanceResource::collection($materialBalance);
+        }catch (\Exception $e){
+            DB::rollBack();
+            return $this->errorResponse($e->getMessage(),500);
+        }
+        return $this->successResponse($return_array);
+    }
     public function fineToNinetyTwo(Request $request){
         $input=($request->json()->all());
         $validator = Validator::make($input,[
             'employee_id' => 'required',
             'karigar_id' => 'required',
-            'fine_gold_id' => 'required',
+            'silver_id' => 'required',
             'copper_id' => 'required',
-            'gini_id' => 'required',
-            'fine_gold_value' => 'required'
+            'zinc_id' => 'required',
+            'dal_id' => 'required'
         ]);
         if($validator->fails()){
             return $this->errorResponse($validator->messages(),406);
