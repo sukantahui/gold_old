@@ -76,6 +76,35 @@ class MaterialTransformationMasterController extends ApiController
             $mtdDal->tr_type = 1;
             $mtdDal->save();
             $mtdDal['mtdZinc']=$mtdDal;
+
+            // updating material_to_employee balance for Silver
+            $mtebSilver= MaterialToEmployeeBalance::whereRmIdAndEmpId($data->silver_id,$data->employee_id)->first();
+            $mtebSilver->outward=$data->silver_value;
+            $mtebSilver->closing_balance=$mtebSilver->closing_balance - $data->silver_value;
+            $mtebSilver->update();
+            $return_array['mtebSilver']=$mtebSilver;
+
+            // updating material_to_employee balance for Copper
+            $mtebCopper= MaterialToEmployeeBalance::whereRmIdAndEmpId($data->copper_id,$data->employee_id)->first();
+            $mtebCopper->outward=$data->copper_value;
+            $mtebCopper->closing_balance=$mtebCopper->closing_balance - $data->copper_value;
+            $mtebCopper->update();
+            $return_array['mtebCopper']=$mtebCopper;
+
+            // updating material_to_employee balance for Zinc
+            $mtebZinc= MaterialToEmployeeBalance::whereRmIdAndEmpId($data->zinc_id,$data->employee_id)->first();
+            $mtebZinc->outward=$data->zinc_value;
+            $mtebZinc->closing_balance=$mtebZinc->closing_balance - $data->zinc_value;
+            $mtebZinc->update();
+            $return_array['mtebZinc']=$mtebZinc;
+
+            // updating material_to_employee balance for Zinc
+            $mtebDal= MaterialToEmployeeBalance::whereRmIdAndEmpId($data->dal_id,$data->employee_id)->first();
+            $mtebDal->inward=$data->dal_value;
+            $mtebDal->closing_balance=$mtebDal->closing_balance + $data->dal_value;
+            $mtebDal->update();
+            $return_array['mtebDal']=$mtebDal;
+
             DB::commit();
             $materialBalance = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
             $return_array['material_balance']=MaterialBalanceResource::collection($materialBalance);
