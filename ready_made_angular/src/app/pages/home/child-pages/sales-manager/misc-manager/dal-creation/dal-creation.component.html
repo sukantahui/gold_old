@@ -1,6 +1,20 @@
 <div class="d-flex flex-row" style="min-height: 80vh;">
     <div class="p-2 col-4">
-
+        <form [formGroup] = dalConversionForm>
+            <ng-select [items]="karigars"
+                       bindLabel="emp_name"
+                       class="custom"
+                       bindValue="emp_id"
+                       formControlName="karigar_id"
+                       placeholder="Select karigar">
+            </ng-select>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter Silver</mat-label>
+                    <input type="number"  #silverValue class="text-right" (keyup)="onSilverChange(silverValue)" matInput formControlName="silver_value" placeholder="Silver" >
+                </mat-form-field>
+            </div>
+        </form>
     </div>
     <div class="p-2 col-4">
         <h2 *ngIf="SavedResponse">Previous balance</h2>
@@ -33,17 +47,17 @@
         <mat-tab-group mat-align-tabs="center" backgroundColor="accent">
             <mat-tab label="Sec 1">
                 <pre>
-                    materialBalance={{materialBalance|json}}
+                    dalConversionForm = {{dalConversionForm.value| json}}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 2">
                 <pre>
-
+                    materialBalance={{materialBalance|json}}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 3">
                 <pre>
-
+                    this.dalCreationRation = {{dalCreationRation|json}}
                 </pre>
             </mat-tab>
         </mat-tab-group>

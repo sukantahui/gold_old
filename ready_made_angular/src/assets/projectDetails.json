@@ -1,5 +1,6 @@
 {
     "projectHeading" : "Bangle Management Project",
     "contact" : "bangle312@gmail.com",
-    "fineToNinetyTwoRatio": {"fine": 100,"copper": 9.170}
+    "fineToNinetyTwoRatio": {"fine": 100,"copper": 9.170},
+    "dalCreationRation": {"silver": 41.70142,"copper": 50.0147, "zinc":  8.25688, "copperToSilverRatio": 1.2, "zincToSilver":  0.198, "dalToSilverRatio":  2.37201}
 }

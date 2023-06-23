@@ -5,6 +5,10 @@ import { DalCreationRoutingModule } from './dal-creation-routing.module';
 import { DalCreationComponent } from './dal-creation.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -14,8 +18,12 @@ import {MatTabsModule} from '@angular/material/tabs';
     imports: [
         CommonModule,
         DalCreationRoutingModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
         MatButtonToggleModule,
-        MatTabsModule
+        MatTabsModule,
+        NgSelectModule
     ]
 })
 export class DalCreationModule { }
