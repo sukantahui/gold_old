@@ -93,7 +93,7 @@ export class FineToNinetyTwoComponent implements OnInit {
       background: 'rgba(38,39,47,0.95)'
     }).then((result) => {
       if (result.value){
-        this.managerService.saveFineToNinetyTwo(this.goldConversionForm.value).subscribe((response: {status: any , data: Stock}) => {
+        this.managerService.saveFineToNinetyTwo(this.goldConversionForm.value).subscribe((response: {status: any , data: any}) => {
           if (response.status === true) {
             Swal.fire({
               timer: 2000,

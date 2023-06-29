@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ManagerService} from '../../../../../../services/manager.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-dal-creation',
   templateUrl: './dal-creation.component.html',
@@ -16,7 +16,7 @@ export class DalCreationComponent implements OnInit {
   karigars: any[];
   user: any;
   materialBalance: any[];
-  SavedResponse: any[];
+  savedResponse: { status: any; data: any };
   projectDetails: any;
   dalConversionForm: FormGroup;
   dalCreationRation: any;
@@ -53,14 +53,59 @@ export class DalCreationComponent implements OnInit {
   }
 
   onSilverChange(silverValue: HTMLInputElement) {
-    const copperValue =  Number(silverValue.value) * this.dalCreationRation.copperToSilverRatio;
+    const copperValue =  (Number(silverValue.value) * this.dalCreationRation.copperToSilverRatio).toFixed(3);
     this.dalConversionForm.patchValue({copper_value: copperValue});
 
-    const zincValue =  Number(silverValue.value) * this.dalCreationRation.zincToSilver;
+    const zincValue =  (Number(silverValue.value) * this.dalCreationRation.zincToSilver).toFixed(3);
     this.dalConversionForm.patchValue({zinc_value: zincValue});
 
-    const dalValue =  Number(silverValue.value) * this.dalCreationRation.dalToSilverRatio;
+    const dalValue =  (Number(silverValue.value) * this.dalCreationRation.dalToSilverRatio).toFixed(3);
     this.dalConversionForm.patchValue({dal_value: dalValue});
 
+  }
+
+  resetForm() {
+    this.dalConversionForm.reset();
+  }
+
+  saveDalConversion() {
+    Swal.fire({
+      title: 'Dal Creation',
+      text: 'Are you sure?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Convert',
+      cancelButtonText: 'No!',
+      background: 'rgba(38,39,47,0.95)'
+    }).then((result) => {
+      if (!result.value){return;}
+      // here API call to save the data
+      this.managerService.saveDalCreation(this.dalConversionForm.value).subscribe((response: {status: any , data: any}) => {
+        // when saved record successfully
+        if (response.status === true) {
+          Swal.fire({
+            timer: 2000,
+            title: 'Saved',
+            text: 'Converted successfully',
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#1661a0',
+            cancelButtonColor: '#d33',
+            background: 'rgba(38,39,47,0.95)'
+          });
+          this.savedResponse = response;
+        }
+      }, error => {
+        // error saving record
+        Swal.fire({
+          title: error.message,
+          text: 'Conversion unsuccessful',
+          icon: 'error',
+          showConfirmButton: false,
+          background: 'rgba(38,39,47,0.95)',
+          timer: 3000
+        });
+      });
+    });
   }
 }

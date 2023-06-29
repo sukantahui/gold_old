@@ -14,11 +14,41 @@
                     <input type="number"  #silverValue class="text-right" (keyup)="onSilverChange(silverValue)" matInput formControlName="silver_value" placeholder="Silver" >
                 </mat-form-field>
             </div>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter Copper</mat-label>
+                    <input type="number"  class="text-right" matInput formControlName="copper_value" placeholder="Copper" >
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter Zinc</mat-label>
+                    <input type="number"  class="text-right" matInput formControlName="zinc_value" placeholder="Zinc" >
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Dal Valuation</mat-label>
+                    <input type="number"  class="text-right" matInput formControlName="dal_value" placeholder="Dal" >
+                </mat-form-field>
+            </div>
+            <div class="d-flex flex-row bd-highlight mb-3">
+                <div class="p-2 bd-highlight">
+                    <div class="example-button-row">
+                        <button class="text-right" mat-button color="primary"  (click)="resetForm()">Reset</button>
+                    </div>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <div class="example-button-row">
+                        <button class="text-right" mat-button color="primary" [disabled]="!dalConversionForm.valid || dalConversionForm.pristine" (click)="saveDalConversion()">Save Record</button>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
     <div class="p-2 col-4">
-        <h2 *ngIf="SavedResponse">Previous balance</h2>
-        <h2 *ngIf="!SavedResponse">Current balance</h2>
+        <h2 *ngIf="savedResponse">Previous balance</h2>
+        <h2 *ngIf="!savedResponse">Current balance</h2>
         <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
             <thead>
             <tr>
@@ -29,6 +59,24 @@
             </thead>
             <tbody>
             <tr *ngFor="let material of materialBalance">
+                <td>{{material.rawMaterialName}}</td>
+                <td>{{material.closingBalance}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="savedResponse" class="p-2 col-4">
+        <h2 *ngIf="savedResponse">Current balance</h2>
+        <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
+            <thead>
+            <tr>
+                <th scope="col">Material Name</th>
+                <th scope="col">Value</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let material of savedResponse.data.material_balance">
                 <td>{{material.rawMaterialName}}</td>
                 <td>{{material.closingBalance}}</td>
             </tr>
@@ -52,7 +100,7 @@
             </mat-tab>
             <mat-tab label="Sec 2">
                 <pre>
-                    materialBalance={{materialBalance|json}}
+                    savedResponse={{savedResponse|json}}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 3">

@@ -15,4 +15,8 @@ export class ManagerService {
     return  this.http.post(this.commonService.getAPI() + '/fineTwoNinetyTwo', fineTwoNinetyTwoData)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
+  saveDalCreation(dalCreationData: any){
+    return  this.http.post(this.commonService.getAPI() + '/dalCreation', dalCreationData)
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
 }
