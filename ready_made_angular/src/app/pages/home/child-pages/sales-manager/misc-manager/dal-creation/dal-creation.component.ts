@@ -25,7 +25,6 @@ export class DalCreationComponent implements OnInit {
       this.materialBalance = response.fineToNinetyTwoResolver.materialBalance.data;
       this.user = response.fineToNinetyTwoResolver.user;
       this.karigars = response.fineToNinetyTwoResolver.karigars.data;
-      // console.log(response.fineToNinetyTwoResolver.user);
     });
     this.http.get('assets/projectDetails.json').subscribe((data: any) => {
       this.projectDetails = data;
@@ -65,6 +64,10 @@ export class DalCreationComponent implements OnInit {
   }
 
   resetForm() {
+    if (this.savedResponse){
+      this.materialBalance = this.savedResponse.data.material_balance;
+      this.savedResponse = null;
+    }
     this.dalConversionForm.reset();
   }
 

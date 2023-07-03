@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 
-class EmployeeController extends Controller
+class EmployeeController extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function get_employees()
     {
-        //
+        $result=Employee::get();
+        return $this->successResponse(EmployeeResource::collection($result));
     }
 
     /**

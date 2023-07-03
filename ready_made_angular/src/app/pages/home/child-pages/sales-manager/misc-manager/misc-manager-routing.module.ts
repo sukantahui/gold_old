@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MiscManagerComponent } from './misc-manager.component';
 import {CustomerReceiptResolver} from '../../../../../resolvers/customer-receipt.resolver';
 import {MaterialBalanceResolver} from '../../../../../resolvers/material-balance.resolver';
+import {MaterialResolver} from '../../../../../resolvers/material.resolver';
 
 const routes: Routes = [{ path: '', component: MiscManagerComponent
   , children: [
@@ -13,6 +14,11 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
     { path: 'DalCreation'
       , loadChildren: () => import('./dal-creation/dal-creation.module').then(m => m.DalCreationModule)
       , resolve: {fineToNinetyTwoResolver: MaterialBalanceResolver}
+    },
+    { path: 'SendRawMaterialToEmployee'
+      // tslint:disable-next-line:max-line-length
+      , loadChildren: () => import('./send-raw-material-to-employee/send-raw-material-to-employee.module').then(m => m.SendRawMaterialToEmployeeModule)
+      , resolve: {materialResolver: MaterialResolver}
     },
   ]
 }];

@@ -6,6 +6,7 @@ use App\Http\Controllers\AssetController;
 use App\Http\Controllers\CustomerCategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeCashBalanceController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GoldReceiptController;
 use App\Http\Controllers\LcReceiptMasterController;
 use App\Http\Controllers\LedgerController;
@@ -222,7 +223,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("fineTwoNinetyTwo",[MaterialTransformationMasterController::class, 'fineToNinetyTwo']);
     Route::post("dalCreation",[MaterialTransformationMasterController::class, 'dalCreation']);
 
-
+    Route::get("employees",[EmployeeController::class, 'get_employees']);
 });
 
 

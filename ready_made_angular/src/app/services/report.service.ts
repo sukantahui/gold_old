@@ -16,6 +16,17 @@ export class ReportService {
   constructor(private commonService: CommonService, private http: HttpClient, private errorService: ErrorService, private logger: NgxFancyLoggerService) {
 
   }
+    getEmployees(){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/employees')
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
+
+
   getAgentWiseSaleReport(startDate: string, endDate: string, agentId: string){
       return this.http.get<ServerResponse>(this.commonService.getAPI() + '/SalesReport/agent/' + startDate + '/' + endDate + '/' + agentId)
         .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
