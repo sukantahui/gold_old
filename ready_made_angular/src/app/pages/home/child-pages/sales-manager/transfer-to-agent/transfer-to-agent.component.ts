@@ -55,7 +55,6 @@ export class TransferToAgentComponent implements OnInit {
       shortName: new FormControl(null)
     });
     this.stockListByAgentChangeSubject.asObservable().subscribe((response) => {
-      console.log('change detected is stockListByAgent');
       // tslint:disable-next-line:max-line-length
       this.selectAgentReadyMadeBalance.gold = this.stoockListByAgent.reduce((accumulator: number, currentValue) => accumulator + parseFloat(currentValue.gold), 0);
       // tslint:disable-next-line:max-line-length
@@ -80,6 +79,7 @@ export class TransferToAgentComponent implements OnInit {
     this.sortedProducts = this.sortedProducts.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.products = this.products.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.selectedProducts.push(...newArray);
+    // tslint:disable-next-line:max-line-length
     this.finalSelectedGoldTotal = this.selectedProducts.reduce((accumulator: number, currentValue) => accumulator + parseFloat(currentValue.gold), 0);
   }
 

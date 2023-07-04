@@ -1,6 +1,14 @@
 <div class="d-flex flex-row" style="min-height: 80vh;">
     <div class="p-2 col-4">
-        Left
+        <form [formGroup] = materialSendingForm>
+            <ng-select [items]="selectableEmployees"
+                       bindLabel="employeeName"
+                       class="custom"
+                       bindValue="employeeId"
+                       formControlName="employee_id"
+                       placeholder="Select Employee">
+            </ng-select>
+        </form>
     </div>
     <div class="p-2 col-8">Right</div>
 </div>
@@ -23,12 +31,12 @@
             </mat-tab>
             <mat-tab label="Sec 2">
                 <pre>
-                    employees = {{employees | json}}
+                    rawMaterials = {{rawMaterials | json}}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 3">
                 <pre>
-
+                    selectableEmployees = {{selectableEmployees | json}}
                 </pre>
             </mat-tab>
         </mat-tab-group>

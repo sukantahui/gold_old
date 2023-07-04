@@ -224,6 +224,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("dalCreation",[MaterialTransformationMasterController::class, 'dalCreation']);
 
     Route::get("employees",[EmployeeController::class, 'get_employees']);
+
+
+    Route::get("rawMaterials",[RawMaterialController::class, 'getRawMaterials']);
+
 });
 
 
@@ -339,6 +343,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("getOderIdByStatus",[JobMasterController::class, 'getOderIdByStatus']);
 
     Route::get("rawMaterials/{rmId}",[RawMaterialController::class, 'getRawMaterial']);
+    Route::get("rawMaterials",[RawMaterialController::class, 'getRawMaterials']);
 
     Route::get("billableOrders",[BillController::class, 'get_billable_orders']);
 

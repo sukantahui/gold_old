@@ -20,15 +20,16 @@ export class MaterialResolver implements Resolve<boolean> {
 
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
-    console.log('in resolve');
     const a = this.reportService.getUser();
     const b = this.http.get('assets/projectDetails.json');
     const c = this.reportService.getEmployees();
-    const join = forkJoin(a, b, c).pipe(map((allResponses) => {
+    const d = this.reportService.getRawMaterials();
+    const join = forkJoin(a, b, c, d).pipe(map((allResponses) => {
       return {
         user: allResponses[0],
         projectDetails: allResponses[1],
-        employees: allResponses[2]
+        employees: allResponses[2],
+        rawMaterials: allResponses[3]
       };
     }));
     return join;

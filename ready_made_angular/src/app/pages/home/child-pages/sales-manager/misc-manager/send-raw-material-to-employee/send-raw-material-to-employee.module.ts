@@ -5,6 +5,8 @@ import { SendRawMaterialToEmployeeRoutingModule } from './send-raw-material-to-e
 import { SendRawMaterialToEmployeeComponent } from './send-raw-material-to-employee.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
         CommonModule,
         SendRawMaterialToEmployeeRoutingModule,
         MatTabsModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        ReactiveFormsModule,
+        NgSelectModule
     ]
 })
 export class SendRawMaterialToEmployeeModule { }
