@@ -11,6 +11,7 @@ use App\Http\Controllers\GoldReceiptController;
 use App\Http\Controllers\LcReceiptMasterController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\MatBetweenEmployeeMasterController;
 use App\Http\Controllers\MaterialTransformationMasterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceMasterController;
@@ -227,6 +228,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
     Route::get("rawMaterials",[RawMaterialController::class, 'getRawMaterials']);
+
+    Route::post("matBetweenEmployees",[MatBetweenEmployeeMasterController::class, 'saveMaterialToEmployees']);
+
 
 });
 
