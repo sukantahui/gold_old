@@ -19,6 +19,7 @@ class CreateMatBetweenEmployeeDetailsTable extends Migration
             $table->foreign('mat_between_employee_id')->references('id')->on('mat_between_employee_masters')->onDelete('cascade');
             $table->integer('employee_id')->nullable(false);
             $table->foreign('employee_id')->references('emp_id')->on('employees')->onDelete('cascade');
+            $table->integer('rm_id');
             $table->double('outward')->nullable(false)->default(0);
             $table->double('inward')->nullable(false)->default(0);
             $table->timestamps();

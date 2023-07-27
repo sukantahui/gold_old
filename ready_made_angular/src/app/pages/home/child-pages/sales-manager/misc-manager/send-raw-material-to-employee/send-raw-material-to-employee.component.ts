@@ -19,6 +19,7 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
   materialSendingForm: FormGroup;
   user: any;
   rawMaterials: any;
+  selectableMaterials: any[];
   constructor(private route: ActivatedRoute, private http: HttpClient) {
     this.route.data.subscribe((response: any) => {
       this.user = response.materialResolver.user;
@@ -28,10 +29,13 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
       this.rawMaterials = response.materialResolver.rawMaterials.data;
       // tslint:disable-next-line:max-line-length
       this.selectableEmployees = this.employees.filter(emp => this.projectDetails.managerToEmployeeMaterial.employees.find(rm => (rm === emp.employeeId )));
+      // tslint:disable-next-line:max-line-length
+      this.selectableMaterials = this.rawMaterials.filter(rm => this.projectDetails.managerToEmployeeMaterial.materialsToSend.find(selectableRm => (selectableRm === rm.rmID )));
       // this.selectableEmployees = null;
     });
     this.materialSendingForm = new FormGroup({
       employee_id: new FormControl(this.user.emp_id, [Validators.required]),
+      rm_id: new FormControl(this.user.emp_id, [Validators.required]),
     });
   }
 

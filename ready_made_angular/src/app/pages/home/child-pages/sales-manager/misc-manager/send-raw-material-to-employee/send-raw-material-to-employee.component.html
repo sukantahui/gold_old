@@ -8,6 +8,13 @@
                        formControlName="employee_id"
                        placeholder="Select Employee">
             </ng-select>
+            <ng-select [items]="selectableMaterials"
+                       bindLabel="rmName"
+                       class="custom"
+                       bindValue="rmID"
+                       formControlName="rm_id"
+                       placeholder="Select Material">
+            </ng-select>
         </form>
     </div>
     <div class="p-2 col-8">Right</div>
@@ -31,12 +38,13 @@
             </mat-tab>
             <mat-tab label="Sec 2">
                 <pre>
+                    selectableMaterials = {{selectableMaterials | json}}
                     rawMaterials = {{rawMaterials | json}}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 3">
                 <pre>
-                    selectableEmployees = {{selectableEmployees | json}}
+                    projectDetails = {{projectDetails | json}}
                 </pre>
             </mat-tab>
         </mat-tab-group>

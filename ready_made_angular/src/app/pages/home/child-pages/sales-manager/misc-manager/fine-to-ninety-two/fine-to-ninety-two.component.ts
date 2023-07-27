@@ -55,6 +55,7 @@ export class FineToNinetyTwoComponent implements OnInit {
 
 
   onFineGoldChange(fineGoldValue: HTMLInputElement, copperValue: HTMLInputElement) {
+
       const fine = this.projectDetails.fineToNinetyTwoRatio.fine;
       const copper = this.projectDetails.fineToNinetyTwoRatio.copper;
       this.extraCopperValue = Number(fineGoldValue.value) * 0.001;
@@ -106,6 +107,7 @@ export class FineToNinetyTwoComponent implements OnInit {
               background: 'rgba(38,39,47,0.95)'
             });
             this.SavedResponse = response;
+            this.goldConversionForm.reset();
           }
         }, error => {
           Swal.fire({

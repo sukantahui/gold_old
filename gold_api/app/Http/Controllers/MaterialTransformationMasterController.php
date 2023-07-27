@@ -119,10 +119,12 @@ class MaterialTransformationMasterController extends ApiController
         $validator = Validator::make($input,[
             'employee_id' => 'required',
             'karigar_id' => 'required',
-            'silver_id' => 'required',
+            'fine_gold_id' => 'required',
             'copper_id' => 'required',
-            'zinc_id' => 'required',
-            'dal_id' => 'required'
+            'gini_id' => 'required',
+            'fine_gold_value'=>'required',
+            'copper_value'=>'required',
+            'gini_value'=>'required'
         ]);
         if($validator->fails()){
             return $this->errorResponse($validator->messages(),406);
