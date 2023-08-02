@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MatBetweenEmployeeDetails;
 use App\Models\MatBetweenEmployeeMaster;
 use App\Http\Requests\StoreMatBetweenEmployeeMasterRequest;
 use App\Http\Requests\UpdateMatBetweenEmployeeMasterRequest;
@@ -35,16 +36,35 @@ class MatBetweenEmployeeMasterController extends ApiController
                 $maxTable->suffix = 'None';
                 $maxTable->financial_year = $accounting_year;
                 $maxTable->save();
-
                 $return_array['maxTable']=$maxTable;
+
+
             }
             $voucher_number = $maxTable->prefix.'/'.$maxTable->mainfield.'/'.$maxTable->financial_year;
 
             // adding data to Master
-            $matBetweenEmployee = new MatBetweenEmployeeMaster();
-            $matBetweenEmployee->transaction_number = $voucher_number;
-            $matBetweenEmployee->save();
-            $return_array['matBetweenEmployee']=$matBetweenEmployee;
+            $matBetweenEmployeeMaster = new MatBetweenEmployeeMaster();
+            $matBetweenEmployeeMaster->transaction_number = $voucher_number;
+            $matBetweenEmployeeMaster->save();
+            $return_array['matBetweenEmployeeMaster']=$matBetweenEmployeeMaster;
+            // adding details for sender
+            $matBetweenEmployeeDetails = new MatBetweenEmployeeDetails();
+            $matBetweenEmployeeDetails->mat_between_employee_id=$matBetweenEmployeeMaster->id;
+            $matBetweenEmployeeDetails->employee_id=$data->outward_employee_id;
+            $matBetweenEmployeeDetails->rm_id=$data->rm_id;
+            $matBetweenEmployeeDetails->outward=$data->value;
+            $matBetweenEmployeeDetails->inward=0;
+            $matBetweenEmployeeDetails->save();
+            $return_array['matBetweenEmployeeDetailsSender']=$matBetweenEmployeeDetails;
+            // adding details for receiver
+            $matBetweenEmployeeDetails = new MatBetweenEmployeeDetails();
+            $matBetweenEmployeeDetails->mat_between_employee_id=$matBetweenEmployeeMaster->id;
+            $matBetweenEmployeeDetails->employee_id=$data->inward_employee_id;
+            $matBetweenEmployeeDetails->rm_id=$data->rm_id;
+            $matBetweenEmployeeDetails->outward=0;
+            $matBetweenEmployeeDetails->inward=$data->value;
+            $matBetweenEmployeeDetails->save();
+            $return_array['matBetweenEmployeeDetailsReceiver']=$matBetweenEmployeeDetails;
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();
