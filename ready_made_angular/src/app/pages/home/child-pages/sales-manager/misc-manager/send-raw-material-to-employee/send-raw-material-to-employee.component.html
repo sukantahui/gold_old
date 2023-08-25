@@ -5,7 +5,7 @@
                        bindLabel="employeeName"
                        class="custom"
                        bindValue="employeeId"
-                       formControlName="employee_id"
+                       formControlName="inward_employee_id"
                        placeholder="Select Employee">
             </ng-select>
             <ng-select [items]="selectableMaterials"
@@ -15,6 +15,17 @@
                        formControlName="rm_id"
                        placeholder="Select Material">
             </ng-select>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter Silver</mat-label>
+                    <input type="number" class="text-right" matInput formControlName="value" placeholder="Material value" >
+                </mat-form-field>
+            </div>
+            <div class="p-2 bd-highlight">
+                <div class="example-button-row">
+                    <button class="text-right" mat-button color="primary" [disabled]="!materialSendingForm.valid || materialSendingForm.pristine" (click)="saveMaterialTransfer()">Save Record</button>
+                </div>
+            </div>
         </form>
     </div>
     <div class="p-2 col-8">Right</div>

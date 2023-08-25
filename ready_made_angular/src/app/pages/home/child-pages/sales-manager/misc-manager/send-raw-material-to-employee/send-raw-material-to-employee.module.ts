@@ -7,6 +7,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import {NgSelectModule} from '@ng-select/ng-select';
         MatTabsModule,
         MatButtonToggleModule,
         ReactiveFormsModule,
-        NgSelectModule
+        NgSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule
     ]
 })
 export class SendRawMaterialToEmployeeModule { }

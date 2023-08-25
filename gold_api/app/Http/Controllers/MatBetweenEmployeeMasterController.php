@@ -6,6 +6,7 @@ use App\Models\MatBetweenEmployeeDetails;
 use App\Models\MatBetweenEmployeeMaster;
 use App\Http\Requests\StoreMatBetweenEmployeeMasterRequest;
 use App\Http\Requests\UpdateMatBetweenEmployeeMasterRequest;
+use App\Models\MaterialToEmployeeBalance;
 use App\Models\Maxtable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +51,8 @@ class MatBetweenEmployeeMasterController extends ApiController
             // adding details for sender
             $matBetweenEmployeeDetails = new MatBetweenEmployeeDetails();
             $matBetweenEmployeeDetails->mat_between_employee_id=$matBetweenEmployeeMaster->id;
-            $matBetweenEmployeeDetails->employee_id=$data->outward_employee_id;
+//            $matBetweenEmployeeDetails->employee_id=$data->outward_employee_id;
+            $matBetweenEmployeeDetails->employee_id=auth()->user()->emp_id;
             $matBetweenEmployeeDetails->rm_id=$data->rm_id;
             $matBetweenEmployeeDetails->outward=$data->value;
             $matBetweenEmployeeDetails->inward=0;
@@ -65,6 +67,20 @@ class MatBetweenEmployeeMasterController extends ApiController
             $matBetweenEmployeeDetails->inward=$data->value;
             $matBetweenEmployeeDetails->save();
             $return_array['matBetweenEmployeeDetailsReceiver']=$matBetweenEmployeeDetails;
+            //adding Material to Employee Balance for Sender
+            $materialToEmployeeBalance = MaterialToEmployeeBalance::whereEmpIdAndRmId(auth()->user()->emp_id,$data->rm_id)->first();
+            $materialToEmployeeBalance->outward = $materialToEmployeeBalance->outward + $data->value;
+            $materialToEmployeeBalance->closing_balance = $materialToEmployeeBalance->closing_balance - $data->value;
+            $materialToEmployeeBalance->save();
+            $return_array['sender_material_balance']=$materialToEmployeeBalance;
+
+            //adding Material to Employee Balance for receiver
+            $materialToEmployeeBalance = MaterialToEmployeeBalance::whereEmpIdAndRmId($data->inward_employee_id,$data->rm_id)->first();
+            $materialToEmployeeBalance->inward = $materialToEmployeeBalance->inward + $data->value;
+            $materialToEmployeeBalance->closing_balance = $materialToEmployeeBalance->closing_balance + $data->value;
+            $materialToEmployeeBalance->save();
+            $return_array['receiver_material_balance']=$materialToEmployeeBalance;
+
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();
