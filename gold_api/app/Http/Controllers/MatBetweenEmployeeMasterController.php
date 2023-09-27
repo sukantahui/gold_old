@@ -38,8 +38,6 @@ class MatBetweenEmployeeMasterController extends ApiController
                 $maxTable->financial_year = $accounting_year;
                 $maxTable->save();
                 $return_array['maxTable']=$maxTable;
-
-
             }
             $voucher_number = $maxTable->prefix.'/'.$maxTable->mainfield.'/'.$maxTable->financial_year;
 
@@ -69,16 +67,35 @@ class MatBetweenEmployeeMasterController extends ApiController
             $return_array['matBetweenEmployeeDetailsReceiver']=$matBetweenEmployeeDetails;
             //adding Material to Employee Balance for Sender
             $materialToEmployeeBalance = MaterialToEmployeeBalance::whereEmpIdAndRmId(auth()->user()->emp_id,$data->rm_id)->first();
-            $materialToEmployeeBalance->outward = $materialToEmployeeBalance->outward + $data->value;
-            $materialToEmployeeBalance->closing_balance = $materialToEmployeeBalance->closing_balance - $data->value;
-            $materialToEmployeeBalance->save();
+            if($materialToEmployeeBalance) {
+                $materialToEmployeeBalance->outward = $materialToEmployeeBalance->outward + $data->value;
+                $materialToEmployeeBalance->closing_balance = $materialToEmployeeBalance->closing_balance - $data->value;
+                $materialToEmployeeBalance->save();
+            }else{
+                $materialToEmployeeBalance = new MaterialToEmployeeBalance();
+                $materialToEmployeeBalance->emp_id = auth()->user()->emp_id;
+                $materialToEmployeeBalance->rm_id = $data->rm_id;
+                $materialToEmployeeBalance->inward=0;
+                $materialToEmployeeBalance->outward = $data->value;
+                $materialToEmployeeBalance->closing_balance = $data->value;
+                $materialToEmployeeBalance->save();
+            }
             $return_array['sender_material_balance']=$materialToEmployeeBalance;
 
             //adding Material to Employee Balance for receiver
             $materialToEmployeeBalance = MaterialToEmployeeBalance::whereEmpIdAndRmId($data->inward_employee_id,$data->rm_id)->first();
-            $materialToEmployeeBalance->inward = $materialToEmployeeBalance->inward + $data->value;
-            $materialToEmployeeBalance->closing_balance = $materialToEmployeeBalance->closing_balance + $data->value;
-            $materialToEmployeeBalance->save();
+            if($materialToEmployeeBalance) {
+                $materialToEmployeeBalance->inward = $materialToEmployeeBalance->inward + $data->value;
+                $materialToEmployeeBalance->closing_balance = $materialToEmployeeBalance->closing_balance + $data->value;
+                $materialToEmployeeBalance->save();
+            }else{
+                $materialToEmployeeBalance->rm_id = $data->rm_id;
+                $materialToEmployeeBalance->emp_id = $data->inward_employee_id;
+                $materialToEmployeeBalance->outward = 0;
+                $materialToEmployeeBalance->inward = $data->value;
+                $materialToEmployeeBalance->closing_balance =$data->value;
+                $materialToEmployeeBalance->save();
+            }
             $return_array['receiver_material_balance']=$materialToEmployeeBalance;
 
             DB::commit();

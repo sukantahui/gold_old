@@ -5,6 +5,7 @@ import {environment} from '../../../../../../../environments/environment';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {ManagerService} from '../../../../../../services/manager.service';
+import {CommonService} from '../../../../../../services/common.service';
 
 @Component({
   selector: 'app-send-raw-material-to-employee',
@@ -22,14 +23,16 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
   user: any;
   rawMaterials: any;
   selectableMaterials: any[];
-  private savedResponse: any;
-  constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService) {
+  savedResponse: any;
+  materialBalances: any[] = [];
+  constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService, private commonservice: CommonService) {
     this.route.data.subscribe((response: any) => {
       this.user = response.materialResolver.user;
       this.resolverValues = response.materialResolver;
       this.employees = response.materialResolver.employees.data;
       this.projectDetails = response.materialResolver.projectDetails;
       this.rawMaterials = response.materialResolver.rawMaterials.data;
+      this.materialBalances = response.materialResolver.materialBalances.data;
       // tslint:disable-next-line:max-line-length
       this.selectableEmployees = this.employees.filter(emp => this.projectDetails.managerToEmployeeMaterial.employees.find(rm => (rm === emp.employeeId )));
       // tslint:disable-next-line:max-line-length
@@ -86,6 +89,14 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
           timer: 3000
         });
       });
+    });
+  }
+
+  onEmployeeChange() {
+    const selectedEmployeeId = this.materialSendingForm.get('inward_employee_id').value;
+    // tslint:disable-next-line:max-line-length
+    this.http.get(this.commonservice.getAPI() + '/materialBalance/' + selectedEmployeeId).subscribe((response: {success: number , data: any[]}) => {
+      console.log(response.data);
     });
   }
 }

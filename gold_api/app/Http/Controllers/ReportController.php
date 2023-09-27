@@ -28,6 +28,10 @@ class ReportController extends ApiController
         $result = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
         return $this->successResponse(MaterialBalanceResource::collection($result));
     }
+    public function getEmployeeMaterialBalanceById($emp_id){
+        $result = MaterialToEmployeeBalance::whereEmpId($emp_id)->get();
+        return $this->successResponse(MaterialBalanceResource::collection($result));
+    }
     public function getSaleReportByDatesAndAgent($startDate,$endDate,$agentId){
 
 

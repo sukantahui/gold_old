@@ -2,6 +2,7 @@
     <div class="p-2 col-4">
         <form [formGroup] = materialSendingForm>
             <ng-select [items]="selectableEmployees"
+                       (click)="onEmployeeChange()"
                        bindLabel="employeeName"
                        class="custom"
                        bindValue="employeeId"
@@ -17,7 +18,7 @@
             </ng-select>
             <div>
                 <mat-form-field class="example-full-width">
-                    <mat-label>Enter Silver</mat-label>
+                    <mat-label>Enter Material Value</mat-label>
                     <input type="number" class="text-right" matInput formControlName="value" placeholder="Material value" >
                 </mat-form-field>
             </div>
@@ -28,7 +29,27 @@
             </div>
         </form>
     </div>
-    <div class="p-2 col-8">Right</div>
+    <div class="p-2 col-8 d-flex">
+        <div class="p-2 col-6">
+            <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
+                <thead>
+                <tr>
+                    <th scope="col">Material Name</th>
+                    <th scope="col">Value</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let material of materialBalances">
+                    <td>{{material.rawMaterialName}}</td>
+                    <td>{{material.closingBalance}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="p-2">Flex item 1</div>
+
+    </div>
 </div>
 
 
@@ -55,7 +76,7 @@
             </mat-tab>
             <mat-tab label="Sec 3">
                 <pre>
-                    projectDetails = {{projectDetails | json}}
+                    materialBalances = {{materialBalances | json}}
                 </pre>
             </mat-tab>
         </mat-tab-group>
