@@ -171,6 +171,7 @@
                                              [closeOnClickOutside]="true">
 <!--                                <div>Poopover Test</div>-->
                                 <div>
+                                    <p>{{customerData.cust_id}}</p>
                                     <p>{{customerData.cust_name}}</p>
 <!--                                    <p>{{customerData.mailing_name}}</p>-->
 <!--                                    <p>{{customerData.city}}</p>-->
@@ -201,5 +202,8 @@
 </div>
 
 <div *ngIf="!isProduction">
+    <pre>
     this.billDetails={{billDetails | json}}
+    customerData = {{customerData | json}}
+    </pre>
 </div>

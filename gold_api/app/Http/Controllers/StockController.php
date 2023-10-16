@@ -39,6 +39,36 @@ class StockController extends ApiController
         return response()->json(['success'=>1 , 'data'=>$result],200,[],JSON_NUMERIC_CHECK);
     }
 
+    public function get_item_stock_summary(){
+        $result = DB::select("select model_no,product_description,sum(qty) as qty,round(sum(gold),3) as gold,sum(labour_charge) as lc from item_stock_ready_made
+                        inner join product_master on item_stock_ready_made.model_no=product_master.product_code
+                        where in_stock=1
+                        group by model_no,product_description
+                        order by sum(qty) desc");
+        return $this->successResponse($result);
+    }
+
+    public function  get_all_instock_items_by_model_no($model_no){
+        $result = ItemStockReadyMade::select('tag'
+            ,'item_inward_detail_id'
+            ,'model_no'
+            ,'model_size'
+            ,'qty'
+            ,'gold'
+            ,'labour_charge'
+            ,'gross_weight'
+            ,'package_weight'
+            ,'agent_id'
+            ,'employee_id'
+            ,'bill_no'
+            ,'job_id'
+            ,DB::raw("DATE(record_time) as date"))
+            ->whereInStockAndModelNo(1,$model_no)
+            ->get();
+//        return $this->successResponse(ItemStockReadyMadeResource::collection($result));
+        return response()->json(['success'=>1 , 'data'=>$result],200,[],JSON_NUMERIC_CHECK);
+    }
+
     public function  get_all_instock_items_in_hand($categoryID, $agentId){
         $query = ItemStockReadyMade::select()
             ->join('product_master as pm','pm.product_code','model_no')
