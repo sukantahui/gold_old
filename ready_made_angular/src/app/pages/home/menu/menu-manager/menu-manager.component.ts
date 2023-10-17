@@ -139,9 +139,14 @@ export class MenuManagerComponent implements OnInit {
           iconName: 'feedback',
           children: [
             {
-              displayName: 'Stock in Hand',
-              iconName: 'feedback',
-              route: 'StockInHandReport'
+              displayName: 'Stock by Agent',
+              iconName: 'star_rate',
+              route: 'ShowItemStock'
+            },
+            {
+              displayName: 'Stock GroupWise',
+              iconName: 'star_rate',
+              route: 'ReadymadeStockGroupwise'
             }
           ]
         }

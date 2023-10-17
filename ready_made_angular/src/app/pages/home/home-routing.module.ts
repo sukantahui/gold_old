@@ -148,6 +148,10 @@ const routes: Routes = [
                                     , loadChildren: () => import('./child-pages/sales-manager/stock-in-hand-report/stock-in-hand-report.module').then(m => m.StockInHandReportModule)
                                     , resolve: {showItemStockResolver: ShowItemStockResolver}
                                 },
+                                { path: 'ReadymadeStockGroupwise'
+                                    , loadChildren: () => import('./child-pages/sales-manager/readymade-stock-groupwise/readymade-stock-groupwise.module').then(m => m.ReadymadeStockGroupwiseModule)
+                                    , resolve: {showItemStockResolver: ShowItemStockResolver}
+                                },
                                 { path: 'SaleReturn'
                                     // tslint:disable-next-line:max-line-length
                                     , loadChildren: () => import('./child-pages/sales-manager/sale-return/sale-return.module').then(m => m.SaleReturnModule)
