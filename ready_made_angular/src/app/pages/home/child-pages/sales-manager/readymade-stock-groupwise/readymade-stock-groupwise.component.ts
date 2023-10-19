@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
 import {ReportService} from '../../../../../services/report.service';
 
@@ -9,6 +9,8 @@ import {ReportService} from '../../../../../services/report.service';
 })
 export class ReadymadeStockGroupwiseComponent implements OnInit {
   isProduction: boolean = environment.production;
+  stockByGroup: any;
+  selectedCategoryIndex = -1;
   constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
@@ -17,7 +19,12 @@ export class ReadymadeStockGroupwiseComponent implements OnInit {
   showRecord() {
     console.log('testing');
     this.reportService.getStockInHandGroupwise().subscribe(response =>{
-        console.log(response);
+        this.stockByGroup = response.data;
+        console.log(this.stockByGroup);
       });
+  }
+
+  categorySelected(groupItem, i) {
+    this.selectedCategoryIndex = i;
   }
 }

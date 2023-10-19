@@ -40,10 +40,11 @@ class StockController extends ApiController
     }
 
     public function get_item_stock_summary(){
-        $result = DB::select("select model_no,product_description,sum(qty) as qty,round(sum(gold),3) as gold,sum(labour_charge) as lc from item_stock_ready_made
+        $result = DB::select("select product_cat.ID,product_cat.category,sum(qty) as qty,round(sum(gold),3) as gold,sum(labour_charge) as lc from item_stock_ready_made
                         inner join product_master on item_stock_ready_made.model_no=product_master.product_code
+                        inner join product_cat on product_master.product_category=product_cat.ID
                         where in_stock=1
-                        group by model_no,product_description
+                        group by product_cat.ID,product_cat.category
                         order by sum(qty) desc");
         return $this->successResponse($result);
     }

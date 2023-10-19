@@ -18,6 +18,7 @@ export class AgentWiseCustomerReportComponent implements OnInit {
   agentDues: { gold: number; lc: number };
   selectedCustomer: any;
   selectedCustomerIndex = -1;
+
   constructor(private agentService: AgentService, public commonService: CommonService) { }
 
   ngOnInit(): void {

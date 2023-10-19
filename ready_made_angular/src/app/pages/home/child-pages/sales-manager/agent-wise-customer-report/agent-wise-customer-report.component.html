@@ -36,10 +36,7 @@
                                 <td >{{row.agent_name}}</td>
                                 <td class="text-right">{{row.gold_due | number: '1.3'}}</td>
                                 <td class="text-right">{{row.lc_due}}</td>
-                                <td class="text-right noprint" >
-                                    <a [routerLink]=""  (click)="agentSelected(row,i)" *ngIf="selectedAgentIndex!=i"> <mat-icon>gps_not_fixed</mat-icon> </a>
-                                    <a [routerLink]=""   *ngIf="selectedAgentIndex==i"> <mat-icon>gps_fixed</mat-icon> </a>
-                                </td>
+
 
                             </tr>
                             </tbody>
