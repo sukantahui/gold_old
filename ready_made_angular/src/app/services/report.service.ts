@@ -135,6 +135,16 @@ export class ReportService {
 
             }));
     }
+    getStockInHandByCategory(categoryId: number){
+        // tslint:disable-next-line:max-line-length
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/stockSummary/'+ categoryId)
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
 
     // get job by Id
     getJobById(jobById: string){

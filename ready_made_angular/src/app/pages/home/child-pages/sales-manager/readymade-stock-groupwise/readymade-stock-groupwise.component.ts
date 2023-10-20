@@ -26,5 +26,10 @@ export class ReadymadeStockGroupwiseComponent implements OnInit {
 
   categorySelected(groupItem, i) {
     this.selectedCategoryIndex = i;
+    this.reportService.getStockInHandByCategory(groupItem.product_category_id).subscribe((response: any) => {
+      
+      console.log(response);
+    });
   }
+
 }

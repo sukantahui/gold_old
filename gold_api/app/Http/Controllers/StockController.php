@@ -40,12 +40,31 @@ class StockController extends ApiController
     }
 
     public function get_item_stock_summary(){
-        $result = DB::select("select product_cat.ID,product_cat.category,sum(qty) as qty,round(sum(gold),3) as gold,sum(labour_charge) as lc from item_stock_ready_made
+        $result = DB::select("select product_cat.ID as product_category_id,product_cat.category,sum(qty) as qty,round(sum(gold),3) as gold,sum(labour_charge) as lc from item_stock_ready_made
                         inner join product_master on item_stock_ready_made.model_no=product_master.product_code
                         inner join product_cat on product_master.product_category=product_cat.ID
                         where in_stock=1
                         group by product_cat.ID,product_cat.category
                         order by sum(qty) desc");
+        return $this->successResponse($result);
+    }
+    public function get_item_stock_summary_by_category($categoryId){
+        $result = ItemStockReadyMade::select('product_master.product_code'
+                        ,'product_master.product_description'
+                        ,DB::raw('sum(qty) as qty')
+                        ,DB::raw('round(sum(gold),3) as gold')
+                        ,DB::raw('sum(labour_charge) as lc')
+                    )->whereInStockAndProductCategory(1,$categoryId)
+                    ->join('product_master','product_master.product_code','model_no')
+                    ->join('product_cat','product_cat.ID','product_master.product_category')
+                    ->groupBy('product_master.product_code','product_master.product_description')
+                    ->get();
+//        $result = DB::select("select product_master.product_code,product_master.product_description,sum(qty) as qty,round(sum(gold),3) as gold,sum(labour_charge) as lc from item_stock_ready_made
+//                        inner join product_master on item_stock_ready_made.model_no=product_master.product_code
+//                        inner join product_cat on product_master.product_category=product_cat.ID
+//                        where in_stock=1 and product_master.product_category=$categoryId
+//                        group by product_master.product_code,product_master.product_description
+//                        order by sum(qty) desc");
         return $this->successResponse($result);
     }
 
