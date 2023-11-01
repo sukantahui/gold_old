@@ -174,6 +174,39 @@ class ReportController extends ApiController
                 where cust_id=?', [$customerId]))->first();
         return $this->successResponse($result);
     }
+
+    public function withdraw_materials_by_owner()
+    {
+        $result = DB::select("select material_receiver.transaction_id
+                   , material_receiver.record_time
+                   , DATE_FORMAT(material_receiver.record_time,'%d-%m-%Y %H:%i') as transaction_date
+                   , material_receiver.receiver_employee_id
+                   , material_receiver.inward, material_receiver.rm_id
+                   , material_receiver.rm_name
+                   , material_sender.sender_employee_id
+                   , material_sender.emp_name
+                   , material_sender.outward
+            from (select material_transaction.transaction_id
+                  ,material_transaction.employee_id as receiver_employee_id
+                  ,material_transaction.inward
+                  ,material_transaction.rm_id
+                  ,rm_master.rm_name
+                  ,material_transaction.reference
+                  ,material_transaction.record_time
+                  from material_transaction
+            inner join rm_master ON rm_master.rm_ID = material_transaction.rm_id
+            where transaction_type_id=2 and employee_id=28 and inward>0) as material_receiver
+            inner join (select material_transaction.employee_id as sender_employee_id
+                  ,employees.emp_name
+                  ,material_transaction.outward
+                  ,material_transaction.reference
+                  from material_transaction
+                  inner join employees ON employees.emp_id = material_transaction.employee_id
+            where transaction_type_id=2 and employee_id<>28 and outward>0) as material_sender
+            on material_receiver.reference = material_sender.reference
+            order by material_receiver.record_time desc");
+        return $this->successResponse($result);
+    }
 }
 
 

@@ -172,6 +172,13 @@ const routes: Routes = [
                                     , loadChildren: () => import('./child-pages/sales-manager/misc-manager/misc-manager.module')
                                         .then(m => m.MiscManagerModule)
                                 },
+                                { path: 'WithdrawByOwner'
+                                    // tslint:disable-next-line:max-line-length
+                                    , loadChildren: () => import('./child-pages/sales-manager/withdraw-by-owner/withdraw-by-owner.module')
+                                        .then(m => m.WithdrawByOwnerModule)
+                                },
+
+
 
 
 

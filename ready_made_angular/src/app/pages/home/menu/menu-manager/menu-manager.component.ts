@@ -149,6 +149,22 @@ export class MenuManagerComponent implements OnInit {
               route: 'ReadymadeStockGroupwise'
             }
           ]
+        },
+        {
+          displayName: 'MIS',
+          iconName: 'feedback',
+          children: [
+            {
+              displayName: 'Withdraw by Owner',
+              iconName: 'star_rate',
+              route: 'WithdrawByOwner'
+            },
+            {
+              displayName: 'Stock GroupWise',
+              iconName: 'star_rate',
+              route: 'ReadymadeStockGroupwise'
+            }
+          ]
         }
       ]
     },

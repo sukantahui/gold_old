@@ -238,6 +238,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("matBetweenEmployees",[MatBetweenEmployeeMasterController::class, 'saveMaterialToEmployees']);
 
 
+
+    Route::get("materialWithdrawByOwner",[ReportController::class, 'withdraw_materials_by_owner']);
+
+
 });
 
 
