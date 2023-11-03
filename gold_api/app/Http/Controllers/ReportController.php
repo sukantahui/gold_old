@@ -279,7 +279,7 @@ class ReportController extends ApiController
             order by material_receiver.record_time desc",[$employee_id]);
         return $this->successResponse($result);
     }
-    public function withdraw_materials_by_owner_employee_material($employee_id,$rm_id)
+    public function withdraw_materials_by_owner_employee_material($employee_id,$rm_id,$start_date='2019-10-01',$end_date='3000-01-01')
     {
         $result = DB::select("select material_receiver.transaction_id
                    , material_receiver.record_time
@@ -310,8 +310,8 @@ class ReportController extends ApiController
                   inner join employees ON employees.emp_id = material_transaction.employee_id
             where transaction_type_id=2 and employee_id<>28 and outward>0) as material_sender
             on material_receiver.reference = material_sender.reference
-            where sender_employee_id=? and rm_id=?
-            order by material_receiver.record_time desc",[$employee_id,$rm_id]);
+            where sender_employee_id=? and rm_id=? and date(material_receiver.record_time)>=? and date(material_receiver.record_time)<?
+            order by material_receiver.record_time desc",[$employee_id,$rm_id,$start_date,$end_date]);
         return $this->successResponse($result);
     }
 }

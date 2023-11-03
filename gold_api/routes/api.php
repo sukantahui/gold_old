@@ -243,6 +243,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("materialWithdrawByOwner/materials/{rm_id}/",[ReportController::class, 'withdraw_materials_by_owner_material']);
     Route::get("materialWithdrawByOwner/employees/{employee_id}/",[ReportController::class, 'withdraw_materials_by_owner_employee']);
     Route::get("materialWithdrawByOwner/employees/{employee_id}/materials/{material_id}",[ReportController::class, 'withdraw_materials_by_owner_employee_material']);
+    Route::get("materialWithdrawByOwner/employees/{employee_id}/materials/{material_id}/dtf/{start_date}",[ReportController::class, 'withdraw_materials_by_owner_employee_material']);
+    Route::get("materialWithdrawByOwner/employees/{employee_id}/materials/{material_id}/dtf/{start_date}/dtt/{end_date}",[ReportController::class, 'withdraw_materials_by_owner_employee_material']);
 });
 
 
