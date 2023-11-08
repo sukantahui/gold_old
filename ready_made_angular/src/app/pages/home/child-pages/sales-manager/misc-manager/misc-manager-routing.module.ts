@@ -15,6 +15,10 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
       , loadChildren: () => import('./dal-creation/dal-creation.module').then(m => m.DalCreationModule)
       , resolve: {fineToNinetyTwoResolver: MaterialBalanceResolver}
     },
+    { path: 'PanCreation'
+      , loadChildren: () => import('./pan-creation/pan-creation.module').then(m => m.PanCreationModule)
+      , resolve: {panCreationResolver: MaterialBalanceResolver}
+    },
     { path: 'SendRawMaterialToEmployee'
       // tslint:disable-next-line:max-line-length
       , loadChildren: () => import('./send-raw-material-to-employee/send-raw-material-to-employee.module').then(m => m.SendRawMaterialToEmployeeModule)
