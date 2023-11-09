@@ -9,4 +9,5 @@ class MaterialTransformationMaster extends Model
 {
     use HasFactory;
     private $id;
+
 }

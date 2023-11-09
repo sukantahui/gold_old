@@ -114,6 +114,105 @@ class MaterialTransformationMasterController extends ApiController
         }
         return $this->successResponse($return_array);
     }
+    public function panCreation(Request $request){
+        $input=($request->json()->all());
+        $validator = Validator::make($input,[
+            'employee_id' => 'required',
+            'karigar_id' => 'required',
+            'ninety_two_gini_value'=>'required',
+            'zinc_value'=>'required',
+            'dal_value'=>'required',
+            'pan_value'=>'required'
+        ]);
+        if($validator->fails()){
+            return $this->errorResponse($validator->messages(),406);
+        }
+        $data=(object)($input);
+        DB::beginTransaction();
+        $return_array=[];
+        try{
+            //master saved
+            $mtm =new MaterialTransformationMaster();
+            $mtm->employee_id =$data->employee_id;
+            $mtm->karigar_id =$data->karigar_id;
+            $mtm->save();
+            $return_array['mtm']=$mtm;
+
+            //92 gini out recording
+            $mtdGini=new MaterialTransformationDetail();
+            $mtdGini->mtm_id = $mtm->id;
+            $mtdGini->rm_id = 48;  // id of 92 gini
+            $mtdGini->rm_value = $data->ninety_two_gini_value;
+            $mtdGini->tr_type = -1;
+            $mtdGini->save();
+            $mtdGini['mtdGini']=$mtdGini;
+
+            //Zinc out
+            $mtdZinc=new MaterialTransformationDetail();
+            $mtdZinc->mtm_id = $mtm->id;
+            $mtdZinc->rm_id = 39;  // rm_id of zinc
+            $mtdZinc->rm_value = $data->zinc_value;
+            $mtdZinc->tr_type = -1;
+            $mtdZinc->save();
+            $return_array['mtdZinc']=$mtdZinc;
+
+            //dal out
+            $mtdDal=new MaterialTransformationDetail();
+            $mtdDal->mtm_id = $mtm->id;
+            $mtdDal->rm_id = 33; // rm_id of DAL
+            $mtdDal->rm_value = $data->dal_value;
+            $mtdDal->tr_type = -1;
+            $mtdDal->save();
+            $return_array['mtdDal']=$mtdDal;
+
+            //PAN in
+            $mtdPan=new MaterialTransformationDetail();
+            $mtdPan->mtm_id = $mtm->id;
+            $mtdPan->rm_id = 31;  // rm_id of PAN
+            $mtdPan->rm_value = $data->pan_value;
+            $mtdPan->tr_type = 1;
+            $mtdPan->save();
+            $mtdPan['mtdPan']=$mtdPan;
+
+            // updating material_to_employee balance for 92 Gini           Subtracting
+            $mtebGini= MaterialToEmployeeBalance::whereRmIdAndEmpId(48,$data->employee_id)->first();
+            $mtebGini->outward=$data->ninety_two_gini_value;
+            $mtebGini->closing_balance=$mtebGini->closing_balance - $data->ninety_two_gini_value;
+            $mtebGini->update();
+            $return_array['mtebGini']=$mtebGini;
+
+            // updating material_to_employee balance for Zinc     Subtracting
+            $mtebZinc= MaterialToEmployeeBalance::whereRmIdAndEmpId(39,$data->employee_id)->first();
+            $mtebZinc->outward=$data->zinc_value;
+            $mtebZinc->closing_balance=$mtebZinc->closing_balance - $data->zinc_value;
+            $mtebZinc->update();
+            $return_array['mtebZinc']=$mtebZinc;
+
+
+            // updating material_to_employee balance for Dal    Subtracting
+            $mtebDal= MaterialToEmployeeBalance::whereRmIdAndEmpId(33,$data->employee_id)->first();
+            $mtebDal->outward=$data->dal_value;
+            $mtebDal->closing_balance=$mtebDal->closing_balance - $data->dal_value;
+            $mtebDal->update();
+            $return_array['mtebDal']=$mtebDal;
+
+
+            // updating material_to_employee balance for Pan      Adding
+            $mtebPan= MaterialToEmployeeBalance::whereRmIdAndEmpId(31,$data->employee_id)->first();
+            $mtebPan->inward=$data->pan_value;
+            $mtebPan->closing_balance=$mtebPan->closing_balance + $data->pan_value;
+            $mtebPan->update();
+            $return_array['mtebPan']=$mtebPan;
+
+            DB::commit();
+            $materialBalance = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
+            $return_array['material_balance']=MaterialBalanceResource::collection($materialBalance);
+        }catch (\Exception $e){
+            DB::rollBack();
+            return $this->errorResponse($e->getMessage(),500);
+        }
+        return $this->successResponse($return_array);
+    }
     public function fineToNinetyTwo(Request $request){
         $input=($request->json()->all());
         $validator = Validator::make($input,[

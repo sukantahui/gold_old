@@ -43,7 +43,7 @@ use App\Http\Controllers\JobMasterController;
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| is assigned the "api" middleware group.dalCreation Enjoy building your API!
 |
 */
 
@@ -229,6 +229,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::post("fineTwoNinetyTwo",[MaterialTransformationMasterController::class, 'fineToNinetyTwo']);
     Route::post("dalCreation",[MaterialTransformationMasterController::class, 'dalCreation']);
+    Route::post("panCreation",[MaterialTransformationMasterController::class, 'panCreation']);
 
     Route::get("employees",[EmployeeController::class, 'get_employees']);
 
