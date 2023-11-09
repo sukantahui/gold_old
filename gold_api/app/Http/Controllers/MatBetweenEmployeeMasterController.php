@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\DB;
 class MatBetweenEmployeeMasterController extends ApiController
 {
     function saveMaterialToEmployees(Request $request){
+        /*
+         *  API Calling
+         *
+         *
+         *
+         *
+         */
+
+
         $input=($request->json()->all());
 
         $data=(object)($input);
@@ -45,6 +54,7 @@ class MatBetweenEmployeeMasterController extends ApiController
             $matBetweenEmployeeMaster = new MatBetweenEmployeeMaster();
             $matBetweenEmployeeMaster->transaction_number = $voucher_number;
             $matBetweenEmployeeMaster->save();
+
             $return_array['matBetweenEmployeeMaster']=$matBetweenEmployeeMaster;
             // adding details for sender
             $matBetweenEmployeeDetails = new MatBetweenEmployeeDetails();

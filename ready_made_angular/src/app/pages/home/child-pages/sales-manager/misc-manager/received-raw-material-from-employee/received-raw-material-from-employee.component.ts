@@ -1,30 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import {environment} from '../../../../../../../environments/environment';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../../../environments/environment';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import Swal from 'sweetalert2';
 import {ManagerService} from '../../../../../../services/manager.service';
 import {CommonService} from '../../../../../../services/common.service';
-
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-send-raw-material-to-employee',
-  templateUrl: './send-raw-material-to-employee.component.html',
-  styleUrls: ['./send-raw-material-to-employee.component.scss']
+  selector: 'app-received-raw-material-from-employee',
+  templateUrl: './received-raw-material-from-employee.component.html',
+  styleUrls: ['./received-raw-material-from-employee.component.scss']
 })
-export class SendRawMaterialToEmployeeComponent implements OnInit {
+export class ReceivedRawMaterialFromEmployeeComponent implements OnInit {
   resolverValues: any;
-  isProduction = environment.production;
   showDeveloperDiv: boolean;
+  isProduction = environment.production;
   employees: any;
   selectableEmployees: null;
   projectDetails: any;
-  materialSendingForm: FormGroup;
   user: any;
   rawMaterials: any;
   selectableMaterials: any[];
   savedResponse: any;
   materialBalances: any[] = [];
+  materialRecivingForm: FormGroup;
+
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService, private commonservice: CommonService) {
     this.route.data.subscribe((response: any) => {
       this.user = response.materialResolver.user;
@@ -34,12 +34,13 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
       this.rawMaterials = response.materialResolver.rawMaterials.data;
       this.materialBalances = response.materialResolver.materialBalances.data;
       // tslint:disable-next-line:max-line-length
-      this.selectableEmployees = this.employees.filter(emp => this.projectDetails.managerToEmployeeMaterial.employees.find(rm => (rm === emp.employeeId )));
+      this.selectableEmployees = this.employees.filter(emp => this.projectDetails.employeeToManagerMaterial.employees.find(rm => (rm === emp.employeeId )));
       // tslint:disable-next-line:max-line-length
-      this.selectableMaterials = this.rawMaterials.filter(rm => this.projectDetails.managerToEmployeeMaterial.materialsToSend.find(selectableRm => (selectableRm === rm.rmID )));
+      this.selectableMaterials = this.rawMaterials.filter(rm => this.projectDetails.employeeToManagerMaterial.materialsToSend.find(selectableRm => (selectableRm === rm.rmID )));
       // this.selectableEmployees = null;
     });
-    this.materialSendingForm = new FormGroup({
+
+    this.materialRecivingForm = new FormGroup({
       outward_employee_id: new FormControl(null, [Validators.required]),
       inward_employee_id: new FormControl(this.user.emp_id, [Validators.required]),
       rm_id: new FormControl(null, [Validators.required]),
@@ -49,7 +50,6 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 
   saveMaterialTransfer() {
     Swal.fire({
@@ -61,9 +61,9 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
       cancelButtonText: 'No!',
       background: 'rgba(38,39,47,0.95)'
     }).then((result) => {
-      if (!result.value){return;}
+      if (!result.value){return; }
       // here API call to save the data
-      this.managerService.saveMaterialTransfer(this.materialSendingForm.value).subscribe((response: {status: any , data: any}) => {
+      this.managerService.saveMaterialTransfer(this.materialRecivingForm.value).subscribe((response: {status: any , data: any}) => {
         // when saved record successfully
         if (response.status === true) {
           Swal.fire({
@@ -93,7 +93,7 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
   }
 
   onEmployeeChange() {
-    const selectedEmployeeId = this.materialSendingForm.get('inward_employee_id').value;
+    const selectedEmployeeId = this.materialRecivingForm.get('outward_employee_id').value;
     // tslint:disable-next-line:max-line-length
     this.http.get(this.commonservice.getAPI() + '/materialBalance/' + selectedEmployeeId).subscribe((response: {success: number , data: any[]}) => {
       console.log(response.data);

@@ -24,6 +24,13 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
       , loadChildren: () => import('./send-raw-material-to-employee/send-raw-material-to-employee.module').then(m => m.SendRawMaterialToEmployeeModule)
       , resolve: {materialResolver: MaterialResolver}
     },
+    { path: 'ReceivedRawMaterialFromEmployee'
+      // tslint:disable-next-line:max-line-length
+      , loadChildren: () => import('./received-raw-material-from-employee/received-raw-material-from-employee.module').then(m => m.ReceivedRawMaterialFromEmployeeModule)
+      , resolve: {materialResolver: MaterialResolver}
+    },
+
+
   ]
 }];
 
