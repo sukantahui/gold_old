@@ -5,10 +5,10 @@
     "dalCreationRation": {"silver": 41.70142,"copper": 50.0147, "zinc":  8.25688, "copperToSilverRatio": 1.2, "zincToSilver":  2.382, "dalToSilverRatio":  2.385},
     "managerToEmployeeMaterial": {
         "employees": [70],
-        "materialsToSend": [32,33,44,48]
+        "materialsToSend": [31,33,44,48]
     },
     "employeeToManagerMaterial": {
         "employees": [70],
-        "materialsToSend": [45]
+        "materialsToSend": [45,48,33,31]
     }
 }

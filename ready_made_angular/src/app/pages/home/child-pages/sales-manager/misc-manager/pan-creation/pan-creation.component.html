@@ -1,1 +1,26 @@
 <p>pan-creation works!</p>
+
+
+
+<div *ngIf="showDeveloperDiv && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <h2>Developer Area</h2>
+        <mat-tab-group mat-align-tabs="center" backgroundColor="accent">
+            <mat-tab label="Sec 1">
+                <pre>
+
+                </pre>
+            </mat-tab>
+            <mat-tab label="Sec 2">
+                <pre>
+
+                </pre>
+            </mat-tab>
+            <mat-tab label="Sec 3">
+                <pre>
+
+                </pre>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

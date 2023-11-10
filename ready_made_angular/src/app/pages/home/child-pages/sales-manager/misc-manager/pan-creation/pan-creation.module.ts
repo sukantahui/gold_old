@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PanCreationRoutingModule } from './pan-creation-routing.module';
 import { PanCreationComponent } from './pan-creation.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { PanCreationComponent } from './pan-creation.component';
   ],
   imports: [
     CommonModule,
-    PanCreationRoutingModule
+    PanCreationRoutingModule,
+    MatTabsModule,
   ]
 })
 export class PanCreationModule { }

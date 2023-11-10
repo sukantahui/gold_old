@@ -117,13 +117,13 @@ class MaterialTransformationMasterController extends ApiController
     public function panCreation(Request $request){
         $input=($request->json()->all());
         $validator = Validator::make($input,[
-            'employee_id' => 'required',
             'karigar_id' => 'required',
             'ninety_two_gini_value'=>'required',
             'zinc_value'=>'required',
             'dal_value'=>'required',
             'pan_value'=>'required'
         ]);
+        $employee_id = Auth::user()->emp_id;
         if($validator->fails()){
             return $this->errorResponse($validator->messages(),406);
         }
@@ -133,7 +133,7 @@ class MaterialTransformationMasterController extends ApiController
         try{
             //master saved
             $mtm =new MaterialTransformationMaster();
-            $mtm->employee_id =$data->employee_id;
+            $mtm->employee_id =$employee_id;
             $mtm->karigar_id =$data->karigar_id;
             $mtm->save();
             $return_array['mtm']=$mtm;
@@ -175,14 +175,14 @@ class MaterialTransformationMasterController extends ApiController
             $mtdPan['mtdPan']=$mtdPan;
 
             // updating material_to_employee balance for 92 Gini           Subtracting
-            $mtebGini= MaterialToEmployeeBalance::whereRmIdAndEmpId(48,$data->employee_id)->first();
+            $mtebGini= MaterialToEmployeeBalance::whereRmIdAndEmpId(48,$employee_id)->first();
             $mtebGini->outward=$data->ninety_two_gini_value;
             $mtebGini->closing_balance=$mtebGini->closing_balance - $data->ninety_two_gini_value;
             $mtebGini->update();
             $return_array['mtebGini']=$mtebGini;
 
             // updating material_to_employee balance for Zinc     Subtracting
-            $mtebZinc= MaterialToEmployeeBalance::whereRmIdAndEmpId(39,$data->employee_id)->first();
+            $mtebZinc= MaterialToEmployeeBalance::whereRmIdAndEmpId(39,$employee_id)->first();
             $mtebZinc->outward=$data->zinc_value;
             $mtebZinc->closing_balance=$mtebZinc->closing_balance - $data->zinc_value;
             $mtebZinc->update();
@@ -190,7 +190,7 @@ class MaterialTransformationMasterController extends ApiController
 
 
             // updating material_to_employee balance for Dal    Subtracting
-            $mtebDal= MaterialToEmployeeBalance::whereRmIdAndEmpId(33,$data->employee_id)->first();
+            $mtebDal= MaterialToEmployeeBalance::whereRmIdAndEmpId(33,$employee_id)->first();
             $mtebDal->outward=$data->dal_value;
             $mtebDal->closing_balance=$mtebDal->closing_balance - $data->dal_value;
             $mtebDal->update();
@@ -198,7 +198,7 @@ class MaterialTransformationMasterController extends ApiController
 
 
             // updating material_to_employee balance for Pan      Adding
-            $mtebPan= MaterialToEmployeeBalance::whereRmIdAndEmpId(31,$data->employee_id)->first();
+            $mtebPan= MaterialToEmployeeBalance::whereRmIdAndEmpId(31,$employee_id)->first();
             $mtebPan->inward=$data->pan_value;
             $mtebPan->closing_balance=$mtebPan->closing_balance + $data->pan_value;
             $mtebPan->update();
