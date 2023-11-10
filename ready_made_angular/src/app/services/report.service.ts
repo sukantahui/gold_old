@@ -201,6 +201,16 @@ export class ReportService {
 
             }));
     }
+    getMaterialBalanceByEmployee(employeeId: number){
+        // tslint:disable-next-line:max-line-length
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/materialBalance/' + employeeId )
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
 
     getUser(){
         // tslint:disable-next-line:max-line-length

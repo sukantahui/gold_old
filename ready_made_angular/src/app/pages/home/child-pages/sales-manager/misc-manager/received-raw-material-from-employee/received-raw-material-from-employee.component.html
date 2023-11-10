@@ -29,8 +29,87 @@
             </div>
         </form>
     </div>
-    <div class="p-2 col-8 d-flex">
+    <div class="p-2 col-8 d-flex  flex-column">
+        <div class="p-2 col-8 d-flex">
+            <div class="p-2 col-6">
+                <h2>Your Material Balance</h2>
+                <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
+                <thead>
+                <tr>
+                    <th scope="col">Material Name</th>
+                    <th scope="col">Value</th>
 
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let material of materialBalances">
+                    <td>{{material.rawMaterialName}}</td>
+                    <td class="text-right">{{material.closingBalance | number : '.3-3'}} gm</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="p-2 col-6" *ngIf="senderMaterialBalances">
+                <h2>Sender Material Balacne</h2>
+                <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
+                    <thead>
+                    <tr>
+                        <th scope="col">Material Name</th>
+                        <th scope="col">Value</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let material of senderMaterialBalances">
+                        <td>{{material.rawMaterialName}}</td>
+                        <td class="text-right">{{material.closingBalance | number : '.3-3'}} gm</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="savedResponse">
+            <hr>
+            <h2>Balance after transaction</h2>
+        </div>
+        <div class="p-2 col-8 d-flex" *ngIf="savedResponse">
+            <div class="p-2 col-6">
+                <h2>Your Material Balance after change</h2>
+                <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
+                    <thead>
+                    <tr>
+                        <th scope="col">Material Name</th>
+                        <th scope="col">Value</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let material of savedResponse.data.receiver_material_balance">
+                        <td>{{material.rawMaterialName}}</td>
+                        <td class="text-right">{{material.closingBalance | number : '.3-3'}} gm</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-2 col-6" *ngIf="senderMaterialBalances">
+                <h2>Sender Material Balacne</h2>
+                <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
+                    <thead>
+                    <tr>
+                        <th scope="col">Material Name</th>
+                        <th scope="col">Value</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let material of savedResponse.data.sender_material_balance">
+                        <td>{{material.rawMaterialName}}</td>
+                        <td class="text-right">{{material.closingBalance | number : '.3-3'}} gm</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -54,7 +133,7 @@
             </mat-tab>
             <mat-tab label="Sec 2">
                 <pre>
-
+                    savedResponse = {{savedResponse.data | json}}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 3">

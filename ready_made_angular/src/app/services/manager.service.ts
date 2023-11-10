@@ -24,4 +24,9 @@ export class ManagerService {
     return  this.http.post(this.commonService.getAPI() + '/matBetweenEmployees', materialTransfer)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
+  saveMaterialFromEmployee(materialTransfer: any) {
+    return  this.http.post(this.commonService.getAPI() + '/materialFromEmployee', materialTransfer)
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
+
 }

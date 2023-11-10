@@ -6,6 +6,7 @@ import {ManagerService} from '../../../../../../services/manager.service';
 import {CommonService} from '../../../../../../services/common.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
+import {ReportService} from '../../../../../../services/report.service';
 @Component({
   selector: 'app-received-raw-material-from-employee',
   templateUrl: './received-raw-material-from-employee.component.html',
@@ -24,8 +25,9 @@ export class ReceivedRawMaterialFromEmployeeComponent implements OnInit {
   savedResponse: any;
   materialBalances: any[] = [];
   materialRecivingForm: FormGroup;
+  senderMaterialBalances: any[];
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService, private commonservice: CommonService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService, private commonservice: CommonService, private reportService: ReportService) {
     this.route.data.subscribe((response: any) => {
       this.user = response.materialResolver.user;
       this.resolverValues = response.materialResolver;
@@ -63,7 +65,7 @@ export class ReceivedRawMaterialFromEmployeeComponent implements OnInit {
     }).then((result) => {
       if (!result.value){return; }
       // here API call to save the data
-      this.managerService.saveMaterialTransfer(this.materialRecivingForm.value).subscribe((response: {status: any , data: any}) => {
+      this.managerService.saveMaterialFromEmployee(this.materialRecivingForm.value).subscribe((response: {status: any , data: any}) => {
         // when saved record successfully
         if (response.status === true) {
           Swal.fire({
@@ -95,8 +97,10 @@ export class ReceivedRawMaterialFromEmployeeComponent implements OnInit {
   onEmployeeChange() {
     const selectedEmployeeId = this.materialRecivingForm.get('outward_employee_id').value;
     // tslint:disable-next-line:max-line-length
-    this.http.get(this.commonservice.getAPI() + '/materialBalance/' + selectedEmployeeId).subscribe((response: {success: number , data: any[]}) => {
-      console.log(response.data);
-    });
+    if (selectedEmployeeId) {
+      this.reportService.getMaterialBalanceByEmployee(selectedEmployeeId).subscribe((response: { success: number, data: any[] }) => {
+        this.senderMaterialBalances = response.data;
+      });
+    }
   }
 }

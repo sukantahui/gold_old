@@ -237,6 +237,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("rawMaterials",[RawMaterialController::class, 'getRawMaterials']);
 
     Route::post("matBetweenEmployees",[MatBetweenEmployeeMasterController::class, 'saveMaterialToEmployees']);
+    Route::post("materialFromEmployee",[MatBetweenEmployeeMasterController::class, 'saveMaterialFromEmployee']);
 
 
 
