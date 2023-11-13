@@ -163,6 +163,11 @@ export class MenuOwnerComponent implements OnInit {
       route: 'michael-prentice',
       children: [
         {
+          displayName: 'Misc. Activities',
+          iconName: 'label',
+          route: 'owner'
+        },
+        {
           displayName: 'ORDER',
           iconName: 'label',
           children: [

@@ -240,6 +240,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("matBetweenEmployees",[MatBetweenEmployeeMasterController::class, 'saveMaterialToEmployees']);
     Route::post("materialFromEmployee",[MatBetweenEmployeeMasterController::class, 'saveMaterialFromEmployee']);
     Route::post("materialFromOwnerToManager",[MatBetweenEmployeeMasterController::class, 'saveMaterialToManagerByOwner']);
+    Route::post("materialFromManagerToOwner",[MatBetweenEmployeeMasterController::class, 'saveMaterialFromManagerByOwner']);
 
 
     Route::get("materialWithdrawByOwner",[ReportController::class, 'withdraw_materials_by_owner']);

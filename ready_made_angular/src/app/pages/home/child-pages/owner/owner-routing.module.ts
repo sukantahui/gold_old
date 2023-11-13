@@ -10,6 +10,10 @@ const routes: Routes = [{ path: '', component: OwnerComponent
     , loadChildren: () => import('./material-to-manager/material-to-manager.module').then(m => m.MaterialToManagerModule)
     , resolve: {materialResolver: MaterialResolver}
   },
+  { path: 'MaterialFromManager'
+    , loadChildren: () => import('./material-from-manager/material-from-manager.module').then(m => m.MaterialFromManagerModule)
+    , resolve: {materialResolver: MaterialResolver}
+  },
   ]
 }];
 

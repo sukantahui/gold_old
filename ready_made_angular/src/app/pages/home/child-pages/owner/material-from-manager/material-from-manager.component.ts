@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import {environment} from '../../../../../../environments/environment';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import Swal from 'sweetalert2';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ManagerService} from '../../../../../services/manager.service';
-import {CommonService} from '../../../../../services/common.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {environment} from '../../../../../../environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-material-to-manager',
-  templateUrl: './material-to-manager.component.html',
-  styleUrls: ['./material-to-manager.component.scss']
+  selector: 'app-material-from-manager',
+  templateUrl: './material-from-manager.component.html',
+  styleUrls: ['./material-from-manager.component.scss']
 })
-export class MaterialToManagerComponent implements OnInit {
-  isProduction = environment.production;
+export class MaterialFromManagerComponent implements OnInit {
+  ownerFromMangerForm: FormGroup;
   materials: any;
+  isProduction = environment.production;
   showDeveloperDiv = true;
-  ownerToMangerForm: FormGroup;
-  savedResponse: { status: any; message: string; data: object };
-  updatedMaterialBalance: any;
+  savedResponse: { status: any; data: any };
+  materialBalance: any;
+
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService) {
     this.route.data.subscribe((response: any) => {
       this.materials = response.materialResolver.rawMaterials.data;
     });
-    this.ownerToMangerForm = new FormGroup({
+    this.ownerFromMangerForm = new FormGroup({
       rm_id: new FormControl(36, [Validators.required]),
       value: new FormControl({value: 0, disabled: false}, [Validators.required, Validators.min(0.001)])
     });
@@ -32,29 +32,25 @@ export class MaterialToManagerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  resetForm() {
-
-  }
-
   saveTransfer() {
     Swal.fire({
-      title: 'From owner to Manager',
+      title: 'Withdraw from Manager',
       text: 'Are you sure?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, Transfer',
+      confirmButtonText: 'Yes, Withdraw',
       cancelButtonText: 'No!',
       background: 'rgba(38,39,47,0.95)'
     }).then((result) => {
       if (!result.value){return;}
       // here API call to save the data
-      this.managerService.saveMaterialFromOwnerToManager(this.ownerToMangerForm.value).subscribe((response: {status: any, message: string , data: any}) => {
+      this.managerService.saveMaterialFromManagerToOwner(this.ownerFromMangerForm.value).subscribe((response: {status: any , data: any}) => {
         // when saved record successfully
         if (response.status === true) {
           Swal.fire({
             timer: 2000,
             title: 'Saved',
-            text: 'Transferred successfully to Manager',
+            text: 'Withdrawn successfully to Manager',
             icon: 'success',
             showCancelButton: false,
             confirmButtonColor: '#1661a0',
@@ -62,7 +58,6 @@ export class MaterialToManagerComponent implements OnInit {
             background: 'rgba(38,39,47,0.95)'
           });
           this.savedResponse = response;
-          this.updatedMaterialBalance = response.data.manager_all_material_balance;
         }
       }, error => {
         // error saving record
@@ -76,5 +71,13 @@ export class MaterialToManagerComponent implements OnInit {
         });
       });
     });
+  }
+
+  resetForm() {
+    if (this.savedResponse){
+      this.materialBalance = this.savedResponse.data.material_balance;
+      this.savedResponse = null;
+    }
+    this.ownerFromMangerForm.reset();
   }
 }

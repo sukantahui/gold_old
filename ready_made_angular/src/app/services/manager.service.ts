@@ -28,5 +28,16 @@ export class ManagerService {
     return  this.http.post(this.commonService.getAPI() + '/materialFromEmployee', materialTransfer)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
+  // special Owner to Manager
+  saveMaterialFromOwnerToManager(materialTransfer: any) {
+    return  this.http.post(this.commonService.getAPI() + '/materialFromOwnerToManager', materialTransfer)
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
+
+  // special Owner from Manager
+  saveMaterialFromManagerToOwner(materialTransfer: any) {
+    return  this.http.post(this.commonService.getAPI() + '/materialFromManagerToOwner', materialTransfer)
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
 
 }

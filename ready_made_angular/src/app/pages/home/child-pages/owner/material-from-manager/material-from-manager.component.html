@@ -1,9 +1,9 @@
 <div class="d-flex flex-row" style="min-height: 80vh;">
     <div class="p-2 col-4">
-        <h2>Sending from Owner to Manager</h2>
-        <h5>শুধুমাত্র মালিক ম্যানেজারকে যে কোন মেটাল দেওয়ার জায়গা</h5>
+        <h2>Withdrawing from Manager</h2>
+        <h5>ম্যানেজারের কাছ থেকে মেটাল তুলে নেওয়ার পদ্ধতি</h5>
         <hr>
-        <form [formGroup] = ownerToMangerForm>
+        <form [formGroup] = ownerFromMangerForm>
             <ng-select [items]="materials"
                        bindLabel="rmName"
                        class="custom"
@@ -26,47 +26,13 @@
                 </div>
                 <div class="p-2 bd-highlight">
                     <div class="example-button-row">
-                        <button class="text-right" mat-button color="primary" [disabled]="!ownerToMangerForm.valid || ownerToMangerForm.pristine" (click)="saveTransfer()">Save Record</button>
+                        <button class="text-right" mat-button color="primary" [disabled]="!ownerFromMangerForm.valid || ownerFromMangerForm.pristine" (click)="saveTransfer()">Save Record</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-    <div class="p-2 col-8 d-flex">
-        <div class="p-2 col-6">
-            <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
-                <thead>
-                <tr>
-                    <th scope="col">Material Name</th>
-                    <th scope="col">Value</th>
-
-                </tr>
-                </thead>
-                <tbody>
-<!--                <tr *ngFor="let material of materialBalances">-->
-<!--                    <td>{{material.rawMaterialName}}</td>-->
-<!--                    <td class="text-right">{{material.closingBalance}}</td>-->
-<!--                </tr>-->
-                </tbody>
-            </table>
-        </div>
-        <div class="p-2" *ngIf="savedResponse">
-            <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
-                <thead>
-                <tr>
-                    <th scope="col">Material Name</th>
-                    <th scope="col">Value</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                                <tr *ngFor="let material of updatedMaterialBalance">
-                                    <td>{{material.rawMaterialName}}</td>
-                                    <td class="text-right">{{material.closingBalance}}</td>
-                                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="p-2 col-4">
 
     </div>
 </div>
@@ -82,20 +48,21 @@
         <mat-tab-group mat-align-tabs="center" backgroundColor="accent">
             <mat-tab label="Sec 1">
                 <pre>
-                    updatedMaterialBalance = {{updatedMaterialBalance | json }}
+                    materials = {{materials | json }}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 2">
                 <pre>
-                    ownerToMangerForm={{ownerToMangerForm.value | json}}
+                    savedResponse={{savedResponse| json}}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 3">
                 <pre>
-
+                    materialBalance={{materialBalance | json}}
                 </pre>
             </mat-tab>
         </mat-tab-group>
     </div>
 </div>
+
 
