@@ -1,0 +1,61 @@
+<div class="d-flex flex-row" style="min-height: 80vh;">
+    <div class="p-2 col-4">
+        <h2>Sending from Owner to Manager</h2>
+        <h5>শুধুমাত্র মালিক ম্যানেজারকে যে কোন মেটাল দেওয়ার জায়গা</h5>
+        <form [formGroup] = ownerToMangerForm>
+            <ng-select [items]="materials"
+                       bindLabel="rmName"
+                       class="custom"
+                       bindValue="rmID"
+                       formControlName="rm_id"
+                       placeholder="Select Material">
+            </ng-select>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter Quantity</mat-label>
+                    <input type="number"  #silverValue class="text-right"  matInput formControlName="rm_value" placeholder="Material" >
+                </mat-form-field>
+            </div>
+
+            <div class="d-flex flex-row bd-highlight mb-3">
+                <div class="p-2 bd-highlight">
+                    <div class="example-button-row">
+                        <button class="text-right" mat-button color="primary"  (click)="resetForm()">Reset</button>
+                    </div>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <div class="example-button-row">
+                        <button class="text-right" mat-button color="primary" [disabled]="!ownerToMangerForm.valid || ownerToMangerForm.pristine" (click)="saveTransfer()">Save Record</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="p-2 col-4">
+
+    </div>
+</div>
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style" *ngIf="!isProduction">
+    <mat-button-toggle (click)="showDeveloperDiv=true">Show</mat-button-toggle>
+    <mat-button-toggle (click)="showDeveloperDiv=false">Hide</mat-button-toggle>
+</mat-button-toggle-group>
+
+
+
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div class="col" fxLayoutAlign="center center">
+                    <pre>
+                        materials = {{materials | json }}
+                    </pre>
+
+            </div>
+            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
+                    <pre>
+                        ownerToMangerForm={{ownerToMangerForm.value | json}}
+                    </pre>
+            </div>
+        </div>
+    </div>
+</div>

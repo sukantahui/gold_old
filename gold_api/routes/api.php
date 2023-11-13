@@ -239,7 +239,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::post("matBetweenEmployees",[MatBetweenEmployeeMasterController::class, 'saveMaterialToEmployees']);
     Route::post("materialFromEmployee",[MatBetweenEmployeeMasterController::class, 'saveMaterialFromEmployee']);
-
+    Route::post("materialFromOwnerToManager",[MatBetweenEmployeeMasterController::class, 'saveMaterialToManagerByOwner']);
 
 
     Route::get("materialWithdrawByOwner",[ReportController::class, 'withdraw_materials_by_owner']);
@@ -248,6 +248,16 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("materialWithdrawByOwner/employees/{employee_id}/materials/{material_id}",[ReportController::class, 'withdraw_materials_by_owner_employee_material']);
     Route::get("materialWithdrawByOwner/employees/{employee_id}/materials/{material_id}/dtf/{start_date}",[ReportController::class, 'withdraw_materials_by_owner_employee_material']);
     Route::get("materialWithdrawByOwner/employees/{employee_id}/materials/{material_id}/dtf/{start_date}/dtt/{end_date}",[ReportController::class, 'withdraw_materials_by_owner_employee_material']);
+
+
+
+
+
+
+
+
+
+
 });
 
 

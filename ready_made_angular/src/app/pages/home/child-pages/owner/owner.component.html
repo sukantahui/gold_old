@@ -1,1 +1,60 @@
-<p>owner works!</p>
+<div class="d-flex flex-column" style="min-height: 100vh;">
+    <div class="p-2 text-center" style="background-color: rgb(183,174,159)">
+        <h3>{{subject}}</h3>
+    </div>
+
+    <div class="p-2">
+        <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+
+            <div class="p-2 col-xl-2" style="background-color: rgb(199, 192, 192)">
+                <ul>
+                    <li>
+                        <a (click)="subject='Material manager'" routerLink='./MaterialToManager'>Material to Manager</a>
+                    </li>
+                    <li>
+                        <a (click)="subject='Dal Creation'" routerLink='./DalCreation'>Dal Creation</a>
+                    </li>
+                    <li>
+                        <a (click)="subject='Pan Creation'" routerLink='./PanCreation'>Pan Creation</a>
+                    </li>
+                    <li>
+                        <a (click)="subject='Send Material'" routerLink='./SendRawMaterialToEmployee'>Send Material</a>
+                    </li>
+                    <li>
+                        <a (click)="subject='Received Material'" routerLink='./ReceivedRawMaterialFromEmployee'>Received Material</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- Right -->
+            <div class="bloc_2 p-2 col-xl-10" style="background-color: antiquewhite">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+    <!--    Footer area-->
+    <div class="mt-auto p-2 text-center" style="background-color: rgb(77, 68, 68)">I am footer, i will stay here</div>
+</div>
+
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div class="col" fxLayoutAlign="center center">
+                    <pre>
+
+                    </pre>
+
+            </div>
+            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
+                    <pre>
+
+                    </pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
