@@ -75,6 +75,10 @@ class Request extends SymfonyRequest implements Arrayable, ArrayAccess
      * @var mixed
      */
 
+    /**
+     * @var mixed
+     */
+
 
 
     /**

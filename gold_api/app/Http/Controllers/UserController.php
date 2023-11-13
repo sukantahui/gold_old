@@ -67,6 +67,13 @@ class UserController extends ApiController
         $result = $user->tokens()->delete();
         return $this->successResponse($result);
     }
+    public function set_password(Request $request){
+        $email=$request->input('newPassword');
+        return $this->successResponse($email,$request->input('newPassword'));
+        $user = User::whereEmail($input->email)->first();
+        return $this->successResponse($user,"Testing.6");
+        return $this->successResponse(User::where('id', $input['id'])->get(),"Password updated successfully.");
+    }
     public function updatePassword(Request $request){
         $input = $request->all();
         $userid=$request->user()->id;

@@ -69,6 +69,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("revokeAll",[UserController::class,'revoke_all']);
     //All secure URL's
     Route::get("user",[UserController::class,'getCurrentUser']);
+    Route::put("setPassword",[UserController::class, 'set_password']);
 
 
 
