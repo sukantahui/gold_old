@@ -7,23 +7,13 @@
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
 
             <div class="p-2 col-xl-2" style="background-color: rgb(199, 192, 192)">
-                <ul>
+                <ul style="list-style: none;">
                     <li>
-                        <a (click)="subject='Material to manager'" routerLink='./MaterialToManager'>Material to Manager</a>
+                        <a style="text-decoration: none" (click)="subject='Material to manager'" routerLink='./MaterialToManager'>Material to Manager</a>
                     </li>
                     <li>
-                        <a (click)="subject='Material from Manager'" routerLink='./MaterialFromManager'>Material from Manager</a>
+                        <a style="text-decoration: none" (click)="subject='Material from Manager'" routerLink='./MaterialFromManager'>Material from Manager</a>
                     </li>
-                    <li>
-                        <a (click)="subject='Pan Creation'" routerLink='./PanCreation'>Pan Creation</a>
-                    </li>
-                    <li>
-                        <a (click)="subject='Send Material'" routerLink='./SendRawMaterialToEmployee'>Send Material</a>
-                    </li>
-                    <li>
-                        <a (click)="subject='Received Material'" routerLink='./ReceivedRawMaterialFromEmployee'>Received Material</a>
-                    </li>
-
                 </ul>
             </div>
             <!-- Right -->

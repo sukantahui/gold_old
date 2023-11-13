@@ -18,10 +18,13 @@ export class MaterialFromManagerComponent implements OnInit {
   showDeveloperDiv = true;
   savedResponse: { status: any; data: any };
   materialBalance: any;
+  managerMaterialBalance: any;
+  managerMaterialBalanceUpdated: any;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService) {
     this.route.data.subscribe((response: any) => {
       this.materials = response.materialResolver.rawMaterials.data;
+      this.managerMaterialBalance = response.materialResolver.managerMaterialBalance.data;
     });
     this.ownerFromMangerForm = new FormGroup({
       rm_id: new FormControl(36, [Validators.required]),
@@ -58,6 +61,8 @@ export class MaterialFromManagerComponent implements OnInit {
             background: 'rgba(38,39,47,0.95)'
           });
           this.savedResponse = response;
+          this.managerMaterialBalanceUpdated = response.data.manager_all_material_balance;
+          this.ownerFromMangerForm.markAsPristine();
         }
       }, error => {
         // error saving record

@@ -25,13 +25,15 @@ export class MaterialResolver implements Resolve<boolean> {
     const c = this.reportService.getEmployees();
     const d = this.reportService.getRawMaterials();
     const e = this.reportService.getMaterialBalance();
-    const join = forkJoin(a, b, c, d, e).pipe(map((allResponses) => {
+    const f = this.reportService.getMaterialBalanceByEmployee(72);
+    const join = forkJoin(a, b, c, d, e,f).pipe(map((allResponses) => {
       return {
         user: allResponses[0],
         projectDetails: allResponses[1],
         employees: allResponses[2],
         rawMaterials: allResponses[3],
-        materialBalances: allResponses[4]
+        materialBalances: allResponses[4],
+        managerMaterialBalance: allResponses[5],
       };
     }));
     return join;
