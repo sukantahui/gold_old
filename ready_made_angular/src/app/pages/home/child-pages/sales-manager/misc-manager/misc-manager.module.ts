@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MiscManagerRoutingModule } from './misc-manager-routing.module';
 import { MiscManagerComponent } from './misc-manager.component';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { MiscManagerComponent } from './misc-manager.component';
   ],
   imports: [
     CommonModule,
-    MiscManagerRoutingModule
+    MiscManagerRoutingModule,
+    MatButtonModule
   ]
 })
 export class MiscManagerModule { }

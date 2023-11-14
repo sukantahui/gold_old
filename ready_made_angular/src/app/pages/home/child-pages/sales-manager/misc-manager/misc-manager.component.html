@@ -7,27 +7,57 @@
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
 
             <div class="p-2 col-xl-2" style="background-color: rgb(199, 192, 192)">
-                <ul>
+                <ul style="list-style: none;">
                     <li>
-                        <a (click)="subject='Fine to 92'" routerLink='./FineToNinetyTwo'>Fine to 92</a>
+                        <div class="example-button-row">
+                            <button class="text-right" mat-button color="primary" >
+                                <a style="text-decoration: none" (click)="subject='Fine to 92'" routerLink='./FineToNinetyTwo'>Fine to 92</a>
+                            </button>
+                        </div>
                     </li>
+
                     <li>
-                        <a (click)="subject='Dal Creation'" routerLink='./DalCreation'>Dal Creation</a>
+                        <div class="example-button-row">
+                            <button class="text-right" mat-button color="primary" >
+                                <a style="text-decoration: none" (click)="subject='Dal Creation'" routerLink='./DalCreation'>Dal Creation</a>
+                            </button>
+                        </div>
                     </li>
+
                     <li>
-                        <a (click)="subject='Pan Creation'" routerLink='./PanCreation'>Pan Creation</a>
+                        <div class="example-button-row">
+                            <button class="text-right" mat-button color="primary" >
+                                <a style="text-decoration: none" (click)="subject='Pan Creation'" routerLink='./PanCreation'>Pan Creation</a>
+                            </button>
+                        </div>
                     </li>
+
                     <li>
-                        <a (click)="subject='Nitric to Fine'" routerLink='./NitricToFine'>Nitric to Fine</a>
+                        <div class="example-button-row">
+                            <button class="text-right" mat-button color="primary" >
+                                <a style="text-decoration: none" (click)="subject='Nitric to Fine'" routerLink='./NitricToFine'>Nitric to Fine</a>
+                            </button>
+                        </div>
                     </li>
+
                     <li>
-                        <a (click)="subject='Send Material'" routerLink='./SendRawMaterialToEmployee'>Send Material</a>
+                        <div class="example-button-row">
+                            <button class="text-right" mat-button color="primary" >
+                                <a style="text-decoration: none" (click)="subject='Send Material'" routerLink='./SendRawMaterialToEmployee'>Send Material</a>
+                            </button>
+                        </div>
                     </li>
+
                     <li>
-                        <a (click)="subject='Received Material'" routerLink='./ReceivedRawMaterialFromEmployee'>Received Material</a>
+                        <div class="example-button-row">
+                            <button class="text-right" mat-button color="primary" >
+                                <a style="text-decoration: none" (click)="subject='Received Material'" routerLink='./ReceivedRawMaterialFromEmployee'>Received Material</a>
+                            </button>
+                        </div>
                     </li>
 
                 </ul>
+
             </div>
             <!-- Right -->
             <div class="bloc_2 p-2 col-xl-10" style="background-color: antiquewhite">
