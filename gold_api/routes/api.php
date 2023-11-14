@@ -253,7 +253,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
 
-
+    Route::post("nitricToFine",[MaterialTransformationMasterController::class, 'nitricToFineCreation']);
 
 
 

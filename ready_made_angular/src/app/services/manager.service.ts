@@ -39,5 +39,8 @@ export class ManagerService {
     return  this.http.post(this.commonService.getAPI() + '/materialFromManagerToOwner', materialTransfer)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
-
+  saveNitricToFine(materialConversion: any) {
+    return  this.http.post(this.commonService.getAPI() + '/nitricToFine', materialConversion)
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
 }

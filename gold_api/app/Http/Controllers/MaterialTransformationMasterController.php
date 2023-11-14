@@ -16,6 +16,69 @@ use Illuminate\Support\Facades\Validator;
 
 class MaterialTransformationMasterController extends ApiController
 {
+    public function nitricToFineCreation(Request $request){
+        $input=($request->json()->all());
+        $validator = Validator::make($input,[
+            'nitric_value' => 'required',
+            'fine_value' => 'required'
+        ]);
+        if($validator->fails()){
+            return $this->errorResponse($validator->messages(),406);
+        }
+        $data=(object)($input);
+        DB::beginTransaction();
+        $return_array=[];
+        try{
+            //master saved
+            $mtm =new MaterialTransformationMaster();
+            $mtm->employee_id =Auth::user()->emp_id;
+            $mtm->karigar_id =76;
+            $mtm->save();
+            $return_array['mtm']=$mtm;
+
+            //nitric outward
+            $mtdNitric=new MaterialTransformationDetail();
+            $mtdNitric->mtm_id = $mtm->id;
+            $mtdNitric->rm_id = 45;
+            $mtdNitric->rm_value = $data->nitric_value;
+            $mtdNitric->tr_type = -1;
+            $mtdNitric->save();
+            $return_array['mtdNitric']=$mtdNitric;
+
+            //fine inward
+            $mtdFine=new MaterialTransformationDetail();
+            $mtdFine->mtm_id = $mtm->id;
+            $mtdFine->rm_id = 36;
+            $mtdFine->rm_value = $data->fine_value;
+            $mtdFine->tr_type = 1;
+            $mtdFine->save();
+            $return_array['mtdFine']=$mtdFine;
+
+
+            // updating material_to_employee balance for nitric outward
+            $mtebNitric= MaterialToEmployeeBalance::whereRmIdAndEmpId(45,Auth::user()->emp_id)->first();
+            $mtebNitric->outward=$data->nitric_value;
+            $mtebNitric->closing_balance=$mtebNitric->closing_balance - $data->nitric_value;
+            $mtebNitric->update();
+            $return_array['mtebNitric']=$mtebNitric;
+
+            // updating material_to_employee balance for nitric
+            $mtebFine= MaterialToEmployeeBalance::whereRmIdAndEmpId(36,Auth::user()->emp_id)->first();
+            $mtebFine->outward=$data->fine_value;
+            $mtebFine->closing_balance=$mtebFine->closing_balance + $data->fine_value;
+            $mtebFine->update();
+            $return_array['mtebFine']=$mtebFine;
+
+
+            DB::commit();
+            $materialBalance = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
+            $return_array['material_balance']=MaterialBalanceResource::collection($materialBalance);
+        }catch (\Exception $e){
+            DB::rollBack();
+            return $this->errorResponse($e->getMessage(),500);
+        }
+        return $this->successResponse($return_array);
+    }
     public function dalCreation(Request $request){
         $input=($request->json()->all());
         $validator = Validator::make($input,[
