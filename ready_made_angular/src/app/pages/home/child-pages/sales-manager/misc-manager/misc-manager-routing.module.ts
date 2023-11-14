@@ -30,7 +30,10 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
       , resolve: {materialResolver: MaterialResolver}
     },
 
-
+    { path: 'NitricToFine'
+       // tslint:disable-next-line:max-line-length
+       , loadChildren: () => import('./nitric-to-fine/nitric-to-fine.module').then(m => m.NitricToFineModule)
+    },
   ]
 }];
 

@@ -9,6 +9,6 @@
     },
     "employeeToManagerMaterial": {
         "employees": [70],
-        "materialsToSend": [45]
+        "materialsToSend": [45,33,31,48]
     }
 }
