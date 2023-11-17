@@ -228,6 +228,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("materialBalance/{emp_id}",[ReportController::class, 'getEmployeeMaterialBalanceById']);
     Route::get("karigars/inforce",[ReportController::class, 'getKarigars']);
 
+
     Route::post("fineTwoNinetyTwo",[MaterialTransformationMasterController::class, 'fineToNinetyTwo']);
     Route::post("dalCreation",[MaterialTransformationMasterController::class, 'dalCreation']);
     Route::post("panCreation",[MaterialTransformationMasterController::class, 'panCreation']);

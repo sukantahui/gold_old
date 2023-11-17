@@ -1,6 +1,97 @@
-<p>pan-creation works!</p>
+<div class="d-flex flex-row" style="min-height: 80vh;">
+    <div class="p-2 col-4">
+        <h3>PAN Conversion</h3>
+        <form [formGroup] = panConversionForm>
+            <ng-select [items]="karigars"
+                       bindLabel="emp_name"
+                       class="custom"
+                       bindValue="emp_id"
+                       formControlName="karigar_id"
+                       placeholder="Select karigar">
+            </ng-select>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter 92 Gini</mat-label>
+                    <input type="number"  #giniValue class="text-right" (keyup)="onGiniChange(giniValue)" matInput formControlName="ninety_two_gini_value" placeholder="Gini" >
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Zinc Value</mat-label>
+                    <input type="number"  class="text-right" matInput formControlName="zinc_value" placeholder="Zinc" >
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter Dal</mat-label>
+                    <input type="number"  class="text-right" matInput formControlName="dal_value" placeholder="dal" >
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Pan Valuation</mat-label>
+                    <input type="number"  class="text-right" matInput formControlName="pan_value" placeholder="Dal" >
+                </mat-form-field>
+            </div>
+            <div class="d-flex flex-row bd-highlight mb-3">
+                <div class="p-2 bd-highlight">
+                    <div class="example-button-row">
+                        <button class="text-right" mat-button color="primary"  (click)="resetForm()">Reset</button>
+                    </div>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <div class="example-button-row">
+                        <button class="text-right" mat-button color="primary" [disabled]="!panConversionForm.valid || panConversionForm.pristine" (click)="savePanConversion()">Save Record</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="p-2 col-8 d-flex">
+        <div class="p-2 col-6" *ngIf="managerMaterialBalance">
+            <h3>Material balance before conversion</h3>
+            <table class="table table-dark table-striped  col-xl-12 col-lg-12 col-xs-12">
+                <thead>
+                <tr>
+                    <th scope="col">Material Name</th>
+                    <th scope="col" class="text-right">Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let material of managerMaterialBalance">
+                    <td>{{material.rawMaterialName}}</td>
+                    <td class="text-right">{{material.closingBalance | number : '1.3'}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="p-2 col-6" *ngIf="savedResponse">
+            <h3>Material balance after conversion</h3>
+            <table class="table table-success table-striped  col-xl-12 col-lg-12 col-xs-12">
+                <thead>
+                <tr>
+                    <th scope="col" style="border-radius: 20px;">Material Name</th>
+                    <th scope="col">Value</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let material of materialBalanceUpdated">
+                    <td>{{material.rawMaterialName}}</td>
+                    <td class="text-right">{{material.closingBalance | number : '1.3' }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
+
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style" *ngIf="!isProduction">
+    <mat-button-toggle (click)="showDeveloperDiv=true">Show</mat-button-toggle>
+    <mat-button-toggle (click)="showDeveloperDiv=false">Hide</mat-button-toggle>
+</mat-button-toggle-group>
 
 <div *ngIf="showDeveloperDiv && !isProduction" id="developer-div">
     <div class="outerContainer">
@@ -8,12 +99,12 @@
         <mat-tab-group mat-align-tabs="center" backgroundColor="accent">
             <mat-tab label="Sec 1">
                 <pre>
-
+                    materialBalance = {{managerMaterialBalance | json}}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 2">
                 <pre>
-
+                    panConversionForm = {{panConversionForm.value | json}}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 3">

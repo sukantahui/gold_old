@@ -24,6 +24,7 @@ class ReportController extends ApiController
 //        return $this->successResponse(EmployeeResource::collection($result));
         return $this->successResponse($result);
     }
+
     public function getEmployeeMaterialBalance(){
         $result = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
         return $this->successResponse(MaterialBalanceResource::collection($result));

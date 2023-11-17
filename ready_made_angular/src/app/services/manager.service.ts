@@ -19,7 +19,10 @@ export class ManagerService {
     return  this.http.post(this.commonService.getAPI() + '/dalCreation', dalCreationData)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
-
+  savePanCreation(dalCreationData: any){
+    return  this.http.post(this.commonService.getAPI() + '/panCreation', dalCreationData)
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
   saveMaterialTransfer(materialTransfer: any) {
     return  this.http.post(this.commonService.getAPI() + '/matBetweenEmployees', materialTransfer)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
