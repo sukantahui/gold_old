@@ -11,6 +11,8 @@ export class ReadymadeStockGroupwiseComponent implements OnInit {
   isProduction: boolean = environment.production;
   stockByGroup: any;
   selectedCategoryIndex = -1;
+  stockListBySelectedCategory: any;
+  selectedCategory: any;
   constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
@@ -20,16 +22,18 @@ export class ReadymadeStockGroupwiseComponent implements OnInit {
     console.log('testing');
     this.reportService.getStockInHandGroupwise().subscribe(response =>{
         this.stockByGroup = response.data;
-        console.log(this.stockByGroup);
       });
   }
 
   categorySelected(groupItem, i) {
     this.selectedCategoryIndex = i;
+    this.selectedCategory = this.stockByGroup[i];
     this.reportService.getStockInHandByCategory(groupItem.product_category_id).subscribe((response: any) => {
-
-      console.log(response);
+      this.stockListBySelectedCategory = response.data;
     });
   }
 
+  modelSelected(stockItem, i) {
+    
+  }
 }

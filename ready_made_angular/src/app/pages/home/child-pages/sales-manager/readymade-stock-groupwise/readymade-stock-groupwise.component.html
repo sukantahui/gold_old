@@ -5,8 +5,49 @@
     </div>
     <div class="p-2">
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
-            <div class="p-2 col-xl-6" style="background-color: rgb(199, 192, 192)">
-
+            <div *ngIf="stockListBySelectedCategory && stockListBySelectedCategory.length > 0" class="p-2 col-xl-6" style="background-color: rgb(199, 192, 192)">
+                <p-table #dt3
+                         [value]="stockListBySelectedCategory"
+                         [rows]="100"
+                         [showCurrentPageReport]="true"
+                         [rowsPerPageOptions]="[10,20,30,50,100,200,500,1000,10000]"
+                         styleClass="p-datatable-gridlines"
+                         [paginator]="true"
+                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                         [globalFilterFields]="['product_code','qty']"
+                         [responsive]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="flex">
+                            <h4>{{selectedCategory.category}}</h4>
+                            <span class="p-input-icon-left ml-auto">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" (input)="dt3.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>SL</th>
+                            <th pSortableColumn="category">Model <p-sortIcon field="category"></p-sortIcon></th>
+                            <th pSortableColumn="qty">Qty <p-sortIcon field="qty"></p-sortIcon></th>
+                            <th pSortableColumn="gold">Gold <p-sortIcon field="gold"></p-sortIcon></th>
+                            <th pSortableColumn="lc">LC <p-sortIcon field="lc"></p-sortIcon></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-stockItem let-i="rowIndex">
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td>{{stockItem.product_code}}</td>
+                            <td>{{stockItem.qty}}</td>
+                            <td>{{stockItem.gold}}</td>
+                            <td>{{stockItem.lc}}</td>
+                            <td class="text-right noprint" >
+                                <a [routerLink]=""  (click)="modelSelected(stockItem,i)" *ngIf="selectedCategoryIndex!=i"> <mat-icon>gps_not_fixed</mat-icon> </a>
+                                <a [routerLink]=""   *ngIf="selectedCategoryIndex==i"> <mat-icon>gps_fixed</mat-icon> </a>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
             <!-- Right -->
             <div class="bloc_2 p-2 col-xl-6" style="background-color: antiquewhite">
@@ -73,7 +114,7 @@
             </div>
             <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
                     <pre>
-                        ghfh
+                        stockListBySelectedCategory={{stockListBySelectedCategory | json}}
                     </pre>
             </div>
         </div>
