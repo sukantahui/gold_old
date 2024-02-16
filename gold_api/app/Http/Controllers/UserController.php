@@ -33,7 +33,7 @@ class UserController extends ApiController
         // print_r($data);
         if (!$user || !Hash::check($request->loginPassword, $user->password)) {
 //            return response()->json(['success'=>0,'data'=>null, 'message'=>'Credential does not matched'], 200,[],JSON_NUMERIC_CHECK);
-            return $this->errorResponse('Credential does not matched',403);
+            return $this->errorResponse('Credential does not matched',401);
         }
 
         $token = $user->createToken('my-app-token')->plainTextToken;

@@ -48,11 +48,11 @@
                              styleClass="p-datatable-gridlines"
                              [paginator]="true"
                              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                             [globalFilterFields]="['model_no','sale_qty']"
+                             [globalFilterFields]="['model_no','sale_qty','category']"
                              [responsive]="true">
                         <ng-template pTemplate="caption">
                             <div class="flex">
-                                <h4>Selected Model: {{selectedModel}}</h4>
+                                <h4>Selected Model or category: {{selectedModel}}</h4>
                                 <span class="p-input-icon-left ml-auto">
                                 <i class="pi pi-search"></i>
                                 <input class="text-right" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
@@ -63,6 +63,7 @@
                             <tr>
                                 <th>SL</th>
                                 <th pSortableColumn="model_no">Model <p-sortIcon field="model_no"></p-sortIcon></th>
+                                <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
                                 <th pSortableColumn="sale_qty">Qty <p-sortIcon field="sale_qty"></p-sortIcon></th>
 
                             </tr>
@@ -75,6 +76,7 @@
                                         {{modelWiseSale.model_no}}
                                     </button>
                                 </td>
+                                <td>{{modelWiseSale.category}}</td>
                                 <td>{{modelWiseSale.sale_qty}}</td>
 
                             </tr>

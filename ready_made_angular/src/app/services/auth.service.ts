@@ -123,7 +123,7 @@ export class AuthService {
 
   login(loginData){
     return this.http.post<AuthResponseData>(this.commonService.getAPI() + '/login', loginData)
-        .pipe(catchError(this.errorService.serverError), tap(resData => {
+         .pipe(catchError(this.errorService.serverError), tap(resData => {
           // tslint:disable-next-line:max-line-length
           if (resData.status === true){
             const user = new User(resData.data.uniqueId,
@@ -151,9 +151,10 @@ export class AuthService {
     }
     if (err.status === 401){
       // tslint:disable-next-line:label-position
-      return throwError ({status: err.status, message: 'Your are not authorised', statusText: err.statusText});
+       return throwError ({status: err.status, message: 'Your are not authorised', statusText: err.statusText});
     }
     return throwError(err);
+
   }
   private handleError(errorResponse: HttpErrorResponse){
     if (errorResponse.error.message.includes('1062')){

@@ -41,6 +41,7 @@ export class AuthComponent implements OnInit {
         const passwordMd5 = md5.appendStr(this.loginForm.value.password).end();
         // const formPassword = form.value.password;
         this.isLoading = true;
+
         this.authService.login({loginId: this.loginForm.value.email, loginPassword: passwordMd5}).subscribe(response => {
             this.isLoading = false;
             if (response.status === true){
@@ -66,9 +67,28 @@ export class AuthComponent implements OnInit {
                 if (this.authService.isDeveloper()){
                     this.router.navigate(['/developer']).then(r => {});
                 }
+            }else{
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: true
+                });
+                swalWithBootstrapButtons.fire({
+                    // timer: 3000,
+                    // timerProgressBar: true,
+                    title: 'Wrong Credential',
+                    text: 'Backend Server does not responding',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#1661a0',
+                    cancelButtonColor: '#d33',
+                    background: 'rgba(38,39,47,0.95)'
+                });
             }
         }, (error) => {
-            console.log(error);
+            console.log('credential error: ', error);
             this.isLoading = false;
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
