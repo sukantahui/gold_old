@@ -12,6 +12,20 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends ApiController
 {
+    public function jobableOrders(){
+        $queries = DB::select("select order_id
+       ,tr_time
+       ,get_order_count_by_order_id(order_id) as order_count
+       ,get_customer_by_order_id(order_id) as customer_name
+       ,get_agent_by_order_id(order_id) as agent_name
+       ,get_order_job_finished_count_by_order_id(order_id) as finished_jobs
+       ,get_order_job_cancelled_count_by_order_id(order_id) as cancelled_jobs
+       ,get_order_count_by_order_id(order_id)-get_order_job_cancelled_count_by_order_id(order_id)-get_order_job_finished_count_by_order_id(order_id) as remaining
+       ,get_fresh_order_count_by_order_id(order_id) as fresh_order_count
+       from order_master
+       where get_fresh_order_count_by_order_id(order_id)>0");
+        return $this->successResponse($queries);
+    }
     public function saveOrder(Request $request){
         $input=($request->json()->all());
         $orderMasterInput=(object)($input['orderMaster']);

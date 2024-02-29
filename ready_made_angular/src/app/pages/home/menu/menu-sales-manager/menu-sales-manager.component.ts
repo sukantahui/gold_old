@@ -187,6 +187,26 @@ export class MenuSalesManagerComponent implements OnInit {
           ]
         }
       ]
+    },
+    {
+      displayName: 'Production',
+      disabled: false,
+      iconName: 'close',
+      route: 'michael-prentice',
+      children: [
+        {
+          displayName: 'JOB',
+          iconName: 'label',
+          children: [
+            {
+              displayName: 'Send to Job',
+              iconName: 'shopping_cart',
+              color: 'green',
+              route: 'SendToJob',
+            }
+          ]
+        }
+      ]
     }
   ];
   constructor() { }

@@ -1,0 +1,35 @@
+<div class="d-flex flex-row" style="min-height: 95vh; margin-left: 5px">
+    <div class="p-2 col-6">
+        1
+    </div>
+    <div class="p-2 col-6">
+        2
+    </div>
+</div>
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style" *ngIf="!isProduction">
+    <mat-button-toggle (click)="showDeveloperDiv=true">Show</mat-button-toggle>
+    <mat-button-toggle (click)="showDeveloperDiv=false">Hide</mat-button-toggle>
+</mat-button-toggle-group>
+
+<div *ngIf="showDeveloperDiv && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <h2>Developer Area</h2>
+        <mat-tab-group mat-align-tabs="center" backgroundColor="accent">
+            <mat-tab label="Sec 1">
+                <pre>
+
+                </pre>
+            </mat-tab>
+            <mat-tab label="Sec 2">
+                <pre>
+
+                </pre>
+            </mat-tab>
+            <mat-tab label="Sec 3">
+                <pre>
+
+                </pre>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

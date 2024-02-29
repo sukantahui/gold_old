@@ -144,6 +144,40 @@ class CreateAllProceduresAndFunctions extends Migration
               group by customer_master.cust_id, customer_master.cust_name,agent_master.short_name, bill_master.bill_no;
             END;'
         );
+        //***************************** ORDER RELATED *******************************************
+        DB::unprepared('DROP FUNCTION IF EXISTS ses_gold.get_order_count_by_order_id;
+                        CREATE FUNCTION ses_gold.`get_order_count_by_order_id`(in_order_id varchar(255)) RETURNS int
+                            DETERMINISTIC
+                        BEGIN
+                            DECLARE temp_order_count int;
+                          set temp_order_count=0;
+                          select count(*) into temp_order_count from order_details where order_id=in_order_id;
+                          IF isnull(temp_order_count) then
+                            set temp_order_count=0;
+                          END IF;
+                            RETURN temp_order_count;
+                        END;'
+        );
+
+
+        DB::unprepared('DROP PROCEDURE IF EXISTS ses_gold.get_jobable_orders;
+                        CREATE PROCEDURE ses_gold.`get_jobable_orders`()
+                        BEGIN
+                            select order_id
+                               ,tr_time
+                               ,get_order_count_by_order_id(order_id) as order_count
+                               ,get_customer_by_order_id(order_id) as customer_name
+                               ,get_agent_by_order_id(order_id) as agent_name
+                               ,get_order_job_finished_count_by_order_id(order_id) as finished_jobs
+                               ,get_order_job_cancelled_count_by_order_id(order_id) as cancelled_jobs
+                               ,get_order_count_by_order_id(order_id)-get_order_job_cancelled_count_by_order_id(order_id)-get_order_job_finished_count_by_order_id(order_id) as remaining
+                               ,get_fresh_order_count_by_order_id(order_id) as fresh_order_count
+                               from order_master
+                               where get_fresh_order_count_by_order_id(order_id)>0;
+
+                        END;'
+        );
+        //***************************************************************************************
         DB::unprepared("DROP PROCEDURE IF EXISTS ses_gold.huitech_generate_pivot_table;
         CREATE PROCEDURE ses_gold.`huitech_generate_pivot_table`(IN sql_statement longtext)
         proc_label: BEGIN

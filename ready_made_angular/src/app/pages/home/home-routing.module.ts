@@ -177,6 +177,13 @@ const routes: Routes = [
                                     , loadChildren: () => import('./child-pages/sales-manager/withdraw-by-owner/withdraw-by-owner.module')
                                         .then(m => m.WithdrawByOwnerModule)
                                 },
+                                { path: 'SendToJob'
+                                    // tslint:disable-next-line:max-line-length
+                                    , loadChildren: () => import('./child-pages/sales-manager/send-to-job/send-to-job.module')
+                                        .then(m => m.SendToJobModule)
+                                },
+
+
 
 
 

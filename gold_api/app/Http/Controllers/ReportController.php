@@ -33,6 +33,15 @@ class ReportController extends ApiController
         $result = MaterialToEmployeeBalance::whereEmpId($emp_id)->get();
         return $this->successResponse(MaterialBalanceResource::collection($result));
     }
+    public function getOwnerCashWithdrawnByDate($start_date,$end_date){
+        $result = DB::select("call select_owner_cash_receipt_from_employees_by_dates('$start_date','$end_date')");
+        return $this->successResponse($result);
+    }
+    public function getOwnerCashWithdrawnFromEmployeeByDate($payerId,$start_date,$end_date){
+        $result = DB::select("call select_owner_cash_receipt_from_employee_by_emp_id_by_dates($payerId,'$start_date','$end_date')");
+        return $this->successResponse($result);
+    }
+
     public function getSaleReportByDatesAndAgent($startDate,$endDate,$agentId){
 
 

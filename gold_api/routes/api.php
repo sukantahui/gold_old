@@ -116,9 +116,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::post("save",[OrderController::class, 'saveOrder']);
     Route::get("getOrderMasterList",[OrderController::class, 'getOrderMasterList']);
-
+    // ORDERS
 //    http://127.0.0.1/gold_old/gold_api/public/api/dev/orderDetails/orderMasterId/1366
     Route::get("orderDetails/orderMasterId/{order_master_id}",[OrderController::class, 'getOrderDetailsByOrderMaster']);
+    Route::get("jobableOrders",[OrderController::class, 'jobableOrders']);
 
     Route::post("saveCustomer",[CustomerController::class, 'saveCustomer']);
 
@@ -257,8 +258,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("nitricToFine",[MaterialTransformationMasterController::class, 'nitricToFineCreation']);
 
 
-
-
+    //reports admin
+    Route::get("ownerCashWithdrawns/{startDate}/{endDate}",[ReportController::class, 'getOwnerCashWithdrawnByDate']);
+    Route::get("ownerCashWithdrawns/{payerId}/{startDate}/{endDate}",[ReportController::class, 'getOwnerCashWithdrawnFromEmployeeByDate']);
 
 });
 
@@ -348,7 +350,10 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get("priceMasters/{priceCode}/{priceCat}",[PriceMasterController::class, 'getPriceMastersByCodeNCat']);
 
 
+
     Route::post("save",[OrderController::class, 'saveOrder']);
+
+
     // http://127.0.0.1/gold_old/gold_api/public/api/dev/getOrderMasterList
     Route::get("getOrderMasterList/{pageSize}",[OrderController::class, 'getOrderMasterList']);
 
