@@ -35,6 +35,7 @@
                                        bindValue="agent_id"
                                        formControlName="agent_id"
                                        placeholder="Select Agent">
+
                             </ng-select>
                         </div>
                         <div class="example-button-row" fxFlex="20">
@@ -59,7 +60,15 @@
         <div id="printAgentwiseSalesReportDiv">
             <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title class="text-center">Sales Report for Agent: {{agentWiseSaleReportForm.get('agent_id').value}}</mat-card-title>
+                <mat-card-title class="text-center" *ngIf="selectedAgent">
+<!--                    Sales Report for Agent: {{agentWiseSaleReportForm.get('agent_id').value}}-->
+                    <h4>Sales Report for Agent: {{selectedAgent.agent_name}}</h4>
+                    <h4>Period:  {{this.startDate | date: 'dd/MM/yyyy' }} to {{this.endDate | date: 'dd/MM/yyyy'}}</h4>
+                </mat-card-title>
+                <mat-card-title class="text-center" *ngIf="!selectedAgent">
+                    <h4>Sales Report for All Agents</h4>
+                    <h4>Period:  {{this.startDate | date: 'dd/MM/yyyy' }} to {{this.endDate | date: 'dd/MM/yyyy'}}</h4>
+                </mat-card-title>
             </mat-card-header>
             <mat-card-content>
 

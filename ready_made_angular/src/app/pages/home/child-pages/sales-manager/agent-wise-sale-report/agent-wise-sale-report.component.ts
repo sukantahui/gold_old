@@ -26,6 +26,7 @@ export class AgentWiseSaleReportComponent implements OnInit {
   isAllCustomers = false;
   color = 'accent';
   private agentWiseSalemaster: any[];
+  selectedAgent: any;
   constructor(private agentWiseSalesReportService: AgentWiseSalesReportService, private reportService: ReportService, private commonService: CommonService ) {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
@@ -64,9 +65,15 @@ export class AgentWiseSaleReportComponent implements OnInit {
   }
 
   getReport() {
+    console.log("getting agent id");
     let agentId = '1';
     if (this.agentWiseSaleReportForm.get('agent_id').value != null){
       agentId = this.agentWiseSaleReportForm.get('agent_id').value;
+      // tslint:disable-next-line:prefer-const
+      const index = this.agentList.findIndex(obj => obj.agent_id === agentId);
+      if(index >= 0) {
+        this.selectedAgent = this.agentList[index];
+      }
 
     }
     this.reportService.getAgentWiseSaleReport( this.startDate, this.endDate, agentId).subscribe(response => {
@@ -116,4 +123,6 @@ export class AgentWiseSaleReportComponent implements OnInit {
       this.agentWiseSale =  this.agentWiseSalemaster.filter(ag => ag.qty !== 0 || ag.gold_received !== 0  || ag.lc_received !== 0);
     }
   }
+
+
 }
