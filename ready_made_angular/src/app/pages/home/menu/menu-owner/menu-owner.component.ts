@@ -137,7 +137,12 @@ export class MenuOwnerComponent implements OnInit {
           iconName: 'pie_chart',
           children: [
             {
-              displayName: 'Product & Models',
+              displayName: 'Material & Models',
+              iconName: 'star_rate',
+              route: 'ProductReport'
+            },
+            {
+              displayName: 'Pay & Withdraw',
               iconName: 'star_rate',
               route: 'ProductReport'
             }

@@ -42,6 +42,16 @@ class ReportController extends ApiController
         return $this->successResponse($result);
     }
 
+    public function getOwnerFineWithdrawnByDate($start_date,$end_date){
+        $result = DB::select("call select_owner_fine_gold_receipt_from_employees_by_dates('$start_date','$end_date')");
+        return $this->successResponse($result);
+    }
+
+    public function getOwnerFineWithdrawnByEmployeeByDate($payerId,$start_date,$end_date){
+        $result = DB::select("call select_owner_fine_gold_receipt_from_employee_by_emp_id_by_dates($payerId,'$start_date','$end_date')");
+        return $this->successResponse($result);
+    }
+
     public function getSaleReportByDatesAndAgent($startDate,$endDate,$agentId){
 
 
