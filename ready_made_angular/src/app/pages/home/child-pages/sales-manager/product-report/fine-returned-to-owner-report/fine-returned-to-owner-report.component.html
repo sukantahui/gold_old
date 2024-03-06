@@ -1,0 +1,58 @@
+<div class="p-2">
+    <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+        <div class="p-2 col-xl-10" style="background-color: #e4e5d7; border-radius: 10px; margin-bottom: 5px;">
+            <form [formGroup]="reportForm">
+                <div class="form-row">
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="p-2">
+                            <mat-label>Start Date</mat-label>
+                            <input matInput #ref1 [matDatepicker]="matDatepicker1" formControlName="startDate" (dateInput)="setStartDateSQL(ref1.value)">
+                            <mat-datepicker-toggle matSuffix [for]="matDatepicker1"></mat-datepicker-toggle>
+                            <mat-datepicker #matDatepicker1 startView="year" [opened]="true"></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="p-2">
+                            <mat-label>End Date</mat-label>
+                            <input matInput #ref2 [matDatepicker]="matDatepicker2" formControlName="endDate" (dateInput)="setEndDateSQL(ref2.value)">
+                            <mat-datepicker-toggle matSuffix [for]="matDatepicker2"></mat-datepicker-toggle>
+                            <mat-datepicker #matDatepicker2 startView="year" [opened]="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <div>Fine Withdrawn from {{ref1.value}} to {{ref2.value}}</div>
+                        <button pButton type="button" label="Show Record" icon="pi pi-check" [loading]="isLoading" (click)="loadReport(ref1.value, ref2.value)" ></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div  class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+        <div class="table-div">
+            <div  class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
+
+
+            </div>
+        </div>
+        <div class="col-6" >
+
+        </div>
+    </div>
+</div>
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div class="col" fxLayoutAlign="center center">
+                    <pre>
+                        records = {{records | json}}
+                    </pre>
+
+            </div>
+            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
+                    <pre>
+
+                    </pre>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -16,7 +16,12 @@ const routes: Routes = [
                               },
                               { path: 'JobReport'
                                 , loadChildren: () => import('./job-report/job-report.module').then(m => m.JobReportModule)
-                              }
+                              },
+                              { path: 'FineReturnedToOwnerReport'
+                                // tslint:disable-next-line:max-line-length
+                                , loadChildren: () => import('./fine-returned-to-owner-report/fine-returned-to-owner-report.module').then(m => m.FineReturnedToOwnerReportModule)
+                              },
+
 
                             ]
                           },
