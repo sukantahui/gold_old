@@ -27,52 +27,55 @@
         </div>
     </div>
     <div  class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
-        <div class="table-div">
-            <div  class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
-                <p-table #dt2
-                         [value]="records"
-                         [rows]="10"
-                         [showCurrentPageReport]="true"
-                         [rowsPerPageOptions]="[20,30,50]"
-                         styleClass="p-datatable-gridlines"
-                         [paginator]="true"
-                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                         [globalFilterFields]="[]"
-                         [responsive]="true">
-                    <ng-template pTemplate="caption">
-                        <div class="d-flex justify-content-between">
-                            <div class="p-input-icon-left ml-auto">
-                                <i class="pi pi-search"></i>
-                                <input class="text-right" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
-                            </div>
+        <div  class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
+            <p-table #dt2
+                     [value]="records"
+                     [rows]="1000"
+                     [showCurrentPageReport]="true"
+                     [rowsPerPageOptions]="[20,30,50,100,400,600,1000,5000]"
+                     styleClass="p-datatable-gridlines"
+                     [paginator]="true"
+                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                     [globalFilterFields]="['comment','sender_name']"
+                     (onFilter)="onFilter($event, dt2)"
+                     [responsive]="true">
+                <ng-template pTemplate="caption">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input class="text-right" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
                         </div>
-                    </ng-template>
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>SL</th>
-                            <th pSortableColumn="formatted_date">Date <p-sortIcon field="formatted_date"></p-sortIcon></th>
-                            <th pSortableColumn="receiver_reference">Reference <p-sortIcon field="receiver_reference"></p-sortIcon></th>
-                            <th pSortableColumn="sender_name">Employee <p-sortIcon field="sender_name"></p-sortIcon></th>
-                            <th pSortableColumn="inward_to_owner">Gold <p-sortIcon field="inward_to_owner"></p-sortIcon></th>
-                            <th pSortableColumn="comment">Comment <p-sortIcon field="comment"></p-sortIcon></th>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>SL</th>
+                        <th pSortableColumn="formatted_date">Date <p-sortIcon field="formatted_date"></p-sortIcon></th>
+                        <th pSortableColumn="receiver_reference">Reference <p-sortIcon field="receiver_reference"></p-sortIcon></th>
+                        <th pSortableColumn="sender_name">Employee <p-sortIcon field="sender_name"></p-sortIcon></th>
+                        <th pSortableColumn="inward_to_owner">Gold <p-sortIcon field="inward_to_owner"></p-sortIcon></th>
+                        <th pSortableColumn="comment">Comment <p-sortIcon field="comment"></p-sortIcon></th>
 
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-record let-i="rowIndex">
-                        <tr>
-                            <td>{{i+1}}</td>
-                            <td>{{record.formatted_date}}</td>
-                            <td>{{record.receiver_reference}}</td>
-                            <td>{{record.sender_name}}</td>
-                            <td>{{record.inward_to_owner | number:'1.3'}}</td>
-                            <td>{{record.comment}}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-
-            </div>
-        </div>
-        <div class="col-6" >
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record let-i="rowIndex">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{record.formatted_date}}</td>
+                        <td>{{record.receiver_reference}}</td>
+                        <td>{{record.sender_name}}</td>
+                        <td class="text-right">{{record.inward_to_owner | number:'1.3'}}</td>
+                        <td>{{record.comment}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td colspan="4">Total</td>
+                        <td class="text-right">{{totalGold | number:'1.3'}}</td>
+                        <td></td>
+                    </tr>
+                </ng-template>
+            </p-table>
 
         </div>
     </div>

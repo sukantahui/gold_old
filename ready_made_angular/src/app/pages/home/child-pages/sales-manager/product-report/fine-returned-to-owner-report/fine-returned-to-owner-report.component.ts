@@ -15,6 +15,7 @@ export class FineReturnedToOwnerReportComponent implements OnInit {
   reportForm: FormGroup;
   isLoading = false;
   records: any[];
+  totalGold = 0;
 
   constructor(private reportService: ReportService, private commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
     this.adapter.setLocale('in');
@@ -46,8 +47,14 @@ export class FineReturnedToOwnerReportComponent implements OnInit {
     this.isLoading = true;
     this.reportService.getFineWithdrawnByOwner(this.reportForm.value.startDateSql, this.reportForm.value.endDateSql).subscribe((response) => {
       this.records = response.data;
-
+      this.totalGold = this.records.map(item => item.inward_to_owner).reduce((prev, next) => prev + next);
       this.isLoading = false;
     });
   }
+
+    onFilter($event, dt2: any) {
+        console.log(dt2.filteredValue);
+
+        this.totalGold = dt2.filteredValue.map(item => item.inward_to_owner).reduce((prev, next) => prev + next);
+    }
 }
