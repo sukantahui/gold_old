@@ -21,7 +21,11 @@ const routes: Routes = [
                                 // tslint:disable-next-line:max-line-length
                                 , loadChildren: () => import('./fine-returned-to-owner-report/fine-returned-to-owner-report.module').then(m => m.FineReturnedToOwnerReportModule)
                               },
-
+                              { path: 'CashRefundToOwnwer'
+                                // tslint:disable-next-line:max-line-length
+                                , loadChildren: () => import('./cash-refund-to-ownwer/cash-refund-to-ownwer.module').then(m => m.CashRefundToOwnwerModule)
+                              },
+                              //{ path: 'CashRefundToOwnwer', loadChildren: () => import('./pages/home/child-pages/sales-manager/product-report/cash-refund-to-ownwer/cash-refund-to-ownwer.module').then(m => m.CashRefundToOwnwerModule) },
 
                             ]
                           },

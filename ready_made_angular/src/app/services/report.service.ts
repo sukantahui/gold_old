@@ -93,6 +93,15 @@ export class ReportService {
 
             }));
     }
+    getCashWithdrawnByOwner(startDate: string, endDate: string){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/ownerCashWithdrawns/' + startDate + '/' + endDate)
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
 
   getCurrentJobList(){
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/test')

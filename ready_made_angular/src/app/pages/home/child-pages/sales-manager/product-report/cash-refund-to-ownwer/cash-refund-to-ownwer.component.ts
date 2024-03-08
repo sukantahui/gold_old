@@ -6,17 +6,16 @@ import {CommonService} from '../../../../../../services/common.service';
 import {DateAdapter} from '@angular/material/core';
 
 @Component({
-  selector: 'app-fine-returned-to-owner-report',
-  templateUrl: './fine-returned-to-owner-report.component.html',
-  styleUrls: ['./fine-returned-to-owner-report.component.scss']
+  selector: 'app-cash-refund-to-ownwer',
+  templateUrl: './cash-refund-to-ownwer.component.html',
+  styleUrls: ['./cash-refund-to-ownwer.component.scss']
 })
-export class FineReturnedToOwnerReportComponent implements OnInit {
+export class CashRefundToOwnwerComponent implements OnInit {
   isProduction: boolean = environment.production;
   reportForm: FormGroup;
   isLoading = false;
   records: any[];
-  totalGold = 0;
-
+  totalLc: any;
   constructor(private reportService: ReportService, private commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
     this.adapter.setLocale('in');
     const stDate = new Date();
@@ -29,7 +28,6 @@ export class FineReturnedToOwnerReportComponent implements OnInit {
       endDateSql: new FormControl(null),
       reportLimit: new FormControl(50)
     });
-
   }
   setStartDateSQL(value: string) {
     this.reportForm.patchValue({startDateSql: this.commonService.getSQLDate2(value)});
@@ -38,21 +36,19 @@ export class FineReturnedToOwnerReportComponent implements OnInit {
   setEndDateSQL(value: string) {
     this.reportForm.patchValue({endDateSql: this.commonService.getSQLDate2(value)});
   }
-  ngOnInit(): void {
-  }
-
   loadReport(dateFrom: string, dateTo: string) {
     this.reportForm.patchValue({startDateSql: this.commonService.getSQLDate2(dateFrom)});
     this.reportForm.patchValue({endDateSql: this.commonService.getSQLDate2(dateTo)});
     this.isLoading = true;
-    this.reportService.getFineWithdrawnByOwner(this.reportForm.value.startDateSql, this.reportForm.value.endDateSql).subscribe((response) => {
+    this.reportService.getCashWithdrawnByOwner(this.reportForm.value.startDateSql, this.reportForm.value.endDateSql).subscribe((response) => {
       this.records = response.data;
-      this.totalGold = this.records.map(item => item.inward_to_owner).reduce((prev, next) => prev + next);
+      this.totalLc = this.records.map(item => item.cash).reduce((prev, next) => prev + next);
       this.isLoading = false;
     });
   }
-
-    onFilter($event, dt2: any) {
-        this.totalGold = dt2.filteredValue.map(item => item.inward_to_owner).reduce((prev, next) => prev + next);
-    }
+  ngOnInit(): void {
+  }
+  onFilter($event, dt2: any) {
+    this.totalLc = dt2.filteredValue.map(item => item.cash).reduce((prev, next) => prev + next);
+  }
 }
