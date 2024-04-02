@@ -264,6 +264,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("ownerFineWithdrawns/{startDate}/{endDate}",[ReportController::class, 'getOwnerFineWithdrawnByDate']);
     Route::get("ownerFineWithdrawns/{payerId}/{startDate}/{endDate}",[ReportController::class, 'getOwnerFineWithdrawnByEmployeeByDate']);
 
+    Route::get("jobDetailsForOwner",[ReportController::class, 'selectAllJobDetails']);
+    Route::get("jobDetailsForOwner/{employee_id}",[ReportController::class, 'selectAllJobDetailsByEmployee']);
 
 });
 

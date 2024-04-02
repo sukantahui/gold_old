@@ -52,6 +52,15 @@ class ReportController extends ApiController
         return $this->successResponse($result);
     }
 
+    public function selectAllJobDetails(){
+        $result = DB::select("call select_all_job_details()");
+        return $this->successResponse($result);
+    }
+    public function selectAllJobDetailsByEmployee($employee_id){
+        $result = DB::select("call select_all_job_details_by_employee($employee_id)");
+        return $this->successResponse($result);
+    }
+
     public function getSaleReportByDatesAndAgent($startDate,$endDate,$agentId){
 
 

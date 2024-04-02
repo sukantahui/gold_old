@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProductReportComponent } from './product-report.component';
 import {ShowItemStockResolver} from '../../../../../resolvers/show-item-stock.resolver';
 import {JobReportResolver} from '../../../../../resolvers/job-report.resolver';
+import {CustomerReceiptResolver} from '../../../../../resolvers/customer-receipt.resolver';
+import {KarigarwiseJobReportResolver} from '../../../../../resolvers/karigarwise-job-report.resolver';
 
 const routes: Routes = [
                           { path: '', component: ProductReportComponent
@@ -25,7 +27,12 @@ const routes: Routes = [
                                 // tslint:disable-next-line:max-line-length
                                 , loadChildren: () => import('./cash-refund-to-ownwer/cash-refund-to-ownwer.module').then(m => m.CashRefundToOwnwerModule)
                               },
-                              //{ path: 'CashRefundToOwnwer', loadChildren: () => import('./pages/home/child-pages/sales-manager/product-report/cash-refund-to-ownwer/cash-refund-to-ownwer.module').then(m => m.CashRefundToOwnwerModule) },
+                              { path: 'JobDetailsReport'
+                                // tslint:disable-next-line:max-line-length
+                                , loadChildren: () => import('./job-details-report/job-details-report.module').then(m => m.JobDetailsReportModule)
+                                , resolve: {karigarResolver: KarigarwiseJobReportResolver}
+                              },
+
 
                             ]
                           },

@@ -252,6 +252,16 @@ export class ReportService {
 
             }));
     }
+    geInforcedGaritKarigars(){
+        // tslint:disable-next-line:max-line-length
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/karigars/inforce' )
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
 
 
 }
