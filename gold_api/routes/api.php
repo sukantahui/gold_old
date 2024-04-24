@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/me', function(Request $request) {
         return auth()->user();
     });
+
     Route::put("user",[UserController::class,'updatePassword']);
 
     Route::get("revokeAll",[UserController::class,'revoke_all']);
@@ -92,6 +93,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     //for stock
     Route::get("stocks",[StockController::class,'get_all_instock_items']);
     Route::get("stocksInHand/{categoryID}/{agentId}",[StockController::class,'get_all_instock_items_in_hand']);
+    //saving stock
     Route::post("stocks",[StockController::class,'store']);
     Route::get("stockSummary",[StockController::class,'get_item_stock_summary']);
     Route::get("stockSummary/{categoryId}",[StockController::class,'get_item_stock_summary_by_category']);

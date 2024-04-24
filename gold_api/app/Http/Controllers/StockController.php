@@ -117,7 +117,7 @@ class StockController extends ApiController
             'modelSize' => 'required',
             'quantity' => ['required','integer','gte:1'],
             'agentId' => ['required','exists:agent_master,agent_id'],
-            'employeeId' => ['required','exists:employees,emp_id']
+            //            'employeeId' => ['required','exists:employees,emp_id']   // Auto selected from login
         );
         $messsages = array(
             'modelNo.exists'=>"This model does not exist"
@@ -134,17 +134,18 @@ class StockController extends ApiController
             $stock->model_size=$request->input("modelSize");
             $stock->qty=$request->input("quantity");
             $stock->gold=$request->input("gold");
-            $stock->labour_charge=$request->input("labourCharge");
+            $stock->labour_charge=$request->input("labourCharge") * $request->input("quantity");
             $stock->gross_weight=$request->input("grossWeight");
             $stock->package_weight=$request->input("packageWeight");
-            $stock->in_stock=$request->input("in_stock");
+            $stock->in_stock=1;
             $stock->agent_id=$request->input("agentId");
-            $stock->employee_id=$request->input("employeeId");
+            $stock->employee_id=auth()->user()->emp_id;
             $stock->reference=$request->input("reference");
             $stock->bill_no=$request->input("billNo");
             $stock->job_id =$request->input("jobId");
             $stock->saveOrFail();
-            return $this->successResponse(new ItemStockReadyMadeResource($stock));
+//            return $this->successResponse(new ItemStockReadyMadeResource($stock));
+            return $this->successResponse($stock);
         }catch(\Exception $e){
             return $this->errorResponse($e->getMessage(),500);
         }

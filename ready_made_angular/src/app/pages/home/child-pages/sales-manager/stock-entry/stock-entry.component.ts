@@ -108,7 +108,6 @@ export class StockEntryComponent implements OnInit {
   getDetails(){
     this.stockService.getDetailsByJobId().subscribe((response: {status: any , data: any}) => {
       if (response.status === true){
-          console.log(response.data.product_code);
           this.model_number =  response.data.product_code;
           this.model_size =  response.data.product_size;
           this.labourCharge =  response.data.price;

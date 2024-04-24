@@ -42,7 +42,7 @@ export class StockService {
       packageWeight:  new FormControl(null, [Validators.required]),
       inStock:  new FormControl(1),
       agentId:  new FormControl('AG2018'),
-      employeeId:  new FormControl(46),
+      employeeId:  new FormControl(70),
       reference:  new FormControl(null),
       billNo:  new FormControl(null, [Validators.required]),
       jobId:  new FormControl(null),
@@ -61,6 +61,7 @@ export class StockService {
     return this.http.post(this.commonService.getAPI() + '/stocks', this.stockForm.value)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: Stock}) => {
           if (response.status === true){
+            console.log(response.status);
             this.stockData.unshift(response.data);
             this.stocksSub.next([...this.stockData]);
           }
