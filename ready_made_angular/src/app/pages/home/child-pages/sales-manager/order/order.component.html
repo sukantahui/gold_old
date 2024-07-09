@@ -30,6 +30,13 @@
                         </div>
                     </div>
                     <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
+                        <div fxFlex="90" *ngIf="selectedCustomer">
+                            <h3>Selected Customer Details</h3>
+                            <div>Customer ID: {{selectedCustomer.cust_id}}</div>
+                            <div>City: {{selectedCustomer.city}}</div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="15px" style="padding-left: 50px">
                         <mat-form-field fxFlex="20">
                             <mat-label>MV</mat-label>
                             <input type="number" class="text-right" matInput formControlName="cust_mv" placeholder="MV">
@@ -282,7 +289,11 @@
                     orderDetails = {{orderDetails | json}}
                 </pre>
             </div>
-            <div fxLayoutAlign="center center">3</div>
+            <div fxLayoutAlign="center center">
+                <pre>
+                    this.selectedCustomer = {{this.selectedCustomer | json}}
+                </pre>
+            </div>
             <div fxLayoutAlign="center center">4</div>
         </div>
     </div>
