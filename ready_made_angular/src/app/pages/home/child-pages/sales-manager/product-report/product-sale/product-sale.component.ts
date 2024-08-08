@@ -22,7 +22,7 @@ export class ProductSaleComponent implements OnInit {
   isLoadingSale = false;
   sales: any = [];
   selectedModel: any;
-  constructor(private reportService: ReportService, private commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
+  constructor(private reportService: ReportService, public commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
     this.adapter.setLocale('in');
     const stDate = new Date();
 
@@ -32,7 +32,7 @@ export class ProductSaleComponent implements OnInit {
       startDateSql: new FormControl(null),
       endDate: new FormControl(endDate),
       endDateSql: new FormControl(null),
-      reportLimit: new FormControl(50)
+      reportLimit: new FormControl(5000)
     });
 
   }

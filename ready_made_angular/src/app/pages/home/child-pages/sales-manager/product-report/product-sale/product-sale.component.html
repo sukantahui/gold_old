@@ -42,21 +42,31 @@
                 <div *ngIf="modelWiseSales" class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
                     <p-table #dt2
                              [value]="modelWiseSales"
-                             [rows]="10"
+                             [rows]="5000"
                              [showCurrentPageReport]="true"
                              [rowsPerPageOptions]="[20,30,50]"
                              styleClass="p-datatable-gridlines"
                              [paginator]="true"
                              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                              [globalFilterFields]="['model_no','sale_qty','category']"
-                             [responsive]="true">
+                             [responsive]="true"
+                             id="printable-model-table">
                         <ng-template pTemplate="caption">
                             <div class="flex">
                                 <h4>Selected Model or category: {{selectedModel}}</h4>
                                 <span class="p-input-icon-left ml-auto">
                                 <i class="pi pi-search"></i>
                                 <input class="text-right" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
-                            </span>
+                                </span>
+                                <button
+                                        mat-button color="primary"
+                                        printSectionId="printable-model-table"
+                                        [useExistingCss]="true"
+                                        styleSheetFile="assets/print_css/general_print.css"
+                                        ngxPrint
+                                        class="no-print ml-5"><mat-icon>print</mat-icon>
+                                </button>
+                                <button class="ml-5" mat-button color="primary" (click)="commonService.exportToExcel('printable-model-table','best_sale')"><mat-icon>cloud_download</mat-icon></button>
                             </div>
                         </ng-template>
                         <ng-template pTemplate="header">

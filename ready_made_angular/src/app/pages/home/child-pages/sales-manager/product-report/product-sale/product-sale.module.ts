@@ -10,6 +10,9 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {NgxPrinterModule} from 'ngx-printer';
+import {NgxPrintModule} from 'ngx-print';
+import {MatIconModule} from '@angular/material/icon';
 
 
 export const DateFormats = {
@@ -46,11 +49,14 @@ export const GRI_DATE_FORMATS: MatDateFormats = {
     ProductSaleRoutingModule,
     MatDatepickerModule,
     MatInputModule,
+    MatIconModule,
     MatNativeDateModule,
     ReactiveFormsModule,
     ButtonModule,
     TableModule,
     InputNumberModule,
+    NgxPrinterModule,
+    NgxPrintModule
   ],
   providers: [
 
