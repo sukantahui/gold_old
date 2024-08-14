@@ -27,10 +27,10 @@ export class TransferToAgentComponent implements OnInit {
   disabled: any;
   searchTerm: any;
   searchTag: any;
-  pageSize = 50;
+  pageSize = 100;
   currentPageProducts = 1;
   searchTermSelectedProducts: any;
-  pageSizeSelectedProducts = 50;
+  pageSizeSelectedProducts = 100;
   currentPageSelectedProducts = 1;
   color = 'accent';
   checked = false;

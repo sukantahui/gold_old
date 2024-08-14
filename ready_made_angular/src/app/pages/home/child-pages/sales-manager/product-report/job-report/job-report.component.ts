@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {ReportService} from '../../../../../../services/report.service';
 import {CommonService} from '../../../../../../services/common.service';
 import {DateAdapter} from '@angular/material/core';
+import {Table} from 'primeng/table';
 
 @Component({
   selector: 'app-job-report',
@@ -18,6 +19,11 @@ export class JobReportComponent implements OnInit {
   jobs: any;
   selectedJob: any;
   showJobDetailDiv = false;
+  goldSend = 0;
+  pieces = 0;
+  goldReturned = 0;
+  panSend = 0;
+  nitrickReturned = 0;
 
   constructor(private reportService: ReportService, private commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
     this.adapter.setLocale('in');
@@ -60,5 +66,17 @@ export class JobReportComponent implements OnInit {
     console.log(job);
     this.selectedJob = job;
     this.showJobDetailDiv = true;
+  }
+
+
+  onFilter($event, dt2: any) {
+    // this.totalGoldSend = dt2.filteredValue.map(item => item.goldSend).reduce((prev, next) => prev + next);
+    if (dt2.filteredValue) {
+      this.goldSend = dt2.filteredValue.reduce((acc, obj) => acc + obj.goldSend, 0);
+      this.pieces = dt2.filteredValue.reduce((acc, obj) => acc + obj.pieces, 0);
+      this.goldReturned = dt2.filteredValue.reduce((acc, obj) => acc + obj.goldReturned, 0);
+      this.panSend = dt2.filteredValue.reduce((acc, obj) => acc + obj.panSend, 0);
+      this.nitrickReturned = dt2.filteredValue.reduce((acc, obj) => acc + obj.nitrickReturned, 0);
+    }
   }
 }

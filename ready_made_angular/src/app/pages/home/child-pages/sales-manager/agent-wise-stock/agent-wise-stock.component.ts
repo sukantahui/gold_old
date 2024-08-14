@@ -28,6 +28,9 @@ export class AgentWiseStockComponent implements OnInit {
     td: {border: '1px  solid black' , 'fontSize' : 'small'},
 
   };
+  totalGold = 0;
+  totalLabourCharge = 0;
+  totalQuantity = 0;
 
 
   constructor(private  agentService: AgentService , private stockService: StockService, public commonService: CommonService) {
@@ -47,6 +50,11 @@ export class AgentWiseStockComponent implements OnInit {
     this.stockService.getStockByAgent(this.agentStockForm.value.agent_id)
         .subscribe((response: {status: any , data: any[]}) => {
             this.stoockListByAgent = response.data;
+          // tslint:disable-next-line:only-arrow-functions
+            this.totalGold = this.stoockListByAgent.reduce(function(acc, obj) { return acc + obj.gold; }, 0);
+            this.totalLabourCharge = this.stoockListByAgent.reduce(function(acc, obj) { return acc + obj.labourCharge; }, 0);
+            this.totalQuantity = this.stoockListByAgent.reduce(function(acc, obj) { return acc + obj.quantity; }, 0);
+
         });
   }
 }
