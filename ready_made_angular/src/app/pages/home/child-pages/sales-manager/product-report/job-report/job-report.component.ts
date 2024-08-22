@@ -24,6 +24,8 @@ export class JobReportComponent implements OnInit {
   goldReturned = 0;
   panSend = 0;
   nitrickReturned = 0;
+  markupValue = 0;
+  pLoss = 0;
 
   constructor(private reportService: ReportService, private commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
     this.adapter.setLocale('in');
@@ -57,6 +59,13 @@ export class JobReportComponent implements OnInit {
     this.isLoading = true;
     this.reportService.getJobsByDates(this.reportForm.value.startDateSql, this.reportForm.value.endDateSql).subscribe((response) => {
       this.jobs = response.data;
+      this.goldSend = this.jobs.reduce((acc, obj) => acc + obj.goldSend, 0);
+      this.pieces = this.jobs.reduce((acc, obj) => acc + obj.pieces, 0);
+      this.goldReturned = this.jobs.reduce((acc, obj) => acc + obj.goldReturned, 0);
+      this.panSend = this.jobs.reduce((acc, obj) => acc + obj.panSend, 0);
+      this.pLoss = this.jobs.reduce((acc, obj) => acc + obj.pLoss, 0);
+      this.nitrickReturned = this.jobs.reduce((acc, obj) => acc + obj.nitrickReturned, 0);
+      this.markupValue = this.jobs.reduce((acc, obj) => acc + obj.markupValue, 0);
 
       this.isLoading = false;
     });
@@ -76,7 +85,9 @@ export class JobReportComponent implements OnInit {
       this.pieces = dt2.filteredValue.reduce((acc, obj) => acc + obj.pieces, 0);
       this.goldReturned = dt2.filteredValue.reduce((acc, obj) => acc + obj.goldReturned, 0);
       this.panSend = dt2.filteredValue.reduce((acc, obj) => acc + obj.panSend, 0);
+      this.pLoss = dt2.filteredValue.reduce((acc, obj) => acc + obj.pLoss, 0);
       this.nitrickReturned = dt2.filteredValue.reduce((acc, obj) => acc + obj.nitrickReturned, 0);
+      this.markupValue = dt2.filteredValue.reduce((acc, obj) => acc + obj.markupValue, 0);
     }
   }
 }

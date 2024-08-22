@@ -43,5 +43,12 @@ export class CustomerService {
     }));
   }
 
+  getCustomersWithBalance(){
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<any>(this.commonService.getAPI() + '/customersBalances').pipe(catchError(this.errorService.serverError), tap(response => {
+
+    }));
+  }
+
 
 }

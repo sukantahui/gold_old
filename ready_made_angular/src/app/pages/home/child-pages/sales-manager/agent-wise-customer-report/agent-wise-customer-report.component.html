@@ -19,12 +19,13 @@
                 <mat-card-content>
                     <div *ngIf="agents" id="agent-list-table" class="table-responsive">
                         <h3>Agent List</h3>
-                        <table class="table table-bodered table-condensed" id="printable-agent-table">
+                        <table class="table table-bodered table-condensed ml-3" id="printable-agent-table">
                             <thead>
                             <tr>
                                 <th>SL</th>
                                 <th>Agent ID</th>
                                 <th>Agent Name</th>
+                                <th>Phone</th>
                                 <th>Gold</th>
                                 <th>LC</th>
                             </tr>
@@ -33,24 +34,30 @@
                             <tr *ngFor="let row of agents; let i = index">
                                 <td >{{i+1}}</td>
                                 <td >{{row.agent_id}}</td>
-                                <td >{{row.agent_name}}</td>
+                                <td >
+                                    <a [routerLink]=""  (click)="agentSelected(row,i)" *ngIf="selectedAgentIndex!=i">
+                                        {{row.agent_name}}
+                                    </a>
+                                    <span *ngIf="selectedAgentIndex==i" style="color: red;">
+                                        {{row.agent_name}}<mat-icon>done_outline</mat-icon>
+                                    </span>
+                                </td>
+                                <td >{{row.agent_phone}}</td>
                                 <td class="text-right">{{row.gold_due | number: '1.3'}}</td>
                                 <td class="text-right">{{row.lc_due}}</td>
-
+<!--                                <td class="text-right noprint" >-->
+<!--                                    <a [routerLink]=""  (click)="agentSelected(row,i)" *ngIf="selectedAgentIndex!=i"> <mat-icon>gps_not_fixed</mat-icon> </a>-->
+<!--                                    <a [routerLink]=""   *ngIf="selectedAgentIndex==i"> <mat-icon>gps_fixed</mat-icon> </a>-->
+<!--                                </td>-->
 
                             </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td ></td>
-                                    <td ></td>
-                                    <td >All Agents</td>
+                                    <td colspan="4">All Agents</td>
                                     <td class="text-right">{{agentDues.gold | number: '1.3'}}</td>
                                     <td class="text-right">{{agentDues.lc}}</td>
-                                    <td class="text-right noprint" >
-                                        <a [routerLink]=""  (click)="agentSelected(null,-1)" *ngIf="selectedAgentIndex!=-1"> <mat-icon>gps_not_fixed</mat-icon> </a>
-                                        <a [routerLink]=""   *ngIf="selectedAgentIndex==-1"> <mat-icon>gps_fixed</mat-icon> </a>
-                                    </td>
+
                                 </tr>
                             <tfoot>
                         </table>
@@ -61,7 +68,7 @@
         </div>
         <!--            Customer List-->
         <div class="child-2" fxFlex="60">
-            <mat-card class="example-card" id="customer-receipt-payment-div" *ngIf="customerReceiptPayment">
+            <mat-card class="example-card" id="customer-receipt-payment-div" *ngIf="customerReceiptPayment && showCustomerReceiptPayment">
                 <mat-card-content>
                     <button
                             mat-button color="primary"
@@ -70,6 +77,10 @@
                             styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
                             ngxPrint><mat-icon>print</mat-icon>
                     </button>
+                    <button mat-button color="primary" (click)="showCustomerReceiptPayment=false">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+
                     <div  id="customer-receipt-payment-table" class="table-responsive">
                         <h3>Receipt and Payment of {{selectedCustomer.cust_name}}</h3>
                         <table class="table table-bodered table-condensed" id="printable-receipt-payment-table">
@@ -136,14 +147,21 @@
                             <tr *ngFor="let row of customers; let i = index">
                                 <td >{{i+1}}</td>
                                 <td >{{row.cust_id}}</td>
-                                <td >{{row.cust_name}}</td>
+                                <td >
+                                    <a [routerLink]=""  (click)="customerSelected(row,i)" *ngIf="selectedCustomerIndex!=i">
+                                        {{row.cust_name}}
+                                    </a>
+                                    <span *ngIf="selectedCustomerIndex==i" style="color: red;">
+                                        {{row.cust_name}}<mat-icon>done_outline</mat-icon>
+                                    </span>
+                                </td>
                                 <td >{{row.city}}</td>
                                 <td class="text-right">{{row.gold_due | number: '1.3'}}</td>
                                 <td class="text-right">{{row.lc_due}}</td>
-                                <td class="text-right noprint" >
-                                    <a [routerLink]="" (click)="customerSelected(row, i)" *ngIf="selectedCustomerIndex!=i"> <mat-icon >gps_not_fixed</mat-icon> </a>
-                                    <a [routerLink]=""   *ngIf="selectedCustomerIndex==i"> <mat-icon>gps_fixed</mat-icon> </a>
-                                </td>
+<!--                                <td class="text-right noprint" >-->
+<!--                                    <a [routerLink]="" (click)="customerSelected(row, i)" *ngIf="selectedCustomerIndex!=i"> <mat-icon >gps_not_fixed</mat-icon> </a>-->
+<!--                                    <a [routerLink]=""   *ngIf="selectedCustomerIndex==i"> <mat-icon>gps_fixed</mat-icon> </a>-->
+<!--                                </td>-->
                             </tr>
                             </tbody>
                         </table>

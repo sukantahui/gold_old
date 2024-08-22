@@ -100,6 +100,7 @@ class ReportController extends ApiController
     public function getAgentsBalance(){
         $result = DB::select("select agent_id
                                     , agent_name
+                                    , agent_phone
                                     , short_name
                                     , get_agent_lc_due(agent_id) as lc_due
                                     ,get_agent_gold_due(agent_id) as gold_due
