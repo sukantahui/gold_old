@@ -344,6 +344,11 @@ class ReportController extends ApiController
             order by material_receiver.record_time desc",[$employee_id,$rm_id,$start_date,$end_date]);
         return $this->successResponse($result);
     }
+    public function selectAllCurrentStocks($employee_id){
+        $result = DB::select("call select_current_readymade_stock");
+        return $this->successResponse($result);
+    }
+
 }
 
 

@@ -13,6 +13,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgxPrinterModule} from 'ngx-printer';
 import {NgxPrintModule} from 'ngx-print';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {NgxPrintModule} from 'ngx-print';
     MatButtonModule,
     FontAwesomeModule,
     NgxPrinterModule,
-    NgxPrintModule
+    NgxPrintModule,
+    TableModule
   ]
 })
 export class AgentWiseCustomerReportModule { }

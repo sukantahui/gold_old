@@ -168,6 +168,12 @@ class BillController extends ApiController
         }
 
     }
+    public function get_billable_customers(){
+        $orders = DB::select("select * from customer_master where cust_id in(select distinct cust_id from order_master where order_master.order_id in(select distinct order_id from job_master where status=8));");
+
+        return $this->successResponse($orders);
+    }
+
     public function get_billable_orders(){
         $orders = DB::select("select
             customer_master.cust_name

@@ -115,6 +115,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("getJobIdByJobMaster",[JobMasterController::class, 'getJobIdByJobMaster']);
 
     Route::get("agents",[AgentController::class, 'getAgents']);
+    Route::get("activeAgents",[AgentController::class, 'getActiveAgents']);
 
     Route::post("save",[OrderController::class, 'saveOrder']);
     Route::get("getOrderMasterList",[OrderController::class, 'getOrderMasterList']);
@@ -141,6 +142,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     // http://127.0.0.1/gold_old/gold_api/public/api/billableOrders
     Route::get("billableOrders",[BillController::class, 'get_billable_orders']);
+    Route::get("billableCustomers",[BillController::class, 'get_billable_customers']);
 
     /*Working status*/
     Route::get("materialReceivedTransactions/total/{startDate}/{endDate}/{rmId}/{employeeId}/{transactionTypeId}",[MaterialTransactionController::class ,'getMaterialReceivedTransactionsTotalByDates']);
@@ -268,6 +270,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get("jobDetailsForOwner",[ReportController::class, 'selectAllJobDetails']);
     Route::get("jobDetailsForOwner/{employee_id}",[ReportController::class, 'selectAllJobDetailsByEmployee']);
+
+    Route::get("currentStocks",[ReportController::class, 'selectAllCurrentStocks']);
 
 });
 

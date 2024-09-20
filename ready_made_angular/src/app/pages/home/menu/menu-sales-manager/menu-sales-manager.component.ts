@@ -115,6 +115,11 @@ export class MenuSalesManagerComponent implements OnInit {
               displayName: 'Stock GroupWise',
               iconName: 'star_rate',
               route: 'ReadymadeStockGroupwise'
+            },
+            {
+              displayName: 'Stock in Hand',
+              iconName: 'feedback',
+              route: 'StockInHandReport'
             }
 
           ]
@@ -137,6 +142,18 @@ export class MenuSalesManagerComponent implements OnInit {
       iconName: 'close',
       route: 'michael-prentice',
       children: [
+        {
+          displayName: 'BILL',
+          iconName: 'label',
+          children: [
+            {
+              displayName: 'Create Bill',
+              iconName: 'shopping_cart',
+              color: 'green',
+              route: 'CreateBill',
+            }
+          ]
+        },
         {
           displayName: 'ORDER',
           iconName: 'label',

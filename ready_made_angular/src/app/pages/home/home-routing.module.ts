@@ -182,6 +182,12 @@ const routes: Routes = [
                                     , loadChildren: () => import('./child-pages/sales-manager/send-to-job/send-to-job.module')
                                         .then(m => m.SendToJobModule)
                                 },
+                                { path: 'CreateBill'
+                                    // tslint:disable-next-line:max-line-length
+                                    , loadChildren: () => import('./child-pages/office-staff/create-bill/create-bill.module')
+                                        .then(m => m.CreateBillModule)
+                                },
+
 
 
 

@@ -18,12 +18,18 @@ export class StockInHandReportComponent implements OnInit {
   stocksInHandFiltered: any;
   private selectedProductCategoryId: any;
   private selectedAgentId: any;
+  totalQuantity = 0;
+  totalGold = 0;
   constructor(private route: ActivatedRoute) {
     this.route.data.subscribe((response: any) => {
       this.agents = response.showItemStockResolver.agents.data;
       this.productCategories = response.showItemStockResolver.productCategories.data;
       this.stocksInHand = response.showItemStockResolver.stocksInHand.data;
       this.stocksInHandFiltered = response.showItemStockResolver.stocksInHand.data;
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.quantity; }, 0);
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.gold; }, 0);
     });
 
     this.reportForm = new FormGroup({
@@ -40,10 +46,18 @@ export class StockInHandReportComponent implements OnInit {
     this.selectedProductCategoryId = $event.ID;
     // tslint:disable-next-line:max-line-length
     this.stocksInHandFiltered =  this.stocksInHand.filter(stock => (stock.productCategoryId === this.selectedProductCategoryId && stock.agentId === this.selectedAgentId ));
+    // tslint:disable-next-line:only-arrow-functions
+    this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.quantity; }, 0);
+    // tslint:disable-next-line:only-arrow-functions
+    this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.gold; }, 0);
   }
 
   stockByAgent($event: any, ref1: any) {
       this.selectedAgentId = $event.agent_id;
       this.stocksInHandFiltered =  this.stocksInHand.filter(stock => stock.agentId === this.selectedAgentId);
+    // tslint:disable-next-line:only-arrow-functions
+      this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.quantity; }, 0);
+    // tslint:disable-next-line:only-arrow-functions
+    this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.gold; }, 0);
   }
 }

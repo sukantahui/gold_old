@@ -77,7 +77,7 @@ const routes: Routes = [
 
   { path: 'AgentWiseCustomerReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/agent-wise-customer-report/agent-wise-customer-report.module').then(m => m.AgentWiseCustomerReportModule) },
 
-  { path: 'CreateBill', loadChildren: () => import('./pages/home/child-pages/office-staff/create-bill/create-bill.module').then(m => m.CreateBillModule) },
+
 
   { path: 'test', loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule) },
 
@@ -90,6 +90,8 @@ const routes: Routes = [
   { path: 'ExtraGoldAdd', loadChildren: () => import('./pages/home/child-pages/developer/extra-gold-add/extra-gold-add.module').then(m => m.ExtraGoldAddModule) },
 
   { path: 'DeveloperHome', loadChildren: () => import('./pages/home/child-pages/developer/developer-home/developer-home.module').then(m => m.DeveloperHomeModule) },
+
+
 
 
 

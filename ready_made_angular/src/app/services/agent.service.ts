@@ -22,7 +22,7 @@ export class AgentService {
     });
   }
   fetchAgents(){
-    return this.http.get<any>(this.commonService.getAPI() + '/agents').pipe(catchError(this.errorService.serverError), tap(response => {
+    return this.http.get<any>(this.commonService.getAPI() + '/activeAgents').pipe(catchError(this.errorService.serverError), tap(response => {
 
     }));
   }

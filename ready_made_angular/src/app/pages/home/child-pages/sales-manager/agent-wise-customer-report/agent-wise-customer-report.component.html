@@ -12,7 +12,7 @@
                                 styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
                                 ngxPrint><mat-icon>print</mat-icon>
                         </button>
-                        <button mat-button color="primary" (click)="commonService.exportToExcel('printable-agent-table','all_agents.xlsx',5)"><mat-icon>cloud_download</mat-icon></button>
+                        <button mat-button color="primary" (click)="commonService.exportToExcel('printable-agent-table','all_agents.xlsx',6)"><mat-icon>cloud_download</mat-icon></button>
                     </mat-card-subtitle>
                 </mat-card-header>
 
@@ -35,7 +35,7 @@
                                 <td >{{i+1}}</td>
                                 <td >{{row.agent_id}}</td>
                                 <td >
-                                    <a [routerLink]=""  (click)="agentSelected(row,i)" *ngIf="selectedAgentIndex!=i">
+                                    <a style="text-decoration: none;" [routerLink]=""  (click)="agentSelected(row,i)" *ngIf="selectedAgentIndex!=i">
                                         {{row.agent_name}}
                                     </a>
                                     <span *ngIf="selectedAgentIndex==i" style="color: red;">
@@ -77,7 +77,7 @@
                             styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
                             ngxPrint><mat-icon>print</mat-icon>
                     </button>
-                    <button mat-button color="primary" (click)="showCustomerReceiptPayment=false">
+                    <button mat-button color="primary" (click)="showCustomerReceiptPayment=false;selectedCustomerIndex=-1">
                         <mat-icon>delete_forever</mat-icon>
                     </button>
 
@@ -120,52 +120,68 @@
                     <mat-card-subtitle>
                         <button
                                 mat-button color="primary"
-                                printSectionId="customer-list-table"
+                                printSectionId="customer-list-table-new"
                                 [useExistingCss]="true"
                                 styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
                                 ngxPrint><mat-icon>print</mat-icon>
                         </button>
-                        <button mat-button color="primary" (click)="commonService.exportToExcel('printable-customer-dues-table','customers.xlsx',6)"><mat-icon>cloud_download</mat-icon></button>
+                        <button mat-button color="primary" (click)="commonService.exportToExcel('customer-list-table-new','customers.xlsx',6)"><mat-icon>cloud_download</mat-icon></button>
                     </mat-card-subtitle>
                 </mat-card-header>
 
                 <mat-card-content>
-                    <div *ngIf="customers" id="customer-list-table" class="table-responsive">
-                        <h3 *ngIf="selectedAgent">Customers of {{selectedAgent.agent_name}}</h3>
-                        <table class="table table-bodered table-condensed" id="printable-customer-dues-table">
-                            <thead>
+                    <h3 *ngIf="selectedAgent">Customers of {{selectedAgent.agent_name}}</h3>
+                    <h3 *ngIf="!selectedAgent">All Customers</h3>
+                    <h3 *ngIf="customers.length<=0">এই এজেন্টের জন্য কোন রকম কাস্টোমার নির্ধারণ করা হয় নি</h3>
+                    <p-table #dt2
+                             *ngIf="customers.length>0"
+                             id="customer-list-table-new"
+                             [value]="customers"
+                             [rows]="10000"
+                             [showCurrentPageReport]="true"
+                             [rowsPerPageOptions]="[200,300,500]"
+                             styleClass="p-datatable-gridlines"
+                             [paginator]="true"
+                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                             [globalFilterFields]="['cust_id','cust_name','city','gold_due','lc_due']"
+                             [responsive]="true">
+                        <ng-template pTemplate="caption">
+                            <div class="d-flex justify-content-between">
+                                <div class="p-input-icon-left ml-auto">
+                                    <i class="pi pi-search"></i>
+                                    <input class="text-right" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
                             <tr>
                                 <th>SL</th>
-                                <th>Customer ID</th>
-                                <th>Name</th>
-                                <th>City</th>
-                                <th>Gold</th>
-                                <th>LC</th>
+                                <th pSortableColumn="cust_id">Customer Id <p-sortIcon field="cust_id"></p-sortIcon></th>
+                                <th pSortableColumn="cust_name">Customer<p-sortIcon field="cust_name"></p-sortIcon></th>
+                                <th pSortableColumn="city">City<p-sortIcon field="city"></p-sortIcon></th>
+                                <th pSortableColumn="gold_due">Gold<p-sortIcon field="gold_due"></p-sortIcon></th>
+                                <th pSortableColumn="lc_due">LC<p-sortIcon field="lc_due"></p-sortIcon></th>
+
                             </tr>
-                            </thead>
-                            <tbody>
-                            <tr *ngFor="let row of customers; let i = index">
-                                <td >{{i+1}}</td>
-                                <td >{{row.cust_id}}</td>
-                                <td >
-                                    <a [routerLink]=""  (click)="customerSelected(row,i)" *ngIf="selectedCustomerIndex!=i">
-                                        {{row.cust_name}}
+                        </ng-template>
+                        <ng-template pTemplate="body" let-customer let-i="rowIndex">
+                            <tr>
+                                <td>{{i+1}}</td>
+                                <td class="text-left">{{customer.cust_id}}</td>
+                                <td class="text-left">
+                                    <a style="text-decoration: none;" [routerLink]=""  (click)="customerSelected(customer,i)" *ngIf="selectedCustomerIndex!=i">
+                                        {{customer.cust_name}}
                                     </a>
                                     <span *ngIf="selectedCustomerIndex==i" style="color: red;">
-                                        {{row.cust_name}}<mat-icon>done_outline</mat-icon>
+                                        {{customer.cust_name}}<mat-icon>done_outline</mat-icon>
                                     </span>
                                 </td>
-                                <td >{{row.city}}</td>
-                                <td class="text-right">{{row.gold_due | number: '1.3'}}</td>
-                                <td class="text-right">{{row.lc_due}}</td>
-<!--                                <td class="text-right noprint" >-->
-<!--                                    <a [routerLink]="" (click)="customerSelected(row, i)" *ngIf="selectedCustomerIndex!=i"> <mat-icon >gps_not_fixed</mat-icon> </a>-->
-<!--                                    <a [routerLink]=""   *ngIf="selectedCustomerIndex==i"> <mat-icon>gps_fixed</mat-icon> </a>-->
-<!--                                </td>-->
+                                <td class="text-leftt">{{customer.city}}</td>
+                                <td class="text-right">{{customer.gold_due | number:'1.3'}}</td>
+                                <td class="text-right">{{customer.lc_due}}</td>
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </ng-template>
+                    </p-table>
                 </mat-card-content>
 
             </mat-card>

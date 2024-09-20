@@ -34,6 +34,11 @@ export class MenuManagerComponent implements OnInit {
           route: 'StockEntry'
         },
         {
+          displayName: 'Stock in Hand',
+          iconName: 'feedback',
+          route: 'StockInHandReport'
+        },
+        {
           displayName: 'Sessions',
           iconName: 'speaker_notes',
           children: [
