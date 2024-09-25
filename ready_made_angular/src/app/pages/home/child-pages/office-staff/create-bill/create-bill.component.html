@@ -23,7 +23,9 @@
                                 <th>Model No.</th>
                                 <th>Billable Jobs</th>
                                 <th>Working Progress</th>
+                                <th>Number of Billed</th>
                                 <th>Number of Orders</th>
+
 
                             </tr>
                             </thead>
@@ -34,11 +36,13 @@
                                 <td >{{row.cust_name}}</td>
                                 <td >{{row.billable_job_count}}</td>
                                 <td >{{row.working_job_count}}</td>
+                                <td >{{row.billed_count}}</td>
                                 <td >{{row.order_count}}</td>
+
 <!--                                <td ><a [routerLink]="" href="" (click)="onOrderSelected(row)"><mat-icon>gps_not_fixed</mat-icon></a></td>-->
                                 <td>
-                                    <a [routerLink]=""  (click)="onOrderSelected(row,-1)" *ngIf="selectedOrderIndex!=-1"> <mat-icon>gps_not_fixed</mat-icon> </a>
-                                    <a [routerLink]=""   *ngIf="selectedOrderIndex==-1"> <mat-icon>gps_fixed</mat-icon> </a>
+                                    <a [routerLink]=""  (click)="onOrderSelected(row,i)" *ngIf="selectedOrderIndex!=i"> <mat-icon>gps_not_fixed</mat-icon> </a>
+                                    <a [routerLink]=""   *ngIf="selectedOrderIndex==i"> <mat-icon>gps_fixed</mat-icon> </a>
                                 </td>
                             </tr>
                             </tbody>

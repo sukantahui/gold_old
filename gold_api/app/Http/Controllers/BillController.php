@@ -181,6 +181,7 @@ class BillController extends ApiController
             ,get_billable_job_count_by_order_id(order_master.order_id) as billable_job_count
             ,get_working_job_count_by_order_id(order_master.order_id) as working_job_count
             ,get_order_count_by_order_id(order_master.order_id) as order_count
+            ,get_bille_job_by_order_id(order_master.order_id) as billed_count
             from order_master
             inner join customer_master
             on order_master.cust_id = customer_master.cust_id

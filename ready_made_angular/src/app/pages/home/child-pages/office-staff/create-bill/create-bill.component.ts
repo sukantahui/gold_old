@@ -31,16 +31,17 @@ export class CreateBillComponent implements OnInit {
   }
 
   onOrderSelected(row: any, index: number) {
-    this.selectedOrderIndex = -1;
+    console.log(index);
+    this.selectedOrderIndex = index;
     if (index == -1) {
       this.selectedOrderIndex = -1;
       this.selectedOrder = null;
-      this.billService.getbBillableOrdersByOrderAutoid(row.order_autoid).subscribe(response => {
-        this.jobDetails = response.data;
-      });
     } else {
       this.selectedOrderIndex = index;
       this.selectedOrder = row;
+      this.billService.getbBillableOrdersByOrderAutoid(row.order_autoid).subscribe(response => {
+        this.jobDetails = response.data;
+      });
     }
   }
 }
