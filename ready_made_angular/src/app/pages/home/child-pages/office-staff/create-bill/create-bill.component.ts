@@ -16,17 +16,19 @@ class httpClient {
 })
 export class CreateBillComponent implements OnInit {
   isProduction = environment.production;
-  billableOrders: any[] = [];
+  billableOrders: any[] = [] ;
   jobDetails: Job[] = [];
   selectedOrderIndex = -2;
   selectedOrder: any;
   test = false;
+  isDataFetched = false;
   constructor( private  http: HttpClient, private commonService: CommonService, private billService: BillService) {}
 
   ngOnInit(): void {
     this.billableOrders = [];
     this.billService.getBillableOrders().subscribe(response => {
       this.billableOrders = response.data;
+      this.isDataFetched = true;
     });
   }
 
