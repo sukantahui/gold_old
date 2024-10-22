@@ -58,6 +58,18 @@ export class StockInHandReportComponent implements OnInit {
     // tslint:disable-next-line:only-arrow-functions
       this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.quantity; }, 0);
     // tslint:disable-next-line:only-arrow-functions
-    this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.gold; }, 0);
+      this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.gold; }, 0);
   }
+
+    onFilter($event, dt2: any) {
+      if (dt2.filteredValue) {
+        this.totalQuantity = dt2.filteredValue.reduce((acc, obj) => acc + obj.quantity, 0);
+        this.totalGold = dt2.filteredValue.reduce((acc, obj) => acc + obj.gold, 0);
+      }else{
+        // tslint:disable-next-line:only-arrow-functions
+        this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.quantity; }, 0);
+        // tslint:disable-next-line:only-arrow-functions
+        this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.gold; }, 0);
+      }
+    }
 }

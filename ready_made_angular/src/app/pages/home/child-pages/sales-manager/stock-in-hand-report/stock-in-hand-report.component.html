@@ -58,8 +58,9 @@
                              styleClass="p-datatable-gridlines"
                              [paginator]="true"
                              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                             [globalFilterFields]="['tag','modelNo','quantity','productCategory']"
-                             [responsive]="true">
+                             [globalFilterFields]="['tag','modelNo','quantity','productCategory','modelSize']"
+                             [responsive]="true"
+                             (onFilter)="onFilter($event, dt2)">
                         <ng-template pTemplate="caption">
                             <div class="flex">
                                 <h4>Stock In Hand</h4>
@@ -74,6 +75,7 @@
                                 <th>SL</th>
                                 <th pSortableColumn="tag">Tag <p-sortIcon field="tag"></p-sortIcon></th>
                                 <th pSortableColumn="modelNo">Model <p-sortIcon field="modelNo"></p-sortIcon></th>
+                                <th pSortableColumn="modelSize">Size <p-sortIcon field="modelSize"></p-sortIcon></th>
                                 <th pSortableColumn="productCategory">Category <p-sortIcon field="productCategory"></p-sortIcon></th>
                                 <th pSortableColumn="agentShortName">Agent <p-sortIcon field="agentShortName"></p-sortIcon></th>
                                 <th pSortableColumn="quantity">Qty ({{totalQuantity}}) <p-sortIcon field="quantity"></p-sortIcon></th>
@@ -86,6 +88,7 @@
                                 <td>{{i+1}}</td>
                                 <td>{{sale.tag}}</td>
                                 <td>{{sale.modelNo}}</td>
+                                <td>{{sale.modelSize}}</td>
                                 <td>{{sale.productCategory}}</td>
                                 <td>{{sale.agentShortName}}</td>
                                 <td class="text-right">{{sale.quantity}}</td>
@@ -95,6 +98,7 @@
                         </ng-template>
                         <ng-template pTemplate="footer">
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -126,7 +130,7 @@
             </div>
             <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
                     <pre>
-                        agents = {{agents | json}}
+                        stocksInHandFiltered = {{stocksInHandFiltered | json}}
                     </pre>
             </div>
         </div>

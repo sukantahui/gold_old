@@ -41,6 +41,11 @@ export class TransferFromAgentsComponent implements OnInit {
   checkedAvailableAllProducts = false;
   checkedTransferableAllProducts = false;
   sortedProductByAgentList: Product[] = [];
+
+  selectedTotalQuantity = 0;
+  selectedTotalGini = 0;
+  selectedTotalFine = 0;
+  selectedTotalLC = 0;
   constructor(private transferAgentService: TransferAgentService , private commonService: CommonService , private billService: BillService , private http: HttpClient) {
     this.agents = this.transferAgentService.getAgentsWithoutCounter();
     this.ipAddress = window.location.origin.split(':');
@@ -115,6 +120,13 @@ export class TransferFromAgentsComponent implements OnInit {
     const newArray = this.sortedProductByAgentList.filter((el) => el.is_selected);
     this.sortedProductByAgentList = this.sortedProductByAgentList.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
     this.selectedProducts.push(...newArray);
+
+    // tslint:disable-next-line:max-line-length
+    this.selectedTotalQuantity = this.selectedProducts.reduce((accumulator: number, currentValue) => accumulator + currentValue.quantity, 0);
+    this.selectedTotalGini = this.selectedProducts.reduce((accumulator: number, currentValue) => accumulator + currentValue.gold, 0);
+    this.selectedTotalFine = this.selectedProducts.reduce((accumulator: number, currentValue) => accumulator + (currentValue.gold * 0.92), 0);
+    this.selectedTotalLC = this.selectedProducts.reduce((accumulator: number, currentValue) => accumulator + currentValue.labourCharge, 0);
+
     // also removing from sortedArray
     this.productByAgentList = this.productByAgentList.filter(ar => !newArray.find(rm => (rm.tag === ar.tag )));
   }
