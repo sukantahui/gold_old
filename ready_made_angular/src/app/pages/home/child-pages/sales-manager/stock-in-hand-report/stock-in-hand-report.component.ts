@@ -16,8 +16,8 @@ export class StockInHandReportComponent implements OnInit {
   productCategories: any[];
   reportForm: FormGroup;
   stocksInHandFiltered: any;
-  private selectedProductCategoryId: any;
-  private selectedAgentId: any;
+  selectedProductCategoryId: any = null;
+  selectedAgentId = null;
   totalQuantity = 0;
   totalGold = 0;
   constructor(private route: ActivatedRoute) {
@@ -42,23 +42,123 @@ export class StockInHandReportComponent implements OnInit {
   }
 
   stockByCategory($event: any, value: any) {
-    // console.log(value.selectedItems[0].value.ID);
-    this.selectedProductCategoryId = $event.ID;
-    // tslint:disable-next-line:max-line-length
-    this.stocksInHandFiltered =  this.stocksInHand.filter(stock => (stock.productCategoryId === this.selectedProductCategoryId && stock.agentId === this.selectedAgentId ));
-    // tslint:disable-next-line:only-arrow-functions
-    this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.quantity; }, 0);
-    // tslint:disable-next-line:only-arrow-functions
-    this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.gold; }, 0);
+
+    if ($event && this.selectedAgentId) {
+      this.selectedProductCategoryId = $event.ID;
+      // tslint:disable-next-line:max-line-length
+      this.stocksInHandFiltered = this.stocksInHand.filter(stock => (stock.agentId === this.selectedAgentId && stock.productCategoryId === this.selectedProductCategoryId));
+      // // tslint:disable-next-line:only-arrow-functions
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.quantity;
+      }, 0);
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.gold;
+      }, 0);
+    }
+    if (!$event && this.selectedAgentId) {
+      this.selectedProductCategoryId = null;
+      // tslint:disable-next-line:max-line-length
+      this.stocksInHandFiltered = this.stocksInHand.filter(stock => (stock.agentId === this.selectedAgentId));
+      // // tslint:disable-next-line:only-arrow-functions
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.quantity;
+      }, 0);
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.gold;
+      }, 0);
+    }
+    if ($event && !this.selectedAgentId) {
+      this.selectedProductCategoryId = $event.ID;
+      // tslint:disable-next-line:max-line-length
+      this.stocksInHandFiltered = this.stocksInHand.filter(stock => (stock.productCategoryId === this.selectedProductCategoryId));
+      // // tslint:disable-next-line:only-arrow-functions
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.quantity;
+      }, 0);
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.gold;
+      }, 0);
+    }
+    if (!$event && !this.selectedAgentId) {
+      this.selectedProductCategoryId = null;
+      // tslint:disable-next-line:max-line-length
+      this.stocksInHandFiltered = this.stocksInHand;
+      // // tslint:disable-next-line:only-arrow-functions
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.quantity;
+      }, 0);
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.gold;
+      }, 0);
+    }
   }
 
   stockByAgent($event: any, ref1: any) {
+
+    // when agent and productCategory exists
+    if ($event && this.selectedProductCategoryId) {
+        this.selectedAgentId = $event.agent_id;
+        // tslint:disable-next-line:max-line-length
+        this.stocksInHandFiltered = this.stocksInHand.filter(stock => stock.agentId === this.selectedAgentId && stock.productCategoryId === this.selectedProductCategoryId);
+        // tslint:disable-next-line:only-arrow-functions
+        this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) {
+          return acc + obj.quantity;
+        }, 0);
+        // tslint:disable-next-line:only-arrow-functions
+        this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) {
+          return acc + obj.gold;
+        }, 0);
+    }
+    // when only agent exists
+    if ($event && !this.selectedProductCategoryId) {
       this.selectedAgentId = $event.agent_id;
-      this.stocksInHandFiltered =  this.stocksInHand.filter(stock => stock.agentId === this.selectedAgentId);
-    // tslint:disable-next-line:only-arrow-functions
-      this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.quantity; }, 0);
-    // tslint:disable-next-line:only-arrow-functions
-      this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) { return acc + obj.gold; }, 0);
+      // tslint:disable-next-line:max-line-length
+      this.stocksInHandFiltered = this.stocksInHand.filter(stock => stock.agentId === this.selectedAgentId);
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.quantity;
+      }, 0);
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.gold;
+      }, 0);
+    }
+    // when only productCategory exists
+    if (!$event && this.selectedProductCategoryId) {
+      this.selectedAgentId = null;
+      // tslint:disable-next-line:max-line-length
+      this.stocksInHandFiltered = this.stocksInHand.filter(stock => stock.productCategoryId === this.selectedProductCategoryId);
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.quantity;
+      }, 0);
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.gold;
+      }, 0);
+    }
+    // when both does not exists
+    if (!$event && this.selectedProductCategoryId) {
+      this.selectedAgentId = null;
+      // tslint:disable-next-line:max-line-length
+      this.stocksInHandFiltered = this.stocksInHand;
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalQuantity = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.quantity;
+      }, 0);
+      // tslint:disable-next-line:only-arrow-functions
+      this.totalGold = this.stocksInHandFiltered.reduce(function(acc, obj) {
+        return acc + obj.gold;
+      }, 0);
+    }
   }
 
     onFilter($event, dt2: any) {

@@ -23,7 +23,7 @@
           array('rank'=>2,'topic'=>'ses diamond এ আগে login করে নিতে হবে','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/')
           ,array('rank'=>4,'topic'=>'gold master এ আগে login করে নিতে হবে','software'=>'ses_diamond2' ,'link'=>'gold_old/gold_master/#/')
           ,array('rank'=>10,'topic'=>'Business Status','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php/report_controller/daily_report_facade')
-          ,array('rank'=>20,'topic'=>'Material Withdrawn','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php/material_controller/material_transfer_facade')
+          ,array('rank'=>20,'topic'=>'Material তুলে নেওয়া','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php/material_controller/material_transfer_facade')
           ,array('rank'=>30,'topic'=>'Material to Staff','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php/material_controller/owner_to_employee_facade')
           ,array('rank'=>40,'topic'=>'Cahs Balance Report<br>Material Balance<br>Daily LC Receipt<br>Daily Gold Receipt<br>Material Withdrawn','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php/report_controller/staff_report_facade')
           ,array('rank'=>50,'topic'=>'Current Working jobs','software'=>'Gold Manager' ,'link'=>'gold_manager2/#!/workingJob')
@@ -45,6 +45,7 @@
           ,array('rank'=>210,'topic'=>'Agent অনুসারে বিক্রির তালিকা','software'=>'Gold Master' ,'link'=>'gold_old/gold_master/#/AgentWiseSaleReport')
           ,array('rank'=>220,'topic'=>'Agent পরিবর্তন করতে হলে','software'=>'Ses Gold' ,'link'=>'ses_diamond2/index.php/customer_controller/customer_master_facade')
           ,array('rank'=>230,'topic'=>'Customer পরিবর্তন করতে হলে','software'=>'Ses Gold' ,'link'=>'ses_diamond2/index.php/customer_controller/customer_master_facade#nogo')
+          ,array('rank'=>240,'topic'=>'Stock দেখার জন্য','software'=>'Gold Master' ,'link'=>'gold_old/Gold_master/#/StockInHandReport')
           
         );
         usort($records, function ($a, $b) { return strnatcmp($a['rank'], $b['rank']); });

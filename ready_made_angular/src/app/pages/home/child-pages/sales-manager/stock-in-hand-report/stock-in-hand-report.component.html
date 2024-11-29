@@ -63,7 +63,7 @@
                              (onFilter)="onFilter($event, dt2)">
                         <ng-template pTemplate="caption">
                             <div class="flex">
-                                <h4>Stock In Hand</h4>
+                                <h4>Stock In Hand Agent: {{selectedAgentId}}, Category: {{selectedProductCategoryId}}</h4>
                                 <span class="p-input-icon-left ml-auto">
                                 <i class="pi pi-search mr-3"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <input class="mt-3" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
