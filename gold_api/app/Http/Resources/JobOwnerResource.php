@@ -6,6 +6,7 @@ use App\Models\InventoryDayBook;
 use App\Models\RawMaterial;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property mixed job_id
@@ -54,10 +55,14 @@ class JobOwnerResource extends JsonResource
     public function toArray($request)
     {
 
+        $gini_gold=collect(\DB::select("select round(get_gini_by_job_id($this->job_id),3) as gini_gold"))->first();
+        $fine_gold=collect(\DB::select("select round(get_fine_by_job_id($this->job_id),3) as fine_gold"))->first();
         $nitricReturnedActual = InventoryDayBook::whereReferenceAndRmId($this->job_id,45)->first();
         $pan = new RawMaterialResource($this->pan);
         return [
             'jobId' => $this->job_id,
+            'gini_gold'=> $gini_gold->gini_gold,
+            'fine_gold'=> $fine_gold->fine_gold,
             'jobDate'=> (new Carbon($this->tr_time))->format('Y-m-d'),
             'orderId' => $this->order_id,
             'productCode' => $this->product_code,

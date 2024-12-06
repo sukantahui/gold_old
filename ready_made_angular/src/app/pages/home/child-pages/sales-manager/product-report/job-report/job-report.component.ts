@@ -26,12 +26,19 @@ export class JobReportComponent implements OnInit {
   nitrickReturned = 0;
   markupValue = 0;
   pLoss = 0;
+  totalPLoss = 0;
+  totalMarkupValue = 0;
+  totalGiniGold = 0;
+  totalFineGold = 0;
+  totalLC = 0;
+  totalDal = 0;
 
   constructor(private reportService: ReportService, private commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
     this.adapter.setLocale('in');
     const stDate = new Date();
 
-    const endDate = new Date();
+    const endDate = new Date() ;
+    endDate.setDate(endDate.getDate() + 1);
     this.reportForm = new FormGroup({
       startDate: new FormControl(stDate),
       startDateSql: new FormControl(null),
@@ -64,8 +71,15 @@ export class JobReportComponent implements OnInit {
       this.goldReturned = this.jobs.reduce((acc, obj) => acc + obj.goldReturned, 0);
       this.panSend = this.jobs.reduce((acc, obj) => acc + obj.panSend, 0);
       this.pLoss = this.jobs.reduce((acc, obj) => acc + obj.pLoss, 0);
+      this.totalPLoss = this.jobs.reduce((acc, obj) => acc + obj.pLoss * obj.pieces, 0);
       this.nitrickReturned = this.jobs.reduce((acc, obj) => acc + obj.nitrickReturned, 0);
       this.markupValue = this.jobs.reduce((acc, obj) => acc + obj.markupValue, 0);
+      this.totalMarkupValue = this.jobs.reduce((acc, obj) => acc + obj.markupValue * obj.pieces, 0);
+      this.totalGiniGold = this.jobs.reduce((acc, obj) => acc + obj.gini_gold, 0);
+      this.totalFineGold = this.jobs.reduce((acc, obj) => acc + obj.fine_gold, 0);
+      this.totalLC = this.jobs.reduce((acc, obj) => acc + (obj.price * obj.pieces), 0);
+
+      this.totalDal = this.jobs.reduce((acc, obj) => acc + (obj.dalSend - obj.dalReturned), 0);
 
       this.isLoading = false;
     });
@@ -86,8 +100,16 @@ export class JobReportComponent implements OnInit {
       this.goldReturned = dt2.filteredValue.reduce((acc, obj) => acc + obj.goldReturned, 0);
       this.panSend = dt2.filteredValue.reduce((acc, obj) => acc + obj.panSend, 0);
       this.pLoss = dt2.filteredValue.reduce((acc, obj) => acc + obj.pLoss, 0);
+      this.totalPLoss = dt2.filteredValue.reduce((acc, obj) => acc + obj.pLoss * obj.pieces, 0);
+
       this.nitrickReturned = dt2.filteredValue.reduce((acc, obj) => acc + obj.nitrickReturned, 0);
       this.markupValue = dt2.filteredValue.reduce((acc, obj) => acc + obj.markupValue, 0);
+      this.totalMarkupValue = dt2.filteredValue.reduce((acc, obj) => acc + obj.markupValue * obj.pieces, 0);
+      this.totalGiniGold = dt2.filteredValue.reduce((acc, obj) => acc + obj.gini_gold, 0);
+      this.totalFineGold = dt2.filteredValue.reduce((acc, obj) => acc + obj.fine_gold, 0);
+      this.totalLC = dt2.filteredValue.reduce((acc, obj) => acc + obj.price * obj.pices, 0);
+
+      this.totalDal = this.jobs.reduce((acc, obj) => acc + (obj.dalSend - obj.dalReturned), 0);
     }
   }
 }

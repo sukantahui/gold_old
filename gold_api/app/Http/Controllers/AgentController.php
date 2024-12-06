@@ -64,6 +64,11 @@ class AgentController extends ApiController
 
         return $this->successResponse($agent);
     }
+    public function getAgentsForSaleReport(){
+        $agent = Agent::select()->where('inforce', '=', 1)->where('display_in_sale_report', '=', 1)->get();
+
+        return $this->successResponse($agent);
+    }
     public function getAgentSalary($year, $month){
         $result = DB::select('call select_agents_income_year_month(?,?)',[$year,$month]);
         return $this->successResponse($result);

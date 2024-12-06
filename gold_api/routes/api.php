@@ -116,6 +116,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get("agents",[AgentController::class, 'getAgents']);
     Route::get("activeAgents",[AgentController::class, 'getActiveAgents']);
+    Route::get("saleReportAgents",[AgentController::class, 'getAgentsForSaleReport']);
 
     Route::post("save",[OrderController::class, 'saveOrder']);
     Route::get("getOrderMasterList",[OrderController::class, 'getOrderMasterList']);

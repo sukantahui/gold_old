@@ -7,7 +7,7 @@ use App\Http\Resources\JobOwnerResource;
 use App\Http\Resources\TagResource;
 use Illuminate\Http\Request;
 use App\Models\JobMaster;
-
+use Illuminate\Support\Facades\DB;
 class JobMasterController extends ApiController
 {
     public function getJobIdByJobMaster(Request $request){
