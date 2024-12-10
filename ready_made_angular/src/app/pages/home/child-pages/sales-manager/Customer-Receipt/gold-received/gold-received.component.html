@@ -84,7 +84,7 @@
                         <a [routerLink]="" (click)="onLcReceiptSelected(receipts)">{{ receipts.gold_receipt_id }}</a>
                     </td>
                     <td class="text-right">
-                        {{ receipts.gold_value }} gm
+                        {{ receipts.gold_value | number:'0.3-3' }} gm
                     </td>
                 </tr>
             </ng-template>
@@ -99,7 +99,9 @@
         <div class="p-2">
             <pre>
                 goldReceiptForm={{goldReceiptForm.value | json}}
+                goldReceiptForm.valid={{goldReceiptForm.valid | json}}
             </pre>
+
         </div>
         <div class="p-2">
             <pre>
