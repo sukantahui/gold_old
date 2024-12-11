@@ -1,5 +1,6 @@
 <div class="d-flex flex-row">
     <div class="p-2 col-4">
+        <div>
         <form [formGroup] = goldReceiptForm>
             <ng-select [items]="agents"
                        bindLabel="agent_name"
@@ -52,16 +53,62 @@
             <div class="d-flex flex-row bd-highlight mb-3">
                 <div class="p-2 bd-highlight">
                     <div class="example-button-row">
-                        <button class="text-right" mat-button color="primary"  (click)="resetForm()">Reset</button>
+                        <button class="text-right" mat-raised-button color="accent" [disabled]="goldReceiptForm.pristine"  (click)="resetForm()">Reset</button>
                     </div>
                 </div>
                 <div class="p-2 bd-highlight">
                     <div class="example-button-row">
-                        <button class="text-right" mat-button color="primary" [disabled]="!goldReceiptForm.valid || goldReceiptForm.pristine" (click)="saveGoldReceipt()">Save Record</button>
+                        <button class="text-right" mat-raised-button color="primary" [disabled]="!goldReceiptForm.valid || goldReceiptForm.pristine" (click)="saveGoldReceipt()">Save Record</button>
                     </div>
                 </div>
             </div>
         </form>
+        </div>
+        <!-- for after saving data        -->
+        <div *ngIf="afterSaveResponse" class="border-glow" id="print=gold-receipt">
+            <table>
+                <thead>
+                <tr>
+                    <td>Gold Receipt ID: </td>
+                    <th style="padding: 5px;">{{afterSaveResponse.gold_receipt.gold_receipt_id}}</th>
+                </tr>
+                <tr>
+                    <td>Customer ID: </td>
+                    <td>{{afterSaveResponse.customer.cust_id}}</td>
+                </tr>
+                <tr>
+                    <td>Customer: </td>
+                    <td>{{afterSaveResponse.customer.cust_name}}</td>
+                </tr>
+                <tr>
+                    <td>Address: </td>
+                    <td>{{afterSaveResponse.customer.cust_address}}</td>
+                </tr>
+                <tr>
+                    <td>City: </td>
+                    <td>{{afterSaveResponse.customer.city}}</td>
+                </tr>
+                <tr>
+                    <td>Carrier: </td>
+                    <td>{{afterSaveResponse.agent.agent_name}}</td>
+                </tr>
+                <tr>
+                    <td>Received by: </td>
+                    <td>{{afterSaveResponse.employee.emp_name}}</td>
+                </tr>
+                <tr>
+                    <td>Date: </td>
+                    <td style="text-align: right;">{{afterSaveResponse.gold_receipt.tr_date | number: '0.3-3'}}</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Previous Gold Due: </td>
+                    <td>{{afterSaveResponse.gold_receipt.last_gold_balance}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="p-2 col-8">
         <h3 *ngIf="goldReceipts && goldReceipts.length>0">Gold Receipts</h3>
