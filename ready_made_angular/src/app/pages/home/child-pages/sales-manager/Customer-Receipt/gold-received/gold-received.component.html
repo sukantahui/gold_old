@@ -98,7 +98,7 @@
                 </tr>
                 <tr>
                     <td>Date: </td>
-                    <td style="text-align: right;">{{afterSaveResponse.gold_receipt.tr_date | number: '0.3-3'}}</td>
+                    <td style="text-align: right; border: 1px solid black;">{{afterSaveResponse.gold_receipt.tr_date | number: '0.3-3'}}</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -128,7 +128,7 @@
                         {{ receipts.gold_receipt_date }}
                     </td>
                     <td class="text-right">
-                        <a [routerLink]="" (click)="onLcReceiptSelected(receipts)">{{ receipts.gold_receipt_id }}</a>
+                        <a [routerLink]="" (click)="onGoldReceiptSelected(receipts)">{{ receipts.gold_receipt_id }}</a>
                     </td>
                     <td class="text-right">
                         {{ receipts.gold_value | number:'0.3-3' }} gm

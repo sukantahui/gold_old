@@ -126,9 +126,6 @@ export class GoldReceivedComponent implements OnInit {
     this.customerDues = null;
   }
 
-  onLcReceiptSelected(receipts: string) {
-
-  }
 
   onGoldRateChange(goldRate: HTMLInputElement, cash: HTMLInputElement) {
     console.log('Gold rate', goldRate.value);
@@ -150,4 +147,11 @@ export class GoldReceivedComponent implements OnInit {
       }
     });
   }
+
+    onGoldReceiptSelected(receipts: any) {
+        this.receiptService.getGoldReceiptDetailsByID(receipts.gold_receipt_id)
+            .subscribe((response: { status: any, data: any }) => {
+                this.afterSaveResponse = response.data;
+            });
+    }
 }

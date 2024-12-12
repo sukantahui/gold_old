@@ -230,6 +230,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("customer/goldReceipt/{customer_id}",[GoldReceiptController::class, 'getLcReceiptsByCustomer']);
 
     Route::post("goldReceipt/save",[GoldReceiptController::class, 'save_gold_receipt']);
+    Route::post("get_gold_receipt_details",[GoldReceiptController::class, 'get_gold_receipt_details']);
     Route::get("materialBalance",[ReportController::class, 'getEmployeeMaterialBalance']);
     Route::get("materialBalance/{emp_id}",[ReportController::class, 'getEmployeeMaterialBalanceById']);
     Route::get("karigars/inforce",[ReportController::class, 'getKarigars']);

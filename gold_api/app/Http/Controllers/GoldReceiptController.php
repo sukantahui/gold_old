@@ -18,6 +18,18 @@ class GoldReceiptController extends ApiController
         $lcReceipt = GoldReceiptMaster::whereCustId($customer_id)->orderBy('tr_date', 'DESC')->get();
         return $this->successResponse($lcReceipt);
     }
+    public function get_gold_receipt_details(Request $request){
+
+        $return_array=array();
+        $materialToEmployeeBalance = MaterialToEmployeeBalance::whereEmpIdAndRmId(Auth::user()->emp_id, 36)->first();
+        $return_array['material_to_employee_balance']=$materialToEmployeeBalance;
+        $return_array['gold_receipt']=GoldReceiptMaster::findOrFail($request->gold_receipt_no);
+        $return_array['customer']=Customer::findOrFail($return_array['gold_receipt']->cust_id);
+        $return_array['agent']=Agent::findOrFail($return_array['gold_receipt']->agent_id);
+        $return_array['employee']=Employee::findOrFail($return_array['gold_receipt']->emp_id);
+
+        return $this->successResponse($return_array);
+    }
     public function save_gold_receipt(Request $request){
         DB::beginTransaction();
         try{

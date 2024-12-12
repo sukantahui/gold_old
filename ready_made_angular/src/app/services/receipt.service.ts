@@ -27,4 +27,8 @@ export class ReceiptService {
     saveGoldReceipt(goldReceiptData: any) {
       return this.http.post(this.commonService.getAPI() + '/goldReceipt/save', goldReceiptData);
     }
+    getGoldReceiptDetailsByID(goldReceiptID: string){
+        return this.http.post(this.commonService.getAPI() + '/get_gold_receipt_details', {gold_receipt_no: goldReceiptID});
+    }
+
 }
