@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\Agent;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+
 /**
  * @property mixed tag
  * @property mixed item_inward_detail_id
@@ -26,15 +27,18 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed is_selected
  * @property mixed category
  * @property mixed product_description
+ * @property mixed updated_at
  */
 class ItemStockReadyMadeResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+
     public function toArray($request)
     {
         return [
@@ -59,7 +63,8 @@ class ItemStockReadyMadeResource extends JsonResource
          'isSelected'=>$this->is_selected,
          'productCategoryId'=>$this->product_category,
          'productCategory'=>$this->category,
-         'productDescription' => $this->product_description
+         'productDescription' => $this->product_description,
+         'updatedAt' =>  $this->updated_at
         ];
     }
 }

@@ -236,7 +236,7 @@
                                 <button
                                         mat-button color="primary"
                                         printSectionId="stockListDiv"
-                                        [useExistingCss]="true"
+                                        [useExistingCss]="false"
                                         styleSheetFile="assets/print_css/agent_wise_stock/style1.css"
                                         ngxPrint><mat-icon>print</mat-icon>
                                 </button>
@@ -251,35 +251,39 @@
                                         <td colspan="2">Date: {{currentDate | date:'dd-MM-yyyy hh:mm a'}}</td>
                                     </tr>
                                     <tr>
-                                        <th>SL</th>
-                                        <th>Tag</th>
-                                        <th>Model No.</th>
-                                        <th>Model Size</th>
-                                        <th>Quantity</th>
-                                        <th>Gold</th>
-                                        <th>Fine</th>
-                                        <th>Labour Charge</th>
+                                        <th class="text-center sl-heading">SL</th>
+                                        <th class="text-center tag-heading">Tag</th>
+                                        <th class="text-center model-heading">Model</th>
+                                        <th class="text-center size-heading">Size</th>
+                                        <th class="text-center qty-heading">Qty</th>
+                                        <th class="text-center gini-heading">Gini</th>
+                                        <th class="text-center fine-heading">Fine</th>
+                                        <th class="text-center lc-heading">LC</th>
+                                        <th class="text-center date-heading">Date</th>
+                                        <th class="text-center remarks-heading">Remarks</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr *ngFor="let row of stoockListByAgent; let i = index">
-                                        <td >{{i+1}}</td>
-                                        <td >{{row.tag}}</td>
-                                        <td >{{row.modelNo}}</td>
-                                        <td >{{row.modelSize}}</td>
-                                        <td >{{row.quantity}}</td>
-                                        <td class="text-right">{{row.gold | number: '1.3'}}</td>
-                                        <td class="text-right">{{(row.gold * 0.92) | number: '1.3'}}</td>
-                                        <td class="text-right">{{row.labourCharge}}</td>
+                                        <td  class="text-center sl">{{i+1}}</td>
+                                        <td  class="text-center tag">{{row.tag}}</td>
+                                        <td  class="text-center model">{{row.modelNo}}</td>
+                                        <td  class="text-center size">{{row.modelSize}}</td>
+                                        <td  class="text-right qty">{{row.quantity}}</td>
+                                        <td class="text-right gini">{{row.gold | number: '1.3'}}</td>
+                                        <td class="text-right fine">{{(row.gold * 0.92) | number: '1.3'}}</td>
+                                        <td class="text-right lc">{{row.labourCharge}}</td>
+                                        <td class="text-right date">{{row.updatedAt}}</td>
+                                        <td class="text-right"></td>
                                     </tr>
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <td colspan="4">Total</td>
-                                        <td>{{selectAgentReadyMadeBalance.qty}}</td>
-                                        <td class="text-right">{{selectAgentReadyMadeBalance.gold | number: '1.3'}}</td>
-                                        <td class="text-right">{{(selectAgentReadyMadeBalance.gold * 0.92) | number: '1.3'}}</td>
-                                        <td class="text-right">{{selectAgentReadyMadeBalance.lc}}</td>
+                                        <td colspan="4"  class="text-center">Total</td>
+                                        <td class="text-right qty-footer">{{selectAgentReadyMadeBalance.qty}}</td>
+                                        <td class="text-right gini-footer">{{selectAgentReadyMadeBalance.gold | number: '1.3'}}</td>
+                                        <td class="text-right fine-footer">{{(selectAgentReadyMadeBalance.gold * 0.92) | number: '1.3'}}</td>
+                                        <td class="text-right lc-footer">{{selectAgentReadyMadeBalance.lc}}</td>
                                     </tr>
                                     </tfoot>
                                 </table>

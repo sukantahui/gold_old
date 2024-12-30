@@ -20,8 +20,7 @@ export class GoldReceivedComponent implements OnInit {
   afterSaveResponse: any = null;
   customerDues: {'gold_due': number, 'lc_due': number};
   goldReceiptForm: FormGroup;
-  selectedCustomer: string = null;
-  printDivStyle: any;
+  selectedCustomer: any = null;
   goldReceipts: any[];
   showCashEntry = false;
 
@@ -48,23 +47,46 @@ export class GoldReceivedComponent implements OnInit {
       current_lc_balance: new FormControl(0, [Validators.required]),
     });
   }
+  printDivStyle = {
+    table: {'border-collapse': 'collapse', width : '100%' },
+    label: {width: '100%'},
+    th: {border: '1px  solid black' , fontSize : 'small'},
+    td: {border: '1px  solid black' , fontSize : 'small'},
+  };
 
   ngOnInit(): void {
-    this.onPaymentModeValueChanged();
+    // this will trigger payment mode change
+    this.goldReceiptForm.get('payment_mode').valueChanges.subscribe(val => {
+      this.goldReceiptForm.patchValue({ gold_value: null});
+      if (val === '4'){
+        this.showCashEntry = true;
+      }else{
+        this.showCashEntry = false;
+      }
+    });
   }
 
   agentSelected() {
 
   }
   onCustomerSelected($event) {
-    this.selectedCustomer = $event.cust_id;
+    this.selectedCustomer = $event;
     this.afterSaveResponse = null;
+    if(!this.selectedCustomer){
+      this.customerDues = null;
+      this.goldReceipts = null;
+      return;
+    }
+    if (this.selectedCustomer.is_stock_customer === 1){
+      this.goldReceiptForm.patchValue({ payment_mode: '5'});
+    }else{
+      this.goldReceiptForm.patchValue({ payment_mode: '1'});
+    }
     this.customerService.getCustomerDues($event.cust_id).subscribe(response => {
-      console.log('value changed', response.data);
       this.customerDues = response.data;
       this.goldReceiptForm.patchValue({ last_gold_balance: this.customerDues.gold_due, current_lc_balance: this.customerDues.lc_due});
     });
-    this.receiptService.getGoldReceiptsByCustomer(this.selectedCustomer).subscribe((response: {status: string, message: string, data: any[]}) => {
+    this.receiptService.getGoldReceiptsByCustomer($event.cust_id).subscribe((response: {status: string, message: string, data: any[]}) => {
       this.goldReceipts = response.data;
 
     });
@@ -138,15 +160,7 @@ export class GoldReceivedComponent implements OnInit {
     }
   }
 
-  private onPaymentModeValueChanged() {
-    this.goldReceiptForm.get('payment_mode').valueChanges.subscribe(val => {
-      if (val === '2'){
-        this.showCashEntry = true;
-      }else{
-        this.showCashEntry = false;
-      }
-    });
-  }
+
 
     onGoldReceiptSelected(receipts: any) {
         this.receiptService.getGoldReceiptDetailsByID(receipts.gold_receipt_id)

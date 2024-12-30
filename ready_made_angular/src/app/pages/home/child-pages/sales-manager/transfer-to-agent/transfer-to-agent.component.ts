@@ -196,6 +196,15 @@ export class TransferToAgentComponent implements OnInit {
             }) ;
 
             // tslint:disable-next-line:no-shadowed-variable
+            // working
+            this.stockService.getStockByAgent(this.selectedAgent.agent_id)
+            // tslint:disable-next-line:no-shadowed-variable
+                .subscribe((response: {status: any , data: any[]}) => {
+                  this.stoockListByAgent = response.data;
+                  this.stockListByAgentChangeSubject.next();
+                });
+
+            // tslint:disable-next-line:no-shadowed-variable
             this.transferAgentService.getAgentReadyMadeBalance(this.selectedAgent.agent_id).subscribe((response: ServerResponse) => {
               this.selectAgentReadyMadeBalance = response.data;
             });
