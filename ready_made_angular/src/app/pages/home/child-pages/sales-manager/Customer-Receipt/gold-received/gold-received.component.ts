@@ -52,6 +52,7 @@ export class GoldReceivedComponent implements OnInit {
     label: {width: '100%'},
     th: {border: '1px  solid black' , fontSize : 'small'},
     td: {border: '1px  solid black' , fontSize : 'small'},
+    noPrint: { display: 'none' }, // Class to prevent printing
   };
 
   ngOnInit(): void {

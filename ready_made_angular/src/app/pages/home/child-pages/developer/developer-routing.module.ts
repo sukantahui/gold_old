@@ -11,8 +11,9 @@ const routes: Routes = [
       { path: 'extraGoldAdd'
         , loadChildren: () => import('./extra-gold-add/extra-gold-add-routing.module').then(m => m.ExtraGoldAddRoutingModule)
       },
-
-
+      { path: 'CreateCustomer'
+        , loadChildren: () => import('./create-customer/create-customer.module').then(m => m.CreateCustomerModule)
+      },
     ]
   },
 ];

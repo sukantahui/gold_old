@@ -41,19 +41,19 @@ class CustomerController extends ApiController
     }
 
     public function saveCustomer(Request $request){
-
+        //incomplete working
         $return_array = array();
         $accounting_year = get_accounting_year();
-        $maxTable = Maxtable::whereTableNameAndFinancialYear('order_master',$accounting_year)->first();
+        $maxTable = Maxtable::whereTableName('customer')->first();
         if($maxTable){
             $maxTable->mainfield =  $maxTable->mainfield + 1;
             $maxTable->save();
             $return_array['maxTable']=$maxTable;
         }else{
             $maxTable = new Maxtable();
-            $maxTable->table_name = 'order_master';
+            $maxTable->table_name = 'customer';
             $maxTable->mainfield = 1;
-            $maxTable->prefix = 'ORD';
+            $maxTable->prefix = '';
             $maxTable->suffix = 'None';
             $maxTable->financial_year = $accounting_year;
             $maxTable->save();
@@ -61,7 +61,7 @@ class CustomerController extends ApiController
             $return_array['maxTable']=$maxTable;
         }
         $customer = new Customer();
-        $customer->cust_id='CUST/'.$maxTable->mainfield.'/'.$maxTable->financial_year;
+        $customer->cust_id='s'.$maxTable->mainfield;
         $customer->cust_name=$request->cust_name;
         $customer->mailing_name=$request->mailing_name;
         $customer->city=$request->city;
@@ -70,6 +70,7 @@ class CustomerController extends ApiController
         $customer->cust_phone=$request->cust_phone;
         $customer->p_cat=$request->p_cat;
         $customer->gold_limit=$request->gold_limit;
+        $customer->cash_limit=$request->cash_limit;
         $customer->markup_value=$request->markup_value;
         $customer->markuped=$request->markuped;
         $customer->user_id=$request->user_id;
@@ -78,6 +79,8 @@ class CustomerController extends ApiController
         $customer->short_name=$request->short_name;
         $customer->lc_discount_percentage=$request->lc_discount_percentage;
         $customer->save();
+
+        //need to store in customer balance
 
         return $this->successResponse($customer);
 

@@ -75,10 +75,12 @@
         <!-- for after saving data        -->
         <div *ngIf="afterSaveResponse" class="border-glow" id="print-gold-receipt">
             <button
+                    class="no-print"
                     mat-button color="primary"
-                    [printStyle]="printDivStyle"
                     printSectionId="print-gold-receipt"
-                    ngxPrint ><mat-icon>print</mat-icon>
+                    [useExistingCss]="false"
+                    styleSheetFile="assets/print_css/gold_receipt/style1.css"
+                    ngxPrint><mat-icon>print</mat-icon>
             </button>
             <table>
                 <thead>

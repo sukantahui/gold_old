@@ -82,6 +82,7 @@ export class TransferFromAgentsComponent implements OnInit {
     });
   }
   changeProductSlideToggle() {
+    console.log('item selected');
     if (this.checkedAvailableAllProducts) {
       this.productByAgentList = this.productByAgentList.map(item => {
         item.is_selected = true;

@@ -23,7 +23,7 @@
           array('rank'=>2,'topic'=>'ses diamond এ আগে login করে নিতে হবে','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/')
           ,array('rank'=>4,'topic'=>'gold master এ আগে login করে নিতে হবে','software'=>'ses_diamond2' ,'link'=>'gold_old/gold_master/#/')
           ,array('rank'=>10,'topic'=>'Business Status','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php/report_controller/daily_report_facade')
-          ,array('rank'=>15,'topic'=>'List of Business Status','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php')
+          ,array('rank'=>15,'topic'=>'List of Business Status','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php/report_controller/admin_report_facade')
           ,array('rank'=>20,'topic'=>'Material তুলে নেওয়া','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php/material_controller/material_transfer_facade')
           ,array('rank'=>30,'topic'=>'Material to Staff','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php/material_controller/owner_to_employee_facade')
           ,array('rank'=>40,'topic'=>'Cahs Balance Report<br>Material Balance<br>Daily LC Receipt<br>Daily Gold Receipt<br>Material Withdrawn','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/index.php/report_controller/staff_report_facade')
