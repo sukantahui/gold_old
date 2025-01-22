@@ -36,6 +36,7 @@ export class CashRefundToOwnwerComponent implements OnInit {
   setEndDateSQL(value: string) {
     this.reportForm.patchValue({endDateSql: this.commonService.getSQLDate2(value)});
   }
+
   loadReport(dateFrom: string, dateTo: string) {
     this.reportForm.patchValue({startDateSql: this.commonService.getSQLDate2(dateFrom)});
     this.reportForm.patchValue({endDateSql: this.commonService.getSQLDate2(dateTo)});

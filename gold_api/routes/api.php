@@ -250,6 +250,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("materialFromOwnerToManager",[MatBetweenEmployeeMasterController::class, 'saveMaterialToManagerByOwner']);
     Route::post("materialFromManagerToOwner",[MatBetweenEmployeeMasterController::class, 'saveMaterialFromManagerByOwner']);
 
+    Route::get("materialFromOwnerToEmployees",[ReportController::class, 'material_to_employees']);
+    Route::get("materialFromOwnerToEmployees/{start_date}/{end_date}",[ReportController::class, 'material_to_employees_by_dates']);
+    Route::get("materialFromOwnerToEmployeesByMaterialAndEmployee/{rm_id}/{employee_id}",[ReportController::class, 'material_to_employees_material_and_employee']);
+    Route::get("materialFromOwnerToEmployeesByDatesMaterialAndEmployee/{start_date}/{end_date}/{rm_id}/{employee_id}",[ReportController::class, 'material_to_employees_by_dates_material_and_employee']);
+    Route::get("materialFromOwnerToEmployeesByDatesAndMaterial/{start_date}/{end_date}/{rm_id}",[ReportController::class, 'material_to_employees_by_dates_and_material']);
+
 
     Route::get("materialWithdrawByOwner",[ReportController::class, 'withdraw_materials_by_owner']);
     Route::get("materialWithdrawByOwner/materials/{rm_id}/",[ReportController::class, 'withdraw_materials_by_owner_material']);
@@ -274,6 +280,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("jobDetailsForOwner/{employee_id}",[ReportController::class, 'selectAllJobDetailsByEmployee']);
 
     Route::get("currentStocks",[ReportController::class, 'selectAllCurrentStocks']);
+
+    //material submitted by owner
+    Route::get("ownerSubmittedMaterials",[ReportController::class, 'material_submitted_by_owner']);
 
 });
 
@@ -325,6 +334,10 @@ Route::group(array('prefix' => 'dev'), function() {
 
 
     Route::get("SalesReport/agent/{startDate}/{endDate}/{agentId}",[ReportController::class ,'getSaleReportByDatesAndAgent']);
+
+
+
+
 
     //Customers
     Route::get("customers",[CustomerController::class, 'index']);

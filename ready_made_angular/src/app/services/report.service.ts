@@ -264,4 +264,11 @@ export class ReportService {
     }
 
 
+    getOwnerSubmittedMaterials(){
+        return this.http.get(this.commonService.getAPI() + '/ownerSubmittedMaterials');
+    }
+
+    getMaterialsSendByOwnerByDatesAndMaterial(startDate: any, endDate: any, materialId: any){
+        return this.http.get(this.commonService.getAPI() + '/materialFromOwnerToEmployeesByDatesAndMaterial/' + startDate + '/' + endDate + '/' + materialId);
+    }
 }

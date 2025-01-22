@@ -32,6 +32,12 @@ const routes: Routes = [
                                 , loadChildren: () => import('./job-details-report/job-details-report.module').then(m => m.JobDetailsReportModule)
                                 , resolve: {karigarResolver: KarigarwiseJobReportResolver}
                               },
+                              { path: 'MaterialToEmployeesReport'
+                                // tslint:disable-next-line:max-line-length
+                                , loadChildren: () => import('./material-to-employees-report/material-to-employees-report.module').then(m => m.MaterialToEmployeesReportModule)
+                                , resolve: {karigarResolver: KarigarwiseJobReportResolver}
+                              },
+
 
 
                             ]

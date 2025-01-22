@@ -348,7 +348,39 @@ class ReportController extends ApiController
         $result = DB::select("call select_current_readymade_stock");
         return $this->successResponse($result);
     }
+    public function material_to_employees($start_date='2019-10-01',$end_date='3000-01-01'){
+        $result = DB::select('call get_material_transfer_from_owner_to_employees(?,?)', [$start_date, $end_date]);
+        return $this->successResponse($result);
+    }
 
+    public function material_to_employees_by_dates($start_date,$end_date){
+        $result = DB::select('call get_material_transfer_from_owner_to_employees(?,?)', [$start_date, $end_date]);
+        return $this->successResponse($result);
+    }
+    public function material_to_employees_material_and_employee($rm_id, $employee_id){
+        $start_date='2001-01-01';
+        $end_date='3000-01-01';
+        $result = DB::select('call get_material_transfer_from_owner_to_employees_by_rm_id_n_emp_id(?,?,?,?)', [$start_date,$end_date,$rm_id,$employee_id]);
+        return $this->successResponse($result);
+    }
+
+    public function material_to_employees_by_dates_material_and_employee($start_da,$end_date,$rm_id, $employee_id){
+        $start_date='2001-01-01';
+        $end_date='3000-01-01';
+        $result = DB::select('call get_material_transfer_from_owner_to_employees_by_rm_id_n_emp_id(?,?,?,?)', [$start_date,$end_date,$rm_id,$employee_id]);
+        return $this->successResponse($result);
+    }
+    public function material_to_employees_by_dates_and_material($start_date,$end_date,$rm_id){
+        $result = DB::select('call get_material_transfer_from_owner_by_rm_id(?,?,?)', [$start_date,$end_date,$rm_id]);
+        return $this->successResponse($result);
+    }
+
+    public function material_submitted_by_owner(){
+        $result = DB::select("select rm_ID as rm_id,rm_name from rm_master where rm_ID
+                in(select distinct rm_id from material_transaction where transaction_type_id=1)
+                order by rm_name");
+        return $this->successResponse($result);
+    }
 }
 
 

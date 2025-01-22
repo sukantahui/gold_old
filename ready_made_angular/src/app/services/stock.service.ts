@@ -80,4 +80,7 @@ export class StockService {
     return this.http.get(this.commonService.getAPI() + '/getStockByAgent/' + agentId);
   }
 
+
+
+
 }
