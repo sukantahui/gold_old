@@ -12,24 +12,26 @@ import {TableModule} from 'primeng/table';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {MatIconModule} from '@angular/material/icon';
+import {NgxPrintModule} from 'ngx-print';
 
 
 @NgModule({
   declarations: [
     MaterialToEmployeesReportComponent
   ],
-  imports: [
-    CommonModule,
-    MaterialToEmployeesReportRoutingModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    TableModule,
-    InputNumberModule,
-    NgSelectModule,
-    MatIconModule
-  ]
+    imports: [
+        CommonModule,
+        MaterialToEmployeesReportRoutingModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        ButtonModule,
+        TableModule,
+        InputNumberModule,
+        NgSelectModule,
+        MatIconModule,
+        NgxPrintModule
+    ]
 })
 export class MaterialToEmployeesReportModule { }

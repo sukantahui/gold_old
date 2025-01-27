@@ -35,4 +35,7 @@ td{border-bottom: 1px  solid rgba(97, 97, 97, 0.91);
     {
         display: none !important;
     }
+    .p-paginator{
+        display: none !important;
+    }
 }

@@ -37,7 +37,7 @@
         </div>
 
     </div>
-    <div  class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+    <div *ngIf="materialTransactions" class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
         <div  class="p-2" style="border: 1px solid #454141; border-radius: 10px;">
             <p-table #dt2
                      id="transaction-table"
@@ -51,16 +51,25 @@
                      [globalFilterFields]="['emp_name']"
                      (onFilter)="onFilter($event, dt2)"
                      [responsive]="true">
-                <caption>Material from owner to employees</caption>
+
                 <ng-template pTemplate="caption">
+                    <h4>Material submitted to employees from {{reportForm.value.startDateSql}} to {{reportForm.value.endDateSql}}</h4>
                     <div class="d-flex justify-content-between">
-                        <div class="p-input-icon-left ml-auto">
+                        <div class="p-input-icon-left ml-auto mr-3">
                             <i class="pi pi-search"></i>
-                            <input class="text-right" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                            <input class="text-right no-print" pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
                         </div>
                         <div>
-                            <button mat-button color="primary" (click)="commonService.exportToExcel('transaction-table','stock')"><mat-icon>cloud_download</mat-icon></button>
-                            <button mat-button color="primary" (click)="commonService.arrayToExcel(materialTransactions,'transactions.xlsx')"><mat-icon>shuffle</mat-icon></button>
+                            <button
+                                    class="no-print ml-1"
+                                    mat-button color="primary"
+                                    printSectionId="transaction-table"
+                                    [useExistingCss]="false"
+                                    styleSheetFile="assets/print_css/material_from_owner/style1.css"
+                                    ngxPrint><mat-icon>print</mat-icon>
+                            </button>
+                            <button class="no-print ml-1" mat-button color="primary" (click)="commonService.exportToExcel('transaction-table','stock')"><mat-icon>cloud_download</mat-icon></button>
+                            <button class="no-print ml-1" mat-button color="primary" (click)="commonService.arrayToExcel(materialTransactions,'transactions.xlsx')"><mat-icon>shuffle</mat-icon></button>
                         </div>
                     </div>
                 </ng-template>
@@ -86,7 +95,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <tr>
+                    <tr class="no-print">
                         <td>SL</td>
                         <td >Date</td>
                         <td >Employee</td>

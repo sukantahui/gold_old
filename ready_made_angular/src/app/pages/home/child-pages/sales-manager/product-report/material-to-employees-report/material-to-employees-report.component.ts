@@ -16,7 +16,8 @@ export class MaterialToEmployeesReportComponent implements OnInit {
   isLoading = false;
   materialList: any[];
   materialTransactions: any[];
-  totalInward = 0;;
+  totalInward = 0;
+;
   constructor(private reportService: ReportService, public commonService: CommonService, private readonly adapter: DateAdapter<Date>) {
     this.adapter.setLocale('in');
     const stDate = new Date();
