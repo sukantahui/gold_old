@@ -102,6 +102,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get("jobs",[StockController::class,'get_job_id']);
     Route::get("getDetailsByJobId/{id}",[StockController::class,'get_details_by_job_id']);
+    Route::post("getJobsByBillNo",[ReportController::class,'get_job_by_bill_no']);
 
     //for bill
     Route::post("createBill",[BillController::class,'create_ready_made_bill']);

@@ -381,6 +381,11 @@ class ReportController extends ApiController
                 order by rm_name");
         return $this->successResponse($result);
     }
+
+    public function get_job_by_bill_no(Request $request){
+        $result = DB::select('select job_id from bill_details where bill_no=?',[$request->bill_number]);
+        return $this->successResponse($result);
+    }
 }
 
 

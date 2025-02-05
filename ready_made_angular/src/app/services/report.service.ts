@@ -271,4 +271,8 @@ export class ReportService {
     getMaterialsSendByOwnerByDatesAndMaterial(startDate: any, endDate: any, materialId: any){
         return this.http.get(this.commonService.getAPI() + '/materialFromOwnerToEmployeesByDatesAndMaterial/' + startDate + '/' + endDate + '/' + materialId);
     }
+
+    getJobsByBillNumber(billNumber: any){
+        return this.http.post(this.commonService.getAPI() + '/getJobsByBillNo', {bill_number: billNumber});
+    }
 }

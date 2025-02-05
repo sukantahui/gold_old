@@ -61,7 +61,6 @@ export class StockService {
     return this.http.post(this.commonService.getAPI() + '/stocks', this.stockForm.value)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: Stock}) => {
           if (response.status === true){
-            console.log(response.status);
             this.stockData.unshift(response.data);
             this.stocksSub.next([...this.stockData]);
           }
@@ -79,6 +78,8 @@ export class StockService {
   getStockByAgent(agentId){
     return this.http.get(this.commonService.getAPI() + '/getStockByAgent/' + agentId);
   }
+
+
 
 
 

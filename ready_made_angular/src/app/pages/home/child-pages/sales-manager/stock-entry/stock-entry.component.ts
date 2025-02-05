@@ -8,6 +8,7 @@ import {DateFormat} from '../../../../../date-format';
 import {formatDate} from '@angular/common';
 import {Sort} from '@angular/material/sort';
 import {CommonService} from '../../../../../services/common.service';
+import {ReportService} from '../../../../../services/report.service';
 
 
 @Component({
@@ -35,7 +36,9 @@ export class StockEntryComponent implements OnInit {
   currDate = new Date();
   resultDate = [];
   formattedCurrentDate = formatDate(this.currDate , 'yyyy-MM-dd', 'en');
-  constructor(private stockService: StockService, private  commonService: CommonService) {
+  // tslint:disable-next-line:max-line-length
+  selectedJob: {job_id: any, quantity: any, bill_no: any | string; model_number: any | string; labourCharge: number; model_size: any | string };
+  constructor(private stockService: StockService, private  commonService: CommonService, private reportService: ReportService) {
     this.productList = this.stockService.getProductList();
     this.stockList =  this.stockService.getStockList();
     this.jobList =  this.stockService.getJobList();
@@ -51,6 +54,7 @@ export class StockEntryComponent implements OnInit {
     });
     this.stockService.getJobsUpdateListener().subscribe((response) => {
       this.jobList = response;
+      console.log(this.jobList);
     });
   }
   onSubmit(){
@@ -108,12 +112,18 @@ export class StockEntryComponent implements OnInit {
   getDetails(){
     this.stockService.getDetailsByJobId().subscribe((response: {status: any , data: any}) => {
       if (response.status === true){
-          this.model_number =  response.data.product_code;
-          this.model_size =  response.data.product_size;
-          this.labourCharge =  response.data.price;
-          this.bill_no = response.data.bill_no;
+        this.model_number =  response.data.product_code;
+        this.model_size =  response.data.product_size;
+        this.labourCharge =  response.data.price;
+        this.bill_no = response.data.bill_no;
         // tslint:disable-next-line:max-line-length
-          this.stockForm.patchValue({modelNo: this.model_number, modelSize: this.model_size, labourCharge: this.labourCharge, billNo: this.bill_no});
+        this.selectedJob = {job_id: response.data.job_id, quantity: response.data.pieces, model_number: response.data.product_code, model_size: response.data.product_size, labourCharge: response.data.price, bill_no: response.data.bill_no};
+        // tslint:disable-next-line:max-line-length
+        this.stockForm.patchValue({modelNo: this.model_number, modelSize: this.model_size, labourCharge: this.labourCharge, billNo: this.bill_no});
+
+      }
+      else{
+        this.selectedJob = null;
       }
     });
   }
@@ -174,6 +184,14 @@ export class StockEntryComponent implements OnInit {
         default: return 0;
       }
     });
+  }
+
+  getJobList(billNumber: any) {
+    this.reportService.getJobsByBillNumber(billNumber)
+        .subscribe((response: {status: boolean, message: any, data: any[]}) => {
+            this.jobList = response.data;
+        });
+
   }
 }
 // function compare(a: number | string, b: number | string, isAsc: boolean) {
