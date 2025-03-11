@@ -37,7 +37,7 @@ export class StockEntryComponent implements OnInit {
   resultDate = [];
   formattedCurrentDate = formatDate(this.currDate , 'yyyy-MM-dd', 'en');
   // tslint:disable-next-line:max-line-length
-  selectedJob: {job_id: any, quantity: any, bill_no: any | string; model_number: any | string; labourCharge: number; model_size: any | string };
+  selectedJob: {job_id: any, quantity: any, bill_no: any | string; model_number: any | string; labourCharge: number; priceCode: string; model_size: any | string };
   constructor(private stockService: StockService, private  commonService: CommonService, private reportService: ReportService) {
     this.productList = this.stockService.getProductList();
     this.stockList =  this.stockService.getStockList();
@@ -117,7 +117,7 @@ export class StockEntryComponent implements OnInit {
         this.labourCharge =  response.data.price;
         this.bill_no = response.data.bill_no;
         // tslint:disable-next-line:max-line-length
-        this.selectedJob = {job_id: response.data.job_id, quantity: response.data.pieces, model_number: response.data.product_code, model_size: response.data.product_size, labourCharge: response.data.price, bill_no: response.data.bill_no};
+        this.selectedJob = {job_id: response.data.job_id, priceCode: response.data.price_code, quantity: response.data.pieces, model_number: response.data.product_code, model_size: response.data.product_size, labourCharge: response.data.price, bill_no: response.data.bill_no};
         // tslint:disable-next-line:max-line-length
         this.stockForm.patchValue({modelNo: this.model_number, modelSize: this.model_size, labourCharge: this.labourCharge, billNo: this.bill_no});
 

@@ -24,9 +24,28 @@
                         </div>
 <!--                    </mat-form-field>-->
                 </div>
-                <pre>
-                    selectedJob = {{selectedJob | json}}
-                </pre>
+                <div *ngIf="selectedJob">
+                    <table class="table table-bordered" id="job-table">
+                        <tr>
+                            <td>Job ID</td>
+                            <td>{{selectedJob.job_id}}</td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td>{{selectedJob.quantity}}</td>
+                        </tr>
+                        <tr>
+                            <td>Model</td>
+                            <td>{{selectedJob.model_number}}-{{selectedJob.priceCode}}</td>
+                        </tr>
+                        <tr>
+                            <td>LC</td>
+                            <td>{{selectedJob.labourCharge}}</td>
+                        </tr>
+
+                    </table>
+                </div>
+
                 <div fxLayoutGap="15px" style="padding-left: 50px">
                     <div style="padding-top: 10px">
                         <button mat-raised-button  mat-mini-fab [disabled]="!stockForm.value.tag" (click)="increaseTag()">

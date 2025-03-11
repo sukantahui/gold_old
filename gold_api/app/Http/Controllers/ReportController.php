@@ -13,6 +13,8 @@ use App\Models\Employee;
 use App\Models\JobMaster;
 use App\Models\MaterialToEmployeeBalance;
 use App\Models\OrderMaster;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -385,6 +387,46 @@ class ReportController extends ApiController
     public function get_job_by_bill_no(Request $request){
         $result = DB::select('select job_id from bill_details where bill_no=?',[$request->bill_number]);
         return $this->successResponse($result);
+    }
+    public function get_gini_balance_date_by_date(Request $request){
+
+
+        $startDate = Carbon::createFromFormat('Y-m-d', '2025-03-01');
+        $endDate = Carbon::createFromFormat('Y-m-d', '2025-03-05');
+
+        $dateRange = CarbonPeriod::create($startDate, $endDate);
+
+        $dates = array_map(fn ($date) => $date->format('Y-m-d'), iterator_to_array($dateRange));
+        $result_array=array();
+
+
+
+        foreach ($dates as $date){
+            //adding record gold from owner
+            $paid_to_owner=DB::select("select
+                                user_submit.record_time,
+                                user_submit.outward as gold_submit
+                                from(select * from material_transaction where employee_id=70 and outward>0 and    rm_id=48) as user_submit
+                                inner join (select * from material_transaction where employee_id=28 and inward>0 and    rm_id=48) as owner_withdrawn
+                                on user_submit.reference = owner_withdrawn.reference
+                                where date(user_submit.record_time)=?",[$date]);
+            
+
+
+            $result=DB::select('select job_id,tr_time, date_format(tr_time,"%Y-%m-%d") as transaction_date,gold_send, gold_returned from job_master where date(tr_time)=?',[$date]);
+            foreach($result as $row){
+                $temp_array=array('transaction_date'=>$row->transaction_date
+                            , 'job_id'=>$row->job_id
+                            ,'gold_send'=>$row->gold_send
+                            ,'gold_returned'=>$row->gold_returned
+                            ,'gold_used'=>round($row->gold_send - $row->gold_returned,3)
+                            );
+                $result_array[]=$temp_array;
+            }
+        }
+
+        //$result = array('x'=>100,'y'=>90);
+        return $this->successResponse($result_array);
     }
 }
 
