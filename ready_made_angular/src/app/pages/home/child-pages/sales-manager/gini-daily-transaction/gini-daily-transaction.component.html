@@ -1,0 +1,148 @@
+<div id="agent-wise-sale-report-div">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Daily Gini Transaction Report of {{user.userName}}({{user.userTypeName}})</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                <form [formGroup]="dailyGiniTransactionForm">
+                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                        <div fxLayoutGap="30px" style="padding-top: 10px">
+                            <mat-form-field  fxFlex="30">
+                                <mat-label>Start date (dd/mm/yyyy)</mat-label>
+                                <input matInput [matDatepicker]="startDatePicker" formControlName="start_date" placeholder="dd/mm/yyyy" (dateChange)="startDateChangeEvent($event)">
+                                <mat-datepicker-toggle matSuffix [for]="startDatePicker">
+                                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #startDatePicker></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field  fxFlex="30">
+                                <mat-label>End date (dd/mm/yyyy)</mat-label>
+                                <input matInput [matDatepicker]="endDatePicker" formControlName="end_date" placeholder="dd/mm/yyyy" (dateInput)="dateInputEvent($event)" (dateChange)="endDateChangeEvent($event)">
+                                <mat-datepicker-toggle matSuffix [for]="endDatePicker">
+                                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #endDatePicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-6">
+                            <ng-select [items]="agentList"
+                                       bindLabel="agent_name"
+                                       class="custom"
+                                       bindValue="agent_id"
+                                       formControlName="agent_id"
+                                       placeholder="Select Agent">
+
+                            </ng-select>
+                        </div>
+                        <div class="example-button-row" fxFlex="20">
+                            <button mat-button color="primary" (click)="getReport()">Search</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card" *ngIf="agentWiseSale" >
+        <div style="text-align: right">
+            <button
+                    mat-button color="primary"
+                    [printStyle]="printDivStyle"
+                    printSectionId="printAgentwiseSalesReportDiv"
+                    ngxPrint ><mat-icon>print</mat-icon>
+            </button>
+        </div>
+        <div id="printAgentwiseSalesReportDiv">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title class="text-center" *ngIf="selectedAgent">
+                    <!--                    Sales Report for Agent: {{agentWiseSaleReportForm.get('agent_id').value}}-->
+                    <h4>Sales Report for Agent: {{selectedAgent.agent_name}}</h4>
+                    <h4>Period:  {{this.startDate | date: 'dd/MM/yyyy' }} to {{this.endDate | date: 'dd/MM/yyyy'}}</h4>
+                </mat-card-title>
+                <mat-card-title class="text-center" *ngIf="!selectedAgent">
+                    <h4>Sales Report for All Agents</h4>
+                    <h4>Period:  {{this.startDate | date: 'dd/MM/yyyy' }} to {{this.endDate | date: 'dd/MM/yyyy'}}</h4>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+
+                <div class="no-print">
+                    <mat-slide-toggle
+                            [(ngModel)]="isAllCustomers"
+                            class="example-margin"
+                            (change)="isAllCustomersChanged()">
+                        {{isAllCustomers? "All Customers":"Active Customers for selected period"}}
+                    </mat-slide-toggle>
+                </div>
+
+
+                <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th class="text-center">SL</th>
+                        <th class="text-center" mat-sort-header="cust_name">Customer</th>
+                        <th class="text-center" mat-sort-header="qty">Qty</th>
+                        <th class="text-center" mat-sort-header="fine_gold">Billed Gold</th>
+                        <th class="text-center" mat-sort-header="lc">Billed LC</th>
+                        <th class="text-center" mat-sort-header="gold_received">Gold Received</th>
+                        <th class="text-center" mat-sort-header="lc_received">LC Received</th>
+                        <th class="text-center" >Net Gold</th>
+                        <th class="text-center" >Net LC</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let row of agentWiseSale; let i = index">
+                        <ng-container *ngIf="true">
+                            <th scope="row">{{i+1}}</th>
+                            <td class="text-left">{{row.cust_name}}</td>
+                            <td class="text-right">{{row.qty}}</td>
+                            <td class="text-right" >{{row.fine_gold | number: '1.3'}}</td>
+                            <td class="text-right">{{row.lc}}</td>
+                            <td class="text-right">{{row.gold_received | number: '1.3'}}</td>
+                            <td class="text-right">{{row.lc_received}}</td>
+                            <td class="text-right" [ngClass]="{'positive' : (row.fine_gold - row.gold_received) > 0,'negative' : (row.fine_gold - row.gold_received) < 0}">{{(row.fine_gold - row.gold_received) | number: '1.3'}}</td>
+                            <td class="text-right" [ngClass]="{'positive' : (row.lc - row.lc_received) > 0,'negative' : (row.lc - row.lc_received) < 0}">{{row.lc - row.lc_received}}</td>
+                        </ng-container>
+                    </tr>
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="2" class="text-center">Total</th>
+                        <th class="text-right">{{qtyTotal}}</th>
+                        <th class="text-right">{{billedGoldTotal | number: '1.3'}}</th>
+                        <th class="text-right">{{billedLcTotal}}</th>
+                        <th class="text-right">{{goldReceivedTotal | number: '1.3'}}</th>
+                        <th class="text-right">{{lcReceivedTotal}}</th>
+                        <th class="text-right" [ngClass]="{'positive' : (billedGoldTotal-goldReceivedTotal) > 0,'negative' : (billedGoldTotal-goldReceivedTotal) < 0}">{{(billedGoldTotal-goldReceivedTotal) | number: '1.3' }}</th>
+                        <th class="text-right" [ngClass]="{'positive' : (billedLcTotal - lcReceivedTotal) > 0,'negative' : (billedLcTotal - lcReceivedTotal) < 0}">{{billedLcTotal - lcReceivedTotal}}</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </mat-card-content>
+        </div>
+
+    </mat-card>
+
+</div>
+
+
+<div *ngIf="false" id="developer-div">
+    <pre>
+
+    </pre>
+    <pre>
+        startDate = {{startDate | json}}
+        endDate = {{endDate | json}}
+    </pre>
+    <pre>
+
+    </pre>
+</div>

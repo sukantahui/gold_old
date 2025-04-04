@@ -187,6 +187,11 @@ const routes: Routes = [
                                     , loadChildren: () => import('./child-pages/office-staff/create-bill/create-bill.module')
                                         .then(m => m.CreateBillModule)
                                 },
+                                { path: 'GiniDailyTransaction'
+                                    // tslint:disable-next-line:max-line-length
+                                    , loadChildren: () => import('./child-pages/sales-manager/gini-daily-transaction/gini-daily-transaction.module')
+                                        .then(m => m.GiniDailyTransactionModule)
+                                },
 
 
 

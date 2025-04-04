@@ -9,6 +9,7 @@ import {concatMap, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import {User} from '../models/user.model';
 
 export interface APIResponse {
   status?: boolean;
@@ -141,6 +142,15 @@ export class CommonService {
     private saveExcelFile(buffer: any, fileName: string): void {
       const data: Blob = new Blob([buffer], {type: this.fileType});
       FileSaver.saveAs(data, fileName + this.fileExtension);
+    }
+
+    public getCurrentUser(){
+      const userData: User = JSON.parse(localStorage.getItem('user'));
+      if(userData){
+        return userData;
+      }else{
+        return null;
+      }
     }
 
   // ***********************************
