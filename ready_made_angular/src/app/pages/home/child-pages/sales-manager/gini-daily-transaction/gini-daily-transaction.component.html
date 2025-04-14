@@ -7,108 +7,98 @@
         <mat-card-content>
 
             <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
-                <form [formGroup]="dailyGiniTransactionForm">
-                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
-                        <div fxLayoutGap="30px" style="padding-top: 10px">
-                            <mat-form-field  fxFlex="30">
-                                <mat-label>Start date (dd/mm/yyyy)</mat-label>
-                                <input matInput [matDatepicker]="startDatePicker" formControlName="start_date" placeholder="dd/mm/yyyy" (dateChange)="startDateChangeEvent($event)">
-                                <mat-datepicker-toggle matSuffix [for]="startDatePicker">
-                                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                                </mat-datepicker-toggle>
-                                <mat-datepicker #startDatePicker></mat-datepicker>
-                            </mat-form-field>
-                            <mat-form-field  fxFlex="30">
-                                <mat-label>End date (dd/mm/yyyy)</mat-label>
-                                <input matInput [matDatepicker]="endDatePicker" formControlName="end_date" placeholder="dd/mm/yyyy" (dateInput)="dateInputEvent($event)" (dateChange)="endDateChangeEvent($event)">
-                                <mat-datepicker-toggle matSuffix [for]="endDatePicker">
-                                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                                </mat-datepicker-toggle>
-                                <mat-datepicker #endDatePicker></mat-datepicker>
-                            </mat-form-field>
-                        </div>
+<!--                <form [formGroup]="dailyGiniTransactionForm">-->
+<!--                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">-->
+<!--                        <div fxLayoutGap="30px" style="padding-top: 10px">-->
+<!--                            <mat-form-field  fxFlex="30">-->
+<!--                                <mat-label>Start date (dd/mm/yyyy)</mat-label>-->
+<!--                                <input matInput [matDatepicker]="startDatePicker" formControlName="start_date" placeholder="dd/mm/yyyy" (dateChange)="startDateChangeEvent($event)">-->
+<!--                                <mat-datepicker-toggle matSuffix [for]="startDatePicker">-->
+<!--                                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>-->
+<!--                                </mat-datepicker-toggle>-->
+<!--                                <mat-datepicker #startDatePicker></mat-datepicker>-->
+<!--                            </mat-form-field>-->
+<!--                            <mat-form-field  fxFlex="30">-->
+<!--                                <mat-label>End date (dd/mm/yyyy)</mat-label>-->
+<!--                                <input matInput [matDatepicker]="endDatePicker" formControlName="end_date" placeholder="dd/mm/yyyy" (dateInput)="dateInputEvent($event)" (dateChange)="endDateChangeEvent($event)">-->
+<!--                                <mat-datepicker-toggle matSuffix [for]="endDatePicker">-->
+<!--                                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>-->
+<!--                                </mat-datepicker-toggle>-->
+<!--                                <mat-datepicker #endDatePicker></mat-datepicker>-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
 
-                        <div class="col-6">
-                            <ng-select [items]="agentList"
-                                       bindLabel="agent_name"
-                                       class="custom"
-                                       bindValue="agent_id"
-                                       formControlName="agent_id"
-                                       placeholder="Select Agent">
+<!--                        <div class="col-6">-->
+<!--                            <ng-select [items]="agentList"-->
+<!--                                       bindLabel="agent_name"-->
+<!--                                       class="custom"-->
+<!--                                       bindValue="agent_id"-->
+<!--                                       formControlName="agent_id"-->
+<!--                                       placeholder="Select Agent">-->
 
-                            </ng-select>
-                        </div>
-                        <div class="example-button-row" fxFlex="20">
-                            <button mat-button color="primary" (click)="getReport()">Search</button>
-                        </div>
-                    </div>
+<!--                            </ng-select>-->
+<!--                        </div>-->
+<!--                        <div class="example-button-row" fxFlex="20">-->
+<!--                            <button mat-button color="primary" (click)="getReport()">Search</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                </form>
+<!--                </form>-->
+
+                                        <div class="example-button-row" fxFlex="20">
+                                            <button type="button" class="btn btn-primary" (click)="getGiniTransaction()">Show records</button>
+                                        </div>
             </div>
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="example-card" *ngIf="agentWiseSale" >
+    <mat-card class="example-card" *ngIf="giniTransactions" >
         <div style="text-align: right">
             <button
                     mat-button color="primary"
                     [printStyle]="printDivStyle"
-                    printSectionId="printAgentwiseSalesReportDiv"
+                    printSectionId="printGiniTransactionReport"
                     ngxPrint ><mat-icon>print</mat-icon>
             </button>
         </div>
-        <div id="printAgentwiseSalesReportDiv">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title class="text-center" *ngIf="selectedAgent">
-                    <!--                    Sales Report for Agent: {{agentWiseSaleReportForm.get('agent_id').value}}-->
-                    <h4>Sales Report for Agent: {{selectedAgent.agent_name}}</h4>
-                    <h4>Period:  {{this.startDate | date: 'dd/MM/yyyy' }} to {{this.endDate | date: 'dd/MM/yyyy'}}</h4>
-                </mat-card-title>
-                <mat-card-title class="text-center" *ngIf="!selectedAgent">
-                    <h4>Sales Report for All Agents</h4>
-                    <h4>Period:  {{this.startDate | date: 'dd/MM/yyyy' }} to {{this.endDate | date: 'dd/MM/yyyy'}}</h4>
-                </mat-card-title>
-            </mat-card-header>
+        <div id="printGiniTransactionReport">
+<!--            <mat-card-header>-->
+<!--                <div mat-card-avatar class="example-header-image"></div>-->
+<!--                <mat-card-title class="text-center" *ngIf="selectedAgent">-->
+<!--                    &lt;!&ndash;                    Sales Report for Agent: {{agentWiseSaleReportForm.get('agent_id').value}}&ndash;&gt;-->
+<!--                    <h4>Sales Report for Agent: {{selectedAgent.agent_name}}</h4>-->
+<!--                    <h4>Period:  {{this.startDate | date: 'dd/MM/yyyy' }} to {{this.endDate | date: 'dd/MM/yyyy'}}</h4>-->
+<!--                </mat-card-title>-->
+<!--                <mat-card-title class="text-center" *ngIf="!selectedAgent">-->
+<!--                    <h4>Sales Report for All Agents</h4>-->
+<!--                    <h4>Period:  {{this.startDate | date: 'dd/MM/yyyy' }} to {{this.endDate | date: 'dd/MM/yyyy'}}</h4>-->
+<!--                </mat-card-title>-->
+<!--            </mat-card-header>-->
             <mat-card-content>
-
-
-                <div class="no-print">
-                    <mat-slide-toggle
-                            [(ngModel)]="isAllCustomers"
-                            class="example-margin"
-                            (change)="isAllCustomersChanged()">
-                        {{isAllCustomers? "All Customers":"Active Customers for selected period"}}
-                    </mat-slide-toggle>
-                </div>
-
-
                 <table matSort (matSortChange)="sortData($event)" class="table table-bordered table-responsive">
                     <thead>
                     <tr>
                         <th class="text-center">SL</th>
-                        <th class="text-center" mat-sort-header="cust_name">Customer</th>
-                        <th class="text-center" mat-sort-header="qty">Qty</th>
-                        <th class="text-center" mat-sort-header="fine_gold">Billed Gold</th>
-                        <th class="text-center" mat-sort-header="lc">Billed LC</th>
-                        <th class="text-center" mat-sort-header="gold_received">Gold Received</th>
-                        <th class="text-center" mat-sort-header="lc_received">LC Received</th>
-                        <th class="text-center" >Net Gold</th>
-                        <th class="text-center" >Net LC</th>
+                        <th class="text-center" mat-sort-header="cust_name">Date</th>
+                        <th class="text-center" mat-sort-header="qty">Particulars</th>
+                        <th class="text-center" mat-sort-header="fine_gold">Employee ID</th>
+                        <th class="text-center" mat-sort-header="lc">Job ID</th>
+                        <th class="text-center" mat-sort-header="gold_received">Reference</th>
+                        <th class="text-center" mat-sort-header="lc_received">Value</th>
+                        <th class="text-center" >Balance</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let row of agentWiseSale; let i = index">
+                    <tr *ngFor="let row of giniTransactions; let i = index">
                         <ng-container *ngIf="true">
                             <th scope="row">{{i+1}}</th>
-                            <td class="text-left">{{row.cust_name}}</td>
-                            <td class="text-right">{{row.qty}}</td>
-                            <td class="text-right" >{{row.fine_gold | number: '1.3'}}</td>
-                            <td class="text-right">{{row.lc}}</td>
-                            <td class="text-right">{{row.gold_received | number: '1.3'}}</td>
-                            <td class="text-right">{{row.lc_received}}</td>
-                            <td class="text-right" [ngClass]="{'positive' : (row.fine_gold - row.gold_received) > 0,'negative' : (row.fine_gold - row.gold_received) < 0}">{{(row.fine_gold - row.gold_received) | number: '1.3'}}</td>
-                            <td class="text-right" [ngClass]="{'positive' : (row.lc - row.lc_received) > 0,'negative' : (row.lc - row.lc_received) < 0}">{{row.lc - row.lc_received}}</td>
+                            <td class="text-left">{{row.transaction_date}}</td>
+                            <td class="text-Left">{{row.particulars}}</td>
+                            <td class="text-center" >{{row.employee_id}}</td>
+                            <td class="text-right">{{row.job_id}}</td>
+                            <td class="text-right">{{row.reference}}</td>
+                            <td class="text-right">{{row.rm_value}}</td>
+                            <td class="text-right">{{row.gold_balance}}</td>
                         </ng-container>
                     </tr>
 

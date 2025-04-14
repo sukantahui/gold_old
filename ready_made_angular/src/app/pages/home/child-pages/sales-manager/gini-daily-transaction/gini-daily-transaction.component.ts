@@ -31,6 +31,7 @@ export class GiniDailyTransactionComponent implements OnInit {
   selectedAgent: any;
   dailyGiniTransactionForm: FormGroup;
   user: User;
+  giniTransactions: any[];
   constructor(private agentWiseSalesReportService: AgentWiseSalesReportService, private reportService: ReportService, private commonService: CommonService ) {
     const now = new Date();
     const currentSQLDate = formatDate(now, 'yyyy-MM-dd', 'en');
@@ -69,33 +70,11 @@ export class GiniDailyTransactionComponent implements OnInit {
 
   }
 
-  getReport() {
-    console.log("getting agent id");
-    let agentId = '1';
-    if (this.agentWiseSaleReportForm.get('agent_id').value != null){
-      agentId = this.agentWiseSaleReportForm.get('agent_id').value;
-      // tslint:disable-next-line:prefer-const
-      const index = this.agentList.findIndex(obj => obj.agent_id === agentId);
-      if(index >= 0) {
-        this.selectedAgent = this.agentList[index];
-      }
-
-    }
-    this.reportService.getAgentWiseSaleReport( this.startDate, this.endDate, agentId).subscribe(response => {
-
-      this.agentWiseSalemaster = response.data;
-      this.agentWiseSale = response.data;
-      this.agentWiseSale =  this.agentWiseSale.filter(ag => ag.qty !== 0 || ag.gold_received !== 0  || ag.lc_received !== 0);
-      this.qtyTotal = this.agentWiseSale.reduce((prev, next) => prev + next.qty, 0);
-      this.billedGoldTotal = this.agentWiseSale.reduce((prev, next) => prev + next.fine_gold, 0);
-      this.billedLcTotal = this.agentWiseSale.reduce((prev, next) => prev + next.lc, 0);
-      this.goldReceivedTotal = this.agentWiseSale.reduce((prev, next) => prev + next.gold_received, 0);
-      this.lcReceivedTotal = this.agentWiseSale.reduce((prev, next) => prev + next.lc_received, 0);
-
-    }, (error) => {
-      // when error occured
-      console.log(error);
-    });
+  getGiniTransaction() {
+      this.reportService.getGiiniTransactionByManager().subscribe((response: {status: boolean, message: string, data: any[]}) => {
+        this.giniTransactions = response.data;
+        console.log(this.giniTransactions);
+      });
   }
 
   sortData(sort: Sort){

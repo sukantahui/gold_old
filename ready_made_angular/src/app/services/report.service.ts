@@ -275,4 +275,7 @@ export class ReportService {
     getJobsByBillNumber(billNumber: any){
         return this.http.post(this.commonService.getAPI() + '/getJobsByBillNo', {bill_number: billNumber});
     }
+    getGiiniTransactionByManager(){
+        return this.http.get(this.commonService.getAPI() + '/gini_due_by_date');
+    }
 }
