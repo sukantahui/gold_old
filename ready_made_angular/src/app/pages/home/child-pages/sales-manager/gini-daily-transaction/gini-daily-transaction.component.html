@@ -84,6 +84,7 @@
                         <th class="text-center" mat-sort-header="fine_gold">Employee ID</th>
                         <th class="text-center" mat-sort-header="lc">Job ID</th>
                         <th class="text-center" mat-sort-header="gold_received">Reference</th>
+                        <th class="text-center" mat-sort-header="lc_received">Opening</th>
                         <th class="text-center" mat-sort-header="lc_received">Value</th>
                         <th class="text-center" >Balance</th>
                     </tr>
@@ -97,7 +98,10 @@
                             <td class="text-center" >{{row.employee_id}}</td>
                             <td class="text-right">{{row.job_id}}</td>
                             <td class="text-right">{{row.reference}}</td>
-                            <td class="text-right">{{row.rm_value}}</td>
+                            <td class="text-right">{{row.opening_balance}}</td>
+                            <td class="text-right" [ngClass]="{ 'gold-inward': row.transaction_type >0, 'gold-outward': row.transaction_type <0 }">
+                                {{row.rm_value | number: '1.3'}}
+                            </td>
                             <td class="text-right">{{row.gold_balance}}</td>
                         </ng-container>
                     </tr>

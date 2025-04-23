@@ -405,12 +405,28 @@ class ReportController extends ApiController
         $dates = array_map(fn ($date) => $date->format('Y-m-d'), iterator_to_array($dateRange));
         //gold balance of last date
         $gold_balance=$lastBalance->last_known_physical_balance;
+        $opening_balance=$gold_balance;
 
 
         $result_array=array();
         $result=DB::select("select id, employee_id, transaction_type, rm_value, reference, comment, `timestamp`
                 ,DATE_FORMAT(`timestamp`, '%d-%m-%Y') as formatted_date
                 from inventory_day_book where rm_id=48 and employee_id=70 and date(`timestamp`)>?",[$lastBalance->last_known_physical_balance_date]);
+
+        $temp_array=array(
+            'transaction_date'=>$lastBalance->last_known_physical_balance_date,
+            'particulars'=>'Opening Balance',
+            'employee_id'=>$employee_id,
+            'job_id'=>'',
+            'reference'=>'',
+            'transaction_type'=>0,
+            'opening_balance'=>0,
+            'rm_value'=>0,
+            'gold_balance'=>$opening_balance,
+        );
+        $opening_balance=$gold_balance;
+        $result_array[]=$temp_array;
+
         foreach($result as $row){
             if(strpos($row->reference, '/') == true){
                 $reference=$row->reference;
@@ -427,15 +443,20 @@ class ReportController extends ApiController
                 $gold_balance=round($gold_balance-$row->rm_value,3);
             }
 
+
+
             $temp_array=array(
                 'transaction_date'=>$row->formatted_date,
                 'particulars'=>$particulars,
                 'employee_id'=>$row->employee_id,
                 'job_id'=>$job_id,
                 'reference'=>$reference,
+                'transaction_type'=>$row->transaction_type,
+                'opening_balance'=>$opening_balance,
                 'rm_value'=>$row->rm_value,
                 'gold_balance'=>$gold_balance,
             );
+            $opening_balance=$gold_balance;
             $result_array[]=$temp_array;
         }
         return $this->successResponse($result_array);
