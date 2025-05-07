@@ -201,6 +201,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/modelWiseSale/{startDate}/{endDate}/{limit}',[ReportController::class,'getModelsSaleReportByDate']);
     Route::get('/SaleByModel/{startDate}/{endDate}/{model}',[ReportController::class,'getSaleReportByModel']);
     Route::get('/gini_due_by_date',[ReportController::class,'get_gini_balance_date_by_date']);
+    Route::get('/gini_due_by_date/{emp_id}',[ReportController::class,'get_gini_balance_date_by_date']);
 
 
 

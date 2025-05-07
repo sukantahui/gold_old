@@ -388,10 +388,10 @@ class ReportController extends ApiController
         $result = DB::select('select job_id from bill_details where bill_no=?',[$request->bill_number]);
         return $this->successResponse($result);
     }
-    public function get_gini_balance_date_by_date(Request $request){
+    public function get_gini_balance_date_by_date(Request $request,$emp_id=70){
 
         $lastBalance=DB::table('material_to_employee_balance')->where('rm_id', 48)
-            ->where('emp_id', 70)
+            ->where('emp_id', $emp_id)
             ->first();
         $nextDay = Carbon::parse($lastBalance->last_known_physical_balance_date)->addDay()->format('Y-m-d');
 
