@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends ApiController
 {
+    public function currentStatusReport(){
+        $result = DB::select("call select_owner_fine_gold_receipt_from_employee_by_emp_id_by_dates($payerId,'$start_date','$end_date')");
+        return $this->successResponse("test");
+    }
     public function getKarigars(){
         $result = Employee::whereDesignationIdAndInforce(9,1)->orderBy('emp_name')->get();
 //        return $this->successResponse(EmployeeResource::collection($result));

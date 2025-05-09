@@ -47,11 +47,13 @@ use App\Http\Controllers\JobMasterController;
 |
 */
 
+
+Route::get("current-status-report",[ReportController::class,'currentStatusReport']);
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 //this api will backup database and will store in storage\app folder
-
 
 
 
