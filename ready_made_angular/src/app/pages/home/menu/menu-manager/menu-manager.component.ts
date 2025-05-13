@@ -75,6 +75,11 @@ export class MenuManagerComponent implements OnInit {
       displayName: 'Report',
       iconName: 'close',
       children: [
+        {
+          displayName: 'Business Status',
+          iconName: 'person',
+          route: 'BusinessStatus',
+        },
 
         {
           displayName: 'Agent',

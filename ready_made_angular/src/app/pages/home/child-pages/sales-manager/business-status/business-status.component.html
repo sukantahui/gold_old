@@ -1,0 +1,67 @@
+<div id="agent-wise-sale-report-div">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Business Status</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+
+
+                <div class="example-button-row" fxFlex="20">
+                    <button type="button" class="btn btn-primary" (click)="getBusinessStatus()">Show Status</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card" *ngIf="businessStatus" >
+        <div style="text-align: right">
+            <button
+                    mat-button color="primary"
+                    [printStyle]="printDivStyle"
+                    printSectionId="printBusinessStatus"
+                    ngxPrint ><mat-icon>print</mat-icon>
+            </button>
+        </div>
+        <div id="printBusinessStatus">
+
+            <mat-card-content>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Particulars</th>
+                            <th scope="col">Material</th>
+                            <th scope="col">Fine Gold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>{{businessStatus.all_customer_gold_due.particulars}}</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-card-content>
+        </div>
+
+    </mat-card>
+
+</div>
+
+
+<div *ngIf="true" id="developer-div">
+    <pre>
+        Business Status{{businessStatus | json}}
+    </pre>
+    <pre>
+
+    </pre>
+    <pre>
+
+    </pre>
+</div>

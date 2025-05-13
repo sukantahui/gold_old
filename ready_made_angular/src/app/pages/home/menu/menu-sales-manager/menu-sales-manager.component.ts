@@ -74,7 +74,7 @@ export class MenuSalesManagerComponent implements OnInit {
         {
           displayName: 'Business Status',
           iconName: 'person',
-          route: 'AgentWiseSaleReport',
+          route: 'BusinessStatus',
         },
         {
           displayName: 'Material',

@@ -278,4 +278,7 @@ export class ReportService {
     getGiiniTransactionByManager(){
         return this.http.get(this.commonService.getAPI() + '/gini_due_by_date');
     }
+    getBusinessStatus(){
+        return this.http.get(this.commonService.getAPI() + '/current-status-report');
+    }
 }

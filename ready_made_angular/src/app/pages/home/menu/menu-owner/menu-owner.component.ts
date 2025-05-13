@@ -80,6 +80,11 @@ export class MenuOwnerComponent implements OnInit {
       iconName: 'close',
       children: [
         {
+          displayName: 'Business Status',
+          iconName: 'person',
+          route: 'BusinessStatus',
+        },
+        {
           displayName: 'Agent',
           iconName: 'group',
           children: [

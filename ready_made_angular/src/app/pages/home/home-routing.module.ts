@@ -192,6 +192,11 @@ const routes: Routes = [
                                     , loadChildren: () => import('./child-pages/sales-manager/gini-daily-transaction/gini-daily-transaction.module')
                                         .then(m => m.GiniDailyTransactionModule)
                                 },
+                                { path: 'BusinessStatus'
+                                    // tslint:disable-next-line:max-line-length
+                                    , loadChildren: () => import('./child-pages/sales-manager/business-status/business-status.module')
+                                        .then(m => m.BusinessStatusModule)
+                                },
 
 
 

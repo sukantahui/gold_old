@@ -117,7 +117,7 @@ class ReportController extends ApiController
         $result_array['ploss']=$temp_array;
 
         //final return
-        return $this->successResponse($result_array);
+        return $this->successResponse((object)$result_array);
     }
     public function getKarigars(){
         $result = Employee::whereDesignationIdAndInforce(9,1)->orderBy('emp_name')->get();
