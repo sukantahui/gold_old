@@ -22,8 +22,102 @@ use Illuminate\Support\Facades\DB;
 class ReportController extends ApiController
 {
     public function currentStatusReport(){
-        $result = DB::select("call select_owner_fine_gold_receipt_from_employee_by_emp_id_by_dates($payerId,'$start_date','$end_date')");
-        return $this->successResponse("test");
+        $result_array=array();
+
+        // All customers Gold Due
+        $result = DB::select("select get_status_all_customer_total_gold_due_except_stock() as bileda_gold_due");
+        $temp_array=array(
+            'particulars'=>'All Customer Gold Due',
+            'material_value'=>($result[0]->bileda_gold_due ?? null)
+            ,'gold_percentage'=>1
+            ,'pure_value'=>(round($result[0]->bileda_gold_due,3)?? null)
+        );
+        $result_array['all_customer_gold_due']=$temp_array;
+
+        // Stock customer Gold Due
+        $result = DB::select("select get_status_stock_customer_total_gold_due() as bileda_gold_due");
+        $temp_array=array(
+            'particulars'=>'Stock Customer Gold Due',
+            'material_value'=>($result[0]->bileda_gold_due ?? null)
+            ,'gold_percentage'=>1
+            ,'pure_value'=>(round($result[0]->bileda_gold_due,3)?? null)
+        );
+        $result_array['stock_customer_gold_due']=$temp_array;
+
+
+        // calculating stock gold
+        $result = DB::select("select round(sum(gold),3) as stock_gold from item_stock_ready_made where in_stock");
+        $temp_array=array(
+            'particulars'=>'Readymade Stock Gold',
+            'material_value'=>($result[0]->stock_gold ?? null)
+            ,'gold_percentage'=>0.92
+            ,'pure_value'=>(round($result[0]->stock_gold * 0.92,3) ?? null)
+        );
+        $result_array['readymade_stock_gold']=$temp_array;
+
+        //workin progress
+        $result = DB::select("select sum(pieces) as qty,sum(pieces*price) as lc, round(sum((gold_send*rm_master.rm_gold/100)+(pan_send*40/100)-(gold_returned*rm_master.rm_gold/100)-(nitrick_returned*.88)),3) as gold from job_master
+				inner join rm_master on job_master.rm_id = rm_master.rm_ID
+				where job_master.status in(5,6,7,8,51) and in_stock=0");
+
+        $temp_array=array(
+            'particulars'=>'Work in Progress',
+            'material_value'=>0
+            ,'gold_percentage'=>0
+            ,'qty' => $result[0]->qty
+            ,'pure_value'=>(round($result[0]->gold,3) ?? null)
+        );
+        $result_array['work_in_progress']=$temp_array;
+
+        // material in hand
+        $result = DB::select("select db2.rm_id,rm_name,material,round(material*(rm_master.rm_gold/100),3) as pure from
+				(select rm_id,round(sum(closing_balance),3) as material from(select rm_id,emp_id, closing_balance from material_to_employee_balance where emp_id not in(28) and rm_id in(31,36,38,45,48))  as db1 group by rm_id) as db2
+				inner join rm_master on db2.rm_id = rm_master.rm_ID");
+
+
+        $temp_array2=[];
+        $materials=array('31'=>'bangle_pan','36'=>'fine_gold','38'=>'pure_silver','45'=>'nitric_gold','48'=>'92_gini');
+        foreach($result as $row){
+            $temp_array=array(
+                'particulars'=>$row->rm_name,
+                'material_value'=>$row->material
+                ,'gold_percentage'=>0
+                ,'pure_value'=>(round($row->pure,3) ?? null)
+            );
+
+            $temp_array2[$materials[$row->rm_id]]=$temp_array;
+        }
+
+        $result_array['material_balance']=$temp_array2;
+
+        //markup value for todays production
+        $result = DB::select("SELECT IFNULL(sum(markup_value*pieces),0) as todays_markup, ifnull(sum(pieces),0) as qty FROM job_master WHERE DATE(tr_time) = CURDATE()");
+
+        $temp_array=array(
+            'particulars'=>'Markup Value',
+            'material_value'=>$result[0]->todays_markup
+            ,'gold_percentage'=>0
+            ,'qty' => $result[0]->qty
+            ,'pure_value'=>(round($result[0]->todays_markup * .92,3) ?? null)
+        );
+        $result_array['markup_value']=$temp_array;
+
+
+
+        //ploss value for todays production
+        $result = DB::select("SELECT IFNULL(round(sum(p_loss*pieces),3),0) as todays_ploss, ifnull(sum(pieces),0) as qty FROM job_master WHERE DATE(tr_time) = CURDATE()");
+
+        $temp_array=array(
+            'particulars'=>'Processing Loss',
+            'material_value'=>$result[0]->todays_ploss
+            ,'gold_percentage'=>0
+            ,'qty' => $result[0]->qty
+            ,'pure_value'=>(round($result[0]->todays_ploss * .92,3) ?? null)
+        );
+        $result_array['ploss']=$temp_array;
+
+        //final return
+        return $this->successResponse($result_array);
     }
     public function getKarigars(){
         $result = Employee::whereDesignationIdAndInforce(9,1)->orderBy('emp_name')->get();
