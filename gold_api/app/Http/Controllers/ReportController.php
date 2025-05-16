@@ -71,12 +71,12 @@ class ReportController extends ApiController
 
         // material in hand
         $result = DB::select("select db2.rm_id,rm_name,material,round(material*(rm_master.rm_gold/100),3) as pure from
-				(select rm_id,round(sum(closing_balance),3) as material from(select rm_id,emp_id, closing_balance from material_to_employee_balance where emp_id not in(28) and rm_id in(31,36,38,45,48))  as db1 group by rm_id) as db2
+				(select rm_id,round(sum(closing_balance),3) as material from(select rm_id,emp_id, closing_balance from material_to_employee_balance where emp_id not in(28) and rm_id in(31,33,36,38,45,48))  as db1 group by rm_id) as db2
 				inner join rm_master on db2.rm_id = rm_master.rm_ID");
 
 
         $temp_array2=[];
-        $materials=array('31'=>'bangle_pan','36'=>'fine_gold','38'=>'pure_silver','45'=>'nitric_gold','48'=>'92_gini');
+        $materials=array('31'=>'bangle_pan','33'=>'dal','36'=>'fine_gold','38'=>'pure_silver','45'=>'nitric_gold','48'=>'gini_92');
         foreach($result as $row){
             $temp_array=array(
                 'particulars'=>$row->rm_name,
@@ -116,7 +116,65 @@ class ReportController extends ApiController
         );
         $result_array['ploss']=$temp_array;
 
-        //final return
+        //all customer LC Due
+        $result = DB::select("select get_status_all_customer_total_lc_due_except_stock() as all_customer_lc_due");
+        $temp_array=array(
+            'particulars'=>'All Customer LC Due'
+            ,'amount'=>($result[0]->all_customer_lc_due?? null)
+        );
+        $result_array['all_customer_lc_due']=$temp_array;
+
+        //stock customer LC Due
+        $result = DB::select("select get_status_stock_customer_total_lc_due() as stock_customer_lc_due");
+        $temp_array=array(
+            'particulars'=>'Stock Customer LC Due'
+            ,'amount'=>($result[0]->stock_customer_lc_due?? null)
+        );
+        $result_array['stock_customer_lc_due']=$temp_array;
+
+
+
+        //stock LC
+        $result = DB::select("select sum(labour_charge) as readymade_stock_lc from item_stock_ready_made where in_stock=1");
+        $temp_array=array(
+            'particulars'=>'Readymade Stock LC'
+            ,'amount'=>($result[0]->readymade_stock_lc?? null)
+        );
+
+        $result_array['readymade_stock_lc']=$temp_array;
+
+        //Employee Cash Balance
+        $result = DB::select("select sum(balance) as cash_balance from employees_cash_balance where emp_id not in(28,72) ");
+        $temp_array=array(
+            'particulars'=>'Cash Balance, Employees'
+            ,'amount'=>($result[0]->cash_balance?? null)
+        );
+
+        $result_array['employee_cash_balance']=$temp_array;
+
+        //Manager Cash Balance
+        $result = DB::select("select sum(balance) as cash_balance from employees_cash_balance where emp_id in(72) ");
+        $temp_array=array(
+            'particulars'=>'Cash Balance, Manager'
+            ,'amount'=>($result[0]->cash_balance?? null)
+        );
+
+        $result_array['manager_cash_balance']=$temp_array;
+
+
+        //Readmae stock lc
+        $result = DB::select("select sum(pieces) as qty,sum(pieces*price) as lc, round(sum((gold_send*rm_master.rm_gold/100)+(pan_send*40/100)-(gold_returned*rm_master.rm_gold/100)-(nitrick_returned*.88)),3) as gold from job_master
+				inner join rm_master on job_master.rm_id = rm_master.rm_ID
+				where job_master.status in(5,6,7,8,51)");
+        $temp_array=array(
+            'particulars'=>'Work In Progress LC'
+            ,'qty'=>($result[0]->qty?? null)
+            ,'amount'=>($result[0]->lc?? null)
+        );
+
+        $result_array['work_in_progress_lc']=$temp_array;
+
+
         return $this->successResponse((object)$result_array);
     }
     public function getKarigars(){

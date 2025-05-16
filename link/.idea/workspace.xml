@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cd9d02f9-0f2e-4ed2-99e3-6a26a6110111" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../gold_api/app/Http/Controllers/ReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../gold_api/app/Http/Controllers/ReportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gold_master/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../gold_master/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gold_master/main-es2015.f3c16c9b996f77345e99.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gold_master/main-es5.f3c16c9b996f77345e99.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gold_master/runtime-es2015.d041b2670d0e08b2c3b8.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gold_master/runtime-es5.d041b2670d0e08b2c3b8.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/child-pages/sales-manager/business-status/business-status.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/child-pages/sales-manager/business-status/business-status.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/child-pages/sales-manager/business-status/business-status.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ready_made_angular/src/app/pages/home/child-pages/sales-manager/business-status/business-status.component.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2xAXizCkKg0ToLfMybD2kQSjgyo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cd9d02f9-0f2e-4ed2-99e3-6a26a6110111" name="Default Changelist" comment="" />
+      <created>1747381982839</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747381982839</updated>
+      <workItem from="1747381984139" duration="675000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

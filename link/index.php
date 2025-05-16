@@ -47,6 +47,7 @@
           ,array('rank'=>220,'topic'=>'Agent পরিবর্তন করতে হলে','software'=>'Ses Gold' ,'link'=>'ses_diamond2/index.php/customer_controller/customer_master_facade')
           ,array('rank'=>230,'topic'=>'Customer পরিবর্তন করতে হলে','software'=>'Ses Gold' ,'link'=>'ses_diamond2/index.php/customer_controller/customer_master_facade#nogo')
           ,array('rank'=>240,'topic'=>'Stock দেখার জন্য','software'=>'Gold Master' ,'link'=>'gold_old/Gold_master/#/StockInHandReport')
+          ,array('rank'=>250,'topic'=>'New Business Status দেখার জন্য','software'=>'Gold Master' ,'link'=>'gold_old/Gold_master/#/BusinessStatus')
           
         );
         usort($records, function ($a, $b) { return strnatcmp($a['rank'], $b['rank']); });

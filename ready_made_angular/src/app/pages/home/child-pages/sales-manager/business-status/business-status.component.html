@@ -26,27 +26,204 @@
             </button>
         </div>
         <div id="printBusinessStatus">
-
             <mat-card-content>
                 <table class="table table-bordered">
+
+                <thead>
+                <tr>
+                    <th colspan="4">
+                        <h4>Business Status Fine Gold: {{ currentDate | date:'dd-MM-yyyy hh:mm:ss a' }}</h4>
+
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Particulars</th>
+                    <th scope="col">Material</th>
+                    <th scope="col">Fine Gold</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{businessStatus.all_customer_gold_due.particulars}}</td>
+                    <td class="text-right">{{businessStatus.all_customer_gold_due.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.all_customer_gold_due.pure_value | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>{{businessStatus.stock_customer_gold_due.particulars}}</td>
+                    <td class="text-right">{{businessStatus.stock_customer_gold_due.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.stock_customer_gold_due.pure_value | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>{{businessStatus.readymade_stock_gold.particulars}}</td>
+                    <td class="text-right">{{businessStatus.readymade_stock_gold.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.readymade_stock_gold.pure_value | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>{{businessStatus.work_in_progress.particulars}}</td>
+                    <td class="text-right">{{businessStatus.work_in_progress.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.work_in_progress.pure_value | number:'1.3-3'}}</td>
+                </tr>
+
+                <tr>
+                    <th scope="row">5</th>
+                    <td>{{businessStatus.material_balance.fine_gold.particulars}}, with Manager</td>
+                    <td class="text-right">{{businessStatus.material_balance.fine_gold.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance.fine_gold.pure_value | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>Others Income Pure Gold</td>
+                    <td class="text-right">{{0| number:'1.3-3'}}</td>
+                    <td class="text-right">{{0 | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">7</th>
+                    <td>{{businessStatus.material_balance.gini_92.particulars}}, with Manager</td>
+                    <td class="text-right">{{businessStatus.material_balance.gini_92.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance.gini_92.pure_value | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">8</th>
+                    <td>{{businessStatus.material_balance.bangle_pan.particulars}}, with Manager </td>
+                    <td class="text-right">{{businessStatus.material_balance.bangle_pan.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance.bangle_pan.pure_value | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">9</th>
+                    <td>{{businessStatus.material_balance.nitric_gold.particulars}}, with Manager </td>
+                    <td class="text-right">{{businessStatus.material_balance.nitric_gold.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance.nitric_gold.pure_value | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">10</th>
+                    <td>{{businessStatus.markup_value.particulars}}</td>
+                    <td class="text-right">{{businessStatus.markup_value.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.markup_value.pure_value | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">11</th>
+                    <td>{{businessStatus.ploss.particulars}}</td>
+                    <td class="text-right">{{businessStatus.ploss.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.ploss.pure_value |  number:'1.3-3'}}</td>
+                </tr>
+
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="3">Total</th>
+                    <td class="text-right">{{ totalFineGoldValue | number:'1.3-3' }}</td>
+                </tr>
+                </tfoot>
+            </table>
+
+<!--            CAsh Items    -->
+                <table class="table table-bordered">
+
                     <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Particulars</th>
-                            <th scope="col">Material</th>
-                            <th scope="col">Fine Gold</th>
-                        </tr>
+                    <tr>
+                        <th colspan="4">
+                            <h4>Business Status Cash: {{ currentDate | date:'dd-MM-yyyy hh:mm:ss a' }}</h4>
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Particulars</th>
+                        <th scope="col">Amount</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>{{businessStatus.all_customer_gold_due.particulars}}</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{businessStatus.all_customer_lc_due.particulars}}</td>
+                        <td class="text-right">{{businessStatus.all_customer_lc_due.amount |  number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>{{businessStatus.stock_customer_lc_due.particulars}}</td>
+                        <td class="text-right">{{businessStatus.stock_customer_lc_due.amount |  number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>{{businessStatus.readymade_stock_lc.particulars}}</td>
+                        <td class="text-right">{{businessStatus.readymade_stock_lc.amount |  number:'1.2-2'}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>{{businessStatus.work_in_progress_lc.particulars}}</td>
+                        <td class="text-right">{{businessStatus.work_in_progress_lc.amount |  number:'1.2-2'}}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>{{businessStatus.employee_cash_balance.particulars}}</td>
+                        <td class="text-right">{{businessStatus.employee_cash_balance.amount |  number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>{{businessStatus.manager_cash_balance.particulars}}</td>
+                        <td class="text-right">{{businessStatus.manager_cash_balance.amount |  number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>Other Income</td>
+                        <td class="text-right">{{0 |  number:'1.2-2'}}</td>
+                    </tr>
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="2">Total</th>
+                        <td class="text-right">{{ totalFineCashValue | number:'1.2-2' }}</td>
+                    </tr>
+                    </tfoot>
                 </table>
+
+                <!--            Raw materials    -->
+                <table class="table table-bordered">
+
+                    <thead>
+                    <tr>
+                        <th colspan="4">
+                            <h4>Business Status Othe Materials: {{ currentDate | date:'dd-MM-yyyy hh:mm:ss a' }}</h4>
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Particulars</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{businessStatus.material_balance.pure_silver.particulars}}</td>
+                        <td class="text-right">{{businessStatus.material_balance.pure_silver.material_value |  number:'1.3-3'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{businessStatus.material_balance.dal.particulars}}</td>
+                        <td class="text-right">{{businessStatus.material_balance.dal.material_value |  number:'1.3-3'}}</td>
+                    </tr>
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="2">Total</th>
+<!--                        <td class="text-right">{{ totalFineCashValue | number:'1.2-2' }}</td>-->
+                    </tr>
+                    </tfoot>
+                </table>
+
             </mat-card-content>
+
         </div>
 
     </mat-card>
@@ -54,7 +231,7 @@
 </div>
 
 
-<div *ngIf="true" id="developer-div">
+<div *ngIf="!isProduction" id="developer-div">
     <pre>
         Business Status{{businessStatus | json}}
     </pre>
