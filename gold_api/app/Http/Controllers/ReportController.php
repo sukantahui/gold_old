@@ -37,7 +37,7 @@ class ReportController extends ApiController
         // Stock customer Gold Due
         $result = DB::select("select get_status_stock_customer_total_gold_due() as bileda_gold_due");
         $temp_array=array(
-            'particulars'=>'Stock Customer Gold Due',
+            'particulars'=>'Bileda Gold Due',
             'material_value'=>($result[0]->bileda_gold_due ?? null)
             ,'gold_percentage'=>1
             ,'pure_value'=>(round($result[0]->bileda_gold_due,3)?? null)
@@ -69,7 +69,7 @@ class ReportController extends ApiController
         );
         $result_array['work_in_progress']=$temp_array;
 
-        // material in hand
+        // material in hand with other employees
         $result = DB::select("select db2.rm_id,rm_name,material,round(material*(rm_master.rm_gold/100),3) as pure from
 				(select rm_id,round(sum(closing_balance),3) as material from(select rm_id,emp_id, closing_balance from material_to_employee_balance where emp_id not in(28) and rm_id in(31,33,36,38,45,48))  as db1 group by rm_id) as db2
 				inner join rm_master on db2.rm_id = rm_master.rm_ID");
@@ -88,7 +88,32 @@ class ReportController extends ApiController
             $temp_array2[$materials[$row->rm_id]]=$temp_array;
         }
 
-        $result_array['material_balance']=$temp_array2;
+        $result_array['material_balance_employees']=$temp_array2;
+
+
+        // material in hand with Manager
+        $result = DB::select("select db2.rm_id,rm_name,material,round(material*(rm_master.rm_gold/100),3) as pure from
+				(select rm_id,round(sum(closing_balance),3) as material from(select rm_id,emp_id, closing_balance from material_to_employee_balance where emp_id  in(72) and rm_id in(31,33,36,38,45,48))  as db1 group by rm_id) as db2
+				inner join rm_master on db2.rm_id = rm_master.rm_ID");
+
+
+        $temp_array2=[];
+        $materials=array('31'=>'bangle_pan','33'=>'dal','36'=>'fine_gold','38'=>'pure_silver','45'=>'nitric_gold','48'=>'gini_92');
+        foreach($result as $row){
+            $temp_array=array(
+                'particulars'=>$row->rm_name,
+                'material_value'=>$row->material
+            ,'gold_percentage'=>0
+            ,'pure_value'=>(round($row->pure,3) ?? null)
+            );
+
+            $temp_array2[$materials[$row->rm_id]]=$temp_array;
+        }
+
+        $result_array['material_balance_manager']=$temp_array2;
+
+
+
 
         //markup value for todays production
         $result = DB::select("SELECT IFNULL(sum(markup_value*pieces),0) as todays_markup, ifnull(sum(pieces),0) as qty FROM job_master WHERE DATE(tr_time) = CURDATE()");
@@ -153,7 +178,7 @@ class ReportController extends ApiController
         $result_array['employee_cash_balance']=$temp_array;
 
         //Manager Cash Balance
-        $result = DB::select("select sum(balance) as cash_balance from employees_cash_balance where emp_id in(72) ");
+        $result = DB::select("select sum(balance) as cash_balance from employees_cash_balance where emp_id in(72)");
         $temp_array=array(
             'particulars'=>'Cash Balance, Manager'
             ,'amount'=>($result[0]->cash_balance?? null)

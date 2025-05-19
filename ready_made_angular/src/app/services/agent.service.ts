@@ -16,7 +16,7 @@ export class AgentService {
   agentList: any[] = [];
   agentSub = new Subject<any[]>();
   constructor(private commonService: CommonService, private  http: HttpClient, private  errorService: ErrorService) {
-    this.http.get(this.commonService.getAPI() + '/agents').subscribe((response: {success: number , data: any[]}) => {
+    this.http.get(this.commonService.getAPI() + '/getAgentsForSaleReport').subscribe((response: {success: number , data: any[]}) => {
       this.agentList =  response.data;
       this.agentSub.next([...this.agentList]);
     });

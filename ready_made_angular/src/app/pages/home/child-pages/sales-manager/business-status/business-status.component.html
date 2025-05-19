@@ -68,13 +68,6 @@
                     <td class="text-right">{{businessStatus.work_in_progress.material_value | number:'1.3-3'}}</td>
                     <td class="text-right">{{businessStatus.work_in_progress.pure_value | number:'1.3-3'}}</td>
                 </tr>
-
-                <tr>
-                    <th scope="row">5</th>
-                    <td>{{businessStatus.material_balance.fine_gold.particulars}}, with Manager</td>
-                    <td class="text-right">{{businessStatus.material_balance.fine_gold.material_value | number:'1.3-3'}}</td>
-                    <td class="text-right">{{businessStatus.material_balance.fine_gold.pure_value | number:'1.3-3'}}</td>
-                </tr>
                 <tr>
                     <th scope="row">6</th>
                     <td>Others Income Pure Gold</td>
@@ -82,31 +75,78 @@
                     <td class="text-right">{{0 | number:'1.3-3'}}</td>
                 </tr>
                 <tr>
+                    <th colspan="4" class="text-left">EMPLOYEES GOLD FUND</th>
+                </tr>
+
+                <tr>
+                    <th scope="row">5</th>
+                    <td>{{businessStatus.material_balance_employees.fine_gold.particulars}}, with Employees</td>
+                    <td class="text-right">{{businessStatus.material_balance_employees.fine_gold.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance_employees.fine_gold.pure_value | number:'1.3-3'}}</td>
+                </tr>
+
+                <tr>
                     <th scope="row">7</th>
-                    <td>{{businessStatus.material_balance.gini_92.particulars}}, with Manager</td>
-                    <td class="text-right">{{businessStatus.material_balance.gini_92.material_value | number:'1.3-3'}}</td>
-                    <td class="text-right">{{businessStatus.material_balance.gini_92.pure_value | number:'1.3-3'}}</td>
+                    <td>{{businessStatus.material_balance_employees.gini_92.particulars}}, with Employees</td>
+                    <td class="text-right">{{businessStatus.material_balance_employees.gini_92.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance_employees.gini_92.pure_value | number:'1.3-3'}}</td>
                 </tr>
                 <tr>
                     <th scope="row">8</th>
-                    <td>{{businessStatus.material_balance.bangle_pan.particulars}}, with Manager </td>
-                    <td class="text-right">{{businessStatus.material_balance.bangle_pan.material_value | number:'1.3-3'}}</td>
-                    <td class="text-right">{{businessStatus.material_balance.bangle_pan.pure_value | number:'1.3-3'}}</td>
+                    <td>{{businessStatus.material_balance_employees.bangle_pan.particulars}}, with Employees </td>
+                    <td class="text-right">{{businessStatus.material_balance_employees.bangle_pan.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance_employees.bangle_pan.pure_value | number:'1.3-3'}}</td>
                 </tr>
                 <tr>
                     <th scope="row">9</th>
-                    <td>{{businessStatus.material_balance.nitric_gold.particulars}}, with Manager </td>
-                    <td class="text-right">{{businessStatus.material_balance.nitric_gold.material_value | number:'1.3-3'}}</td>
-                    <td class="text-right">{{businessStatus.material_balance.nitric_gold.pure_value | number:'1.3-3'}}</td>
+                    <td>{{businessStatus.material_balance_employees.nitric_gold.particulars}}, with Employees </td>
+                    <td class="text-right">{{businessStatus.material_balance_employees.nitric_gold.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance_employees.nitric_gold.pure_value | number:'1.3-3'}}</td>
                 </tr>
                 <tr>
+                    <th colspan="2" class="text-center">Employees Total Gold Fund(FINE GOLD)</th>
+                    <th class="text-right">{{gold_balance_employee | number:'1.3-3'}}</th>
+                </tr>
+                <tr>
+                    <th colspan="4">MANAGER GOLD FUND</th>
+                </tr>
+
+                <tr>
                     <th scope="row">10</th>
+                    <td>{{businessStatus.material_balance_manager.fine_gold.particulars}}, with Manager</td>
+                    <td class="text-right">{{businessStatus.material_balance_manager.fine_gold.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance_manager.fine_gold.pure_value | number:'1.3-3'}}</td>
+                </tr>
+
+                <tr>
+                    <th scope="row">11</th>
+                    <td>{{businessStatus.material_balance_manager.gini_92.particulars}}, with Manager</td>
+                    <td class="text-right">{{businessStatus.material_balance_manager.gini_92.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance_manager.gini_92.pure_value | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">12</th>
+                    <td>{{businessStatus.material_balance_manager.bangle_pan.particulars}}, with Manager </td>
+                    <td class="text-right">{{businessStatus.material_balance_manager.bangle_pan.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance_manager.bangle_pan.pure_value | number:'1.3-3'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">13</th>
+                    <td>{{businessStatus.material_balance_manager.nitric_gold.particulars}}, with Manager </td>
+                    <td class="text-right">{{businessStatus.material_balance_manager.nitric_gold.material_value | number:'1.3-3'}}</td>
+                    <td class="text-right">{{businessStatus.material_balance_manager.nitric_gold.pure_value | number:'1.3-3'}}</td>
+                <tr>
+                    <th colspan="2" class="text-center">Manager Total Gold Fund(FINE GOLD)</th>
+                    <th class="text-right">{{gold_balance_manager | number:'1.3-3'}}</th>
+                </tr>
+                <tr>
+                    <th scope="row">14</th>
                     <td>{{businessStatus.markup_value.particulars}}</td>
                     <td class="text-right">{{businessStatus.markup_value.material_value | number:'1.3-3'}}</td>
                     <td class="text-right">{{businessStatus.markup_value.pure_value | number:'1.3-3'}}</td>
                 </tr>
                 <tr>
-                    <th scope="row">11</th>
+                    <th scope="row">15</th>
                     <td>{{businessStatus.ploss.particulars}}</td>
                     <td class="text-right">{{businessStatus.ploss.material_value | number:'1.3-3'}}</td>
                     <td class="text-right">{{businessStatus.ploss.pure_value |  number:'1.3-3'}}</td>
@@ -204,13 +244,13 @@
                     <tbody>
                     <tr>
                         <th scope="row">1</th>
-                        <td>{{businessStatus.material_balance.pure_silver.particulars}}</td>
-                        <td class="text-right">{{businessStatus.material_balance.pure_silver.material_value |  number:'1.3-3'}}</td>
+                        <td>{{businessStatus.material_balance_employees.pure_silver.particulars}}</td>
+                        <td class="text-right">{{businessStatus.material_balance_employees.pure_silver.material_value |  number:'1.3-3'}}</td>
                     </tr>
                     <tr>
                         <th scope="row">1</th>
-                        <td>{{businessStatus.material_balance.dal.particulars}}</td>
-                        <td class="text-right">{{businessStatus.material_balance.dal.material_value |  number:'1.3-3'}}</td>
+                        <td>{{businessStatus.material_balance_employees.dal.particulars}}</td>
+                        <td class="text-right">{{businessStatus.material_balance_employees.dal.material_value |  number:'1.3-3'}}</td>
                     </tr>
 
                     </tbody>

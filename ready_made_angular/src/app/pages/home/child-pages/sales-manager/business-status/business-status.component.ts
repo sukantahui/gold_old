@@ -28,7 +28,8 @@ export interface BusinessStatusInterface {
   stock_customer_gold_due: GoldItem;
   readymade_stock_gold: GoldItem;
   work_in_progress: GoldItem;
-  material_balance: MaterialBalance;
+  material_balance_employees: MaterialBalance;
+  material_balance_manager: MaterialBalance;
   markup_value: GoldItem;
   ploss: GoldItem;
   all_customer_lc_due: CashItem;
@@ -45,6 +46,9 @@ export interface BusinessStatusInterface {
 })
 export class BusinessStatusComponent implements OnInit {
   isProduction = environment.production;
+  totalFineGoldValue_employees = 0;
+  gold_balance_employee = 0;
+  gold_balance_manager = 0;
 
   constructor(private reportService: ReportService) { }
   businessStatus: BusinessStatusInterface;
@@ -54,10 +58,12 @@ export class BusinessStatusComponent implements OnInit {
     label: {width: '100%'},
     th: {border: '1px  solid black' , fontSize : 'small'},
     td: {border: '1px  solid black' , fontSize : 'small'},
+    '.text-right': {textAlign: 'right'},
+  }
 
-  };
+
   totalFineGoldValue = 0;
-  totalFineCashValue=0;
+  totalFineCashValue = 0;
   ngOnInit(): void {
   }
 
@@ -65,14 +71,24 @@ export class BusinessStatusComponent implements OnInit {
       this.reportService.getBusinessStatus().subscribe((response: {status: boolean, message: string, data: BusinessStatusInterface}) => {
         if (response.status && response.data) {
           this.businessStatus = response.data;
+          this.gold_balance_employee = this.businessStatus.material_balance_employees.fine_gold.pure_value
+          + this.businessStatus.material_balance_employees.gini_92.pure_value
+          + this.businessStatus.material_balance_employees.bangle_pan.pure_value
+          + this.businessStatus.material_balance_employees.nitric_gold.pure_value;
+
+          this.gold_balance_manager = this.businessStatus.material_balance_manager.fine_gold.pure_value
+              + this.businessStatus.material_balance_manager.gini_92.pure_value
+              + this.businessStatus.material_balance_manager.bangle_pan.pure_value
+              + this.businessStatus.material_balance_manager.nitric_gold.pure_value;
+
+
+
           this.totalFineGoldValue = this.businessStatus.all_customer_gold_due.pure_value
                                     + this.businessStatus.stock_customer_gold_due.pure_value
                                     + this.businessStatus.readymade_stock_gold.pure_value
                                     + this.businessStatus.work_in_progress.pure_value
-                                    + this.businessStatus.material_balance.fine_gold.pure_value
-                                    + this.businessStatus.material_balance.gini_92.pure_value
-                                    + this.businessStatus.material_balance.bangle_pan.pure_value
-                                    + this.businessStatus.material_balance.nitric_gold.pure_value
+                                    + this.gold_balance_employee
+                                    + this.gold_balance_manager
                                     + this.businessStatus.markup_value.pure_value
                                     + this.businessStatus.ploss.pure_value;
 
