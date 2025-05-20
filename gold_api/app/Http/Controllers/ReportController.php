@@ -71,7 +71,7 @@ class ReportController extends ApiController
 
         // material in hand with other employees
         $result = DB::select("select db2.rm_id,rm_name,material,round(material*(rm_master.rm_gold/100),3) as pure from
-				(select rm_id,round(sum(closing_balance),3) as material from(select rm_id,emp_id, closing_balance from material_to_employee_balance where emp_id not in(28) and rm_id in(31,33,36,38,45,48))  as db1 group by rm_id) as db2
+				(select rm_id,round(sum(closing_balance),3) as material from(select rm_id,emp_id, closing_balance from material_to_employee_balance where emp_id not in(28,72) and rm_id in(31,33,36,38,45,48))  as db1 group by rm_id) as db2
 				inner join rm_master on db2.rm_id = rm_master.rm_ID");
 
 
@@ -152,7 +152,7 @@ class ReportController extends ApiController
         //stock customer LC Due
         $result = DB::select("select get_status_stock_customer_total_lc_due() as stock_customer_lc_due");
         $temp_array=array(
-            'particulars'=>'Stock Customer LC Due'
+            'particulars'=>'Bileda LC Due'
             ,'amount'=>($result[0]->stock_customer_lc_due?? null)
         );
         $result_array['stock_customer_lc_due']=$temp_array;
@@ -199,6 +199,32 @@ class ReportController extends ApiController
 
         $result_array['work_in_progress_lc']=$temp_array;
 
+        //order Remaining
+        $result = DB::table('order_master')
+            ->join('order_details', 'order_master.order_id', '=', 'order_details.order_id')
+            ->where('order_master.tr_time', '>', '2025-04-01')
+            ->where('order_details.status', '=', 0)
+            ->distinct('order_master.order_id')
+            ->count('order_master.order_id');
+        $temp_array=array(
+            'particulars'=>'Remaining Orders form 01-03-2025'
+            ,'qty'=>$result
+            ,'amount'=>0
+        );
+        $result_array['order_not_jobbed']=$temp_array;
+
+        //order detail Remaining
+        $result = DB::table('order_master')
+            ->join('order_details', 'order_master.order_id', '=', 'order_details.order_id')
+            ->where('order_master.tr_time', '>', '2025-04-01')
+            ->where('order_details.status', '=', 0)
+            ->count();
+        $temp_array=array(
+            'particulars'=>'Remaining Orders in quantity form 01-03-2025'
+            ,'qty'=>$result
+            ,'amount'=>0
+        );
+        $result_array['order_details_quantity_not_jobbed']=$temp_array;
 
         return $this->successResponse((object)$result_array);
     }

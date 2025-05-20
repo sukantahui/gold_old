@@ -38,6 +38,8 @@ export interface BusinessStatusInterface {
   employee_cash_balance: CashItem;
   manager_cash_balance: CashItem;
   work_in_progress_lc: CashItem;
+  order_not_jobbed: CashItem;
+  order_details_quantity_not_jobbed: CashItem;
 }
 @Component({
   selector: 'app-business-status',

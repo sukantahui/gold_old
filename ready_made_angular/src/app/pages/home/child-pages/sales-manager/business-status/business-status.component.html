@@ -68,12 +68,7 @@
                     <td class="text-right">{{businessStatus.work_in_progress.material_value | number:'1.3-3'}}</td>
                     <td class="text-right">{{businessStatus.work_in_progress.pure_value | number:'1.3-3'}}</td>
                 </tr>
-                <tr>
-                    <th scope="row">6</th>
-                    <td>Others Income Pure Gold</td>
-                    <td class="text-right">{{0| number:'1.3-3'}}</td>
-                    <td class="text-right">{{0 | number:'1.3-3'}}</td>
-                </tr>
+
                 <tr>
                     <th colspan="4" class="text-left">EMPLOYEES GOLD FUND</th>
                 </tr>
@@ -104,8 +99,7 @@
                     <td class="text-right">{{businessStatus.material_balance_employees.nitric_gold.pure_value | number:'1.3-3'}}</td>
                 </tr>
                 <tr>
-                    <th colspan="2" class="text-center">Employees Total Gold Fund(FINE GOLD)</th>
-                    <th class="text-right">{{gold_balance_employee | number:'1.3-3'}}</th>
+                    <th colspan="3" class="text-center">Employees Total Gold Fund(FINE GOLD)  {{gold_balance_employee | number:'1.3-3'}} gram</th>
                 </tr>
                 <tr>
                     <th colspan="4">MANAGER GOLD FUND</th>
@@ -136,8 +130,13 @@
                     <td class="text-right">{{businessStatus.material_balance_manager.nitric_gold.material_value | number:'1.3-3'}}</td>
                     <td class="text-right">{{businessStatus.material_balance_manager.nitric_gold.pure_value | number:'1.3-3'}}</td>
                 <tr>
-                    <th colspan="2" class="text-center">Manager Total Gold Fund(FINE GOLD)</th>
-                    <th class="text-right">{{gold_balance_manager | number:'1.3-3'}}</th>
+                    <th colspan="3" class="text-center">Manager Total Gold Fund(FINE GOLD) {{gold_balance_manager | number:'1.3-3'}} gram</th>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>Others Income Pure Gold</td>
+                    <td class="text-right">{{0| number:'1.3-3'}}</td>
+                    <td class="text-right">{{0 | number:'1.3-3'}}</td>
                 </tr>
                 <tr>
                     <th scope="row">14</th>
@@ -258,6 +257,11 @@
                     <tr>
                         <th colspan="2">Total</th>
 <!--                        <td class="text-right">{{ totalFineCashValue | number:'1.2-2' }}</td>-->
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            এখনও পর্যন্ত {{businessStatus.order_not_jobbed.qty}} টি ORDER ধরানো বাকি আছে যার মোট quantity হল {{businessStatus.order_details_quantity_not_jobbed.qty}} pcs
+                        </td>
                     </tr>
                     </tfoot>
                 </table>
