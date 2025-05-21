@@ -132,6 +132,8 @@ const routes: Routes = [
 
 
 
+
+
   // { path: 'GoldReceived', loadChildren: () => import('./pages/home/child-pages/sales-manager/Customer-Receipt/gold-received/gold-received.module').then(m => m.GoldReceivedModule) },
 
 

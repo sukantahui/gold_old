@@ -236,6 +236,12 @@ export class MenuSalesManagerComponent implements OnInit {
               iconName: 'shopping_cart',
               color: 'green',
               route: 'SendToJob',
+            },
+            {
+              displayName: 'TopupGold',
+              iconName: 'shopping_cart',
+              color: 'green',
+              route: 'TopUpGold',
             }
           ]
         }

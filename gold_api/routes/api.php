@@ -67,6 +67,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         return auth()->user();
     });
 
+    Route::put("topUpGold/{jobId}/{gold}",[TransactionController::class,'addTopUpGold']);
+
     Route::put("user",[UserController::class,'updatePassword']);
 
     Route::get("revokeAll",[UserController::class,'revoke_all']);
@@ -120,6 +122,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("agents",[AgentController::class, 'getAgents']);
     Route::get("activeAgents",[AgentController::class, 'getActiveAgents']);
     Route::get("saleReportAgents",[AgentController::class, 'getAgentsForSaleReport']);
+    Route::get("getAgentsForSaleReport",[AgentController::class, 'getAgentsForSaleReport']);
 
     Route::post("save",[OrderController::class, 'saveOrder']);
     Route::get("getOrderMasterList",[OrderController::class, 'getOrderMasterList']);

@@ -46,4 +46,8 @@ export class ManagerService {
     return  this.http.post(this.commonService.getAPI() + '/nitricToFine', materialConversion)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
+  addTopUpGold(job: number, gold: number) {
+    return  this.http.put(this.commonService.getAPI() + '/topUpGold/' + job + '/' + gold, {})
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
 }

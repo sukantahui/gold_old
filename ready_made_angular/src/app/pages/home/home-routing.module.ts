@@ -197,6 +197,12 @@ const routes: Routes = [
                                     , loadChildren: () => import('./child-pages/sales-manager/business-status/business-status.module')
                                         .then(m => m.BusinessStatusModule)
                                 },
+                                { path: 'TopUpGold'
+                                    // tslint:disable-next-line:max-line-length
+                                    , loadChildren: () => import('./child-pages/sales-manager/top-up-gold/top-up-gold.module')
+                                        .then(m => m.TopUpGoldModule)
+                                },
+
 
 
 

@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 class TransactionController extends ApiController
 {
 
+    public function addTopUpGold($jobId, $gold){
+        $result = DB::select("call huitech_topup_gold_to_job($jobId, $gold)");
+        return $this->successResponse($result);
+    }
     public function getIncomeTransactions()
     {
         $result = Transaction::join('ledgers','transactions.ledger_id','ledgers.id')

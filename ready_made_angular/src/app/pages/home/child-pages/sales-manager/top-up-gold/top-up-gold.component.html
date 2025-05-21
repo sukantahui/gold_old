@@ -1,0 +1,23 @@
+<div id="main-div">
+    <form [formGroup] = topUpGoldForm>
+        <div fxLayoutGap="15px" style="padding-left: 50px">
+            <mat-form-field fxFlex="10">
+                <input   class="p-1" type="text" formControlName="job" matInput placeholder="Job Number" style="border-radius: 5px;">
+            </mat-form-field>
+            <mat-form-field fxFlex="10" >
+                <input   class="p-1" type="number" formControlName="gold" matInput placeholder="Gold" style="border-radius: 5px;">
+            </mat-form-field>
+        </div>
+        <div style="text-align: center" fxLayoutGap="15px">
+            <button mat-raised-button class="btn-info" [disabled]="responseMessage!=null"  (click)="onSubmit()">Update Topup Gold</button>
+            <button mat-raised-button color="warn" type="button" (click)="onReset()">Reset</button>
+        </div>
+
+        <mat-error  *ngIf="topUpGoldForm.get('job')?.hasError('required') && topUpGoldForm.get('job')?.touched">
+            Job number is required
+        </mat-error>
+    </form>
+    <div *ngIf="responseMessage">
+        {{responseMessage.message }}
+    </div>
+</div>
