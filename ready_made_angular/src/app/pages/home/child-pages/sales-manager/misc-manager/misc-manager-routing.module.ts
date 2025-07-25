@@ -35,6 +35,11 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
        , loadChildren: () => import('./nitric-to-fine/nitric-to-fine.module').then(m => m.NitricToFineModule)
        , resolve: {materialResolver: MaterialResolver}
     },
+    { path: 'GpTransaction'
+      // tslint:disable-next-line:max-line-length
+      , loadChildren: () => import('./gp-transaction/gp-transaction.module').then(m => m.GpTransactionModule)
+      , resolve: {materialResolver: MaterialResolver}
+    },
   ]
 }];
 

@@ -281,4 +281,13 @@ export class ReportService {
     getBusinessStatus(){
         return this.http.get(this.commonService.getAPI() + '/current-status-report');
     }
+    getJobDetailsforOwner(jobNumber: any){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/owner/job-report/' + jobNumber)
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
 }

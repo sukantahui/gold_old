@@ -18,9 +18,58 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\InventoryDayBook;
+use App\Models\RawMaterial;
 class ReportController extends ApiController
 {
+    public function ownerJobReport($job_id)
+    {
+        // 1. Check if job exists
+        $jobExists = JobMaster::where('job_id', $job_id)->exists(); // or use 'id' if numeric
+
+        if (!$jobExists) {
+            return $this->errorResponse('Job ID not found.', 404);
+        }
+
+        // 2. Prepare RM types
+        $rm_ids = [
+            'gold' => 48,
+            'pan' => 31,
+            'nitric' => 45,
+        ];
+
+        $result_array = [];
+
+        // 3. Loop through RM types
+        foreach ($rm_ids as $key => $rm_id) {
+            $results = InventoryDayBook::with('rm')
+                ->selectRaw('
+                inventory_day_book.rm_id,
+                inventory_day_book.transaction_type,
+                inventory_day_book.rm_value * inventory_day_book.transaction_type * -1 AS material_value,
+                inventory_day_book.comment,
+                inventory_day_book.timestamp
+            ')
+                ->where('inventory_day_book.rm_id', $rm_id)
+                ->where('inventory_day_book.reference', $job_id)
+                ->get()
+                ->map(function ($item) {
+                    return [
+                        'rm_id' => $item->rm_id,
+                        'transaction_type' => $item->transaction_type,
+                        'transaction_text' => $item->transaction_type == -1 ? 'Add: ' : 'Less: ',
+                        'gold_value' => $item->material_value,
+                        'comment' => $item->comment,
+                        'timestamp' => optional($item->timestamp)->format('d/m/Y h:i A'),
+                        'rm_name' => optional($item->rm)->rm_name,
+                    ];
+                });
+
+            $result_array[$key] = $results;
+        }
+
+        return $this->successResponse((object)$result_array);
+    }
     public function currentStatusReport(){
         $result_array=array();
 

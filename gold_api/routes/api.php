@@ -8,6 +8,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeCashBalanceController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GoldReceiptController;
+use App\Http\Controllers\GpTransactionController;
+use App\Http\Controllers\GpTransactionTypeController;
 use App\Http\Controllers\LcReceiptMasterController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\LogController;
@@ -170,6 +172,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get("goldReceivedFromJobs/total/{startDate}/{endDate}/{rmId}/{employeeId}",[MaterialTransactionController::class ,'getGoldReceivedFromJobByDatesAndEmployee']);
     Route::get('/test', [ReportController::class,'getCurrentJobStatus']);
+    Route::get('/owner/job-report/{job_id}', [ReportController::class,'ownerJobReport']);
 
 
     Route::get('/expenditureLedgers', [LedgerController::class,'get_expenditure']);
@@ -293,6 +296,14 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     //material submitted by owner
     Route::get("ownerSubmittedMaterials",[ReportController::class, 'material_submitted_by_owner']);
+
+
+    //gp transactions
+    Route::get("gpTransactionTypes",[GpTransactionTypeController::class, 'index']);
+    Route::post("gpTransactions",[GpTransactionController::class, 'store']);
+
+    Route::get("gpCurrentBalance",[GpTransactionController::class, 'getCurrentBalance']);
+    Route::get("gpTransactions",[GpTransactionController::class, 'get_gp_transactions']);
 
 });
 

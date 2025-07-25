@@ -1,0 +1,41 @@
+<div class="d-flex flex-row mb-3 ms-4" style="min-height: 100vh; overflow: hidden;">
+    <div class="ms-2" style="width: 16.66%;" id="job-search">
+        <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+            <div class="mb-2">
+                <label for="jobNumber" class="form-label">Enter Job Number:</label>
+                <input
+                        id="jobNumber"
+                        type="text"
+                        class="form-control"
+                        formControlName="jobNumber"
+                        placeholder="e.g. J12345"
+                />
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="searchForm.invalid">
+                Search
+            </button>
+        </form>
+
+        <!-- Optional: Display result -->
+        <div *ngIf="jobData" class="mt-3">
+            <h5>Job Details</h5>
+            <pre>{{ jobData | json }}</pre>
+        </div>
+    </div> <!-- 2/12 -->
+    <div style="width: 83.33%;">Flex item 2</div> <!-- 10/12 -->
+</div>
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div class="col" fxLayoutAlign="center center">
+                <div class="p-3">
+
+                </div>
+            </div>
+            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
+
+            </div>
+        </div>
+    </div>
+</div>
+

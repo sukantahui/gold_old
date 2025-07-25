@@ -198,6 +198,18 @@ export class MenuManagerComponent implements OnInit {
           ]
         },
         {
+          displayName: 'JOB',
+          iconName: 'label',
+          children: [
+            {
+              displayName: 'Print Job',
+              iconName: 'shopping_cart',
+              color: 'blue',
+              route: 'PrintJobForWoner',
+            }
+          ]
+        },
+        {
           displayName: 'Customer',
           iconName: 'label',
           children: [

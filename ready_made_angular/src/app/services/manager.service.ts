@@ -50,4 +50,10 @@ export class ManagerService {
     return  this.http.put(this.commonService.getAPI() + '/topUpGold/' + job + '/' + gold, {})
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
+
+  // Saving GP Transaction
+  saveGpTransactions(gpTransactionData: any) {
+    return  this.http.post(this.commonService.getAPI() + '/gpTransactions', gpTransactionData)
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
 }

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GpTransactionType;
+use App\Http\Requests\StoreGpTransactionTypeRequest;
+use App\Http\Requests\UpdateGpTransactionTypeRequest;
 use App\Models\TransactionType;
-use App\Http\Requests\StoreTransactionTypeRequest;
-use App\Http\Requests\UpdateTransactionTypeRequest;
 
-class TransactionTypeController extends ApiController
+class GpTransactionTypeController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,8 @@ class TransactionTypeController extends ApiController
      */
     public function index()
     {
-        //
+        $result = GpTransactionType::all();
+        return $this->successResponse($result);
     }
 
     /**
@@ -31,10 +33,10 @@ class TransactionTypeController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreTransactionTypeRequest  $request
+     * @param  \App\Http\Requests\StoreGpTransactionTypeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTransactionTypeRequest $request)
+    public function store(StoreGpTransactionTypeRequest $request)
     {
         //
     }
@@ -42,10 +44,10 @@ class TransactionTypeController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TransactionType  $transactionType
+     * @param  \App\Models\GpTransactionType  $gpTransactionType
      * @return \Illuminate\Http\Response
      */
-    public function show(TransactionType $transactionType)
+    public function show(GpTransactionType $gpTransactionType)
     {
         //
     }
@@ -53,10 +55,10 @@ class TransactionTypeController extends ApiController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TransactionType  $transactionType
+     * @param  \App\Models\GpTransactionType  $gpTransactionType
      * @return \Illuminate\Http\Response
      */
-    public function edit(TransactionType $transactionType)
+    public function edit(GpTransactionType $gpTransactionType)
     {
         //
     }
@@ -64,11 +66,11 @@ class TransactionTypeController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateTransactionTypeRequest  $request
-     * @param  \App\Models\TransactionType  $transactionType
+     * @param  \App\Http\Requests\UpdateGpTransactionTypeRequest  $request
+     * @param  \App\Models\GpTransactionType  $gpTransactionType
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTransactionTypeRequest $request, TransactionType $transactionType)
+    public function update(UpdateGpTransactionTypeRequest $request, GpTransactionType $gpTransactionType)
     {
         //
     }
@@ -76,10 +78,10 @@ class TransactionTypeController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TransactionType  $transactionType
+     * @param  \App\Models\GpTransactionType  $gpTransactionType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TransactionType $transactionType)
+    public function destroy(GpTransactionType $gpTransactionType)
     {
         //
     }
