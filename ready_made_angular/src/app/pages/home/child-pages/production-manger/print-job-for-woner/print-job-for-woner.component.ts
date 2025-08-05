@@ -15,6 +15,11 @@ export class PrintJobForWonerComponent implements OnInit {
   searchForm: FormGroup;
   // tslint:disable-next-line:ban-types
   jobData: Object;
+  jobDetails: {gold: any, pan: any, nitric: any};
+  totalGoldUse = 0;
+  totalPanUse = 0;
+  totalNitricUse = 0;
+  // tslint:disable-next-line:max-line-length
   constructor(private reportService: ReportService, private commonService: CommonService, private fb: FormBuilder, private http: HttpClient) {
     this.searchForm = this.fb.group({
       jobNumber: ['', Validators.required],
@@ -29,7 +34,11 @@ export class PrintJobForWonerComponent implements OnInit {
 
     this.reportService.getJobDetailsforOwner(jobNumber).subscribe({
       next: (res) => {
-        console.log(res);
+        this.jobDetails = res.data;
+        // calculating total gold used
+        this.totalGoldUse = this.jobDetails.gold.map(item => item.gold_value).reduce((a, b) => a + b, 0);
+        this.totalPanUse = this.jobDetails.pan.map(item => item.gold_value).reduce((a, b) => a + b, 0);
+        this.totalNitricUse = this.jobDetails.nitric.map(item => item.gold_value).reduce((a, b) => a + b, 0);
       },
       error: (err) => {
         console.log(err);
