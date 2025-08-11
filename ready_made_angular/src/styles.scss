@@ -10816,6 +10816,15 @@ textarea.form-control-lg {
   }
 }
 @media print {
+  .text-end, .text-right {
+    text-align: right !important;
+  }
+  .text-center {
+    text-align: center !important;
+  }
+  .fw-bold {
+    font-weight: bold !important;
+  }
   .d-print-inline {
     display: inline !important;
   }

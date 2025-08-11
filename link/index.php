@@ -18,7 +18,7 @@
   </head>
   <body>
     <?php
-        $ip_address='http://192.168.0.236/';
+        $ip_address='http://192.168.0.186/';
         $records=array(
           array('rank'=>2,'topic'=>'ses diamond এ আগে login করে নিতে হবে','software'=>'ses_diamond2' ,'link'=>'ses_diamond2/')
           ,array('rank'=>4,'topic'=>'gold master এ আগে login করে নিতে হবে','software'=>'ses_diamond2' ,'link'=>'gold_old/gold_master/#/')

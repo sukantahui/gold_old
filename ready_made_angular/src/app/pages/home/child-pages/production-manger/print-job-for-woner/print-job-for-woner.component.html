@@ -18,8 +18,40 @@
         </div>
     </div> <!-- 2/12 -->
     <div style="width: 83.33%;">
-        <div *ngIf="jobDetails">
-            <h2>Gold Transactions</h2>
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 12px;
+            }
+            th, td {
+                padding: 8px;
+                border: 1px solid black;
+            }
+            th {
+                text-align: left;
+            }
+            .text-end, .text-right {
+                text-align: right !important;
+            }
+            .text-center {
+                text-align: center !important;
+            }
+            .fw-bold {
+                font-weight: bold !important;
+            }
+        </style>
+        <div style="text-align: center">
+            <button
+                    mat-button color="primary"
+                    [printStyle]="printDivStyle"
+                    printSectionId="print-job-details"
+                    ngxPrint ><mat-icon>print</mat-icon>
+            </button>
+        </div>
+        <div *ngIf="jobDetails" id="print-job-details">
+            <h2>JOB Details for ID: {{jobDetails.job.job_id}}</h2>
+            <h3>Bill No . {{jobDetails.bill_no}}</h3>
             <table border="1" cellpadding="8" cellspacing="0">
                 <thead>
                     <tr>
@@ -33,32 +65,32 @@
                     <tr *ngFor="let item of jobDetails.gold">
                         <td>{{ item.transaction_text }}</td>
                         <td>{{ item.comment }}</td>
-                        <td class="text-right">{{ item.gold_value }}</td>
+                        <td class="text-end">{{ item.gold_value }}</td>
                         <td>{{ item.timestamp }}</td>
                     </tr>
                     <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
                        <td colspan="2" class="text-center fw-bold">Gold Used</td>
-                       <td class="text-right fw-bold"> {{ totalGoldUse | number:'1.3-3' }}</td>
+                       <td class="text-end fw-bold"> {{ totalGoldUse | number:'1.3-3' }}</td>
                     </tr>
                     <tr *ngFor="let item of jobDetails.pan">
                         <td>{{ item.transaction_text }}</td>
                         <td>{{ item.comment }}</td>
-                        <td class="text-right">{{ item.gold_value }}</td>
+                        <td class="text-end">{{ item.gold_value }}</td>
                         <td>{{ item.timestamp }}</td>
                     </tr>
                     <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
                         <td colspan="2" class="text-center fw-bold">Pan Used</td>
-                        <td class="text-right fw-bold"> {{ totalPanUse | number:'1.3-3' }}</td>
+                        <td class="text-end fw-bold"> {{ totalPanUse | number:'1.3-3' }}</td>
                     </tr>
                     <tr *ngFor="let item of jobDetails.nitric">
                         <td>{{ item.transaction_text }}</td>
                         <td>{{ item.comment }}</td>
-                        <td class="text-right">{{ item.gold_value }}</td>
+                        <td class="text-end">{{ item.gold_value }}</td>
                         <td>{{ item.timestamp }}</td>
                     </tr>
                     <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
-                        <td colspan="2" class="text-center fw-bold">Nitric Used</td>
-                        <td class="text-right fw-bold"> {{ totalNitricUse | number:'1.3-3' }}</td>
+                        <td colspan="2" class="text-end fw-bold">Nitric Used</td>
+                        <td class="text-end fw-bold"> {{ totalNitricUse | number:'1.3-3' }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -83,7 +115,7 @@
                         <td>100%</td>
                         <td>100%</td>
                         <td>{{totalGoldUse | number:'1.3-3'}}</td>
-                        <td class="text-right">{{totalGoldUse * 0.92 | number:'1.3-3'}}</td>
+                        <td class="text-end">{{totalGoldUse * 0.92 | number:'1.3-3'}}</td>
                     </tr>
                     <tr>
                         <th>2</th>
@@ -91,8 +123,8 @@
                         <td>{{totalPanUse | number:'1.3-3'}}</td>
                         <td>100%</td>
                         <td>40%</td>
-                        <td>{{totalPanUse * 0.4 | number:'1.3-3'}}</td>
-                        <td class="text-right">{{totalPanUse * 0.92 | number:'1.3-3'}}</td>
+                        <td>{{totalPanUse * jobDetails.rm_bangle_pan.bill_percentage | number:'1.3-3'}}</td>
+                        <td class="text-end">{{totalPanUse * jobDetails.rm_bangle_pan.bill_percentage * 0.92 | number:'1.3-3'}}</td>
                     </tr>
                     <tr>
                         <th>3</th>
@@ -101,28 +133,28 @@
                         <td>93%</td>
                         <td>100%</td>
                         <td>{{totalNitricUse * 0.93 | number:'1.3-3'}}</td>
-                        <td class="text-right">{{totalNitricUse * 0.92 | number:'1.3-3'}}</td>
+                        <td class="text-end">{{totalNitricUse * 0.92 | number:'1.3-3'}}</td>
                     </tr>
                     <tr>
                         <th>4</th>
                         <td>P Loss</td>
                         <td colspan="3">{{jobDetails.job.p_loss | number:'1.3-3'}} X {{jobDetails.job.pieces}} pcs </td>
                         <td>{{totalPLoss  | number:'1.3-3'}}</td>
-                        <td class="text-right">{{totalPLoss * 0.92 | number:'1.3-3'}}</td>
+                        <td class="text-end">{{totalPLoss * 0.92 | number:'1.3-3'}}</td>
                     </tr>
                     <tr>
                         <th>5</th>
                         <td>MV</td>
                         <td colspan="3">{{jobDetails.job.markup_value | number:'1.3-3'}} X {{jobDetails.job.pieces}} pcs </td>
                         <td>{{totalMV  | number:'1.3-3'}}</td>
-                        <td class="text-right">{{totalMV * 0.92 | number:'1.3-3'}}</td>
+                        <td class="text-end">{{totalMV * 0.92 | number:'1.3-3'}}</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr style="border-top: 1px solid black; border-bottom: 1px solid black;">
                         <th colspan="5">Final Bill Calculated</th>
                         <th>{{finalGini  | number:'1.3-3'}}</th>
-                        <th class="text-right">{{finalGini * 0.92 | number:'1.3-3'}}</th>
+                        <th class="text-end">{{finalGini * 0.92 | number:'1.3-3'}}</th>
                     </tr>
                 </tfoot>
             </table>

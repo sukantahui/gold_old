@@ -70,8 +70,21 @@ class ReportController extends ApiController
         // job details
         $jobDetails=JobMaster::where('job_id', $job_id)->first();
         $result_array['job']=$jobDetails;
+        $billNo="bill not created";
+        if($jobDetails){
+            $billNo = BillDetails::where('job_id', 22)->value('bill_no');
+        }
+        $result_array['bill_no']=$billNo;
+        // bangle pan
         $banglePan = RawMaterial::where('rm_ID', 31)->first();
-        $result_array['bangle_pan']=$banglePan;
+        $result_array['rm_bangle_pan']=$banglePan;
+        // nitric
+        $nitric = RawMaterial::where('rm_ID', 45)->first();
+        $result_array['rm_nitric']=$nitric;
+        // gini 92
+        $gini92 = RawMaterial::where('rm_ID', 48)->first();
+        $result_array['rm_gini92']=$gini92;
+
         return $this->successResponse((object)$result_array);
     }
     public function currentStatusReport(){
