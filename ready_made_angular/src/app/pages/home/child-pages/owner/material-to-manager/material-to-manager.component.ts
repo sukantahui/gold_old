@@ -27,7 +27,7 @@ export class MaterialToManagerComponent implements OnInit {
       this.managerMaterialBalance = response.materialResolver.managerMaterialBalance.data;
     });
     this.ownerToMangerForm = new FormGroup({
-      rm_id: new FormControl(36, [Validators.required]),
+      rm_id: new FormControl(null, [Validators.required]),
       value: new FormControl({value: 0, disabled: false}, [Validators.required, Validators.min(0.001)])
     });
   }
@@ -36,7 +36,14 @@ export class MaterialToManagerComponent implements OnInit {
   }
 
   resetForm() {
-
+    this.ownerToMangerForm.reset({
+      rm_id: null,
+      value: { value: 0, disabled: false }
+    });
+    // ✅ Enable form again after reset
+    this.ownerToMangerForm.enable();
+    this.managerMaterialBalance = this.managerMaterialBalanceUpdated;
+    this.savedResponse = null;
   }
 
   saveTransfer() {
@@ -66,6 +73,8 @@ export class MaterialToManagerComponent implements OnInit {
           });
           this.savedResponse = response;
           this.managerMaterialBalanceUpdated = response.data.manager_all_material_balance;
+          // ✅ Disable the form after successful save
+          this.ownerToMangerForm.disable();
         }
       }, error => {
         // error saving record

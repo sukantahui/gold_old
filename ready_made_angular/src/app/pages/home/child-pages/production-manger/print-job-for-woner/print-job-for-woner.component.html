@@ -132,8 +132,8 @@
                         <td>{{totalNitricUse | number:'1.3-3'}}</td>
                         <td>93%</td>
                         <td>100%</td>
-                        <td>{{totalNitricUse * 0.93 | number:'1.3-3'}}</td>
-                        <td class="text-end">{{totalNitricUse * 0.92 | number:'1.3-3'}}</td>
+                        <td>{{totalNitricUse * jobDetails.rm_nitric.job_percentage | number:'1.3-3'}}</td>
+                        <td class="text-end">{{totalNitricUse * jobDetails.rm_nitric.job_percentage * 0.92 | number:'1.3-3'}}</td>
                     </tr>
                     <tr>
                         <th>4</th>

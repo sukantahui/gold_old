@@ -6,8 +6,10 @@ import { ReceivedRawMaterialFromEmployeeComponent } from './received-raw-materia
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 @NgModule({
@@ -22,7 +24,10 @@ import {MatInputModule} from '@angular/material/input';
     MatTabsModule,
     NgSelectModule,
     MatInputModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatCardModule,
+    FormsModule,
+    MatDividerModule
   ]
 })
 export class ReceivedRawMaterialFromEmployeeModule { }

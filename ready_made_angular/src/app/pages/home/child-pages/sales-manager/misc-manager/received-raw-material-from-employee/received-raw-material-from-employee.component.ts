@@ -55,7 +55,7 @@ export class ReceivedRawMaterialFromEmployeeComponent implements OnInit {
 
   saveMaterialTransfer() {
     Swal.fire({
-      title: 'Dal Creation',
+      title: 'Receiving Material from Employee',
       text: 'Are you sure?',
       icon: 'warning',
       showCancelButton: true,
@@ -94,7 +94,7 @@ export class ReceivedRawMaterialFromEmployeeComponent implements OnInit {
     });
   }
 
-  onEmployeeChange() {
+  onEmployeeChange($event: any) {
     const selectedEmployeeId = this.materialRecivingForm.get('outward_employee_id').value;
     // tslint:disable-next-line:max-line-length
     if (selectedEmployeeId) {

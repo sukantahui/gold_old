@@ -1,0 +1,81 @@
+/* General page background and spacing */
+.container-fluid {
+  background: #f4f6f8;
+}
+
+/* Mat-card style consistency */
+mat-card {
+  border-radius: 12px !important;
+  border: none !important;
+  background: #fff;
+}
+
+/* Mat-card titles */
+mat-card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #444;
+}
+
+/* Tables */
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+.table thead {
+  background-color: #f1f3f5;
+}
+.table th {
+  font-weight: 600;
+  color: #555;
+}
+.table td {
+  color: #333;
+}
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Ng-select styling to match Material fields */
+ng-select.custom,
+ng-select.w-100 {
+  border-radius: 6px;
+  min-height: 48px;
+}
+ng-select .ng-select-container {
+  border: 1px solid #d1d5db;
+  min-height: 48px;
+}
+ng-select .ng-select-container:hover {
+  border-color: #3f51b5;
+}
+ng-select .ng-select-container .ng-value-container {
+  padding: 6px 10px;
+}
+
+/* Mat-form-field adjustments */
+.mat-form-field {
+  background: white;
+  border-radius: 6px;
+  padding: 0 6px;
+}
+.mat-input-element {
+  font-size: 0.95rem;
+}
+
+/* Save button styling */
+button[mat-raised-button] {
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Developer area look */
+#developer-div pre {
+  background: #212529;
+  color: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}

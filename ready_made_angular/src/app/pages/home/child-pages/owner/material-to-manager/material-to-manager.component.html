@@ -14,7 +14,7 @@
             <div>
                 <mat-form-field class="example-full-width">
                     <mat-label>Enter Quantity</mat-label>
-                    <input type="number"  #silverValue class="text-right"  matInput formControlName="value" placeholder="Material" >
+                    <input type="number" min="0.001" step="1.000" #silverValue class="text-right"  matInput formControlName="value" placeholder="Material" >
                 </mat-form-field>
             </div>
 
@@ -33,41 +33,62 @@
         </form>
     </div>
     <div class="p-2 col-8 d-flex">
-        <div class="p-2 col-6" *ngIf="managerMaterialBalance">
-            <table class="table table-dark table-striped  col-xl-12 col-lg-12 col-xs-12">
-                <thead>
-                <tr>
-                    <th scope="col">Material Name</th>
-                    <th scope="col">Value</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let material of managerMaterialBalance">
-                    <td>{{material.rawMaterialName}}</td>
-                    <td class="text-right">{{material.closingBalance}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <!-- After save savedResponse -->
         <div class="p-2 col-6" *ngIf="savedResponse">
             <table class="table table-success table-striped  col-xl-12 col-lg-12 col-xs-12">
                 <thead>
                 <tr>
+                    <th colspan="2">Manager Balance
+                        <span *ngIf="savedResponse">পরিবর্তনের পরে</span>
+                    </th>
+                </tr>
+                <tr>
                     <th scope="col">Material Name</th>
                     <th scope="col">Value</th>
 
                 </tr>
                 </thead>
                 <tbody>
-                                <tr *ngFor="let material of managerMaterialBalanceUpdated">
-                                    <td>{{material.rawMaterialName}}</td>
-                                    <td class="text-right">{{material.closingBalance}}</td>
+                                <tr *ngFor="let material of managerMaterialBalanceUpdated" [class.highlight]="material.rmId === ownerToMangerForm.get('rm_id')?.value">
+                                    <td>
+                                        <span *ngIf="material.rmId === ownerToMangerForm.get('rm_id')?.value">➡</span>
+                                        {{material.rawMaterialName}}
+                                    </td>
+                                    <td class="text-right">{{material.closingBalance | number:'1.3-3'}}</td>
                                 </tr>
                 </tbody>
             </table>
         </div>
+        <!-- Before Save-->
+        <div class="p-2 col-6" *ngIf="managerMaterialBalance">
+            <table class="table  table-striped  col-xl-12 col-lg-12 col-xs-12">
+                <thead>
+                <tr>
+                    <th colspan="2">Manager Balance
+                        <span *ngIf="!savedResponse">এখনকার</span>
+                        <span *ngIf="savedResponse">আগের</span>
+                    </th>
+                </tr>
+                <tr>
+                    <th scope="col">Material Name</th>
+                    <th scope="col">Value</th>
 
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let material of managerMaterialBalance">
+                <tr *ngIf="material.closingBalance !== 0 || material.rmId === ownerToMangerForm.get('rm_id')?.value"
+                    [class.highlight]="material.rmId === ownerToMangerForm.get('rm_id')?.value">
+                    <td>
+                        <span *ngIf="material.rmId === ownerToMangerForm.get('rm_id')?.value">➡</span>
+                        {{material.rawMaterialName}}
+                    </td>
+                    <td class="text-right">{{material.closingBalance | number:'1.3-3'}}</td>
+                </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <mat-button-toggle-group name="fontStyle" aria-label="Font Style" *ngIf="!isProduction">
