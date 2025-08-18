@@ -85,4 +85,11 @@ export class MaterialFromManagerComponent implements OnInit {
     }
     this.ownerFromMangerForm.reset();
   }
+
+  selectMaterial(material: any) {
+    console.log(material);
+    this.ownerFromMangerForm.patchValue({
+      rm_id: material.rmId
+    });
+  }
 }

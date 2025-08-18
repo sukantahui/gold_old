@@ -58,6 +58,10 @@ export class MaterialToManagerComponent implements OnInit {
     }).then((result) => {
       if (!result.value){return;}
       // here API call to save the data
+      if (this.ownerToMangerForm.invalid) {
+        this.ownerToMangerForm.markAllAsTouched(); // forces error display
+        return;
+      }
       this.managerService.saveMaterialFromOwnerToManager(this.ownerToMangerForm.value).subscribe((response: {status: any, message: string , data: any}) => {
         // when saved record successfully
         if (response.status === true) {
@@ -87,6 +91,12 @@ export class MaterialToManagerComponent implements OnInit {
           timer: 3000
         });
       });
+    });
+  }
+
+  selectMaterial(material: any) {
+    this.ownerToMangerForm.patchValue({
+      rm_id: material.rmId
     });
   }
 }

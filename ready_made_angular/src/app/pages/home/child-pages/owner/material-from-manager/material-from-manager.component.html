@@ -1,4 +1,4 @@
-<div class="d-flex flex-row" style="min-height: 80vh;">
+<div class="d-flex flex-row gradient-bg" style="min-height: 80vh;">
     <div class="p-2 col-4">
         <h2>Withdrawing from Manager</h2>
         <h5>ম্যানেজারের কাছ থেকে মেটাল তুলে নেওয়ার পদ্ধতি</h5>
@@ -43,7 +43,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let material of managerMaterialBalance " [class.highlight]="material.rmId === ownerFromMangerForm.get('rm_id')?.value">
+                <tr *ngFor="let material of managerMaterialBalance "
+                    [class.highlight]="material.rmId === ownerFromMangerForm.get('rm_id')?.value"
+                    (click)="selectMaterial(material)">
                     <td>
                         <span *ngIf="material.rmId === ownerFromMangerForm.get('rm_id')?.value">➡</span>
                         {{material.rawMaterialName}}
@@ -64,7 +66,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let material of managerMaterialBalanceUpdated" [class.highlight]="material.rmId === ownerFromMangerForm.get('rm_id')?.value">
+                <tr *ngFor="let material of managerMaterialBalanceUpdated"
+                    [class.highlight]="material.rmId === ownerFromMangerForm.get('rm_id')?.value"
+                    (click)="selectMaterial(material)">
                     <td>
                         <span *ngIf="material.rmId === ownerFromMangerForm.get('rm_id')?.value">➡</span>
                         {{material.rawMaterialName}}
