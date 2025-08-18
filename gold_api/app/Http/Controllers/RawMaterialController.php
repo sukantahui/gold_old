@@ -22,7 +22,7 @@ class RawMaterialController extends ApiController
         return $this->successResponse(RawMaterialResource::collection($rawMaterials));
     }
     public function getRawMaterialsWithManager(){
-        $rawMaterials = RmMaster::whereIn(
+        $rawMaterials = RawMaterial::whereIn(
             'rm_ID',
             MaterialToEmployeeBalance::where('emp_id', 72)->pluck('rm_id')
         )->get();

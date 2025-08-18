@@ -34,7 +34,7 @@
     </div>
     <div class="p-2 col-8 d-flex">
         <div class="p-2 col-6" *ngIf="managerMaterialBalance">
-            <table class="table table-dark table-striped  col-xl-12 col-lg-12 col-xs-12">
+            <table class="table  table-striped  col-xl-12 col-lg-12 col-xs-12">
                 <thead>
                 <tr>
                     <th scope="col">Material Name</th>
@@ -43,9 +43,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let material of managerMaterialBalance">
-                    <td>{{material.rawMaterialName}}</td>
-                    <td class="text-right">{{material.closingBalance}}</td>
+                <tr *ngFor="let material of managerMaterialBalance " [class.highlight]="material.rmId === ownerFromMangerForm.get('rm_id')?.value">
+                    <td>
+                        <span *ngIf="material.rmId === ownerFromMangerForm.get('rm_id')?.value">➡</span>
+                        {{material.rawMaterialName}}
+                    </td>
+
+                    <td class="text-right">{{material.closingBalance | number:'1.3-3'}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -60,9 +64,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let material of managerMaterialBalanceUpdated">
-                    <td>{{material.rawMaterialName}}</td>
-                    <td class="text-right">{{material.closingBalance}}</td>
+                <tr *ngFor="let material of managerMaterialBalanceUpdated" [class.highlight]="material.rmId === ownerFromMangerForm.get('rm_id')?.value">
+                    <td>
+                        <span *ngIf="material.rmId === ownerFromMangerForm.get('rm_id')?.value">➡</span>
+                        {{material.rawMaterialName}}
+                    </td>
+                    <td class="text-right">{{material.closingBalance | number:'1.3-3'}}</td>
                 </tr>
                 </tbody>
             </table>
