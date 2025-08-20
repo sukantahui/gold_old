@@ -20,8 +20,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\InventoryDayBook;
 use App\Models\RawMaterial;
+use App\Models\CashTransactionBetweenEmployee;
 class ReportController extends ApiController
 {
+    public function cashTransactionByEmployees(){
+        $transactions = DB::table('cash_transaction_between_employees')
+            ->join('employees as payees', 'cash_transaction_between_employees.payee_id', '=', 'payees.emp_id')
+            ->join('employees as payers', 'cash_transaction_between_employees.payer_id', '=', 'payers.emp_id')
+            ->select(
+                'cash_transaction_between_employees.cash_transaction_id',
+                'cash_transaction_between_employees.payee_id',
+                'payees.emp_name as payee_name',
+                'cash_transaction_between_employees.payer_id',
+                'payers.emp_name as payer_name',
+                'cash_transaction_between_employees.cash',
+                'cash_transaction_between_employees.tr_date'
+            )
+            ->get();
+        return $this->successResponse($transactions);
+    }
     public function ownerJobReport($job_id)
     {
         // 1. Check if job exists

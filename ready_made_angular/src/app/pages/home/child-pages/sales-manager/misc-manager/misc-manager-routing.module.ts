@@ -40,6 +40,11 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
       , loadChildren: () => import('./gp-transaction/gp-transaction.module').then(m => m.GpTransactionModule)
       , resolve: {materialResolver: MaterialResolver}
     },
+    { path: 'ManagerCashWithdrawn'
+      // tslint:disable-next-line:max-line-length
+      , loadChildren: () => import('./manager-cash-withdrawn/manager-cash-withdrawn.module').then(m => m.ManagerCashWithdrawnModule)
+      , resolve: {materialResolver: MaterialResolver}
+    },
   ]
 }];
 

@@ -109,6 +109,12 @@ class MatBetweenEmployeeMasterController extends ApiController
             }
             $return_array['receiver_material_balance']=$materialToEmployeeBalance;
 
+            $result_sender = MaterialToEmployeeBalance::whereEmpId( auth()->user()->emp_id)->get();
+            $return_array['sender_all_material_balance']=MaterialBalanceResource::collection($result_sender);
+
+            $result_receiver = MaterialToEmployeeBalance::whereEmpId( $data->inward_employee_id)->get();
+            $return_array['receiver_all_material_balance']=MaterialBalanceResource::collection($result_receiver);
+
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();

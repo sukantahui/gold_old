@@ -40,8 +40,8 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
       // this.selectableEmployees = null;
     });
     this.materialSendingForm = new FormGroup({
-      outward_employee_id: new FormControl(null, [Validators.required]),
-      inward_employee_id: new FormControl(this.user.emp_id, [Validators.required]),
+      outward_employee_id: new FormControl(this.user.emp_id, [Validators.required]),
+      inward_employee_id: new FormControl(null, [Validators.required]),
       rm_id: new FormControl(null, [Validators.required]),
       value: new FormControl(0, [Validators.required]),
     });
@@ -53,7 +53,7 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
 
   saveMaterialTransfer() {
     Swal.fire({
-      title: 'Dal Creation',
+      title: 'Send Material',
       text: 'Are you sure?',
       icon: 'warning',
       showCancelButton: true,

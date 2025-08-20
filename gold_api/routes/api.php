@@ -305,6 +305,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get("gpCurrentBalance",[GpTransactionController::class, 'getCurrentBalance']);
     Route::get("gpTransactions",[GpTransactionController::class, 'get_gp_transactions']);
+    Route::get('/cahTransactionsBetweenEmployees', [ReportController::class,'cashTransactionByEmployees']);
 
 });
 
@@ -457,6 +458,8 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get('/expenditureLedgersTotal/{year}/{month}',[TransactionController::class,'get_expenditure_ledgers_group_total_by_year_n_month']);
 
     Route::post('/ledgers', [LedgerController::class,'create_ledger']);
+
+
 
 
     Route::get('/test', [ReportController::class,'getCurrentJobStatus']);

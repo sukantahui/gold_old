@@ -30,9 +30,13 @@
         </form>
     </div>
     <div class="p-2 col-8 d-flex">
+        <!--        Before Sending-->
         <div class="p-2 col-6">
             <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
                 <thead>
+                <tr>
+                    <td colspan="2">Previous Value</td>
+                </tr>
                 <tr>
                     <th scope="col">Material Name</th>
                     <th scope="col">Value</th>
@@ -47,7 +51,27 @@
                 </tbody>
             </table>
         </div>
-        <div class="p-2">Flex item 1</div>
+        <!--        After Sending-->
+        <div class="p-2 col-6" *ngIf="savedResponse">
+                <table class="table table-striped  col-xl-12 col-lg-12 col-xs-12">
+                    <thead>
+                    <tr>
+                        <td colspan="2">Updated Value</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Material Name</th>
+                        <th scope="col">Value</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let material of savedResponse.data.sender_all_material_balance">
+                        <td>{{material.rawMaterialName}}</td>
+                        <td class="text-right">{{material.closingBalance}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
 
     </div>
 </div>
@@ -70,8 +94,7 @@
             </mat-tab>
             <mat-tab label="Sec 2">
                 <pre>
-                    selectableMaterials = {{selectableMaterials | json}}
-                    rawMaterials = {{rawMaterials | json}}
+                    savedResponse = {{savedResponse.data.sender_all_material_balance | json}}
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 3">
