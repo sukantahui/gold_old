@@ -1,1 +1,85 @@
-<p>manager-cash-withdrawn works!</p>
+<div class="container-fluid py-3" style="min-height: 80vh; background-color: #f9f9f9;">
+    <div class="row">
+        <!-- Left Column: Form -->
+        <div class="col-lg-4 col-md-6 col-12 mb-4">
+            <mat-card class="shadow-sm p-3">
+                <mat-card-title class="mb-3">Material Receiving Form</mat-card-title>
+                <form [formGroup]="cashWithdrawForm">
+                    <div class="mb-3">
+                        <ng-select
+                                [items]="employees"
+                                (change)="onEmployeeChange($event)"
+                                bindLabel="employeeName"
+                                bindValue="employeeId"
+                                formControlName="payer_id"
+                                placeholder="Receiving from"
+                                class="w-100">
+                        </ng-select>
+                    </div>
+
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Enter Cash</mat-label>
+                            <input type="number" matInput formControlName="cash" placeholder="Cash" class="text-end">
+                            <mat-error *ngIf="cashWithdrawForm.get('cash')?.hasError('required')">
+                                Value is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3">
+
+                    </div>
+
+                    <div class="text-end">
+                        <button
+                                mat-raised-button
+                                color="primary"
+                                [disabled]="!cashWithdrawForm.valid || cashWithdrawForm.pristine"
+                                (click)="saveCashWithdrawn()">
+                            💾 Save Record
+                        </button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+
+        <!-- Right Column: Balances -->
+
+        <div class="col-lg-8 col-12">
+            <!-- Right Div -->
+
+
+        </div>
+    </div>
+
+    <!-- Developer Toggle -->
+    <div class="mt-4" *ngIf="!isProduction">
+        <mat-button-toggle-group [(ngModel)]="showDeveloperDiv">
+            <mat-button-toggle [value]="true">Show Developer Area</mat-button-toggle>
+            <mat-button-toggle [value]="false">Hide Developer Area</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <div *ngIf="showDeveloperDiv" id="developer-div" class="mt-3">
+            <mat-card class="shadow-sm p-3">
+                <mat-card-title>Developer Area</mat-card-title>
+                <mat-tab-group mat-align-tabs="center" backgroundColor="accent">
+                    <mat-tab label="Form Data">
+                        <pre>
+                            cashWithdrawForm={{cashWithdrawForm.value | json}}
+                        </pre>
+
+                    </mat-tab>
+                    <mat-tab label="Saved Response">
+                        <pre>
+                            employees={{employees | json}}
+                        </pre>
+                    </mat-tab>
+                    <mat-tab label="Section 3">
+                        <pre></pre>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card>
+        </div>
+    </div>
+</div>

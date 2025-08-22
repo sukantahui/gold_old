@@ -39,6 +39,31 @@ class ReportController extends ApiController
             ->get();
         return $this->successResponse($transactions);
     }
+    public function cashTransactionByCurrentEmployees()
+    {
+        $currentUserId = Auth::user()->emp_id;
+
+        $transactions = DB::table('cash_transaction_between_employees as c')
+            ->join('employees as payees', 'c.payee_id', '=', 'payees.emp_id')
+            ->join('employees as payers', 'c.payer_id', '=', 'payers.emp_id')
+            ->select(
+                'c.cash_transaction_id',
+                'c.payee_id',
+                'payees.emp_name as payee_name',
+                'c.payer_id',
+                'payers.emp_name as payer_name',
+                'c.cash',
+                'c.tr_date'
+            )
+            ->where(function($query) use ($currentUserId) {
+                $query->where('c.payee_id', 28)
+                    ->orWhere('c.payer_id', 28);
+            })
+            ->get();
+
+        return $this->successResponse($transactions);
+    }
+
     public function ownerJobReport($job_id)
     {
         // 1. Check if job exists

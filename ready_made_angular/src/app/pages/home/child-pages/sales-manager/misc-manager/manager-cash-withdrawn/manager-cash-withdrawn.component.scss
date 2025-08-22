@@ -1,0 +1,15 @@
+button[mat-raised-button] {
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Developer area look */
+#developer-div pre {
+  background: #212529;
+  color: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}

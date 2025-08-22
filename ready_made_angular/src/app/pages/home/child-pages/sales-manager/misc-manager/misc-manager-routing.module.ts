@@ -4,6 +4,7 @@ import { MiscManagerComponent } from './misc-manager.component';
 import {CustomerReceiptResolver} from '../../../../../resolvers/customer-receipt.resolver';
 import {MaterialBalanceResolver} from '../../../../../resolvers/material-balance.resolver';
 import {MaterialResolver} from '../../../../../resolvers/material.resolver';
+import {EmployeesResolver} from '../../../../../resolvers/employees.resolver';
 
 const routes: Routes = [{ path: '', component: MiscManagerComponent
   , children: [
@@ -43,7 +44,9 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
     { path: 'ManagerCashWithdrawn'
       // tslint:disable-next-line:max-line-length
       , loadChildren: () => import('./manager-cash-withdrawn/manager-cash-withdrawn.module').then(m => m.ManagerCashWithdrawnModule)
-      , resolve: {materialResolver: MaterialResolver}
+      , resolve: {
+          employeeResolver: EmployeesResolver
+        }
     },
   ]
 }];

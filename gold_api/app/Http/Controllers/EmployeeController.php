@@ -6,6 +6,7 @@ use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends ApiController
 {
@@ -16,7 +17,11 @@ class EmployeeController extends ApiController
      */
     public function get_employees()
     {
-        $result=Employee::get();
+        $currentUserId = Auth::user()->emp_id;
+        $result = Employee::where('inforce', 1)
+            ->where('emp_id', '!=', 28)
+            ->where('emp_id', '!=', $currentUserId)
+            ->get();
         return $this->successResponse(EmployeeResource::collection($result));
     }
 

@@ -306,6 +306,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("gpCurrentBalance",[GpTransactionController::class, 'getCurrentBalance']);
     Route::get("gpTransactions",[GpTransactionController::class, 'get_gp_transactions']);
     Route::get('/cahTransactionsBetweenEmployees', [ReportController::class,'cashTransactionByEmployees']);
+    Route::get('/cahTransactionsByCurrentEmployee', [ReportController::class,'cashTransactionByCurrentEmployees']);
+
 
 });
 

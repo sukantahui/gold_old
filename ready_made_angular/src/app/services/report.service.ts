@@ -25,6 +25,15 @@ export class ReportService {
 
             }));
     }
+    cashTransactionsByCurrentUser(){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/cahTransactionsByCurrentEmployee')
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
     getRawMaterialsManager(){
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/rawMaterials-manager')
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
