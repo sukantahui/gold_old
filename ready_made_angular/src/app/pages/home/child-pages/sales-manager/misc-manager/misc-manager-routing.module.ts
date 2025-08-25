@@ -5,6 +5,8 @@ import {CustomerReceiptResolver} from '../../../../../resolvers/customer-receipt
 import {MaterialBalanceResolver} from '../../../../../resolvers/material-balance.resolver';
 import {MaterialResolver} from '../../../../../resolvers/material.resolver';
 import {EmployeesResolver} from '../../../../../resolvers/employees.resolver';
+import {ProjectDetailsResolver} from '../../../../../resolvers/project-details.resolver';
+import {CashTransactionByEmployeeResolver} from '../../../../../resolvers/cash-transaction-by-employee.resolver';
 
 const routes: Routes = [{ path: '', component: MiscManagerComponent
   , children: [
@@ -45,7 +47,9 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
       // tslint:disable-next-line:max-line-length
       , loadChildren: () => import('./manager-cash-withdrawn/manager-cash-withdrawn.module').then(m => m.ManagerCashWithdrawnModule)
       , resolve: {
-          employeeResolver: EmployeesResolver
+          employeeResolver: EmployeesResolver,
+          projectDetails: ProjectDetailsResolver,
+          cashTransactionsByEmployee: CashTransactionByEmployeeResolver
         }
     },
   ]

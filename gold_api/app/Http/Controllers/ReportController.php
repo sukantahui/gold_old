@@ -41,8 +41,7 @@ class ReportController extends ApiController
     }
     public function cashTransactionByCurrentEmployees()
     {
-        $currentUserId = Auth::user()->emp_id;
-
+        $currentUserId = Auth::user()->emp_id; // ✅ capture here
         $transactions = DB::table('cash_transaction_between_employees as c')
             ->join('employees as payees', 'c.payee_id', '=', 'payees.emp_id')
             ->join('employees as payers', 'c.payer_id', '=', 'payers.emp_id')
@@ -55,14 +54,15 @@ class ReportController extends ApiController
                 'c.cash',
                 'c.tr_date'
             )
-            ->where(function($query) use ($currentUserId) {
-                $query->where('c.payee_id', 28)
-                    ->orWhere('c.payer_id', 28);
+            ->where(function ($query) use ($currentUserId) {
+                $query->where('c.payee_id', $currentUserId)
+                    ->orWhere('c.payer_id', $currentUserId);
             })
             ->get();
 
         return $this->successResponse($transactions);
     }
+
 
     public function ownerJobReport($job_id)
     {
