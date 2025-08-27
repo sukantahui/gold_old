@@ -35,6 +35,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\MaterialToEmployeeBalanceController;
+use App\Http\Controllers\CashTransactionBetweenEmployeeController;
 use App\Http\Controllers\MaterialTransactionController;
 use App\Http\Controllers\JobMasterController;
 
@@ -239,6 +240,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("lcReceipt/byReceiptNumber",[LcReceiptMasterController::class, 'getLcReceiptsByReceiptNo']);
 
     Route::get("employee/cash/currentBalance",[EmployeeCashBalanceController::class, 'getCurrentCashBalance']);
+    Route::get("employee/cash/currentBalance/{emp_id}",[EmployeeCashBalanceController::class, 'getCurrentCashBalanceByEmpId']);
 
     Route::get("customer/goldReceipt/{customer_id}",[GoldReceiptController::class, 'getLcReceiptsByCustomer']);
 
@@ -307,6 +309,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("gpTransactions",[GpTransactionController::class, 'get_gp_transactions']);
     Route::get('/cahTransactionsBetweenEmployees', [ReportController::class,'cashTransactionByEmployees']);
     Route::get('/cahTransactionsByCurrentEmployee', [ReportController::class,'cashTransactionByCurrentEmployees']);
+    Route::post('/cashTransactionBetweenEmployee', [CashTransactionBetweenEmployeeController::class,'store']);
+    Route::get('/cashBalances', [ReportController::class,'cashBalances']);
 
 
 });
@@ -314,7 +318,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
 
-
+//*********************************************************************************************
 
 
 Route::group(array('prefix' => 'dev'), function() {

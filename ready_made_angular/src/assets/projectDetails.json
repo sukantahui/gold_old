@@ -9,7 +9,7 @@
     },
     "employeeToManagerMaterial": {
         "employees": [70,92],
-        "materialsToSend": [45,48,33,31]
+        "materialsToSend": [36,45,48,33,31]
     },
     "managerCashWithdrawn": {
         "employees": [70,92]

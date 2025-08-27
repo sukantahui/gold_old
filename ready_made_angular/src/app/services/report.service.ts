@@ -25,6 +25,15 @@ export class ReportService {
 
             }));
     }
+    cashBalance(){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/cashBalances')
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
     cashTransactionsByCurrentUser(){
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/cahTransactionsByCurrentEmployee')
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {

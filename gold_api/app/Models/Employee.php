@@ -16,4 +16,9 @@ class Employee extends Model
     public function designation() {
         return $this->belongsTo(Designation::class , 'designation_id');
     }
+    // ✅ reverse relation: employee has one cash balance
+    public function cashBalance()
+    {
+        return $this->hasOne(EmployeeCashBalance::class, 'emp_id', 'emp_id');
+    }
 }

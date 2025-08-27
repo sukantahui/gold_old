@@ -13,6 +13,9 @@ class CashTransactionBetweenEmployee extends Model
     public $timestamps = false;
 
     // Both payer and payee are employees
+    private $payee_id;
+    private $cash_transaction_id;
+
     public function payee()
     {
         return $this->belongsTo(Employee::class, 'payee_id', 'emp_id');

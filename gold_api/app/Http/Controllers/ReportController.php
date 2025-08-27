@@ -10,6 +10,7 @@ use App\Models\BillDetails;
 use App\Models\BillMaster;
 use App\Models\Customer;
 use App\Models\Employee;
+use App\Models\EmployeeCashBalance;
 use App\Models\JobMaster;
 use App\Models\MaterialToEmployeeBalance;
 use App\Models\OrderMaster;
@@ -23,6 +24,20 @@ use App\Models\RawMaterial;
 use App\Models\CashTransactionBetweenEmployee;
 class ReportController extends ApiController
 {
+    public function cashBalances(){
+        $balances = EmployeeCashBalance::select(
+            'employees_cash_balance.*',
+            'employees.emp_name'
+        )
+            ->join('employees', 'employees_cash_balance.emp_id', '=', 'employees.emp_id')
+            ->where(function ($query) {
+                $query->where('employees_cash_balance.inward', '!=', 0)
+                    ->orWhere('employees_cash_balance.outward', '!=', 0)
+                    ->orWhere('employees_cash_balance.balance', '!=', 0);
+            })
+            ->get();
+        return $this->successResponse($balances);
+    }
     public function cashTransactionByEmployees(){
         $transactions = DB::table('cash_transaction_between_employees')
             ->join('employees as payees', 'cash_transaction_between_employees.payee_id', '=', 'payees.emp_id')

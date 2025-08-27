@@ -3,6 +3,7 @@ import {CommonService} from './common.service';
 import {HttpClient} from '@angular/common/http';
 import {ErrorService} from './error.service';
 import {catchError, tap} from 'rxjs/operators';
+import {ServerResponse} from '../models/ServerResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,20 @@ export class ManagerService {
     return  this.http.post(this.commonService.getAPI() + '/materialFromEmployee', materialTransfer)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
+  saveCashTransactionBetweenEmployee(cashWithdrawData: any){
+    return  this.http.post(this.commonService.getAPI() + '/cashTransactionBetweenEmployee', cashWithdrawData)
+        .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
+  }
+  cashTransactionsByCurrentUser(){
+    return this.http.get<ServerResponse>(this.commonService.getAPI() + '/cahTransactionsByCurrentEmployee')
+        .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+          if (response.status === true){
+
+          }
+
+        }));
+  }
+
   // special Owner to Manager
   saveMaterialFromOwnerToManager(materialTransfer: any) {
     return  this.http.post(this.commonService.getAPI() + '/materialFromOwnerToManager', materialTransfer)

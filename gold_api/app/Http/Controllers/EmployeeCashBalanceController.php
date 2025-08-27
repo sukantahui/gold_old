@@ -14,4 +14,8 @@ class EmployeeCashBalanceController extends APIController
         $result=EmployeeCashBalance::findOrFail($user_id);
         return $this->successResponse($result);
     }
+    public function getCurrentCashBalanceByEmpId($emp_id){
+        $result=EmployeeCashBalance::findOrFail($emp_id);
+        return $this->successResponse($result);
+    }
 }

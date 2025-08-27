@@ -12,4 +12,10 @@ class EmployeeCashBalance extends Model
     protected $primaryKey = 'emp_id'; // or null
     public $incrementing = false;
     public $timestamps = false;
+
+    // ✅ relation: every balance belongs to an Employee
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'emp_id', 'emp_id');
+    }
 }
