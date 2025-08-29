@@ -3,7 +3,7 @@
         <!-- Left Column: Form -->
         <div class="col-lg-4 col-md-6 col-12 mb-4">
             <mat-card class="shadow-sm p-3">
-                <mat-card-title class="mb-3">Cash Withdraw</mat-card-title>
+                <mat-card-title class="mb-3">Cash Withdraw by {{this.currentUser.userName}}</mat-card-title>
                 <form [formGroup]="cashWithdrawForm">
                     <div class="mb-3">
                         <ng-select
@@ -102,8 +102,8 @@
                             <thead class="table-light">
                             <tr>
                                 <th>Date</th>
-                                <th>Payer</th>
-                                <th>Payee</th>
+                                <th>Payer(দিয়েছে)</th>
+                                <th>Payee(নিয়েছে)</th>
                                 <th class="text-end">Cash</th>
                             </tr>
                             </thead>

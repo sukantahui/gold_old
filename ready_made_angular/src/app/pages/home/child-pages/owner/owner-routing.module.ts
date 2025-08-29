@@ -3,6 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { OwnerComponent } from './owner.component';
 import {MaterialBalanceResolver} from '../../../../resolvers/material-balance.resolver';
 import {MaterialResolver} from '../../../../resolvers/material.resolver';
+import {EmployeesResolver} from '../../../../resolvers/employees.resolver';
+import {ProjectDetailsResolver} from '../../../../resolvers/project-details.resolver';
+import {CashTransactionByEmployeeResolver} from '../../../../resolvers/cash-transaction-by-employee.resolver';
+import {CashBalanceResolver} from '../../../../resolvers/cash-balance.resolver';
+import {UserResolver} from '../../../../resolvers/user.resolver';
 
 const routes: Routes = [{ path: '', component: OwnerComponent
   , children: [
@@ -14,6 +19,18 @@ const routes: Routes = [{ path: '', component: OwnerComponent
     , loadChildren: () => import('./material-from-manager/material-from-manager.module').then(m => m.MaterialFromManagerModule)
     , resolve: {materialResolver: MaterialResolver}
   },
+   { path: 'OwnerCashWithdrawn'
+      // tslint:disable-next-line:max-line-length
+      , loadChildren: () => import('src/app/pages/home/child-pages/sales-manager/misc-manager/manager-cash-withdrawn/manager-cash-withdrawn.module').then(m => m.ManagerCashWithdrawnModule)
+      , resolve: {
+        employeeResolver: EmployeesResolver,
+        projectDetails: ProjectDetailsResolver,
+        cashTransactionsByEmployee: CashTransactionByEmployeeResolver,
+        cashBalances: CashBalanceResolver,
+        currentUser: UserResolver
+      }
+   },
+
   ]
 }];
 

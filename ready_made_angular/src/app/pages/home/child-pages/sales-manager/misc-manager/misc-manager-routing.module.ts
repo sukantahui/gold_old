@@ -8,6 +8,7 @@ import {EmployeesResolver} from '../../../../../resolvers/employees.resolver';
 import {ProjectDetailsResolver} from '../../../../../resolvers/project-details.resolver';
 import {CashTransactionByEmployeeResolver} from '../../../../../resolvers/cash-transaction-by-employee.resolver';
 import {CashBalanceResolver} from '../../../../../resolvers/cash-balance.resolver';
+import {UserResolver} from '../../../../../resolvers/user.resolver';
 
 const routes: Routes = [{ path: '', component: MiscManagerComponent
   , children: [
@@ -51,7 +52,8 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
           employeeResolver: EmployeesResolver,
           projectDetails: ProjectDetailsResolver,
           cashTransactionsByEmployee: CashTransactionByEmployeeResolver,
-          cashBalances: CashBalanceResolver
+          cashBalances: CashBalanceResolver,
+          currentUser: UserResolver
         }
     },
   ]

@@ -13,5 +13,8 @@
     },
     "managerCashWithdrawn": {
         "employees": [70,92]
+    },
+    "ownerCashWithdrawnFromManager": {
+        "employees": [72]
     }
 }

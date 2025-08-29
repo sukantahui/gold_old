@@ -265,7 +265,6 @@ export class ReportService {
                 if (response.status === true){
 
                 }
-
             }));
     }
 

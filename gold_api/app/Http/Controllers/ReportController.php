@@ -73,6 +73,7 @@ class ReportController extends ApiController
                 $query->where('c.payee_id', $currentUserId)
                     ->orWhere('c.payer_id', $currentUserId);
             })
+            ->orderBy('c.tr_date', 'desc') //  order by transaction date (latest first)
             ->get();
 
         return $this->successResponse($transactions);

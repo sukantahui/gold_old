@@ -10,12 +10,13 @@ import {ManagerService} from '../../../../../../services/manager.service';
 import {EmployeeCashBalance} from '../../../../../../models/employee-cash-balance.model';
 import {ReportService} from '../../../../../../services/report.service';
 import {CurrentUser} from '../../../../../../models/current-user.model';
+
 @Component({
-  selector: 'app-manager-cash-withdrawn',
-  templateUrl: './manager-cash-withdrawn.component.html',
-  styleUrls: ['./manager-cash-withdrawn.component.scss']
+  selector: 'app-manager-cash-submit',
+  templateUrl: './manager-cash-submit.component.html',
+  styleUrls: ['./manager-cash-submit.component.scss']
 })
-export class ManagerCashWithdrawnComponent implements OnInit {
+export class ManagerCashSubmitComponent implements OnInit {
   showDeveloperDiv = false;
   isProduction = environment.production;
   cashWithdrawForm: FormGroup;
@@ -124,4 +125,5 @@ export class ManagerCashWithdrawnComponent implements OnInit {
       this.cashTransactions = this.route.snapshot.data.cashTransactionsByEmployee.data;
     }
   }
+
 }

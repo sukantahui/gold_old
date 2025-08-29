@@ -66,9 +66,10 @@ Route::post("login",[UserController::class,'login']);
 Route::get("login",[UserController::class,'authenticationError'])->name('login');
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
-    Route::get('/me', function(Request $request) {
-        return auth()->user();
-    });
+    Route::get("/me",[UserController::class,'getCurrentUser']);
+//    Route::get('/me', function(Request $request) {
+//        return auth()->user();
+//    });
 
     Route::put("topUpGold/{jobId}/{gold}",[TransactionController::class,'addTopUpGold']);
 

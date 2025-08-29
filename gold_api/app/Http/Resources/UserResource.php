@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Employee;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -20,10 +21,13 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        $employee =new EmployeeResource(Employee::findOrFail($this->emp_id));
         return [
             'uniqueId' => $this->id,
             'userName' => $this->user_name,
             'userTypeId' => $this->user_type_id,
+            'employeeId' => $this->emp_id,
+            'employee' => $employee,
             'userTypeName' => $this->user_type->user_type_name,
         ];
     }

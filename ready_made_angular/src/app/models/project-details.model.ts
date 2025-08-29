@@ -28,4 +28,7 @@ export interface ProjectDetailsModel {
     managerCashWithdrawn: {
         employees: number[];
     };
+    ownerCashWithdrawnFromManager: {
+        employees: number[];
+    };
 }

@@ -91,6 +91,8 @@ const routes: Routes = [
 
   { path: 'DeveloperHome', loadChildren: () => import('./pages/home/child-pages/developer/developer-home/developer-home.module').then(m => m.DeveloperHomeModule) },
 
+  { path: 'ManagerCashSubmit', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-manager/manager-cash-submit/manager-cash-submit.module').then(m => m.ManagerCashSubmitModule) },
+
 
 
 
