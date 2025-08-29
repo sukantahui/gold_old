@@ -31,6 +31,7 @@ export class ManagerCashWithdrawnComponent implements OnInit {
 
     this.cashWithdrawForm = new FormGroup({
       payer_id: new FormControl(null, [Validators.required]),
+      payee_id: new FormControl(null, [Validators.required]),
       cash: new FormControl(null, [Validators.required]),
     });
   } // end of constructor
@@ -41,6 +42,7 @@ export class ManagerCashWithdrawnComponent implements OnInit {
     this.projectDetails = this.route.snapshot.data.projectDetails;
     this.cashBalances = this.route.snapshot.data.cashBalances.data;
     this.currentUser = this.route.snapshot.data.currentUser.data;
+    this.cashWithdrawForm.patchValue({payee_id: this.currentUser.employeeId});
     // tslint:disable-next-line:triple-equals
     // when user is manager
     if (this.currentUser && this.currentUser.employeeId === 72) {

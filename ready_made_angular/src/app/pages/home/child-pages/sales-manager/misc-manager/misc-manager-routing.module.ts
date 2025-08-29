@@ -56,6 +56,17 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
           currentUser: UserResolver
         }
     },
+    { path: 'ManagerCashSubmit'
+      // tslint:disable-next-line:max-line-length
+      , loadChildren: () => import('./manager-cash-submit/manager-cash-submit.module').then(m => m.ManagerCashSubmitModule)
+      , resolve: {
+        employeeResolver: EmployeesResolver,
+        projectDetails: ProjectDetailsResolver,
+        cashTransactionsByEmployee: CashTransactionByEmployeeResolver,
+        cashBalances: CashBalanceResolver,
+        currentUser: UserResolver
+      }
+    },
   ]
 }];
 

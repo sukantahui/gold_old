@@ -56,12 +56,12 @@ class StoreCashTransactionBetweenEmployeeRequest extends FormRequest
     /**
      * Automatically inject the current user's emp_id as payee_id
      */
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'payee_id' => Auth::user()->emp_id,
-        ]);
-    }
+//    protected function prepareForValidation()
+//    {
+//        $this->merge([
+//            'payee_id' => Auth::user()->emp_id,
+//        ]);
+//    }
 
     public function messages()
     {

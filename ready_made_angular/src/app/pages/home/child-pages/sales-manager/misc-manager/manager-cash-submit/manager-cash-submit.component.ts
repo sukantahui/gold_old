@@ -19,7 +19,7 @@ import {CurrentUser} from '../../../../../../models/current-user.model';
 export class ManagerCashSubmitComponent implements OnInit {
   showDeveloperDiv = false;
   isProduction = environment.production;
-  cashWithdrawForm: FormGroup;
+  cashSubmit: FormGroup;
   employees: Employee[] = [];
   projectDetails: ProjectDetailsModel;
   selectableEmployees: Employee[];
@@ -30,7 +30,7 @@ export class ManagerCashSubmitComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private managerService: ManagerService, private reportService: ReportService) {
 
-    this.cashWithdrawForm = new FormGroup({
+    this.cashSubmit = new FormGroup({
       payer_id: new FormControl(null, [Validators.required]),
       cash: new FormControl(null, [Validators.required]),
     });
@@ -76,7 +76,7 @@ export class ManagerCashSubmitComponent implements OnInit {
       if (!result.value){return; }
       // here API call to save the data
       // tslint:disable-next-line:max-line-length
-      this.managerService.saveCashTransactionBetweenEmployee(this.cashWithdrawForm.value).subscribe((response: {status: any , data: any}) => {
+      this.managerService.saveCashTransactionBetweenEmployee(this.cashSubmit.value).subscribe((response: {status: any , data: any}) => {
         // when saved record successfully
         if (response.status === true) {
           Swal.fire({
@@ -99,7 +99,7 @@ export class ManagerCashSubmitComponent implements OnInit {
             this.cashBalances = response.data;
           });
           // ✅ reset form after successful save
-          this.cashWithdrawForm.reset();
+          this.cashSubmit.reset();
         }
       }, error => {
         // error saving record
