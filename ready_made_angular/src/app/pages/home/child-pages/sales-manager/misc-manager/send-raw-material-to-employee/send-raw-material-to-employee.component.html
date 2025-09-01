@@ -2,7 +2,7 @@
     <div class="p-2 col-4">
         <form [formGroup] = materialSendingForm>
             <ng-select [items]="selectableEmployees"
-                       (click)="onEmployeeChange()"
+                       (click)="onEmployeeChange($event)"
                        bindLabel="employeeName"
                        class="custom"
                        bindValue="employeeId"
@@ -93,7 +93,7 @@
                 </pre>
             </mat-tab>
             <mat-tab label="Sec 2">
-                <pre>
+                <pre *ngIf="savedResponse">
                     savedResponse = {{savedResponse.data.sender_all_material_balance | json}}
                 </pre>
             </mat-tab>

@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {ManagerService} from '../../../../../../services/manager.service';
 import {CommonService} from '../../../../../../services/common.service';
+import {ReportService} from '../../../../../../services/report.service';
 
 @Component({
   selector: 'app-send-raw-material-to-employee',
@@ -25,9 +26,12 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
   selectableMaterials: any[];
   savedResponse: any;
   materialBalances: any[] = [];
-  constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService, private commonservice: CommonService) {
+  receverMaterialBalance: any[] = [];
+  constructor(private route: ActivatedRoute, private http: HttpClient, private reportService: ReportService, private managerService: ManagerService, private commonservice: CommonService) {
     this.route.data.subscribe((response: any) => {
-      this.user = response.materialResolver.user;
+      this.user = response.materialResolver.user.data;
+      console.log(this.user);
+
       this.resolverValues = response.materialResolver;
       this.employees = response.materialResolver.employees.data;
       this.projectDetails = response.materialResolver.projectDetails;
@@ -40,7 +44,7 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
       // this.selectableEmployees = null;
     });
     this.materialSendingForm = new FormGroup({
-      outward_employee_id: new FormControl(this.user.emp_id, [Validators.required]),
+      outward_employee_id: new FormControl(this.user.employeeId, [Validators.required]),
       inward_employee_id: new FormControl(null, [Validators.required]),
       rm_id: new FormControl(null, [Validators.required]),
       value: new FormControl(0, [Validators.required]),
@@ -92,11 +96,13 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
     });
   }
 
-  onEmployeeChange() {
+  onEmployeeChange($event: any) {
     const selectedEmployeeId = this.materialSendingForm.get('inward_employee_id').value;
     // tslint:disable-next-line:max-line-length
-    this.http.get(this.commonservice.getAPI() + '/materialBalance/' + selectedEmployeeId).subscribe((response: {success: number , data: any[]}) => {
-      console.log(response.data);
-    });
+    if (selectedEmployeeId) {
+      this.reportService.getMaterialBalanceByEmployee(selectedEmployeeId).subscribe((response: { success: number, data: any[] }) => {
+        this.receverMaterialBalance = response.data;
+      });
+    }
   }
 }

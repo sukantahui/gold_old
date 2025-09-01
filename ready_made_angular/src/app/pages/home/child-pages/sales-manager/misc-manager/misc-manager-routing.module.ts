@@ -27,7 +27,9 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
     { path: 'SendRawMaterialToEmployee'
       // tslint:disable-next-line:max-line-length
       , loadChildren: () => import('./send-raw-material-to-employee/send-raw-material-to-employee.module').then(m => m.SendRawMaterialToEmployeeModule)
-      , resolve: {materialResolver: MaterialResolver}
+      , resolve: {
+          materialResolver: MaterialResolver,
+        }
     },
     { path: 'ReceivedRawMaterialFromEmployee'
       // tslint:disable-next-line:max-line-length
