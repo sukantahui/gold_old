@@ -186,22 +186,7 @@ class MatBetweenEmployeeMasterController extends ApiController
             $matBetweenEmployeeDetails->save();
             $return_array['matBetweenEmployeeDetailsReceiver']=$matBetweenEmployeeDetails;
 
-            //adding Material to Employee Balance for Sender
-//            $materialToEmployeeBalance = MaterialToEmployeeBalance::whereEmpIdAndRmId(auth()->user()->emp_id,$data->rm_id)->first();
-//            if($materialToEmployeeBalance) {
-//                $materialToEmployeeBalance->outward = $materialToEmployeeBalance->outward + $data->value;
-//                $materialToEmployeeBalance->closing_balance = $materialToEmployeeBalance->closing_balance - $data->value;
-//                $materialToEmployeeBalance->save();
-//            }else{
-//                $materialToEmployeeBalance = new MaterialToEmployeeBalance();
-//                $materialToEmployeeBalance->emp_id = auth()->user()->emp_id;
-//                $materialToEmployeeBalance->rm_id = $data->rm_id;
-//                $materialToEmployeeBalance->inward=0;
-//                $materialToEmployeeBalance->outward = $data->value;
-//                $materialToEmployeeBalance->closing_balance = $data->value;
-//                $materialToEmployeeBalance->save();
-//            }
-//            $return_array['sender_material_balance']=$materialToEmployeeBalance;
+
 
             //adding Material to Employee Balance for receiver
             $materialToEmployeeBalance = MaterialToEmployeeBalance::whereEmpIdAndRmId(72,$data->rm_id)->first();

@@ -27,7 +27,7 @@ export class FineToNinetyTwoComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService ) {
     this.route.data.subscribe((response: any) => {
       this.materialBalance = response.fineToNinetyTwoResolver.materialBalance.data;
-      this.user = response.fineToNinetyTwoResolver.user;
+      this.user = response.fineToNinetyTwoResolver.user.data;
       this.karigars = response.fineToNinetyTwoResolver.karigars.data;
       // console.log(response.fineToNinetyTwoResolver.user);
     });

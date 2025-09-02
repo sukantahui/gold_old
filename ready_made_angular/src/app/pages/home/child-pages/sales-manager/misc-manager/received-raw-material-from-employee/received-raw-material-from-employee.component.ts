@@ -28,17 +28,11 @@ export class ReceivedRawMaterialFromEmployeeComponent implements OnInit {
   senderMaterialBalances: any[];
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService, private commonservice: CommonService, private reportService: ReportService) {
-    this.materialRecivingForm = new FormGroup({
-      outward_employee_id: new FormControl(null, [Validators.required]),
-      inward_employee_id: new FormControl(null, [Validators.required]),
-      rm_id: new FormControl(null, [Validators.required]),
-      value: new FormControl(0, [Validators.required]),
-    });
+
 
     this.route.data.subscribe((response: any) => {
       this.user = response.materialResolver.user.data;
-      console.log(this.user);
-      this.materialRecivingForm.patchValue({inward_employee_id: this.user.employeeId});
+      // this.materialRecivingForm.patchValue({inward_employee_id: this.user.employeeId});
       this.resolverValues = response.materialResolver;
       this.employees = response.materialResolver.employees.data;
       this.projectDetails = response.materialResolver.projectDetails;
@@ -49,6 +43,13 @@ export class ReceivedRawMaterialFromEmployeeComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.selectableMaterials = this.rawMaterials.filter(rm => this.projectDetails.employeeToManagerMaterial.materialsToSend.find(selectableRm => (selectableRm === rm.rmID )));
       // this.selectableEmployees = null;
+
+      this.materialRecivingForm = new FormGroup({
+        outward_employee_id: new FormControl(null, [Validators.required]),
+        inward_employee_id: new FormControl(this.user.employeeId, [Validators.required]),
+        rm_id: new FormControl(null, [Validators.required]),
+        value: new FormControl(0, [Validators.required]),
+      });
     });
   }
 

@@ -30,6 +30,17 @@ const routes: Routes = [{ path: '', component: OwnerComponent
         currentUser: UserResolver
       }
    },
+   { path: 'OwnerCashToManager'
+       // tslint:disable-next-line:max-line-length
+       , loadChildren: () => import('./cash-to-manager/cash-to-manager.module').then(m => m.CashToManagerModule)
+       , resolve: {
+            employeeResolver: EmployeesResolver,
+            projectDetails: ProjectDetailsResolver,
+            cashTransactionsByEmployee: CashTransactionByEmployeeResolver,
+            cashBalances: CashBalanceResolver,
+            currentUser: UserResolver
+       }
+   },
 
   ]
 }];

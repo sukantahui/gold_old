@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5cddc6a7-f418-430e-8ca1-435e8a794c68" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../pages/home/child-pages/owner/cash-to-manager/cash-to-manager-routing.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pages/home/child-pages/owner/cash-to-manager/cash-to-manager.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pages/home/child-pages/owner/cash-to-manager/cash-to-manager.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pages/home/child-pages/owner/cash-to-manager/cash-to-manager.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pages/home/child-pages/owner/cash-to-manager/cash-to-manager.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_api/app/Http/Resources/UserResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../gold_api/app/Http/Resources/UserResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/3205-es2015.a712e3dc989091a42055.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/3205-es5.a712e3dc989091a42055.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/373-es2015.aaa2c4a397eb7f8a7c6c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/373-es5.aaa2c4a397eb7f8a7c6c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/3rdpartylicenses.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../gold_master/3rdpartylicenses.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/4301-es2015.0156a3e40aa07e32fa8e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/4301-es5.0156a3e40aa07e32fa8e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/740-es2015.a3e5ba95120d1120e87d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/740-es5.a3e5ba95120d1120e87d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/9074-es2015.4c2b2cdcb1ad08566356.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/9074-es5.4c2b2cdcb1ad08566356.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/Simple-Line-Icons.f1515a459c8850890812.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../gold_master/Simple-Line-Icons.f1515a459c8850890812.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/assets/projectDetails.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../gold_master/assets/projectDetails.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/boxicons.2932c34d456522282808.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../gold_master/boxicons.2932c34d456522282808.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/common-es2015.b31858f8e83effca1e81.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/common-es5.b31858f8e83effca1e81.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../gold_master/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/main-es2015.daceed8b96ce69ca6e03.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/main-es5.daceed8b96ce69ca6e03.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/primeicons.c55d94a248721abbd220.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../gold_master/primeicons.c55d94a248721abbd220.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/remixicon.9cedd2150922ead84869.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../gold_master/remixicon.9cedd2150922ead84869.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/runtime-es2015.1f4f39dafe0c56992ead.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/runtime-es2015.5af698018782e51ff9ed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/runtime-es5.1f4f39dafe0c56992ead.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/runtime-es5.5af698018782e51ff9ed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../gold_master/styles.9fae1817e34337c08807.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../gold_master/styles.9fae1817e34337c08807.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pages/home/child-pages/owner/owner-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../pages/home/child-pages/owner/owner-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pages/home/child-pages/owner/owner.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../pages/home/child-pages/owner/owner.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pages/home/child-pages/sales-manager/misc-manager/fine-to-ninety-two/fine-to-ninety-two.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../pages/home/child-pages/sales-manager/misc-manager/fine-to-ninety-two/fine-to-ninety-two.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pages/home/child-pages/sales-manager/misc-manager/received-raw-material-from-employee/received-raw-material-from-employee.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../pages/home/child-pages/sales-manager/misc-manager/received-raw-material-from-employee/received-raw-material-from-employee.component.ts" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="328UEzlCS3xr7F0NrQkbYDaugYK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5cddc6a7-f418-430e-8ca1-435e8a794c68" name="Default Changelist" comment="" />
+      <created>1756801585262</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1756801585262</updated>
+      <workItem from="1756801586634" duration="27000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
