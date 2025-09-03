@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\MaterialBalanceResource;
+use App\Models\Employee;
+use App\Models\InventoryDayBook;
 use App\Models\MatBetweenEmployeeDetails;
 use App\Models\MatBetweenEmployeeMaster;
 use App\Http\Requests\StoreMatBetweenEmployeeMasterRequest;
@@ -114,7 +116,19 @@ class MatBetweenEmployeeMasterController extends ApiController
 
             $result_receiver = MaterialToEmployeeBalance::whereEmpId( $data->inward_employee_id)->get();
             $return_array['receiver_all_material_balance']=MaterialBalanceResource::collection($result_receiver);
-
+            // recording in inventory_day_book
+            $outwardEmployee = Employee::find(auth()->user()->emp_id);
+            $inwardEmployee = Employee::find($data->inward_employee_id);
+            $result=InventoryDayBook::create([
+                'employee_id'      => $data->outward_employee_id,
+                'rm_id'            => $data->rm_id,
+                'transaction_type' => 2,
+                'rm_value'         => $data->value,
+                'reference'        => $voucher_number,
+                'comment'          => 'Send to '.$inwardEmployee->emp_name.' from '.$outwardEmployee->emp_name,
+                'inforce'          => 1,
+            ]);
+            $return_array['inventory_day_book_data']=$request;
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();
@@ -207,6 +221,21 @@ class MatBetweenEmployeeMasterController extends ApiController
             $result = MaterialToEmployeeBalance::whereEmpId(72)->get();
             $receiver_all_material_balance = MaterialBalanceResource::collection($result);
             $return_array['manager_all_material_balance']=$receiver_all_material_balance;
+
+            // recording in inventory_day_book
+            $outwardEmployee = Employee::find(28);
+            $inwardEmployee = Employee::find(72);
+            $result=InventoryDayBook::create([
+                'employee_id'      => 28, // outward employee is the owner here
+                'rm_id'            => $data->rm_id,
+                'transaction_type' => 2,
+                'rm_value'         => $data->value,
+                'reference'        => $voucher_number,
+                'comment'          => 'Send to '.$inwardEmployee->emp_name.' from '.$outwardEmployee->emp_name,
+                'inforce'          => 1,
+            ]);
+            $return_array['inventory_day_book_data']=$request;
+
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();
@@ -314,6 +343,20 @@ class MatBetweenEmployeeMasterController extends ApiController
             $receiver_all_material_balance = MaterialBalanceResource::collection($result);
             $return_array['manager_all_material_balance']=$receiver_all_material_balance;
 
+            // recording in inventory_day_book
+            $outwardEmployee = Employee::find(72);
+            $inwardEmployee = Employee::find(auth()->user()->emp_id);
+            $result=InventoryDayBook::create([
+                'employee_id'      => 72,
+                'rm_id'            => $data->rm_id,
+                'transaction_type' => 2,
+                'rm_value'         => $data->value,
+                'reference'        => $voucher_number,
+                'comment'          => 'Send to '.$inwardEmployee->emp_name.' from '.$outwardEmployee->emp_name,
+                'inforce'          => 1,
+            ]);
+            $return_array['inventory_day_book_data']=$request;
+
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();
@@ -419,6 +462,19 @@ class MatBetweenEmployeeMasterController extends ApiController
             $result = MaterialToEmployeeBalance::whereEmpId(auth()->user()->emp_id)->get();
             $return_array['receiver_material_balance']=MaterialBalanceResource::collection($result);
 
+            // recording in inventory_day_book
+            $outwardEmployee = Employee::find($data->outward_employee_id);
+            $inwardEmployee = Employee::find(auth()->user()->emp_id);
+            $result=InventoryDayBook::create([
+                'employee_id'      => $data->outward_employee_id,
+                'rm_id'            => $data->rm_id,
+                'transaction_type' => 2,
+                'rm_value'         => $data->value,
+                'reference'        => $voucher_number,
+                'comment'          => 'Send to '.$inwardEmployee->emp_name.' from '.$outwardEmployee->emp_name,
+                'inforce'          => 1,
+            ]);
+            $return_array['inventory_day_book_data']=$request;
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();
