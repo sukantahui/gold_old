@@ -122,7 +122,7 @@ class MatBetweenEmployeeMasterController extends ApiController
             $result=InventoryDayBook::create([
                 'employee_id'      => $data->outward_employee_id,
                 'rm_id'            => $data->rm_id,
-                'transaction_type' => 2,
+                'transaction_type' => 1,
                 'rm_value'         => $data->value,
                 'reference'        => $voucher_number,
                 'comment'          => 'Send to '.$inwardEmployee->emp_name.' from '.$outwardEmployee->emp_name,
@@ -228,7 +228,7 @@ class MatBetweenEmployeeMasterController extends ApiController
             $result=InventoryDayBook::create([
                 'employee_id'      => 28, // outward employee is the owner here
                 'rm_id'            => $data->rm_id,
-                'transaction_type' => 2,
+                'transaction_type' => 1,
                 'rm_value'         => $data->value,
                 'reference'        => $voucher_number,
                 'comment'          => 'Send to '.$inwardEmployee->emp_name.' from '.$outwardEmployee->emp_name,
@@ -349,7 +349,7 @@ class MatBetweenEmployeeMasterController extends ApiController
             $result=InventoryDayBook::create([
                 'employee_id'      => 72,
                 'rm_id'            => $data->rm_id,
-                'transaction_type' => 2,
+                'transaction_type' => -1,
                 'rm_value'         => $data->value,
                 'reference'        => $voucher_number,
                 'comment'          => 'Send to '.$inwardEmployee->emp_name.' from '.$outwardEmployee->emp_name,
@@ -468,7 +468,7 @@ class MatBetweenEmployeeMasterController extends ApiController
             $result=InventoryDayBook::create([
                 'employee_id'      => $data->outward_employee_id,
                 'rm_id'            => $data->rm_id,
-                'transaction_type' => 2,
+                'transaction_type' => -1,
                 'rm_value'         => $data->value,
                 'reference'        => $voucher_number,
                 'comment'          => 'Send to '.$inwardEmployee->emp_name.' from '.$outwardEmployee->emp_name,

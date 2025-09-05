@@ -312,6 +312,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/cahTransactionsByCurrentEmployee', [ReportController::class,'cashTransactionByCurrentEmployees']);
     Route::post('/cashTransactionBetweenEmployee', [CashTransactionBetweenEmployeeController::class,'store']);
     Route::get('/cashBalances', [ReportController::class,'cashBalances']);
+    Route::get('/materialBetweenEmployee', [ReportController::class,'cashBalances']);
 
 
 });
@@ -465,6 +466,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get('/expenditureLedgersTotal/{year}/{month}',[TransactionController::class,'get_expenditure_ledgers_group_total_by_year_n_month']);
 
     Route::post('/ledgers', [LedgerController::class,'create_ledger']);
+
 
 
 
