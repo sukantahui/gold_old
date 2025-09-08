@@ -8,6 +8,7 @@ import {ProjectDetailsResolver} from '../../../../resolvers/project-details.reso
 import {CashTransactionByEmployeeResolver} from '../../../../resolvers/cash-transaction-by-employee.resolver';
 import {CashBalanceResolver} from '../../../../resolvers/cash-balance.resolver';
 import {UserResolver} from '../../../../resolvers/user.resolver';
+import {MaterialBetweenEmployeesResolver} from '../../../../resolvers/material-between-employees.resolver';
 
 const routes: Routes = [{ path: '', component: OwnerComponent
   , children: [
@@ -42,6 +43,15 @@ const routes: Routes = [{ path: '', component: OwnerComponent
        }
    },
 
+   { path: 'materialTransactionReport'
+            // tslint:disable-next-line:max-line-length
+            , loadChildren: () => import('./material-transaction-report/material-transaction-report.module').then(m => m.MaterialTransactionReportModule)
+            , resolve: {
+                projectDetails: ProjectDetailsResolver,
+                materialTransactionBetweenEmployees: MaterialBetweenEmployeesResolver,
+                currentUser: UserResolver
+            }
+    },
   ]
 }];
 

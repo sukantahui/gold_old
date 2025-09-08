@@ -43,6 +43,15 @@ export class ReportService {
 
             }));
     }
+    materialTransactionsBetweenEmployees(){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/materialBetweenEmployees')
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
     getRawMaterialsManager(){
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/rawMaterials-manager')
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {

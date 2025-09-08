@@ -9,6 +9,7 @@ import {ProjectDetailsResolver} from '../../../../../resolvers/project-details.r
 import {CashTransactionByEmployeeResolver} from '../../../../../resolvers/cash-transaction-by-employee.resolver';
 import {CashBalanceResolver} from '../../../../../resolvers/cash-balance.resolver';
 import {UserResolver} from '../../../../../resolvers/user.resolver';
+import {MaterialBetweenEmployeesResolver} from '../../../../../resolvers/material-between-employees.resolver';
 
 const routes: Routes = [{ path: '', component: MiscManagerComponent
   , children: [
@@ -66,6 +67,15 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
         projectDetails: ProjectDetailsResolver,
         cashTransactionsByEmployee: CashTransactionByEmployeeResolver,
         cashBalances: CashBalanceResolver,
+        currentUser: UserResolver
+      }
+    },
+    { path: 'materialTransactionReport'
+      // tslint:disable-next-line:max-line-length
+      , loadChildren: () => import('src/app/pages/home/child-pages/owner/material-transaction-report/material-transaction-report.module').then(m => m.MaterialTransactionReportModule)
+      , resolve: {
+        projectDetails: ProjectDetailsResolver,
+        materialTransactionBetweenEmployees: MaterialBetweenEmployeesResolver,
         currentUser: UserResolver
       }
     },

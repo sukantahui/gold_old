@@ -482,4 +482,24 @@ class MatBetweenEmployeeMasterController extends ApiController
         }
         return $this->successResponse($return_array);
     }
+    function get_material_tranaction_report(){
+        $transactions = DB::table('mat_between_employee_masters as m')
+            ->join('mat_between_employee_details as d', 'm.id', '=', 'd.mat_between_employee_id')
+            ->join('employees as e', 'd.employee_id', '=', 'e.emp_id')
+            ->join('rm_master as r', 'd.rm_id', '=', 'r.rm_ID')
+            ->select(
+                'm.id as transaction_id',
+                'm.transaction_number',
+                'm.created_at as transaction_date',
+                'e.emp_id',
+                'e.emp_name',
+                'r.rm_ID as rm_id',
+                'r.rm_name',
+                'd.outward',
+                'd.inward'
+            )
+            ->orderBy('m.created_at', 'desc')
+            ->get();
+        return $this->successResponse($transactions);
+    }
 }
