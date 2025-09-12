@@ -39,6 +39,18 @@ export class MenuOfficeStaffComponent implements OnInit {
           iconName: 'speaker_notes',
           children: [
             {
+              displayName: 'JOB',
+              iconName: 'label',
+              children: [
+                {
+                  displayName: 'Print Job',
+                  iconName: 'shopping_cart',
+                  color: 'blue',
+                  route: 'PrintJobForOwner',
+                }
+              ]
+            },
+            {
               displayName: 'Create Bill',
               iconName: 'star_rate',
               route: 'CreateBill'

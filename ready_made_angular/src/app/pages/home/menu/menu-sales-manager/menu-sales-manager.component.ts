@@ -159,6 +159,18 @@ export class MenuSalesManagerComponent implements OnInit {
       route: 'michael-prentice',
       children: [
         {
+          displayName: 'JOB',
+          iconName: 'label',
+          children: [
+            {
+              displayName: 'Print Job',
+              iconName: 'shopping_cart',
+              color: 'blue',
+              route: 'PrintJobForOwner',
+            }
+          ]
+        },
+        {
           displayName: 'BILL',
           iconName: 'label',
           children: [

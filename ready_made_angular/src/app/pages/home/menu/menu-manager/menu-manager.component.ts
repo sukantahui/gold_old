@@ -205,7 +205,7 @@ export class MenuManagerComponent implements OnInit {
               displayName: 'Print Job',
               iconName: 'shopping_cart',
               color: 'blue',
-              route: 'PrintJobForWoner',
+              route: 'PrintJobForOwner',
             }
           ]
         },
