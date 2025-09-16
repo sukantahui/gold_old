@@ -23,12 +23,13 @@ export class DalCreationComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService) {
     this.route.data.subscribe((response: any) => {
       this.materialBalance = response.fineToNinetyTwoResolver.materialBalance.data;
-      this.user = response.fineToNinetyTwoResolver.user;
+      this.user = response.fineToNinetyTwoResolver.user.data;
       this.karigars = response.fineToNinetyTwoResolver.karigars.data;
     });
     this.http.get('assets/projectDetails.json').subscribe((data: any) => {
       this.projectDetails = data;
       this.dalCreationRation = this.projectDetails.dalCreationRation;
+      console.log(this.projectDetails.dalCreationRation);
     });
     this.dalConversionForm = new FormGroup({
       employee_id: new FormControl(this.user.emp_id, [Validators.required]),
@@ -49,19 +50,85 @@ export class DalCreationComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.dalConversionForm.valueChanges.subscribe(values => {
+      // const silver = +values.silver_value || 0;
+      // const copper = +values.copper_value || 0;
+      // const zinc   = +values.zinc_value   || 0;
+      //
+      // const dal = silver + copper + zinc;
+      //
+      // // Only update if changed, to avoid infinite loop
+      // if (this.dalConversionForm.get('dal_value')?.value !== dal) {
+      //   this.dalConversionForm.get('dal_value')?.setValue(dal, { emitEvent: false });
+      // }
+    });
   }
 
   onSilverChange(silverValue: HTMLInputElement) {
-    const copperValue =  (Number(silverValue.value) * this.dalCreationRation.copperToSilverRatio).toFixed(3);
+    const silver = Number(silverValue.value);
+
+    // ✅ If silver is NaN, reset dependent fields and exit
+    if (isNaN(silver)) {
+      this.dalConversionForm.patchValue({
+        copper_value: '',
+        zinc_value: '',
+        dal_value: ''
+      });
+      return;
+    }
+
+    const copperValue =  (silver * this.dalCreationRation.copperToSilverRatio).toFixed(3);
     this.dalConversionForm.patchValue({copper_value: copperValue});
 
-    const zincValue =  (Number(silverValue.value) * this.dalCreationRation.zincToSilver).toFixed(3);
+    const zincValue =  ((Number(silverValue.value) + Number(copperValue)) * this.dalCreationRation.zincToSilverAndCopper).toFixed(3);
     this.dalConversionForm.patchValue({zinc_value: zincValue});
 
-    const dalValue =  (Number(silverValue.value) * this.dalCreationRation.dalToSilverRatio).toFixed(3);
+    const dalValue = (silver + Number(copperValue) + Number(zincValue)).toFixed(3) ;
     this.dalConversionForm.patchValue({dal_value: dalValue});
 
   }
+
+  onCopperChange(copperInput: HTMLInputElement) {
+    const copper = Number(copperInput.value);
+
+    // ✅ If silver is NaN, reset dependent fields and exit
+    if (isNaN(copper)) {
+      this.dalConversionForm.patchValue({
+        zinc_value: '',
+        dal_value: ''
+      });
+      return;
+    }
+
+
+    // ✅ Get silver value directly from form
+    const silver = Number(this.dalConversionForm.get('silver_value')?.value) || 0;
+    const zincValue =  ((silver + copper) * this.dalCreationRation.zincToSilverAndCopper).toFixed(3);
+    this.dalConversionForm.patchValue({zinc_value: zincValue});
+
+    const dalValue = (silver + copper + Number(zincValue)).toFixed(3) ;
+    this.dalConversionForm.patchValue({dal_value: dalValue});
+
+  }
+
+  onZincChange(zincInput: HTMLInputElement) {
+    const zinc = Number(zincInput.value);
+
+    if (isNaN(zinc)) {
+      this.dalConversionForm.patchValue({
+        dal_value: ''
+      });
+      return;
+    }
+
+    // ✅ Get silver and copper from form
+    const silver = Number(this.dalConversionForm.get('silver_value')?.value) || 0;
+    const copper = Number(this.dalConversionForm.get('copper_value')?.value) || 0;
+
+    const dal = silver + copper + zinc;
+    this.dalConversionForm.patchValue({ dal_value: dal.toFixed(3) });
+  }
+
 
   resetForm() {
     if (this.savedResponse){
@@ -69,6 +136,7 @@ export class DalCreationComponent implements OnInit {
       this.savedResponse = null;
     }
     this.dalConversionForm.reset();
+    this.dalConversionForm.markAsPristine();
   }
 
   saveDalConversion() {

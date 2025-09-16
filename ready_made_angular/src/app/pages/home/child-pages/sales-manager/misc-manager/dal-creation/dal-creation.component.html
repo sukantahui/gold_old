@@ -11,19 +11,19 @@
             <div>
                 <mat-form-field class="example-full-width">
                     <mat-label>Enter Silver</mat-label>
-                    <input type="number"  #silverValue class="text-right" (keyup)="onSilverChange(silverValue)" matInput formControlName="silver_value" placeholder="Silver" >
+                    <input type="number"  #silverValue class="text-right" (input)="onSilverChange(silverValue)" matInput formControlName="silver_value" placeholder="Silver" >
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field class="example-full-width">
                     <mat-label>Enter Copper</mat-label>
-                    <input type="number"  class="text-right" matInput formControlName="copper_value" placeholder="Copper" >
+                    <input type="number" #copperValue  class="text-right" (input)="onCopperChange(copperValue)" matInput formControlName="copper_value" placeholder="Copper" >
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field class="example-full-width">
                     <mat-label>Enter Zinc</mat-label>
-                    <input type="number"  class="text-right" matInput formControlName="zinc_value" placeholder="Zinc" >
+                    <input type="number" #zincValue  class="text-right" (input)="onZincChange(zincValue)" matInput formControlName="zinc_value" placeholder="Zinc" >
                 </mat-form-field>
             </div>
             <div>
@@ -60,7 +60,7 @@
             <tbody>
             <tr *ngFor="let material of materialBalance">
                 <td>{{material.rawMaterialName}}</td>
-                <td>{{material.closingBalance}}</td>
+                <td class="text-right">{{material.closingBalance | noCommaNumber:3}}</td>
             </tr>
             </tbody>
         </table>
@@ -78,7 +78,7 @@
             <tbody>
             <tr *ngFor="let material of savedResponse.data.material_balance">
                 <td>{{material.rawMaterialName}}</td>
-                <td>{{material.closingBalance}}</td>
+                <td class="text-right">{{material.closingBalance | noCommaNumber:3}}</td>
             </tr>
             </tbody>
         </table>
