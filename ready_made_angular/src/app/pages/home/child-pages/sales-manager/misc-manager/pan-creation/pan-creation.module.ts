@@ -10,23 +10,25 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {MatButtonModule} from '@angular/material/button';
+import {DalCreationModule} from '../dal-creation/dal-creation.module';
 
 
 @NgModule({
   declarations: [
     PanCreationComponent
   ],
-  imports: [
-    CommonModule,
-    PanCreationRoutingModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonToggleModule,
-    MatTabsModule,
-    NgSelectModule,
-    MatButtonModule
-  ]
+    imports: [
+        CommonModule,
+        PanCreationRoutingModule,
+        MatTabsModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonToggleModule,
+        MatTabsModule,
+        NgSelectModule,
+        MatButtonModule,
+        DalCreationModule
+    ]
 })
 export class PanCreationModule { }

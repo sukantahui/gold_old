@@ -23,7 +23,9 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
     },
     { path: 'PanCreation'
       , loadChildren: () => import('./pan-creation/pan-creation.module').then(m => m.PanCreationModule)
-      , resolve: {panCreationResolver: MaterialBalanceResolver}
+      , resolve: {
+          panCreationResolver: MaterialBalanceResolver
+        }
     },
     { path: 'SendRawMaterialToEmployee'
       // tslint:disable-next-line:max-line-length

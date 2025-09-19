@@ -14,9 +14,12 @@ import {NoCommaNumberPipe} from '../../../../../../pipes/no-comma-number-filter.
 
 
 @NgModule({
-  declarations: [
-    DalCreationComponent, NoCommaNumberPipe
-  ],
+    declarations: [
+        DalCreationComponent, NoCommaNumberPipe
+    ],
+    exports: [
+        NoCommaNumberPipe
+    ],
     imports: [
         CommonModule,
         DalCreationRoutingModule,

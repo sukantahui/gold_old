@@ -17,16 +17,19 @@
             </div>
             <div>
                 <mat-form-field class="example-full-width">
-                    <mat-label>Zinc Value</mat-label>
-                    <input type="number"  class="text-right" matInput formControlName="zinc_value" placeholder="Zinc" >
+                    <mat-label>Enter Dal</mat-label>
+                    <input type="number" #dalValue  class="text-right" (keyup)="onDalChange(dalValue)" matInput formControlName="dal_value" placeholder="dal" >
                 </mat-form-field>
             </div>
+            <div>Gini + dal = {{giniPlusDal | noCommaNumber: 3}}</div>
+            <hr>
             <div>
                 <mat-form-field class="example-full-width">
-                    <mat-label>Enter Dal</mat-label>
-                    <input type="number"  class="text-right" matInput formControlName="dal_value" placeholder="dal" >
+                    <mat-label>Zinc Value</mat-label>
+                    <input type="number" #zincValue class="text-right" (keyup)="onZincChange(zincValue)" matInput formControlName="zinc_value" placeholder="Zinc" >
                 </mat-form-field>
             </div>
+
             <div>
                 <mat-form-field class="example-full-width">
                     <mat-label>Pan Valuation</mat-label>

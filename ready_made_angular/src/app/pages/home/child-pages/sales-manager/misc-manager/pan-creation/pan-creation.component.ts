@@ -21,6 +21,8 @@ export class PanCreationComponent implements OnInit {
   projectDetails: any;
   panConversionForm: FormGroup;
   materialBalanceUpdated: any;
+  panCreationRation: any;
+  giniPlusDal: number;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService) {
     this.route.data.subscribe((response: any) => {
@@ -28,6 +30,12 @@ export class PanCreationComponent implements OnInit {
       this.user = response.panCreationResolver.user;
       this.karigars = response.panCreationResolver.karigars.data;
     });
+    this.http.get('assets/projectDetails.json').subscribe((data: any) => {
+      this.projectDetails = data;
+      this.panCreationRation = this.projectDetails.panCreationRation;
+      console.log(this.projectDetails.panCreationRation);
+    });
+
     this.panConversionForm = new FormGroup({
       karigar_id: new FormControl(76, [Validators.required]),
       ninety_two_gini_value: new FormControl(0, [Validators.required,  Validators.min(0.001)]),
@@ -38,10 +46,38 @@ export class PanCreationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.panConversionForm.valueChanges.subscribe(values => {
+      const gini = +values.ninety_two_gini_value || 0;
+      const dal = +values.dal_value || 0;
+      const zinc = +values.zinc_value || 0;
+      this.giniPlusDal = gini + dal;
+    });
   }
 
   onGiniChange(giniValue: HTMLInputElement) {
-    
+    const gini =  +giniValue.value || 0;
+    const dal = gini * this.panCreationRation.dalToGini;
+    this.panConversionForm.patchValue({dal_value: dal.toFixed(3)});
+
+    const zinc = (gini + dal) * this.panCreationRation.zincToDalAndGini;
+    this.panConversionForm.patchValue({zinc_value: zinc.toFixed(3)});
+    const pan = (gini + dal + zinc);
+    this.panConversionForm.patchValue({pan_value: pan.toFixed(3)});
+  }
+  onDalChange(dalValue: HTMLInputElement) {
+    const gini = Number(this.panConversionForm.get('ninety_two_gini_value')?.value) || 0;
+    const dal = +dalValue.value || 0;
+    const zinc = (gini + dal) * this.panCreationRation.zincToDalAndGini;
+    this.panConversionForm.patchValue({zinc_value: zinc.toFixed(3)});
+    const pan = (gini + dal + zinc);
+    this.panConversionForm.patchValue({pan_value: pan.toFixed(3)});
+  }
+  onZincChange(zincValue: HTMLInputElement) {
+    const gini = Number(this.panConversionForm.get('ninety_two_gini_value')?.value) || 0;
+    const dal = Number(this.panConversionForm.get('dal_value')?.value) || 0;
+    const zinc = +zincValue.value || 0;
+    const pan = (gini + dal + zinc);
+    this.panConversionForm.patchValue({pan_value: pan.toFixed(3)});
   }
 
   resetForm() {
@@ -94,4 +130,7 @@ export class PanCreationComponent implements OnInit {
       });
     });
   }
+
+
+
 }

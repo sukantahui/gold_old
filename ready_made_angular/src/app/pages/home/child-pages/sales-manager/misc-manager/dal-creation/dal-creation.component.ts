@@ -20,6 +20,8 @@ export class DalCreationComponent implements OnInit {
   projectDetails: any;
   dalConversionForm: FormGroup;
   dalCreationRation: any;
+  silverPlusCopper = 0;
+  isSaved = false;
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService) {
     this.route.data.subscribe((response: any) => {
       this.materialBalance = response.fineToNinetyTwoResolver.materialBalance.data;
@@ -51,9 +53,11 @@ export class DalCreationComponent implements OnInit {
 
   ngOnInit(): void {
     this.dalConversionForm.valueChanges.subscribe(values => {
-      // const silver = +values.silver_value || 0;
-      // const copper = +values.copper_value || 0;
-      // const zinc   = +values.zinc_value   || 0;
+
+      const silver = +values.silver_value || 0;
+      const copper = +values.copper_value || 0;
+      const zinc   = +values.zinc_value   || 0;
+      this.silverPlusCopper = silver + copper;
       //
       // const dal = silver + copper + zinc;
       //
@@ -137,6 +141,7 @@ export class DalCreationComponent implements OnInit {
     }
     this.dalConversionForm.reset();
     this.dalConversionForm.markAsPristine();
+    this.isSaved = false;   // ✅ re-enable button
   }
 
   saveDalConversion() {
@@ -157,13 +162,14 @@ export class DalCreationComponent implements OnInit {
           Swal.fire({
             timer: 2000,
             title: 'Saved',
-            text: 'Converted successfully',
+            text: 'Dal Created successfully',
             icon: 'success',
             showCancelButton: false,
             confirmButtonColor: '#1661a0',
             cancelButtonColor: '#d33',
             background: 'rgba(38,39,47,0.95)'
           });
+          this.isSaved = true;
           this.savedResponse = response;
         }
       }, error => {

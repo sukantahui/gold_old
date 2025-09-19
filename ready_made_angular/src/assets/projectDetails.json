@@ -11,6 +11,10 @@
         "zincToSilver":  2.382,
         "dalToSilverRatio":  2.385
     },
+    "panCreationRation": {
+        "dalToGini": 1.7,
+        "zincToDalAndGini": 0.01
+    },
     "managerToEmployeeMaterial": {
         "employees": [70,92],
         "materialsToSend": [31,33,44,48]
