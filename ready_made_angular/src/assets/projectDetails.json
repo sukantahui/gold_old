@@ -28,5 +28,8 @@
     },
     "ownerCashWithdrawnFromManager": {
         "employees": [72]
+    },
+    "nitricToFineConversion": {
+        "nitricToFineRatio": 0.9
     }
 }

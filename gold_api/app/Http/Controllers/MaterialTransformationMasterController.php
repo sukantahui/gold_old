@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\MaterialBalanceResource;
+use App\Models\Employee;
+use App\Models\InventoryDayBook;
 use App\Models\MaterialToEmployeeBalance;
 use App\Models\MaterialTransformationDetail;
 use App\Models\MaterialTransformationMaster;
@@ -68,6 +70,32 @@ class MaterialTransformationMasterController extends ApiController
             $mtebFine->closing_balance=$mtebFine->closing_balance + $data->fine_value;
             $mtebFine->update();
             $return_array['mtebFine']=$mtebFine;
+
+            // recording in inventory_day_book for nitric
+            $employee = Employee::find(auth()->user()->emp_id);
+            $result=InventoryDayBook::create([
+                'employee_id'      => auth()->user()->emp_id,
+                'rm_id'            =>  $mtdNitric->rm_id,
+                'transaction_type' => -1,
+                'rm_value'         => $data->fine_value,
+                'reference'        => $mtm->id,
+                'comment'          => 'Nitric used to convert to fine by '.$employee->emp_name,
+                'inforce'          => 1,
+            ]);
+            $return_array['inventory_day_book_data_nitric']=$result;
+
+            // recording in inventory_day_book for fine gold
+            $employee = Employee::find(auth()->user()->emp_id);
+            $result=InventoryDayBook::create([
+                'employee_id'      => auth()->user()->emp_id,
+                'rm_id'            =>  $mtdFine->rm_id,
+                'transaction_type' => 1,
+                'rm_value'         => $data->nitric_value,
+                'reference'        => $mtm->id,
+                'comment'          => 'Fine received from conversion of Nitric by '.$employee->emp_name,
+                'inforce'          => 1,
+            ]);
+            $return_array['inventory_day_book_data_nitric']=$result;
 
 
             DB::commit();

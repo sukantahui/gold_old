@@ -18,9 +18,15 @@ export class NitricToFineComponent implements OnInit {
   managerMaterialBalance: any;
   savedResponse: any;
   materialBalanceUpdated: any;
+  projectDetails: any;
+  nitricToFineConversion: any;
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService) {
     this.route.data.subscribe((response: any) => {
       this.managerMaterialBalance = response.materialResolver.managerMaterialBalance.data;
+    });
+    this.http.get('assets/projectDetails.json').subscribe((data: any) => {
+      this.projectDetails = data;
+      this.nitricToFineConversion = this.projectDetails.nitricToFineConversion;
     });
     this.nitricToFineForm = new FormGroup({
       nitric_value: new FormControl(0, [Validators.required]),
@@ -32,8 +38,21 @@ export class NitricToFineComponent implements OnInit {
   }
 
   resetForm() {
+    this.nitricToFineForm.reset({
+      nitric_value: 0,
+      fine_value: 0
+    });
+    this.nitricToFineForm.markAsPristine();
+    this.savedResponse = null; // clear after conversion result if needed
+    this.materialBalanceUpdated = null;
+  }
+  onNitricChange(nitricValue: HTMLInputElement) {
+    const nitric =  +nitricValue.value || 0;
+    const fine = nitric * this.nitricToFineConversion.nitricToFineRatio;
+    this.nitricToFineForm.patchValue({fine_value: fine.toFixed(3)});
 
   }
+
 
   saveConversion() {
     Swal.fire({
