@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {environment} from '../../../../../../../environments/environment';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {ManagerService} from '../../../../../../services/manager.service';
+import { environment } from '../../../../../../../environments/environment';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { ManagerService } from '../../../../../../services/manager.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,22 +20,30 @@ export class NitricToFineComponent implements OnInit {
   materialBalanceUpdated: any;
   projectDetails: any;
   nitricToFineConversion: any;
-  constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService) {
+  tonch: number;
+
+  constructor(
+      private route: ActivatedRoute,
+      private http: HttpClient,
+      private managerService: ManagerService
+  ) {
     this.route.data.subscribe((response: any) => {
       this.managerMaterialBalance = response.materialResolver.managerMaterialBalance.data;
     });
+
     this.http.get('assets/projectDetails.json').subscribe((data: any) => {
       this.projectDetails = data;
       this.nitricToFineConversion = this.projectDetails.nitricToFineConversion;
+      this.tonch = this.nitricToFineConversion.nitricToFineRatio;
     });
+
     this.nitricToFineForm = new FormGroup({
       nitric_value: new FormControl(0, [Validators.required]),
       fine_value: new FormControl(0, [Validators.required]),
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   resetForm() {
     this.nitricToFineForm.reset({
@@ -43,16 +51,22 @@ export class NitricToFineComponent implements OnInit {
       fine_value: 0
     });
     this.nitricToFineForm.markAsPristine();
-    this.savedResponse = null; // clear after conversion result if needed
+    this.savedResponse = null;
     this.materialBalanceUpdated = null;
   }
-  onNitricChange(nitricValue: HTMLInputElement) {
-    const nitric =  +nitricValue.value || 0;
-    const fine = nitric * this.nitricToFineConversion.nitricToFineRatio;
-    this.nitricToFineForm.patchValue({fine_value: fine.toFixed(3)});
 
+  onNitricChange(nitricValue: HTMLInputElement) {
+    const nitric = +nitricValue.value || 0;
+    const fine = nitric * this.nitricToFineConversion.nitricToFineRatio;
+    this.nitricToFineForm.patchValue({ fine_value: fine.toFixed(3) });
+    this.tonch = nitric ? fine / nitric : 0;
   }
 
+  onFineChange(fineValue: HTMLInputElement) {
+    const fine = +fineValue.value || 0;
+    const nitric = Number(this.nitricToFineForm.get('nitric_value')?.value) || 0;
+    this.tonch = nitric ? fine / nitric : 0;
+  }
 
   saveConversion() {
     Swal.fire({
@@ -64,37 +78,35 @@ export class NitricToFineComponent implements OnInit {
       cancelButtonText: 'No!',
       background: 'rgba(38,39,47,0.95)'
     }).then((result) => {
-      if (!result.value){return; }
-      // here API call to save the data
-      // tslint:disable-next-line:max-line-length
-      this.managerService.saveNitricToFine(this.nitricToFineForm.value).subscribe((response: {status: any, message: string , data: any}) => {
-        // when saved record successfully
-        if (response.status === true) {
-          Swal.fire({
-            timer: 2000,
-            title: 'Saved',
-            text: 'Nitric Successfully Converted to Fine',
-            icon: 'success',
-            showCancelButton: false,
-            confirmButtonColor: '#1661a0',
-            cancelButtonColor: '#d33',
-            background: 'rgba(38,39,47,0.95)'
+      if (!result.value) { return; }
+
+      this.managerService.saveNitricToFine(this.nitricToFineForm.value)
+          .subscribe((response: { status: any, message: string, data: any }) => {
+            if (response.status === true) {
+              Swal.fire({
+                timer: 2000,
+                title: 'Saved',
+                text: 'Nitric Successfully Converted to Fine',
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#1661a0',
+                cancelButtonColor: '#d33',
+                background: 'rgba(38,39,47,0.95)'
+              });
+              this.savedResponse = response;
+              this.materialBalanceUpdated = response.data.material_balance;
+              this.nitricToFineForm.markAsPristine();
+            }
+          }, error => {
+            Swal.fire({
+              title: error.message,
+              text: 'Transfer unsuccessful',
+              icon: 'error',
+              showConfirmButton: false,
+              background: 'rgba(38,39,47,0.95)',
+              timer: 3000
+            });
           });
-          this.savedResponse = response;
-          this.materialBalanceUpdated = response.data.material_balance;
-          this.nitricToFineForm.markAsPristine();
-        }
-      }, error => {
-        // error saving record
-        Swal.fire({
-          title: error.message,
-          text: 'Transfer unsuccessful',
-          icon: 'error',
-          showConfirmButton: false,
-          background: 'rgba(38,39,47,0.95)',
-          timer: 3000
-        });
-      });
     });
   }
 }

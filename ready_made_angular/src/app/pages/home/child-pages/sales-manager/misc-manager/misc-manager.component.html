@@ -1,122 +1,68 @@
 <div class="d-flex flex-column" style="min-height: 100vh;">
+    <!-- Header -->
     <div class="p-2 text-center" style="background-color: rgb(183,174,159)">
         <h3>{{subject}}</h3>
     </div>
 
+    <!-- Body -->
     <div class="p-2">
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
 
-            <div class="p-2 col-xl-2" style="background-color: rgb(199, 192, 192)">
-                <ul style="list-style: none;">
-                    <li>
-                        <div class="example-button-row">
-                            <button class="text-right" mat-button color="primary" >
-                                <a style="text-decoration: none" (click)="subject='Fine to 92'" routerLink='./FineToNinetyTwo'>Fine to 92</a>
-                            </button>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="example-button-row">
-                            <button class="text-right" mat-button color="primary" >
-                                <a style="text-decoration: none" (click)="subject='Dal Creation'" routerLink='./DalCreation'>Dal Creation</a>
-                            </button>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="example-button-row">
-                            <button class="text-right" mat-button color="primary" >
-                                <a style="text-decoration: none" (click)="subject='Pan Creation'" routerLink='./PanCreation'>Pan Creation</a>
-                            </button>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="example-button-row">
-                            <button class="text-right" mat-button color="primary" >
-                                <a style="text-decoration: none" (click)="subject='Nitric to Fine'" routerLink='./NitricToFine'>Nitric to Fine</a>
-                            </button>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="example-button-row">
-                            <button class="text-right" mat-button color="primary" >
-                                <a style="text-decoration: none" (click)="subject='Send Material'" routerLink='./SendRawMaterialToEmployee'>Send Material</a>
-                            </button>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="example-button-row">
-                            <button class="text-right" mat-button color="primary" >
-                                <a style="text-decoration: none" (click)="subject='Received Material'" routerLink='./ReceivedRawMaterialFromEmployee'>Received Material</a>
-                            </button>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="example-button-row">
-                            <button class="text-right" mat-button color="primary" >
-                                <a style="text-decoration: none" (click)="subject='Cash Withdrawn'" routerLink='./ManagerCashWithdrawn'>Cash Withdrawn</a>
-                            </button>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="example-button-row">
-                            <button class="text-right" mat-button color="primary" >
-                                <a style="text-decoration: none" (click)="subject='Cash Submit to Employees'" routerLink='./ManagerCashSubmit'>X Cash Submit</a>
-                            </button>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="example-button-row">
-                            <button class="text-right" mat-button color="primary" >
-                                <a style="text-decoration: none" (click)="subject='GP Transaction'" routerLink='./GpTransaction'>GP Transaction</a>
-                            </button>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="example-button-row">
-                            <button class="text-right" mat-button color="primary" >
-                                <a style="text-decoration: none" (click)="subject='Material Transaction'" routerLink='./materialTransactionReport'>Material Transactions</a>
-                            </button>
-                        </div>
-                    </li>
-
-
-
-                </ul>
-
+            <!-- Left Panel -->
+            <div class="p-2 col-xl-2 left-panel">
+                <mat-nav-list>
+                    <a mat-list-item routerLink="./FineToNinetyTwo" routerLinkActive="active" (click)="subject='Fine to 92'">
+                        <mat-icon>swap_horiz</mat-icon>
+                        <span>Fine to 92</span>
+                    </a>
+                    <a mat-list-item routerLink="./DalCreation" routerLinkActive="active" (click)="subject='Dal Creation'">
+                        <mat-icon>swap_horiz</mat-icon>
+                        <span>Dal Creation</span>
+                    </a>
+                    <a mat-list-item routerLink="./PanCreation" routerLinkActive="active" (click)="subject='Pan Creation'">
+                        <mat-icon>swap_horiz</mat-icon>
+                        <span>Pan Creation</span>
+                    </a>
+                    <a mat-list-item routerLink="./NitricToFine" routerLinkActive="active" (click)="subject='Nitric to Fine'">
+                        <mat-icon>swap_horiz</mat-icon>
+                        <span>Nitric to Fine</span>
+                    </a>
+                    <a mat-list-item routerLink="./SendRawMaterialToEmployee" routerLinkActive="active" (click)="subject='Send Material'">
+                        <mat-icon>swap_horiz</mat-icon>
+                        <span>Send Material</span>
+                    </a>
+                    <a mat-list-item routerLink="./ReceivedRawMaterialFromEmployee" routerLinkActive="active" (click)="subject='Received Material'">
+                        <mat-icon>swap_horiz</mat-icon>
+                        <span>Received Material</span>
+                    </a>
+                    <a mat-list-item routerLink="./ManagerCashWithdrawn" routerLinkActive="active" (click)="subject='Cash Withdrawn'">
+                        <mat-icon>swap_horiz</mat-icon>
+                        <span>Cash Withdrawn</span>
+                    </a>
+                    <a mat-list-item routerLink="./ManagerCashSubmit" routerLinkActive="active" (click)="subject='Cash Submit to Employees'">
+                        <mat-icon>swap_horiz</mat-icon>
+                        <span>Cash Submit</span>
+                    </a>
+                    <a mat-list-item routerLink="./GpTransaction" routerLinkActive="active" (click)="subject='GP Transaction'">
+                        <mat-icon>swap_horiz</mat-icon>
+                        <span>GP Transaction</span>
+                    </a>
+                    <a mat-list-item routerLink="./materialTransactionReport" routerLinkActive="active" (click)="subject='Material Transaction'">
+                        <mat-icon>swap_horiz</mat-icon>
+                        <span>Material Transactions</span>
+                    </a>
+                </mat-nav-list>
             </div>
-            <!-- Right -->
+
+            <!-- Right Panel -->
             <div class="bloc_2 p-2 col-xl-10" style="background-color: antiquewhite">
                 <router-outlet></router-outlet>
             </div>
         </div>
     </div>
-    <!--    Footer area-->
-    <div class="mt-auto p-2 text-center" style="background-color: rgb(77, 68, 68)">I am footer, i will stay here</div>
-</div>
 
-<div *ngIf="true && !isProduction" id="developer-div">
-    <div class="outerContainer">
-        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
-            <div class="col" fxLayoutAlign="center center">
-                    <pre>
-
-                    </pre>
-
-            </div>
-            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
-                    <pre>
-
-                    </pre>
-            </div>
-        </div>
+    <!-- Footer -->
+    <div class="mt-auto p-2 text-center" style="background-color: rgb(77, 68, 68); color: white;">
+        I am footer, I will stay here
     </div>
 </div>
-
-
-
-

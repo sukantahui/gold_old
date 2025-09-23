@@ -12,10 +12,13 @@
 
                 <mat-form-field class="example-full-width">
                     <mat-label>Enter Fine Gold after conversion</mat-label>
-                    <input type="number"  #fineValue class="text-right"  matInput formControlName="fine_value" placeholder="Fine" >
+                    <input type="number"  #fineValue class="text-right" (keyup)="onFineChange(fineValue)"  matInput formControlName="fine_value" placeholder="Fine" >
                     <mat-hint align="start">"আসলে যা পাওয়া গেছে তাই লিখতে হবে"</mat-hint>
                 </mat-form-field>
 
+            </div>
+            <div style="margin-top: 20px;">
+                Current Tonch is {{tonch * 100 | number: "1.2-2"}} %
             </div>
 
             <div class="d-flex flex-row bd-highlight mb-3">
