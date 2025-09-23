@@ -105,4 +105,17 @@ export class SendRawMaterialToEmployeeComponent implements OnInit {
       });
     }
   }
+
+  resetForm() {
+    this.materialSendingForm.reset({
+      outward_employee_id: this.user.employeeId, // keep logged-in user prefilled
+      inward_employee_id: null,
+      rm_id: null,
+      value: 0
+    });
+
+    this.savedResponse = null;  // clear updated values section if needed
+    this.receverMaterialBalance = []; // clear receiver balances if needed
+  }
+
 }

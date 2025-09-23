@@ -22,11 +22,24 @@
                     <input type="number" class="text-right" matInput formControlName="value" placeholder="Material value" >
                 </mat-form-field>
             </div>
-            <div class="p-2 bd-highlight">
-                <div class="example-button-row">
-                    <button class="text-right" mat-button color="primary" [disabled]="!materialSendingForm.valid || materialSendingForm.pristine" (click)="saveMaterialTransfer()">Save Record</button>
-                </div>
+            <div class="p-2 bd-highlight d-flex gap-2">
+                <button class="text-right"
+                        mat-stroked-button
+                        color="warn"
+                        type="button"
+                        (click)="resetForm()">
+                    Reset
+                </button>
+
+                <button class="text-right"
+                        mat-stroked-button
+                        color="primary"
+                        [disabled]="!materialSendingForm.valid || materialSendingForm.pristine"
+                        (click)="saveMaterialTransfer()">
+                    Save Record
+                </button>
             </div>
+
         </form>
     </div>
     <div class="p-2 col-8 d-flex">

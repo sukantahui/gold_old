@@ -295,6 +295,32 @@ class MaterialTransformationMasterController extends ApiController
             $mtebPan->update();
             $return_array['mtebPan']=$mtebPan;
 
+            // recording in inventory_day_book for gini
+            $employee = Employee::find(auth()->user()->emp_id);
+            $result=InventoryDayBook::create([
+                'employee_id'      => auth()->user()->emp_id,
+                'rm_id'            =>  $mtdGini->rm_id ,
+                'transaction_type' => -1,
+                'rm_value'         => $mtdGini->rm_value,
+                'reference'        => $mtm->id,
+                'comment'          => 'Gini is used to create Pan by '.$employee->emp_name,
+                'inforce'          => 1,
+            ]);
+            $return_array['inventory_day_book_data_gini']=$result;
+
+            // recording in inventory_day_book for pan
+            $employee = Employee::find(auth()->user()->emp_id);
+            $result=InventoryDayBook::create([
+                'employee_id'      => auth()->user()->emp_id,
+                'rm_id'            =>  $mtdPan->rm_id ,
+                'transaction_type' => 1,
+                'rm_value'         => $mtdPan->rm_value,
+                'reference'        => $mtm->id,
+                'comment'          => 'Pan created using Gini by '.$employee->emp_name,
+                'inforce'          => 1,
+            ]);
+            $return_array['inventory_day_book_data_pan']=$result;
+
             DB::commit();
             $materialBalance = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();
             $return_array['material_balance']=MaterialBalanceResource::collection($materialBalance);
@@ -370,6 +396,32 @@ class MaterialTransformationMasterController extends ApiController
             $mtebGini->closing_balance=$mtebGini->closing_balance+$data->gini_value;
             $mtebGini->update();
             $return_array['mtebGini']=$mtebGini;
+
+            // recording in inventory_day_book for fine
+            $employee = Employee::find(auth()->user()->emp_id);
+            $result=InventoryDayBook::create([
+                'employee_id'      => auth()->user()->emp_id,
+                'rm_id'            =>  $mtdFine->rm_id ,
+                'transaction_type' => -1,
+                'rm_value'         => $mtdFine->rm_value,
+                'reference'        => $mtm->id,
+                'comment'          => 'Fine gold is used to create Gini by '.$employee->emp_name,
+                'inforce'          => 1,
+            ]);
+            $return_array['inventory_day_book_data_fine']=$result;
+
+            // recording in inventory_day_book for gini
+            $employee = Employee::find(auth()->user()->emp_id);
+            $result=InventoryDayBook::create([
+                'employee_id'      => auth()->user()->emp_id,
+                'rm_id'            =>  $mtdGini->rm_id ,
+                'transaction_type' => 1,
+                'rm_value'         => $mtdGini->rm_value,
+                'reference'        => $mtm->id,
+                'comment'          => 'Gini created using fine by '.$employee->emp_name,
+                'inforce'          => 1,
+            ]);
+            $return_array['inventory_day_book_data_gini']=$result;
 
             DB::commit();
             $materialBalance = MaterialToEmployeeBalance::whereEmpId(Auth::user()->emp_id)->get();

@@ -39,9 +39,16 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="text-end">
+                    <div class="text-end d-flex gap-2">
+                        <button class="text-right"
+                                mat-stroked-button
+                                color="warn"
+                                type="button"
+                                (click)="resetForm()">
+                            Reset
+                        </button>
                         <button
-                                mat-raised-button
+                                mat-stroked-button
                                 color="primary"
                                 [disabled]="!materialRecivingForm.valid || materialRecivingForm.pristine"
                                 (click)="saveMaterialTransfer()">

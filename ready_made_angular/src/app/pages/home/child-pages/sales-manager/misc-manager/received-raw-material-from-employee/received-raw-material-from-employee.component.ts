@@ -106,4 +106,17 @@ export class ReceivedRawMaterialFromEmployeeComponent implements OnInit {
       });
     }
   }
+
+
+  resetForm() {
+    this.materialRecivingForm.reset({
+      outward_employee_id: null,
+      inward_employee_id: this.user.employeeId, // keep logged-in user prefilled
+      rm_id: null,
+      value: 0
+    });
+
+    this.savedResponse = null;         // clear updated values
+    this.senderMaterialBalances = [];  // clear sender balances
+  }
 }
