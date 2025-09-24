@@ -110,6 +110,7 @@ export class FineToNinetyTwoComponent implements OnInit {
             this.goldConversionForm.reset();
           }
         }, error => {
+          console.log(error);
           Swal.fire({
             title: error.message,
             text: 'Conversion unsuccessful',

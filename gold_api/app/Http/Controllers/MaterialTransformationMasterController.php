@@ -35,6 +35,7 @@ class MaterialTransformationMasterController extends ApiController
             $mtm =new MaterialTransformationMaster();
             $mtm->employee_id =Auth::user()->emp_id;
             $mtm->karigar_id =76;
+            $mtm->material_transfer_type_id=4;
             $mtm->save();
             $return_array['mtm']=$mtm;
 
@@ -129,6 +130,7 @@ class MaterialTransformationMasterController extends ApiController
             $mtm =new MaterialTransformationMaster();
             $mtm->employee_id =$data->employee_id;
             $mtm->karigar_id =$data->karigar_id;
+            $mtm->material_transfer_type_id=2;
             $mtm->save();
             $return_array['mtm']=$mtm;
 
@@ -226,6 +228,7 @@ class MaterialTransformationMasterController extends ApiController
             $mtm =new MaterialTransformationMaster();
             $mtm->employee_id =$employee_id;
             $mtm->karigar_id =$data->karigar_id;
+            $mtm->material_transfer_type_id=3;
             $mtm->save();
             $return_array['mtm']=$mtm;
 
@@ -352,6 +355,7 @@ class MaterialTransformationMasterController extends ApiController
             $mtm =new MaterialTransformationMaster();
             $mtm->employee_id =$data->employee_id;
             $mtm->karigar_id =$data->karigar_id;
+            $mtm->material_transfer_type_id = 1;
             $mtm->save();
             $return_array['mtm']=$mtm;
             $mtdFine=new MaterialTransformationDetail();
