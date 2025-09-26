@@ -25,6 +25,15 @@ export class ReportService {
 
             }));
     }
+    getMaterialTransformationReport(){
+        return this.http.get<ServerResponse>(this.commonService.getAPI() + '/materialTransformationReport')
+            .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                if (response.status === true){
+
+                }
+
+            }));
+    }
     cashBalance(){
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/cashBalances')
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {

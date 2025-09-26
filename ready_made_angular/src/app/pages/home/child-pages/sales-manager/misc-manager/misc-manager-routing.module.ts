@@ -81,6 +81,10 @@ const routes: Routes = [{ path: '', component: MiscManagerComponent
         currentUser: UserResolver
       }
     },
+    { path: 'MaterialTransformationReport'
+      // tslint:disable-next-line:max-line-length
+      , loadChildren: () => import('./material-transformation-report/material-transformation-report.module').then(m => m.MaterialTransformationReportModule)
+    },
   ]
 }];
 

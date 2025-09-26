@@ -792,6 +792,34 @@ class ReportController extends ApiController
         }
         return $this->successResponse($result_array);
     }
+
+    function getMaterialTransformationReport(){
+        $result=DB::select("SELECT 
+                                    mtm.id,
+                                    mtm.created_at,
+                                    karigar.emp_name,
+                                    mtt.material_transformation_type_name,
+                                    GROUP_CONCAT(CASE WHEN mtd.tr_type = 1 THEN mtd.rm_value END ORDER BY mtd.id SEPARATOR ', ') AS materials_in_value,
+                                    GROUP_CONCAT(CASE WHEN mtd.tr_type = -1 THEN FORMAT(mtd.rm_value,3) END ORDER BY mtd.id SEPARATOR ', ') AS materials_out_value,
+                                    GROUP_CONCAT(CASE WHEN mtd.tr_type = -1 THEN rm.rm_name END ORDER BY mtd.id SEPARATOR ', ') AS materials_out_name
+                                FROM material_transformation_masters mtm
+                                INNER JOIN material_transformation_types mtt 
+                                    ON mtm.material_transfer_type_id = mtt.id
+                                INNER JOIN employees AS karigar 
+                                    ON karigar.emp_id = mtm.karigar_id
+                                LEFT JOIN material_transformation_details mtd 
+                                    ON mtm.id = mtd.mtm_id
+                                LEFT JOIN rm_master rm
+                                    ON mtd.rm_id = rm.rm_ID
+                                GROUP BY 
+                                    mtm.id,
+                                    mtm.created_at,
+                                    karigar.emp_name,
+                                    mtt.material_transformation_type_name
+                                ORDER BY mtm.created_at DESC");
+        return $this->successResponse($result);
+
+    }
 }
 
 

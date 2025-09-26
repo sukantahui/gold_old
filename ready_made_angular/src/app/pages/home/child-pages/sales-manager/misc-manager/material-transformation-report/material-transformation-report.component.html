@@ -1,0 +1,37 @@
+<div class="container p-4">
+    <h2>Material Transformations</h2>
+
+    <button (click)="fetchData()" class="btn btn-primary mb-3" [disabled]="loading">
+        {{ loading ? 'Loading...' : 'Fetch Data' }}
+    </button>
+
+    <table class="table table-bordered table-striped" *ngIf="data.length > 0">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Employee</th>
+            <th>Transformation Type</th>
+            <th>Materials IN (Values)</th>
+            <th>Materials OUT (Names)</th>
+            <th>Materials OUT (Values)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of data">
+            <td>{{ row.id }}</td>
+            <td>{{ row.created_at | date:'dd/MM/yyyy' }}</td>
+            <td>{{ row.emp_name }}</td>
+            <td>{{ row.material_transformation_type_name }}</td>
+            <td class="text-right">{{ row.materials_in_value | number : '1.3' }}</td>
+            <td>{{ row.materials_out_name }}</td>
+            <td>{{ row.materials_out_value }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="!data.length && !loading" class="alert alert-info">
+        No data to display. Click "Fetch Data".
+    </div>
+</div>
+

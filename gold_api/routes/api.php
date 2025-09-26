@@ -313,6 +313,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/cashTransactionBetweenEmployee', [CashTransactionBetweenEmployeeController::class,'store']);
     Route::get('/cashBalances', [ReportController::class,'cashBalances']);
     Route::get('/materialBetweenEmployees', [MatBetweenEmployeeMasterController::class,'get_material_tranaction_report']);
+    Route::get('/materialTransformationReport', [ReportController::class,'getMaterialTransformationReport']);
 
 
 });
