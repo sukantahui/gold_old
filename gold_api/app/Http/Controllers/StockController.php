@@ -177,19 +177,39 @@ class StockController extends ApiController
         return $this->successResponse($result);
     }
     public function get_details_by_job_id($id){
-        $result = Job::select('job_master.job_id'
-                                ,'job_master.product_code'
-                                ,'job_master.product_size'
-                                ,'job_master.pieces'
-                                ,'price_master.price_id'
-                                ,'price_master.price_code'
-                                ,'price_master.price'
-                                ,'bill_master.bill_no')
-                  ->join('product_master','product_master.product_code','=','job_master.product_code')
-                  ->join('price_master','price_master.price_code','=','product_master.price_code')
-                  ->join('bill_master','bill_master.order_id','=','job_master.order_id')
-                  ->where('job_master.job_id',$id)
-                  ->first();
+
+        $result = DB::table('bill_details')
+            ->select(
+                'bill_details.job_id',
+                'bill_details.model_no as product_code',
+                'bill_details.size as product_size',
+                'bill_details.qty as pieces',
+                'price_master.price_id',
+                'bill_details.price_code',
+                'price_master.price',
+                'bill_details.bill_no'
+            )
+            ->join('bill_master', 'bill_details.bill_no', '=', 'bill_master.bill_no')
+            ->join('product_master', 'bill_details.model_no', '=', 'product_master.product_code')
+            ->join('price_master', 'product_master.price_code', '=', 'price_master.price_code')
+            ->where('bill_details.job_id', $id)
+            ->where('price_master.price_cat', 1)
+            ->first();
+
+
+//        $result = Job::select('job_master.job_id'
+//                                ,'job_master.product_code'
+//                                ,'job_master.product_size'
+//                                ,'job_master.pieces'
+//                                ,'price_master.price_id'
+//                                ,'price_master.price_code'
+//                                ,'price_master.price'
+//                                ,'bill_master.bill_no')
+//                  ->join('product_master','product_master.product_code','=','job_master.product_code')
+//                  ->join('price_master','price_master.price_code','=','product_master.price_code')
+//                  ->join('bill_master','bill_master.order_id','=','job_master.order_id')
+//                  ->where('job_master.job_id',$id)
+//                  ->first();
         return $this->successResponse($result);
     }
     public function getReadyMadeBalance($agentId){

@@ -135,14 +135,30 @@ export class DalCreationComponent implements OnInit {
 
 
   resetForm() {
+    // Reset the form with default values
+    this.dalConversionForm.reset({
+      employee_id: this.user?.emp_id || null,
+      karigar_id: null, // keep empty for selection
+      silver_id: 38,
+      copper_id: 37,
+      zinc_id: 39,
+      dal_id: 33,
+      silver_value: 0,
+      copper_value: 0,
+      zinc_value: 0,
+      dal_value: 0
+    });
+
+    // Reset any saved response and flags
     if (this.savedResponse){
       this.materialBalance = this.savedResponse.data.material_balance;
       this.savedResponse = null;
     }
-    this.dalConversionForm.reset();
+
     this.dalConversionForm.markAsPristine();
-    this.isSaved = false;   // ✅ re-enable button
+    this.isSaved = false;   // re-enable button
   }
+
 
   saveDalConversion() {
     Swal.fire({
