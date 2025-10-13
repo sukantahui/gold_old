@@ -1,60 +1,87 @@
 <div class="d-flex flex-column" style="min-height: 100vh;">
+    <!-- Header -->
     <div class="p-2 text-center" style="background-color: rgb(183,174,159)">
         <h3>{{subject}}</h3>
     </div>
 
+    <!-- Main content area -->
     <div class="p-2">
         <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
 
-            <div class="p-2 col-xl-2" style="background-color: rgb(199, 192, 192)">
-                <ul style="list-style: none;">
+            <!-- Sidebar -->
+            <div class="p-3 col-xl-2 sidebar-menu">
+                <ul class="menu-list">
                     <li>
-                        <a style="text-decoration: none" (click)="subject='Material to manager'" routerLink='./MaterialToManager'>Material to Manager</a>
+                        <a (click)="subject='Material to manager'"
+                           routerLink="./MaterialToManager"
+                           routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }">
+                            📦 Material to Manager
+                        </a>
                     </li>
                     <li>
-                        <a style="text-decoration: none" (click)="subject='Material from Manager'" routerLink='./MaterialFromManager'>Material from Manager</a>
+                        <a (click)="subject='Material from Manager'"
+                           routerLink="./MaterialFromManager"
+                           routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }">
+                            🔁 Material from Manager
+                        </a>
                     </li>
                     <li>
-                        <a style="text-decoration: none" (click)="subject='Owner Cash Withdrawn from Manager'" routerLink='./OwnerCashWithdrawn'>Cash from Manager</a>
+                        <a (click)="subject='Owner Cash Withdrawn from Manager'"
+                           routerLink="./OwnerCashWithdrawn"
+                           routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }">
+                            💰 Cash from Manager
+                        </a>
                     </li>
                     <li>
-                        <a style="text-decoration: none" (click)="subject='Owner Cash To Manager'" routerLink='./OwnerCashToManager'>Cash To Manager</a>
+                        <a (click)="subject='Owner Cash To Manager'"
+                           routerLink="./OwnerCashToManager"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                        >
+                            💸 Cash To Manager
+                        </a>
                     </li>
                     <li>
-                        <a style="text-decoration: none" (click)="subject='Material Transaction Report'" routerLink='./materialTransactionReport'>Material Transaction Report</a>
+                        <a (click)="subject='Material Transaction Report'"
+                           routerLink="./materialTransactionReport"
+                           routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }">
+                            📊 Material Transaction Report
+                        </a>
                     </li>
-
+                    <li>
+                        <a (click)="subject='Processing Loss Withdrawn'"
+                           routerLink="./PlossWithdrawn"
+                           routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }">
+                            🧲 PLOSS Withdrawn
+                        </a>
+                    </li>
                 </ul>
             </div>
+
             <!-- Right -->
             <div class="bloc_2 p-2 col-xl-10" style="background-color: antiquewhite">
                 <router-outlet></router-outlet>
             </div>
         </div>
     </div>
-    <!--    Footer area-->
-    <div class="mt-auto p-2 text-center" style="background-color: rgb(77, 68, 68)">I am footer, i will stay here</div>
-</div>
 
-<div *ngIf="true && !isProduction" id="developer-div">
-    <div class="outerContainer">
-        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
-            <div class="col" fxLayoutAlign="center center">
-                    <pre>
-
-                    </pre>
-
-            </div>
-            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
-                    <pre>
-
-                    </pre>
-            </div>
-        </div>
+    <!-- Footer -->
+    <div class="mt-auto p-2 text-center" style="background-color: rgb(77, 68, 68)">
+        I am footer, I will stay here
     </div>
 </div>
 
-
-
-
-
+<!-- Developer Debug Area -->
+<div *ngIf="true && !isProduction" id="developer-div">
+    <div class="outerContainer">
+        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
+            <div class="col" fxLayoutAlign="center center"><pre></pre></div>
+            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center"><pre></pre></div>
+        </div>
+    </div>
+</div>

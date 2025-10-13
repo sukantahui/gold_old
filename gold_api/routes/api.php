@@ -65,6 +65,7 @@ Route::get("backupDatabase",[AdminController::class,'backup_database']);
 Route::post("login",[UserController::class,'login']);
 Route::get("login",[UserController::class,'authenticationError'])->name('login');
 
+
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("/me",[UserController::class,'getCurrentUser']);
 //    Route::get('/me', function(Request $request) {
@@ -325,6 +326,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
 Route::group(array('prefix' => 'dev'), function() {
+    Route::put("setPassword",[UserController::class, 'set_password']);
     Route::get("backupDatabase",[AdminController::class,'backup_database']);
 
 

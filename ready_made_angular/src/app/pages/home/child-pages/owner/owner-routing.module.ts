@@ -52,6 +52,17 @@ const routes: Routes = [{ path: '', component: OwnerComponent
                 currentUser: UserResolver
             }
     },
+
+    { path: 'PlossWithdrawn'
+        // tslint:disable-next-line:max-line-length
+        , loadChildren: () => import('./ploss-withdrawn/ploss-withdrawn.module').then(m => m.PlossWithdrawnModule)
+        , resolve: {
+             projectDetails: ProjectDetailsResolver,
+             materialTransactionBetweenEmployees: MaterialBetweenEmployeesResolver,
+             currentUser: UserResolver
+        }
+    },
+
   ]
 }];
 
