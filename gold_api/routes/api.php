@@ -317,6 +317,13 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/materialTransformationReport', [ReportController::class,'getMaterialTransformationReport']);
 
 
+
+
+    Route::get('/total-ploss', [ReportController::class,'getTotalPlossReport']);
+
+
+
+
 });
 
 

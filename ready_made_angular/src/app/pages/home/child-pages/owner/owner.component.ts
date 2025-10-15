@@ -11,6 +11,7 @@ import {ManagerService} from '../../../../services/manager.service';
 })
 export class OwnerComponent implements OnInit {
   isProduction = environment.production;
+
   subject = 'Owner Area';
 
   constructor() {

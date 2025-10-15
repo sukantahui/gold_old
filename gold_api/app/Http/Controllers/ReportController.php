@@ -24,6 +24,16 @@ use App\Models\RawMaterial;
 use App\Models\CashTransactionBetweenEmployee;
 class ReportController extends ApiController
 {
+    public function getTotalPlossReport(){
+        $total_pLoss = JobMaster::where('status', 9)
+            ->select([
+                DB::raw("'Completed' as status"),
+                DB::raw('ROUND(SUM(pieces * p_loss), 3) as total_ploss')
+            ])
+            ->first();
+
+        return $this->successResponse($total_pLoss);
+    }
     public function cashBalances(){
         $balances = EmployeeCashBalance::select(
             'employees_cash_balance.*',

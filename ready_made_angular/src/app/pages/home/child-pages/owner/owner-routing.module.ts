@@ -9,6 +9,7 @@ import {CashTransactionByEmployeeResolver} from '../../../../resolvers/cash-tran
 import {CashBalanceResolver} from '../../../../resolvers/cash-balance.resolver';
 import {UserResolver} from '../../../../resolvers/user.resolver';
 import {MaterialBetweenEmployeesResolver} from '../../../../resolvers/material-between-employees.resolver';
+import {PlossWithdrawResolver} from '../../../../resolvers/ploss-withdraw.resolver';
 
 const routes: Routes = [{ path: '', component: OwnerComponent
   , children: [
@@ -57,8 +58,7 @@ const routes: Routes = [{ path: '', component: OwnerComponent
         // tslint:disable-next-line:max-line-length
         , loadChildren: () => import('./ploss-withdrawn/ploss-withdrawn.module').then(m => m.PlossWithdrawnModule)
         , resolve: {
-             projectDetails: ProjectDetailsResolver,
-             materialTransactionBetweenEmployees: MaterialBetweenEmployeesResolver,
+             plossData: PlossWithdrawResolver,
              currentUser: UserResolver
         }
     },

@@ -16,7 +16,16 @@ export class ReportService {
   constructor(private commonService: CommonService, private http: HttpClient, private errorService: ErrorService, private logger: NgxFancyLoggerService) {
 
   }
-    getRawMaterials(){
+      getTotalPloss(){
+            return this.http.get<ServerResponse>(this.commonService.getAPI() + '/total-ploss')
+                .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
+                    if (response.status === true){
+
+                    }
+
+                }));
+      }
+      getRawMaterials(){
         return this.http.get<ServerResponse>(this.commonService.getAPI() + '/rawMaterials')
             .pipe(catchError(this.errorService.serverError), tap((response: ServerResponse) => {
                 if (response.status === true){
