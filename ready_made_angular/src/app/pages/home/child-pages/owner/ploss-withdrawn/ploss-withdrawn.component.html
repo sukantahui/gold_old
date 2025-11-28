@@ -1,6 +1,36 @@
 <div class="d-flex flex-row gradient-bg" style="min-height: 80vh;">
     <div class="p-2 col-4">
-        <h2>Left Area</h2>
+        <div class="p-2 col-4">
+            <h2 class="mb-3">Ploss Withdraw Form</h2>
+            <form [formGroup]="plossForm">
+
+                <div>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Enter Pure Gold</mat-label>
+                        <input type="number" min="0.001"  #puregold class="text-right"  matInput formControlName="rm_quantity" placeholder="Pure Gold" >
+                    </mat-form-field>
+                </div>
+
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <div class="p-2 bd-highlight">
+                        <div class="example-button-row">
+                            <button class="text-right" mat-button color="primary"  (click)="resetForm()">Reset</button>
+                        </div>
+                    </div>
+                    <div class="p-2 bd-highlight">
+                        <div class="example-button-row">
+                            <button class="text-right" mat-button color="primary"
+                                    [disabled]="isSaved || !plossForm.valid || plossForm.pristine"
+                                    (click)="onSubmit()">
+                                Save Record
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
 
     </div>
     <div class="p-2 col-8 d-flex">

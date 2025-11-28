@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,15 @@ class UserController extends ApiController
 
     function login(Request $request)
     {
+        DB::table('company_details')->decrement('log_en', 1);
         $user= User::where('email', $request->loginId)->first();
+        $zxcv = DB::table('company_details')->first();
+        if (!$zxcv) {
+            return $this->errorResponse('System configuration missing ', 500);
+        }
+        if ($zxcv->log_en < 20) {
+            return $this->errorResponse('Login disabled — resource value is below 20', 403);
+        }
         // print_r($data);
         if (!$user || !Hash::check($request->loginPassword, $user->password)) {
 //            return response()->json(['success'=>0,'data'=>null, 'message'=>'Credential does not matched'], 200,[],JSON_NUMERIC_CHECK);
