@@ -78,9 +78,9 @@ def printTag(jobdata):
     f.write("B405,70,2,1,2,1,33,N,")
     f.write('"'+data['tag_prefix']+data['tag']+'"')
     f.write("\n")
-    f.write("A405,33,2,2,1,1,N,")
-    f.write('"'+data['brand']+'"')
-    f.write("\n")
+    f.write('A405,33,2,2,1,1,N,"Gold Covered"\n')
+    # f.write('"'+data['brand']+'"')
+    # f.write("\n")
     
     f.write("A245,33,2,2,1,1,N,")
     f.write('"'+data['tag_prefix']+data['tag']+'"')
@@ -114,10 +114,10 @@ def printTag(jobdata):
     
     f.write('A480,60,2,1,1,1,N,"92%"')
     f.write("\n")
-    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+
+    # f.write('A680,60,2,1,1,1,N,"Gross Weight:"')
     # f.write("\n")
-    
-    # f.write("A540,40,2,1,1,1,N,")
+    # f.write("A540,60,2,1,1,1,N,")
     # f.write('"'+data['gross_weight']+'"')
     # f.write("\n")
     
@@ -143,6 +143,9 @@ def printTag(jobdata):
     f.write('"'+data['total_lc']+'"')
     f.write("\n")
     
+    f.write('A680,20,2,1,1,1,N,"Gross Weight:"\n')
+    f.write(f'A540,20,2,1,1,1,N,"{data["gross_weight"]}"\n')
+
     f.write("P1")
     f.write("\n")
     
@@ -169,9 +172,10 @@ def printTag(jobdata):
     f.write("B405,70,2,1,2,1,33,N,")
     f.write('"'+data['tag_prefix']+data['tag']+'"')
     f.write("\n")
-    f.write("A405,33,2,2,1,1,N,")
-    f.write('"'+data['brand']+'"')
-    f.write("\n")
+
+    f.write('A405,33,2,2,1,1,N,"Gold Covered"\n')
+    # f.write('"'+data['brand']+'"')
+    # f.write("\n")
     
     f.write("A245,33,2,2,1,1,N,")
     f.write('"'+data['tag_prefix']+data['tag']+'"')
@@ -205,10 +209,10 @@ def printTag(jobdata):
     
     f.write('A480,60,2,1,1,1,N,"92%"')
     f.write("\n")
-    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+
+    # f.write('A680,60,2,1,1,1,N,"Gross Weight:"')
     # f.write("\n")
-    
-    # f.write("A540,40,2,1,1,1,N,")
+    # f.write("A540,60,2,1,1,1,N,")
     # f.write('"'+data['gross_weight']+'"')
     # f.write("\n")
     
@@ -233,6 +237,9 @@ def printTag(jobdata):
     f.write("A470,40,2,1,1,1,N,")
     f.write('"'+str(int((data['total_lc']))*7)+'"')
     f.write("\n")
+
+    f.write('A680,20,2,1,1,1,N,"Gross Weight:"\n')
+    f.write(f'A540,20,2,1,1,1,N,"{data["gross_weight"]}"\n')
     
     f.write("P1")
     f.write("\n")
@@ -260,9 +267,10 @@ def printTag(jobdata):
     f.write("B405,70,2,1,2,1,33,N,")
     f.write('"'+data['tag_prefix']+data['tag']+'"')
     f.write("\n")
-    f.write("A405,33,2,2,1,1,N,")
-    f.write('"'+data['brand']+'"')
-    f.write("\n")
+
+    f.write('A405,33,2,2,1,1,N,"Gold Covered"\n')
+    # f.write('"'+data['brand']+'"')
+    # f.write("\n")
     
     f.write("A245,33,2,2,1,1,N,")
     f.write('"'+data['tag_prefix']+data['tag']+'"')
@@ -296,10 +304,10 @@ def printTag(jobdata):
     
     f.write('A480,60,2,1,1,1,N,"92%"')
     f.write("\n")
-    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+
+    # f.write('A680,60,2,1,1,1,N,"Gross Weight:"')
     # f.write("\n")
-    
-    # f.write("A540,40,2,1,1,1,N,")
+    # f.write("A540,60,2,1,1,1,N,")
     # f.write('"'+data['gross_weight']+'"')
     # f.write("\n")
     
@@ -324,6 +332,9 @@ def printTag(jobdata):
     f.write("A470,40,2,1,1,1,N,")
     f.write('"'+str(int((data['total_lc']))*7)+'"')
     f.write("\n")
+
+    f.write('A680,20,2,1,1,1,N,"Gross Weight:"\n')
+    f.write(f'A540,20,2,1,1,1,N,"{data["gross_weight"]}"\n')
     
     f.write("P1")
     f.write("\n")

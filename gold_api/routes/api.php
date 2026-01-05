@@ -63,8 +63,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get("backupDatabase",[AdminController::class,'backup_database']);
-Route::post("login",[UserController::class,'login'])->middleware('throttle:1,120');
 Route::get("login",[UserController::class,'authenticationError'])->name('login');
+//Route::post("login",[UserController::class,'login'])->middleware('throttle:1,120');
+Route::post("login",[UserController::class,'login'])->middleware('throttle:3,10');
 
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
@@ -104,7 +105,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("stocks",[StockController::class,'get_all_instock_items']);
     Route::get("stocksInHand/{categoryID}/{agentId}",[StockController::class,'get_all_instock_items_in_hand']);
     //saving stock
-    Route::post("stocks",[StockController::class,'store'])->middleware('throttle:2,1');;
+    Route::post("stocks",[StockController::class,'store'])->middleware('throttle:10,1');;
     Route::get("stockSummary",[StockController::class,'get_item_stock_summary']);
     Route::get("stockSummary/{categoryId}",[StockController::class,'get_item_stock_summary_by_category']);
 
@@ -247,16 +248,16 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get("customer/goldReceipt/{customer_id}",[GoldReceiptController::class, 'getLcReceiptsByCustomer']);
 
-    Route::post("goldReceipt/save",[GoldReceiptController::class, 'save_gold_receipt'])->middleware('throttle:1,1');;
+    Route::post("goldReceipt/save",[GoldReceiptController::class, 'save_gold_receipt'])->middleware('throttle:10,1');;
     Route::post("get_gold_receipt_details",[GoldReceiptController::class, 'get_gold_receipt_details']);
     Route::get("materialBalance",[ReportController::class, 'getEmployeeMaterialBalance']);
     Route::get("materialBalance/{emp_id}",[ReportController::class, 'getEmployeeMaterialBalanceById']);
     Route::get("karigars/inforce",[ReportController::class, 'getKarigars']);
 
 
-    Route::post("fineTwoNinetyTwo",[MaterialTransformationMasterController::class, 'fineToNinetyTwo'])->middleware('throttle:1,120');;
-    Route::post("dalCreation",[MaterialTransformationMasterController::class, 'dalCreation'])->middleware('throttle:1,120');;
-    Route::post("panCreation",[MaterialTransformationMasterController::class, 'panCreation'])->middleware('throttle:1,120');;
+    Route::post("fineTwoNinetyTwo",[MaterialTransformationMasterController::class, 'fineToNinetyTwo'])->middleware('throttle:2,1');;
+    Route::post("dalCreation",[MaterialTransformationMasterController::class, 'dalCreation'])->middleware('throttle:2,1');;
+    Route::post("panCreation",[MaterialTransformationMasterController::class, 'panCreation'])->middleware('throttle:2,1');;
 
     Route::get("employees",[EmployeeController::class, 'get_employees']);
 
@@ -286,7 +287,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
 
-    Route::post("nitricToFine",[MaterialTransformationMasterController::class, 'nitricToFineCreation'])->middleware('throttle:1,120');
+    Route::post("nitricToFine",[MaterialTransformationMasterController::class, 'nitricToFineCreation'])->middleware('throttle:2,1');
 
 
     //reports admin
@@ -301,7 +302,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("currentStocks",[ReportController::class, 'selectAllCurrentStocks']);
 
     //material submitted by owner
-    Route::get("ownerSubmittedMaterials",[ReportController::class, 'material_submitted_by_owner'])->middleware('throttle:1,120');
+    Route::get("ownerSubmittedMaterials",[ReportController::class, 'material_submitted_by_owner'])->middleware('throttle:2,1');
 
 
     //gp transactions

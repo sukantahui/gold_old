@@ -39,7 +39,7 @@ export class TransferToAgentComponent implements OnInit {
   currentDate = new Date();
   public sortedProducts: Product[] = [];
   selectAgentReadyMadeBalance: {agentId: string, gold: number, lc: number, qty: number, sets: number};
-  selectedAgent: { 'agent_id': string, 'short_name': string, 'agent_name': string, max_gold_limit_ready_made } = null;
+  selectedAgent: { 'agent_id': string, 'short_name': string, 'agent_phone': string, 'agent_name': string, max_gold_limit_ready_made } = null;
   finalSelectedGoldTotal = 0;
   stoockListByAgent: any[];
   stockListByAgentChangeSubject = new Subject<any[]>();
@@ -67,6 +67,7 @@ export class TransferToAgentComponent implements OnInit {
   ngOnInit(): void {
     this.transferAgentService.getAgentsUpdateListener().subscribe(response => {
       this.agents = response;
+
     });
     this.transferAgentService.getProductsUpdateListener().subscribe(response => {
       this.products = response;

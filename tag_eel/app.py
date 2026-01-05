@@ -78,6 +78,7 @@ def printTag(jobdata):
     f.write('"'+data['job_id']+'"')
     f.write("\n")
     f.write("A405,33,2,2,1,1,N,")
+    # f.write("Gold Covered")
     # f.write('"'+data['brand']+'"')
     f.write('"'+"SRIKRISHNA"+'"')
     f.write("\n")
@@ -114,11 +115,11 @@ def printTag(jobdata):
     
     f.write('A480,60,2,1,1,1,N,"92%"')
     f.write("\n")
-    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+    f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
     f.write("\n")
     
-    # f.write("A540,40,2,1,1,1,N,")
-    # f.write('"'+data['product_wt']+'"')
+    f.write("A540,40,2,1,1,1,N,")
+    f.write('"'+data['product_wt']+'"')
     f.write("\n")
     
     f.write("\n")
@@ -168,7 +169,8 @@ def printTag(jobdata):
     f.write('"'+data['job_id']+'"')
     f.write("\n")
     f.write("A405,33,2,2,1,1,N,")
-    f.write('"'+data['brand']+'"')
+    f.write('"'+"Gold Covered"+'"')
+    # f.write('"'+data['brand']+'"')
     f.write("\n")
     
     f.write("A245,33,2,2,1,1,N,")
@@ -203,11 +205,11 @@ def printTag(jobdata):
     
     f.write('A480,60,2,1,1,1,N,"92%"')
     f.write("\n")
-    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+    f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
     f.write("\n")
     
-    # f.write("A540,40,2,1,1,1,N,")
-    # f.write('"'+data['product_wt']+'"')
+    f.write("A540,40,2,1,1,1,N,")
+    f.write('"'+data['product_wt']+'"')
     f.write("\n")
     
     f.write("\n")
@@ -258,7 +260,8 @@ def printTag(jobdata):
     f.write('"'+data['job_id']+'"')
     f.write("\n")
     f.write("A405,33,2,2,1,1,N,")
-    f.write('"'+data['brand']+'"')
+    f.write('"'+"Gold Covered"+'"')
+    # f.write('"'+data['brand']+'"')
     f.write("\n")
     
     f.write("A245,33,2,2,1,1,N,")
@@ -293,11 +296,11 @@ def printTag(jobdata):
     
     f.write('A480,60,2,1,1,1,N,"92%"')
     f.write("\n")
-    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
+    f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
     f.write("\n")
     
-    # f.write("A540,40,2,1,1,1,N,")
-    # f.write('"'+data['product_wt']+'"')
+    f.write("A540,40,2,1,1,1,N,")
+    f.write('"'+data['product_wt']+'"')
     f.write("\n")
     
     f.write("\n")

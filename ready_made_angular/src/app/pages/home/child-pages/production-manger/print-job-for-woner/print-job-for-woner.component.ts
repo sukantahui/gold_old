@@ -70,7 +70,7 @@ export class PrintJobForWonerComponent implements OnInit {
         this.totalNitricUse = this.jobDetails.nitric.map(item => item.gold_value).reduce((a, b) => a + b, 0);
         this.totalPLoss = this.jobDetails.job.p_loss * this.jobDetails.job.pieces;
         this.totalMV = this.jobDetails.job.markup_value * this.jobDetails.job.pieces;
-        this.finalGini = this.totalGoldUse + this.totalPanUse * this.jobDetails.rm_bangle_pan.bill_percentage + this.totalNitricUse * .93 + this.totalPLoss + this.totalMV;
+        this.finalGini = this.totalGoldUse + this.totalPanUse * this.jobDetails.rm_bangle_pan.bill_percentage + this.jobDetails.job.nitrick_returned*-1 + this.totalPLoss + this.totalMV;
       },
       error: (err) => {
         console.log(err);
