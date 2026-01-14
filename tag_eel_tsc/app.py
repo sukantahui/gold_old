@@ -53,283 +53,59 @@ def runBatch():
 
 @eel.expose
 def printTag(jobdata):
-    #spliting serialize array to dictionary
+    # Convert serialized string to dictionary
     data = dict(x.split("=") for x in jobdata.split("&"))
-    f = open("tag.txt","w")
-    # first tag
-    f.write("N")
-    f.write("\n")
-    f.write("R110,0")
-    f.write("\n")
-    f.write("q831")
-    f.write("\n")
-    f.write("S2")
-    f.write("\n")
-    f.write("D12")
-    f.write("\n")
-    f.write("OEb")
-    f.write("\n")
-    f.write("A395,85,2,1,1,1,N,")
-    f.write('"'+data['cust_short_name']+'"')
-    f.write("\n")
-    f.write('A245,85,2,1,1,1,N,"Original"')
-    f.write("\n")
-    f.write("B405,70,2,1,2,1,33,N,")
-    f.write('"'+data['job_id']+'"')
-    f.write("\n")
-    f.write("A405,33,2,2,1,1,N,")
-    # f.write('"'+data['brand']+'"')
-    f.write('"'+"SRIKRISHNA"+'"')
-    f.write("\n")
-    
-    f.write("A245,33,2,2,1,1,N,")
-    f.write('"'+data['job_id']+'"')
-    f.write("\n")
-    
-    f.write("A680,80,2,1,1,1,N,")
-    f.write('"'+data['product_code']+'-')
-    f.write(data['price_code']+'"')
-    f.write("\n")
-    
-    f.write('A602,80,2,1,1,1,N,"Size:"')
-    f.write("\n")
-    
-    f.write("A549,80,2,1,1,1,N,")
-    f.write('"'+data['size']+'"')
-    f.write("\n")
-    
-    f.write('A490,80,2,1,1,1,N,"Qty:"')
-    f.write("\n")
-    
-    f.write("A450,80,2,1,1,1,N,")
-    f.write('"'+data['pieces']+'"')
-    f.write("\n")
-    
-    f.write('A680,60,2,1,1,1,N,"Gold Weight:"')
-    f.write("\n")
-    
-    f.write("A550,60,2,1,1,1,N,")
-    f.write('"'+data['gold_used']+'"')
-    f.write("\n")
-    
-    f.write('A480,60,2,1,1,1,N,"92%"')
-    f.write("\n")
-    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
-    f.write("\n")
-    
-    # f.write("A540,40,2,1,1,1,N,")
-    # f.write('"'+data['product_wt']+'"')
-    f.write("\n")
-    
-    f.write("\n")
-    f.write('A660,20,2,1,1,1,N,"M. Charge:"')
-    f.write("\n")
-    
-    f.write("\n")
-    f.write("A580,20,2,1,1,1,N,")
-    f.write('"'+data['price']+'"')
-    f.write("\n")
-    f.write('A535,20,2,1,1,1,N,"X"')
-    f.write("\n")
-    
-    f.write('A515,20,2,1,1,1,N,')
-    f.write('"'+data['pieces']+'"')
-    f.write("\n")
 
-    f.write('A495,20,2,1,1,1,N,"="')
-    f.write("\n")
-    
-    f.write("A485,20,2,1,1,1,N,")
-    f.write('"'+data['total_lc']+'"')
-    f.write("\n")
-    
-    f.write("P1")
-    f.write("\n")
-    
-    # second tag
-    f.write("N")
-    f.write("\n")
-    f.write("R110,0")
-    f.write("\n")
-    f.write("q831")
-    f.write("\n")
-    f.write("S2")
-    f.write("\n")
-    f.write("D12")
-    f.write("\n")
-    f.write("OEb")
-    f.write("\n")
-    f.write("A395,85,2,1,1,1,N,")
-    f.write('"'+data['cust_short_name']+'"')
-    f.write("\n")
-    f.write('A245,85,2,1,1,1,N,"1ff"')
-    f.write("\n")
-    f.write("B405,70,2,1,2,1,33,N,")
-    f.write('"'+data['job_id']+'"')
-    f.write("\n")
-    f.write("A405,33,2,2,1,1,N,")
-    f.write('"'+data['brand']+'"')
-    f.write("\n")
-    
-    f.write("A245,33,2,2,1,1,N,")
-    f.write('"'+data['job_id']+'"')
-    f.write("\n")
-    
-    f.write("A680,80,2,1,1,1,N,")
-    f.write('"'+data['product_code']+'-')
-    f.write(data['price_code']+'"')
-    f.write("\n")
-    
-    f.write('A602,80,2,1,1,1,N,"Size:"')
-    f.write("\n")
-    
-    f.write("A549,80,2,1,1,1,N,")
-    f.write('"'+data['size']+'"')
-    f.write("\n")
-    
-    f.write('A490,80,2,1,1,1,N,"Qty:"')
-    f.write("\n")
-    
-    f.write("A450,80,2,1,1,1,N,")
-    f.write('"'+data['pieces']+'"')
-    f.write("\n")
-    
-    f.write('A680,60,2,1,1,1,N,"Gold Weight:"')
-    f.write("\n")
-    
-    f.write("A550,60,2,1,1,1,N,")
-    f.write('"'+str(round(float(data['gold_used'])+int(data['pieces'])*0.100,3))+'"')
-    f.write("\n")
-    
-    f.write('A480,60,2,1,1,1,N,"92%"')
-    f.write("\n")
-    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
-    f.write("\n")
-    
-    # f.write("A540,40,2,1,1,1,N,")
-    # f.write('"'+data['product_wt']+'"')
-    f.write("\n")
-    
-    f.write("\n")
-    f.write('A660,20,2,1,1,1,N,"M. Charge:"')
-    f.write("\n")
-    
-    f.write("\n")
-    f.write("A580,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['price'])*7)+'"')
-    f.write("\n")
-    f.write('A535,20,2,1,1,1,N,"X"')
-    f.write("\n")
-    
-    f.write('A515,20,2,1,1,1,N,')
-    f.write('"'+data['pieces']+'"')
-    f.write("\n")
+    with open("tag.txt", "w") as f:
+        # ----- TSC SETUP -----
+        f.write("SIZE 99 mm, 15 mm\n")
+        f.write("GAP 2 mm, 0 mm\n")
+        f.write("SPEED 3\n")
+        f.write("DENSITY 15\n")
+        f.write("SET RIBBON ON\n")
+        f.write("DIRECTION 0,0\n")
+        f.write("REFERENCE 0,0\n")
+        f.write("OFFSET 0 mm\n")
+        f.write("SET PEEL OFF\n")
+        f.write("SET CUTTER OFF\n")
+        f.write("SET PARTIAL_CUTTER OFF\n")
+        f.write("SET TEAR ON\n")
+        f.write("CLS\n")
+        f.write("CODEPAGE 1252\n")
 
-    f.write('A495,20,2,1,1,1,N,"="')
-    f.write("\n")
-    
-    f.write("A485,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['total_lc'])*7)+'"')
-    f.write("\n")
-    
-    f.write("P1")
-    f.write("\n")
+        # ----- TEXT FIELDS -----
+        f.write(f'TEXT 779,101,"1",180,1,1,"{data["product_code"]}-{data["price_code"]}"\n')
+        f.write(f'TEXT 691,101,"1",180,1,1,"Size:{data["size"]}"\n')
+        f.write(f'TEXT 585,101,"1",180,1,1,"Qty:{data["pieces"]}"\n')
 
+        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {data["gold_used"]}"\n')
+        f.write('TEXT 585,81,"1",180,1,1,"92%"\n')
 
-    # third tag
-    f.write("N")
-    f.write("\n")
-    f.write("R110,0")
-    f.write("\n")
-    f.write("q831")
-    f.write("\n")
-    f.write("S2")
-    f.write("\n")
-    f.write("D12")
-    f.write("\n")
-    f.write("OEb")
-    f.write("\n")
-    f.write("A395,85,2,1,1,1,N,")
-    f.write('"'+data['cust_short_name']+'"')
-    f.write("\n")
-    f.write('A245,85,2,1,1,1,N,"2ff"')
-    f.write("\n")
-    f.write("B405,70,2,1,2,1,33,N,")
-    f.write('"'+data['job_id']+'"')
-    f.write("\n")
-    f.write("A405,33,2,2,1,1,N,")
-    f.write('"'+data['brand']+'"')
-    f.write("\n")
-    
-    f.write("A245,33,2,2,1,1,N,")
-    f.write('"'+data['job_id']+'"')
-    f.write("\n")
-    
-    f.write("A680,80,2,1,1,1,N,")
-    f.write('"'+data['product_code']+'-')
-    f.write(data['price_code']+'"')
-    f.write("\n")
-    
-    f.write('A602,80,2,1,1,1,N,"Size:"')
-    f.write("\n")
-    
-    f.write("A549,80,2,1,1,1,N,")
-    f.write('"'+data['size']+'"')
-    f.write("\n")
-    
-    f.write('A490,80,2,1,1,1,N,"Qty:"')
-    f.write("\n")
-    
-    f.write("A450,80,2,1,1,1,N,")
-    f.write('"'+data['pieces']+'"')
-    f.write("\n")
-    
-    f.write('A680,60,2,1,1,1,N,"Gold Weight:"')
-    f.write("\n")
-    
-    f.write("A550,60,2,1,1,1,N,")
-    f.write('"'+str(round(float(data['gold_used'])+int(data['pieces'])*0.200,3))+'"')
-    f.write("\n")
-    
-    f.write('A480,60,2,1,1,1,N,"92%"')
-    f.write("\n")
-    # f.write('A680,40,2,1,1,1,N,"Gross Weight:"')
-    f.write("\n")
-    
-    # f.write("A540,40,2,1,1,1,N,")
-    # f.write('"'+data['product_wt']+'"')
-    f.write("\n")
-    
-    f.write("\n")
-    f.write('A660,20,2,1,1,1,N,"M. Charge:"')
-    f.write("\n")
-    
-    f.write("\n")
-    f.write("A580,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['price'])*7)+'"')
-    f.write("\n")
-    f.write('A535,20,2,1,1,1,N,"X"')
-    f.write("\n")
-    
-    f.write('A515,20,2,1,1,1,N,')
-    f.write('"'+data['pieces']+'"')
-    f.write("\n")
+        f.write(
+            f'TEXT 779,35,"1",180,1,1,'
+            f'"M.Charge {data["price"]} X {data["pieces"]} ={data["total_lc"]}"\n'
+        )
 
-    f.write('A495,20,2,1,1,1,N,"="')
-    f.write("\n")
+        f.write(f'TEXT 518,101,"1",180,1,1,"{data["cust_short_name"]}"\n')
+
+        # ----- BARCODE -----
+        f.write(f'BARCODE 519,85,"128",33,0,180,2,4,"{data["job_id"]}"\n')
+
+        f.write('TEXT 518,47,"1",180,1,1,"SRIKRISHNA"\n')
+        f.write('TEXT 382,101,"1",180,1,1,"ORIGINAL"\n')
+
+        # ----- JOB ID (Large Font) -----
+        f.write(f'TEXT 370,49,"ROMAN.TTF",180,1,7,"{data["job_id"]}"\n')
+
+        # ----- PRINT -----
+        f.write("PRINT 1,1\n")
+
     
-    f.write("A485,20,2,1,1,1,N,")
-    f.write('"'+str(int(data['total_lc'])*7)+'"')
-    f.write("\n")
-    
-    f.write("P1")
-    f.write("\n")
-    
-    
-    f.close()
-    os.system('print_tag.bat')
-    
-    # print(data)
+        f.close()
+        #comment out it for printing
+        #os.system('print_tag.bat')
+        
+        # print(data)
     
 # Start the index.html file
 eel.start("index.html")
