@@ -24,6 +24,7 @@ export class FineToNinetyTwoComponent implements OnInit {
   extraCopperValue: number;
   SavedResponse: any;
   showDeveloperDiv = false;
+  nittiTotal: number;
   constructor(private route: ActivatedRoute, private http: HttpClient, private managerService: ManagerService ) {
     this.route.data.subscribe((response: any) => {
       this.materialBalance = response.fineToNinetyTwoResolver.materialBalance.data;
@@ -64,11 +65,13 @@ export class FineToNinetyTwoComponent implements OnInit {
       this.goldConversionForm.patchValue({copper_value: this.expectedCopperValue.toFixed(3)});
       this.expectedGiniValue = Number(fineGoldValue.value) + this.expectedCopperValue - this.extraCopperValue;
       this.goldConversionForm.patchValue({gini_value: this.expectedGiniValue.toFixed(3)});
+      this.nittiTotal = Number((Number(fineGoldValue.value) + Number(copperValue.value)).toFixed(3));
   }
 
   onCopperChange(fineGoldValue: HTMLInputElement, copperValue: HTMLInputElement) {
     this.expectedGiniValue = Number((Number(fineGoldValue.value) + Number(copperValue.value)).toFixed(3));
     this.goldConversionForm.patchValue({gini_value: this.expectedGiniValue});
+    this.nittiTotal = Number((Number(fineGoldValue.value) + Number(copperValue.value)).toFixed(3));
   }
 
   resetForm() {
