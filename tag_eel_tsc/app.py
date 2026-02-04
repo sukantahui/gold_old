@@ -99,9 +99,9 @@ def printTag(jobdata):
         f.write('TEXT 382,101,"1",180,1,1,"ORIGINAL"\n')
 
         # -------- WEIGHTS --------
-        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {g("gold_used")}"\n')
+        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {float(g("gold_used")):.3f}"\n')
         f.write('TEXT 585,81,"1",180,1,1,"92%"\n')
-        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {g("product_wt")}"\n')
+        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {float(g("product_wt")):.3f}"\n')
 
         # -------- MAKING CHARGE --------
         f.write(
@@ -162,9 +162,9 @@ def printTag(jobdata):
         final_gold = round(final_gold, 3)
              
         
-        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {final_gold}"\n')
+        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {final_gold:.3f}"\n')
         f.write('TEXT 585,81,"1",180,1,1,"92%"\n')
-        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {g("product_wt")}"\n')
+        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {float(g("product_wt")):.3f}"\n')
 
         # -------- MAKING CHARGE --------
         # Fixed making charge per piece
@@ -233,10 +233,9 @@ def printTag(jobdata):
         final_gold = round(final_gold, 3)
              
         
-        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {final_gold}"\n')
+        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {final_gold:.3f}"\n')
         f.write('TEXT 585,81,"1",180,1,1,"92%"\n')
-        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {g("product_wt")}"\n')
-
+        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {float(g("product_wt")):.3f}"\n')
         # -------- MAKING CHARGE --------
         # Fixed making charge per piece
         PRICE_PER_PIECE = 1750
@@ -263,7 +262,9 @@ def printTag(jobdata):
         # -----------------------------------------------------------------------------
 
         # Uncomment when ready for real printing
-        os.system('print_tag.bat')
+        #os.system('print_tag.bat')
+    file_path="tag.txt"
+    os.system(f'TOUSB.exe {file_path}')
 
 
 # Start UI

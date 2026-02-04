@@ -79,11 +79,13 @@ def printTag(jobdata):
         f.write(f'TEXT 691,101,"1",180,1,1,"Size:{data.get("size","")}"\n')
         f.write(f'TEXT 585,101,"1",180,1,1,"Qty:{data.get("pieces","")}"\n')
 
-        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {data.get("gold_used","")}"\n')
+        gold_used = float(data.get("gold_used", 0))
+        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {gold_used:.3f}"\n')
         f.write(f'TEXT 585,81,"1",180,1,1,"({data.get("tonch","92")}%)" \n')
 
         #Gross Weight
-        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {data.get("gross_weight","")}"\n')
+        gross_weight = float(data.get("gross_weight", 0))
+        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {gross_weight:.3f}"\n')
 
         f.write(
             f'TEXT 779,35,"1",180,1,1,'
@@ -139,11 +141,12 @@ def printTag(jobdata):
         final_gold = round(final_gold, 3)
         
         
-        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {final_gold}"\n')
+        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {final_gold:.3f}"\n')
         f.write(f'TEXT 585,81,"1",180,1,1,"({data.get("tonch","92")}%)" \n')
 
         #Gross Weight
-        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {data.get("gross_weight","")}"\n')
+        gross_weight = float(data.get("gross_weight", 0))
+        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {gross_weight:.3f}"\n')
 
         # -------- MAKING CHARGE --------
         # Fixed making charge per piece
@@ -207,11 +210,12 @@ def printTag(jobdata):
         final_gold = round(final_gold, 3)
         
         
-        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {final_gold}"\n')
+        f.write(f'TEXT 779,81,"1",180,1,1,"Gold Weight: {final_gold:.3f}"\n')
         f.write(f'TEXT 585,81,"1",180,1,1,"({data.get("tonch","92")}%)" \n')
 
         #Gross Weight
-        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {data.get("gross_weight","")}"\n')
+        gross_weight = float(data.get("gross_weight", 0))
+        f.write(f'TEXT 779,58,"1",180,1,1,"Gross Weight: {gross_weight:.3f}"\n')
 
         # -------- MAKING CHARGE --------
         # Fixed making charge per piece
