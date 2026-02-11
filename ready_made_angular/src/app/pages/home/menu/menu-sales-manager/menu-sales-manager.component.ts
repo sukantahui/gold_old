@@ -258,6 +258,17 @@ export class MenuSalesManagerComponent implements OnInit {
           ]
         }
       ]
+    },
+    {
+      displayName: 'Others',
+      iconName: 'group',
+      children: [
+        {
+          displayName: 'Show Gini Creation',
+          iconName: 'person',
+          route: 'FineToNinetyTwoShowOnly'
+        }
+      ]
     }
   ];
   constructor() { }

@@ -9,6 +9,7 @@ import {CustomerResolver} from '../../resolvers/customer.resolver';
 import {ShowItemStockResolver} from '../../resolvers/show-item-stock.resolver';
 import {SaleReturnResolver} from '../../resolvers/sale-return.resolver';
 import {CustomerReceiptResolver} from '../../resolvers/customer-receipt.resolver';
+import {MaterialBalanceResolver} from '../../resolvers/material-balance.resolver';
 
 
 // @ts-ignore
@@ -207,6 +208,10 @@ const routes: Routes = [
                                     , loadChildren: () => import('./child-pages/production-manger/print-job-for-woner/print-job-for-woner.module')
                                         .then(m => m.PrintJobForWonerModule)
                                 },
+                                { path: 'FineToNinetyTwoShowOnly'
+                                    , loadChildren: () => import('./child-pages/sales-manager/misc-manager/fine-to-ninety-two/fine-to-ninety-two.module').then(m => m.FineToNinetyTwoModule)
+                                    , resolve: {fineToNinetyTwoResolver: MaterialBalanceResolver}
+                                }
 
 
 
