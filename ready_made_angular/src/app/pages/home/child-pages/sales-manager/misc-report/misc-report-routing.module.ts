@@ -11,7 +11,11 @@ const routes: Routes = [
       { path: 'CustomerDiscountReport'
         , loadChildren: () => import('./customer-discount-report/customer-discount-report.module').then(m => m.CustomerDiscountReportModule)
         , resolve: {customerResolvers: CustomerResolver}
-      }
+      },
+      { path: 'MonthlyManagerialReport'
+        // tslint:disable-next-line:max-line-length
+        , loadChildren: () => import('./monthly-managerial-report/monthly-managerial-report.module').then(m => m.MonthlyManagerialReportModule)
+      },
 
 
     ]

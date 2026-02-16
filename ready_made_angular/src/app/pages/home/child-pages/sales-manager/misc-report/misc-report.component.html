@@ -1,45 +1,95 @@
-<div class="d-flex flex-column" style="min-height: 100vh;">
-    <div class="p-2 text-center" style="background-color: rgb(183,174,159)">
-        <h3>{{subject}}</h3>
-    </div>
+<div class="app-layout">
 
-    <div class="p-2">
-        <div class="container-fluid rounded d-flex flex-xl-row justify-content-xl-between flex-column">
+    <!-- Header -->
+    <header class="app-header">
 
-            <div class="p-2 col-xl-1" style="background-color: rgb(199, 192, 192)">
-                <ul>
-                    <li>
-                        <a (click)="subject='Customer Discount'" routerLink='./CustomerDiscountReport'>Customer Discount</a>
+        <h3 class="app-title">
+            {{ subject }}
+        </h3>
+
+    </header>
+
+
+    <!-- Body -->
+    <div class="app-body container-fluid">
+
+        <div class="row flex-nowrap">
+
+            <!-- Sidebar -->
+            <nav class="app-sidebar col-xl-2 col-lg-3 col-md-4">
+
+                <div class="sidebar-title">
+                    Reports
+                </div>
+
+                <ul class="nav flex-column">
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           routerLink="CustomerDiscountReport"
+                           routerLinkActive="active-link">
+                            Customer Discount
+                        </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           routerLink="MonthlyManagerialReport"
+                           routerLinkActive="active-link">
+                            Monthly Managerial Report
+                        </a>
+                    </li>
+
                 </ul>
-            </div>
-            <!-- Right -->
-            <div class="bloc_2 p-2 col-xl-11" style="background-color: antiquewhite">
-                <router-outlet></router-outlet>
-            </div>
+
+            </nav>
+
+
+
+            <!-- Content -->
+            <main class="app-content col-xl-10 col-lg-9 col-md-8">
+
+                <div class="content-card">
+
+                    <router-outlet></router-outlet>
+
+                </div>
+
+            </main>
+
         </div>
+
     </div>
-    <!--    Footer area-->
-    <div class="mt-auto p-2 text-center" style="background-color: rgb(77, 68, 68)">I am footer, i will stay here</div>
+
+
+    <!-- Footer -->
+    <footer class="app-footer">
+
+        © 2026 Your Company Name
+
+    </footer>
+
 </div>
 
-<div *ngIf="true && !isProduction" id="developer-div">
-    <div class="outerContainer">
-        <div fxLayout="row" fxLayoutGap="1px" fxLayout.sm="column" class="container">
-            <div class="col" fxLayoutAlign="center center">
-                    <pre>
 
-                    </pre>
 
+<!-- Developer Panel -->
+<div *ngIf="!isProduction" class="developer-panel">
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <pre>Developer Debug Info</pre>
             </div>
-            <div class="col" fxFlex="2 1 auto" fxLayoutAlign="center center">
-                    <pre>
 
-                    </pre>
+            <div class="col-md-6">
+                <pre>Environment: {{ isProduction ? 'Production' : 'Development' }}</pre>
             </div>
+
         </div>
+
     </div>
+
 </div>
-
-
-

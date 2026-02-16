@@ -1,0 +1,106 @@
+<div class="table-container">
+
+    <!-- Selection Row -->
+    <div class="row mb-3 align-items-end">
+
+        <!-- Year Selection -->
+        <div class="col-md-3">
+
+            <label class="form-label fw-semibold">
+                Select Year
+            </label>
+
+            <select class="form-select"
+                    [(ngModel)]="selectedYear">
+
+                <option value="">-- Select Year --</option>
+
+                <option *ngFor="let year of years"
+                        [value]="year">
+                    {{ year }}
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- Month Selection -->
+        <div class="col-md-3">
+
+            <label class="form-label fw-semibold">
+                Select Month
+            </label>
+
+            <select class="form-select"
+                    [(ngModel)]="selectedMonth">
+
+                <option value="">-- Select Month --</option>
+
+                <option *ngFor="let month of months"
+                        [value]="month.value">
+                    {{ month.name }}
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Table -->
+    <table class="table table-bordered table-hover table-striped custom-table">
+
+        <thead class="table-header">
+
+        <tr>
+            <th class="text-end" style="width: 60px;">Sl</th>
+            <th>Particulars</th>
+            <th class="text-end" style="width: 150px;">Value</th>
+            <th class="text-end" style="width: 120px;">Fine</th>
+            <th>Comment</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr>
+            <td class="text-end">1</td>
+            <td>Late Submission</td>
+            <td class="text-end">500</td>
+            <td class="text-end">50</td>
+            <td>Submitted after deadline</td>
+        </tr>
+
+        <tr>
+            <td class="text-end">2</td>
+            <td>Incorrect Entry</td>
+            <td class="text-end">300</td>
+            <td class="text-end">30</td>
+            <td>Correction required</td>
+        </tr>
+
+        <tr>
+            <td class="text-end">3</td>
+            <td>Missing Document</td>
+            <td class="text-end">700</td>
+            <td class="text-end">70</td>
+            <td>Document not attached</td>
+        </tr>
+
+        <tr>
+            <td class="text-end">4</td>
+            <td>Processing Delay</td>
+            <td class="text-end">400</td>
+            <td class="text-end">40</td>
+            <td>Internal delay</td>
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

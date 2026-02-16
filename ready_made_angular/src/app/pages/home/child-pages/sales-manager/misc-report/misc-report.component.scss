@@ -1,0 +1,233 @@
+/* ============================= */
+/* Global layout background */
+/* ============================= */
+.app-layout {
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+
+  /* Premium gold gradient background */
+  background: linear-gradient(
+                  180deg,
+                  #fcdd60 0%,
+                  #f7c475 100%
+  );
+
+}
+
+
+/* ============================= */
+/* Header */
+/* ============================= */
+.app-header {
+
+  background: linear-gradient(
+                  135deg,
+                  #1f2937,
+                  #334155
+  );
+
+  color: white;
+
+  padding: 18px 28px;
+
+  display: flex;
+  align-items: center;
+
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+
+}
+
+
+.app-title {
+
+  margin: 0;
+
+  padding-left: 6px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.5px;
+
+  font-size: 22px;
+
+}
+
+
+/* ============================= */
+/* Body */
+/* ============================= */
+.app-body {
+
+  flex: 1;
+
+}
+
+
+/* ============================= */
+/* Sidebar */
+/* ============================= */
+.app-sidebar {
+
+  background: linear-gradient(
+                  180deg,
+                  #334155 0%,
+                  #1e293b 100%
+  );
+
+  min-height: calc(100vh - 120px);
+
+  padding-top: 18px;
+
+  box-shadow:
+          inset -1px 0 0 rgba(255,255,255,0.05),
+          3px 0 12px rgba(0,0,0,0.15);
+
+}
+
+
+/* Sidebar title */
+.sidebar-title {
+
+  color: #94a3b8;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  padding: 10px 20px;
+
+}
+
+
+/* Nav items */
+.app-sidebar .nav-item {
+
+  margin-bottom: 4px;
+
+}
+
+
+/* Nav links */
+.app-sidebar .nav-link {
+
+  color: #e2e8f0;
+
+  padding: 12px 18px;
+
+  margin: 6px 12px;
+
+  border-radius: 10px;
+
+  font-weight: 500;
+
+  transition: all 0.25s ease;
+
+}
+
+
+/* Hover effect */
+.app-sidebar .nav-link:hover {
+
+  background: rgba(59,130,246,0.30);
+
+  color: #ffffff;
+
+  transform: translateX(5px);
+
+}
+
+
+/* Active link */
+.app-sidebar .active-link {
+
+  background: linear-gradient(
+                  135deg,
+                  #3b82f6,
+                  #2563eb
+  );
+
+  color: #ffffff !important;
+
+  box-shadow:
+          0 4px 14px rgba(37,99,235,0.5);
+
+}
+
+
+/* ============================= */
+/* Content area */
+/* ============================= */
+.app-content {
+
+  padding: 24px;
+
+  background: linear-gradient(
+                  180deg,
+                  rgba(255,255,255,0.4),
+                  rgba(255,255,255,0.2)
+  );
+
+}
+
+
+/* ============================= */
+/* Content card */
+/* ============================= */
+.content-card {
+
+  background: #ffffff;
+
+  border-radius: 14px;
+
+  padding: 26px;
+
+  min-height: 500px;
+
+  box-shadow:
+          0 6px 18px rgba(0,0,0,0.12),
+          0 2px 6px rgba(0,0,0,0.08);
+
+}
+
+
+/* ============================= */
+/* Footer */
+/* ============================= */
+.app-footer {
+
+  background: linear-gradient(
+                  135deg,
+                  #1f2937,
+                  #334155
+  );
+
+  color: #e2e8f0;
+
+  text-align: center;
+
+  padding: 14px;
+
+  font-size: 14px;
+
+}
+
+
+/* ============================= */
+/* Developer panel */
+/* ============================= */
+.developer-panel {
+
+  background: #020617;
+
+  color: #22c55e;
+
+  padding: 10px;
+
+  font-family: monospace;
+
+}
