@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MonthlyManagerialReportRoutingModule } from './monthly-managerial-report-routing.module';
 import { MonthlyManagerialReportComponent } from './monthly-managerial-report.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +13,8 @@ import {FormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     MonthlyManagerialReportRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MonthlyManagerialReportModule { }

@@ -5,102 +5,162 @@
 
         <!-- Year Selection -->
         <div class="col-md-3">
-
             <label class="form-label fw-semibold">
                 Select Year
             </label>
 
             <select class="form-select"
-                    [(ngModel)]="selectedYear">
-
+                    [(ngModel)]="selectedYear"
+                    name="year">
                 <option value="">-- Select Year --</option>
-
                 <option *ngFor="let year of years"
                         [value]="year">
                     {{ year }}
                 </option>
-
             </select>
-
         </div>
-
 
         <!-- Month Selection -->
         <div class="col-md-3">
-
             <label class="form-label fw-semibold">
                 Select Month
             </label>
 
             <select class="form-select"
-                    [(ngModel)]="selectedMonth">
-
+                    [(ngModel)]="selectedMonth"
+                    name="month">
                 <option value="">-- Select Month --</option>
-
                 <option *ngFor="let month of months"
                         [value]="month.value">
                     {{ month.name }}
                 </option>
-
             </select>
-
         </div>
 
     </div>
 
+    <!-- Reactive Form Starts -->
+    <form [formGroup]="NinetyTwoGoldForm">
 
+        <table class="table table-bordered table-hover table-striped custom-table">
 
-    <!-- Table -->
-    <table class="table table-bordered table-hover table-striped custom-table">
+            <thead class="table-header">
+            <tr>
+                <th colspan="5">92 Gold</th>
+            </tr>
+            <tr>
+                <th class="text-end" style="width: 60px;">Sl</th>
+                <th>Particulars</th>
+                <th class="text-end" style="width: 150px;">Value</th>
+                <th class="text-end" style="width: 150px;">Fine</th>
+                <th>Comment</th>
+            </tr>
+            </thead>
 
-        <thead class="table-header">
+            <tbody>
 
-        <tr>
-            <th class="text-end" style="width: 60px;">Sl</th>
-            <th>Particulars</th>
-            <th class="text-end" style="width: 150px;">Value</th>
-            <th class="text-end" style="width: 120px;">Fine</th>
-            <th>Comment</th>
-        </tr>
+            <!-- Row 1 -->
+            <tr formGroupName="row1">
+                <td class="text-end">1</td>
+                <td>Opening Balance</td>
+                <td class="text-end">
+                    <input type="number"
+                           class="form-control text-end"
+                           formControlName="value">
+                </td>
+                <td class="text-end">
+                    <input type="number"
+                           class="form-control text-end"
+                           formControlName="fine">
+                </td>
+                <td>
+                    <input type="text"
+                           class="form-control"
+                           formControlName="comment">
+                </td>
+            </tr>
 
-        </thead>
+            <!-- Row 2 -->
+            <tr formGroupName="row2">
+                <td class="text-end">2</td>
+                <td>Transferred to Pitam</td>
+                <td class="text-end">
+                    <input type="number"
+                           class="form-control text-end"
+                           formControlName="value">
+                </td>
+                <td class="text-end">
+                    <input type="number"
+                           class="form-control text-end"
+                           formControlName="fine">
+                </td>
+                <td>
+                    <input type="text"
+                           class="form-control"
+                           formControlName="comment">
+                </td>
+            </tr>
 
-        <tbody>
+            <!-- Row 3 -->
+            <tr formGroupName="row3">
+                <td class="text-end">3</td>
+                <td>Returned from Pitam</td>
+                <td class="text-end">
+                    <input type="number"
+                           class="form-control text-end"
+                           formControlName="value">
+                </td>
+                <td class="text-end">
+                    <input type="number"
+                           class="form-control text-end"
+                           formControlName="fine">
+                </td>
+                <td>
+                    <input type="text"
+                           class="form-control"
+                           formControlName="comment">
+                </td>
+            </tr>
 
-        <tr>
-            <td class="text-end">1</td>
-            <td>Late Submission</td>
-            <td class="text-end">500</td>
-            <td class="text-end">50</td>
-            <td>Submitted after deadline</td>
-        </tr>
+            <!-- Row 4 -->
+            <tr formGroupName="row4">
+                <td class="text-end">4</td>
+                <td>From Fine converted to 92</td>
+                <td class="text-end">
+                    <input type="number"
+                           class="form-control text-end"
+                           formControlName="value">
+                </td>
+                <td class="text-end">
+                    <input type="number"
+                           class="form-control text-end"
+                           formControlName="fine">
+                </td>
+                <td>
+                    <input type="text"
+                           class="form-control"
+                           formControlName="comment">
+                </td>
+            </tr>
 
-        <tr>
-            <td class="text-end">2</td>
-            <td>Incorrect Entry</td>
-            <td class="text-end">300</td>
-            <td class="text-end">30</td>
-            <td>Correction required</td>
-        </tr>
+            </tbody>
 
-        <tr>
-            <td class="text-end">3</td>
-            <td>Missing Document</td>
-            <td class="text-end">700</td>
-            <td class="text-end">70</td>
-            <td>Document not attached</td>
-        </tr>
+            <tfoot>
+            <tr>
+                <th colspan="4" class="text-end">
+                    <button type="button"
+                            class="btn btn-lg px-4 py-2 fw-semibold text-white shadow rounded-pill"
+                            style="background: linear-gradient(45deg, #4e73df, #1cc88a); border: none;"
+                            (click)="submit()">
+                        <i class="bi bi-save me-2"></i> Save the Data
+                    </button>
+                </th>
+            </tr>
+            </tfoot>
 
-        <tr>
-            <td class="text-end">4</td>
-            <td>Processing Delay</td>
-            <td class="text-end">400</td>
-            <td class="text-end">40</td>
-            <td>Internal delay</td>
-        </tr>
+        </table>
 
-        </tbody>
-
-    </table>
+    </form>
+    <!-- Reactive Form Ends -->
 
 </div>
