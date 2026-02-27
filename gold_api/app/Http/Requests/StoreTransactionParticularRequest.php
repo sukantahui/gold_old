@@ -13,7 +13,7 @@ class StoreTransactionParticularRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class StoreTransactionParticularRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'transaction_particular' => 'required|string|max:255|unique:transaction_particulars,transaction_particular'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'transaction_particular.required' => 'Transaction particular is required.',
+            'transaction_particular.unique' => 'This transaction particular already exists.'
         ];
     }
 }

@@ -6,7 +6,7 @@ use App\Models\TransactionParticular;
 use App\Http\Requests\StoreTransactionParticularRequest;
 use App\Http\Requests\UpdateTransactionParticularRequest;
 
-class TransactionParticularController extends Controller
+class TransactionParticularController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class TransactionParticularController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(
+            TransactionParticular::orderBy('id')->get()
+        );
     }
 
     /**
@@ -36,7 +38,9 @@ class TransactionParticularController extends Controller
      */
     public function store(StoreTransactionParticularRequest $request)
     {
-        //
+        $particular = TransactionParticular::create($request->validated());
+
+        return $this->successResponse($particular,'Transaction particular created successfully');
     }
 
     /**

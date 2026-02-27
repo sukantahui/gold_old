@@ -15,6 +15,7 @@ use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MatBetweenEmployeeMasterController;
 use App\Http\Controllers\MaterialTransformationMasterController;
+use App\Http\Controllers\MonthlyTransactionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PlossWithdrawController;
 use App\Http\Controllers\PriceMasterController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\SalaryHolderSalaryMonthController;
 use App\Http\Controllers\SalaryHolderSalaryPaymentController;
 use App\Http\Controllers\SaleReturnController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionParticularController;
 use App\Http\Controllers\UserController;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -323,6 +325,21 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get('/total-ploss', [ReportController::class,'getTotalPlossReport']);
     Route::post('/ploss-withdraw', [PlossWithdrawController::class,'store']);
+
+
+
+    Route::prefix('transaction-particulars')->group(function () {
+
+        Route::get('/', [TransactionParticularController::class, 'index']);
+        Route::post('/', [TransactionParticularController::class, 'store']);
+
+    });
+
+    Route::prefix('monthly-transactions')->group(function () {
+        Route::post('/', [MonthlyTransactionController::class, 'store']);
+    });
+
+
 
 
 
