@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {ErrorService} from './error.service';
 import {catchError, tap} from 'rxjs/operators';
 import {ServerResponse} from '../models/ServerResponse.model';
+import {MonthlyTransaction} from '../models/monthly-transaction.model';
 
 @Injectable({
   providedIn: 'root'
@@ -71,4 +72,20 @@ export class ManagerService {
     return  this.http.post(this.commonService.getAPI() + '/gpTransactions', gpTransactionData)
         .pipe(catchError(this.errorService.serverError), tap((response: {status: any , data: any }) => {}));
   }
+
+  // Save Monthly Managerial Report
+  saveMonthlyTransactions(data: { records: MonthlyTransaction[] }) {
+    return this.http.post(
+        this.commonService.getAPI() + '/monthly-transactions',
+        data
+    ).pipe(
+        catchError(this.errorService.serverError),
+        tap((response: any) => {
+          if (response) {
+            console.log('Monthly transactions saved');
+          }
+        })
+    );
+  }
+
 }

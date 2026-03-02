@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import {ManagerService} from '../../../../../../services/manager.service';
 
 @Component({
   selector: 'app-monthly-managerial-report',
@@ -32,7 +34,7 @@ export class MonthlyManagerialReportComponent implements OnInit {
 
   constructor(
       private fb: FormBuilder,
-      private http: HttpClient
+      private managerService: ManagerService
   ) {}
 
   ngOnInit(): void {
@@ -84,7 +86,11 @@ export class MonthlyManagerialReportComponent implements OnInit {
   submit(): void {
 
     if (!this.selectedYear || !this.selectedMonth) {
-      alert('Please select year and month');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Missing Selection',
+        text: 'Please select year and month'
+      });
       return;
     }
 
@@ -98,18 +104,57 @@ export class MonthlyManagerialReportComponent implements OnInit {
       }))
     };
 
-    console.log('Sending Payload:', payload);
 
-    this.http.post('http://your-api-url/api/transaction-records', payload)
-        .subscribe({
-          next: (res) => {
-            alert('Data saved successfully');
-            console.log(res);
-          },
-          error: (err) => {
-            console.error(err);
-            alert('Error saving data');
+    // ✅ Remove focus before modal logic continues, to prevent warning
+    (document.activeElement as HTMLElement)?.blur();
+    // 🔥 Confirmation Dialog
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to save these monthly transactions?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Save it!'
+    }).then((result) => {
+
+
+      if (result.isConfirmed) {
+
+        // Optional loading state
+        Swal.fire({
+          title: 'Saving...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
           }
         });
+
+        this.managerService.saveMonthlyTransactions(payload)
+            .subscribe({
+              next: (res: any) => {
+
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Success',
+                  text: res.message || 'Monthly transactions saved successfully',
+                  timer: 2000,
+                  showConfirmButton: false
+                });
+
+              },
+              error: (err) => {
+
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: err.error?.message || 'Something went wrong'
+                });
+
+              }
+            });
+      }
+
+    });
   }
 }
