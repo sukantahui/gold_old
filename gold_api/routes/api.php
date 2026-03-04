@@ -337,6 +337,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::prefix('monthly-transactions')->group(function () {
         Route::post('/', [MonthlyTransactionController::class, 'store']);
+        Route::post('/closing-balance', [MonthlyTransactionController::class, 'monthlyTransactionClosingBalance']);
     });
 
 
