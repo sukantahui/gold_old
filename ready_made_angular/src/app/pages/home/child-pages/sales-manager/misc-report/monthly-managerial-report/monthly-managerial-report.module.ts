@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { MonthlyManagerialReportRoutingModule } from './monthly-managerial-report-routing.module';
 import { MonthlyManagerialReportComponent } from './monthly-managerial-report.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NinetyTwoGoldFormComponent } from './ninety-two-gold-form/ninety-two-gold-form.component';
 
 
 @NgModule({
   declarations: [
-    MonthlyManagerialReportComponent
+    MonthlyManagerialReportComponent,
+    NinetyTwoGoldFormComponent
   ],
   imports: [
     CommonModule,

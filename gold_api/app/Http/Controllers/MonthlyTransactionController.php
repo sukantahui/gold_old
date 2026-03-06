@@ -37,6 +37,9 @@ class MonthlyTransactionController  extends ApiController
             ->where('record_year', $prevYear)
             ->where('record_month', $prevMonth)
             ->first();
+        if(!$data){
+            return $this->errorResponse("No record found",200);
+        }
         return $this->successResponse(new MonthlyTransactionResource($data),'Closing Balance fetched successfully');
     }
 

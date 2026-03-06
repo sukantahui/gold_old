@@ -5,13 +5,25 @@ import {ErrorService} from './error.service';
 import {catchError, tap} from 'rxjs/operators';
 import {ServerResponse} from '../models/ServerResponse.model';
 import {MonthlyTransaction} from '../models/monthly-transaction.model';
-
+export interface ClosingBalanceResponse {
+  status: boolean;
+  data: number;
+}
 @Injectable({
   providedIn: 'root'
 })
 export class ManagerService {
 
   constructor(private commonService: CommonService, private  http: HttpClient , private  errorService: ErrorService) {
+  }
+  getMonthlyTransactionClosingBalance(
+      data: { rmId: number; recordYear: number; recordMonth: number }
+  ) {
+    return this.http.post<ClosingBalanceResponse>(
+        this.commonService.getAPI() + '/monthly-transactions/closing-balance',
+        data
+    )
+        .pipe(catchError(this.errorService.serverError));
   }
   saveFineToNinetyTwo(fineTwoNinetyTwoData: any){
     return  this.http.post(this.commonService.getAPI() + '/fineTwoNinetyTwo', fineTwoNinetyTwoData)
