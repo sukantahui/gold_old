@@ -93,7 +93,6 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
         {rmId: this.rmId, recordYear: this.selectedYear, recordMonth: this.selectedMonth}
     ).subscribe((res: any) => {
       if (!res?.data) {
-        console.log('record not found');
         // reset opening balance
         this.NinetyTwoGoldForm.get('row1')?.patchValue({
           value: 0,
@@ -103,7 +102,6 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
       }
       // Update Opening Balance (row1)
       const closingBalance = res.data.value;
-      console.log(res.data);
       this.NinetyTwoGoldForm.get('row1')?.patchValue({
         value: closingBalance,
         fine: Number((closingBalance * 0.92).toFixed(2))
@@ -111,6 +109,19 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
 
     });
 
-  }
+    // fetching gini to pitam
+    // tslint:disable-next-line:max-line-length
+    this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(
+        {rmId: this.rmId, recordYear: this.selectedYear, recordMonth: this.selectedMonth}
+        ).subscribe((res: any) => {
+        if (!res?.data) {
+        // reset opening balance
+        console.log('No RecordManager to Pitam ');
+        return;
+      }else{
+          console.log('Manager to Pitam ', res);
+      }
+    });
+  } // end of loadMonthlyData
 
 }

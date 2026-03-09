@@ -18,6 +18,26 @@ class MonthlyTransactionController  extends ApiController
         //
     }
 
+    public function getMaterialMonthlySend($year, $month, $fromEmployee, $toEmployee,$rmId)
+    {
+        $total = DB::table('mat_between_employee_details as sender')
+            ->join('mat_between_employee_masters as master', 'sender.mat_between_employee_id', '=', 'master.id')
+            ->join('mat_between_employee_details as receiver', function ($join) use ($toEmployee, $rmId) {
+                $join->on('sender.mat_between_employee_id', '=', 'receiver.mat_between_employee_id')
+                    ->where('receiver.employee_id', $toEmployee)
+                    ->where('receiver.rm_id', $rmId)
+                    ->where('receiver.inward', '>', 0);
+            })
+            ->where('sender.employee_id', $fromEmployee)
+            ->where('sender.rm_id', $rmId)
+            ->where('sender.outward', '>', 0)
+            ->whereYear('master.created_at', $year)
+            ->whereMonth('master.created_at', $month)
+            ->sum('sender.outward');
+
+        return $this->successResponse($total,"total fetched");
+    }
+
     public function monthlyTransactionClosingBalance(Request $request)
     {
         // Normalize camelCase to snake_case
