@@ -36,10 +36,17 @@
                 </option>
             </select>
         </div>
+        <!-- Button -->
+        <div class="col-md-2">
+            <button class="btn btn-primary" (click)="reloadComponent()">
+                Load
+            </button>
+        </div>
 
     </div>
 
     <app-ninety-two-gold-form
+            *ngIf="loadComponent"
             [selectedYear]="selectedYear"
             [selectedMonth]="selectedMonth">
     </app-ninety-two-gold-form>

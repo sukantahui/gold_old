@@ -22,6 +22,12 @@ export class ManagerService {
     )
         .pipe(catchError(this.errorService.serverError));
   }
+  getMonthlyTotalMaterialFromProductionManagerToManager(data: { rmId: number; recordYear: number; recordMonth: number }){
+    return this.http.get<any>(
+        this.commonService.getAPI() + '/monthly-transactions/transfer/' + data.recordYear + '/' + data.recordMonth + '/70/72/' + data.rmId
+    )
+        .pipe(catchError(this.errorService.serverError));
+  }
   getMonthlyTransactionClosingBalance(
       data: { rmId: number; recordYear: number; recordMonth: number }
   ) {

@@ -27,6 +27,7 @@ export class MonthlyManagerialReportComponent implements OnInit {
     { name: 'November', value: 11 },
     { name: 'December', value: 12 }
   ];
+  loadComponent = false;
 
   constructor(
   ) {}
@@ -42,4 +43,11 @@ export class MonthlyManagerialReportComponent implements OnInit {
     }
   }
 
+  reloadComponent() {
+    this.loadComponent = false;
+
+    setTimeout(() => {
+      this.loadComponent = true;
+    }, 0);
+  }
 }

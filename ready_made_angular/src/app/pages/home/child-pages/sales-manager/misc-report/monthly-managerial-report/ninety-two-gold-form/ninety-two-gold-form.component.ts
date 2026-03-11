@@ -53,8 +53,16 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
     });
 
     group.get('value')?.valueChanges.subscribe(val => {
-      const fineValue = (Number(val) || 0) * 0.92;
-      group.get('fine')?.setValue(Number(fineValue.toFixed(2)), { emitEvent: false });
+
+      const value = Number(val) || 0;
+
+      const fineValue = value * 0.92;
+
+      group.get('fine')?.setValue(
+          this.format3(fineValue),
+          { emitEvent: false }
+      );
+
     });
 
     return group;
@@ -103,25 +111,60 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
       // Update Opening Balance (row1)
       const closingBalance = res.data.value;
       this.NinetyTwoGoldForm.get('row1')?.patchValue({
-        value: closingBalance,
-        fine: Number((closingBalance * 0.92).toFixed(2))
+        value: this.format3(closingBalance),
+        fine: this.format3( Number((closingBalance * 0.92).toFixed(2)))
       });
 
     });
 
     // fetching gini to pitam
     // tslint:disable-next-line:max-line-length
-    this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(
-        {rmId: this.rmId, recordYear: this.selectedYear, recordMonth: this.selectedMonth}
-        ).subscribe((res: any) => {
+    this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager({rmId: this.rmId, recordYear: this.selectedYear, recordMonth: this.selectedMonth}).subscribe((res: any) => {
         if (!res?.data) {
-        // reset opening balance
-        console.log('No RecordManager to Pitam ');
-        return;
+        // reset manager to production manager
+          this.NinetyTwoGoldForm.get('row2')?.patchValue({
+            value: 0,
+            fine: 0
+          });
+          console.log('No RecordManager to Pitam ');
+          return;
       }else{
+          const managertToProductionManager = res.data.value;
+          this.NinetyTwoGoldForm.get('row2')?.patchValue({
+            value: this.format3(managertToProductionManager),
+            fine: this.format3(Number((managertToProductionManager * 0.92).toFixed(2)))
+          });
           console.log('Manager to Pitam ', res);
       }
     });
+
+    // from production manager to manager
+    // tslint:disable-next-line:max-line-length
+    this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager({rmId: this.rmId, recordYear: this.selectedYear, recordMonth: this.selectedMonth}).subscribe((res: any) => {
+      if (!res?.data) {
+        // reset manager to production manager
+        this.NinetyTwoGoldForm.get('row3')?.patchValue({
+          value: 0,
+          fine: 0
+        });
+        console.log('No Record Pitam to manager ');
+        return;
+      }else{
+        const receivedValue = res.data.value;
+        this.NinetyTwoGoldForm.get('row3')?.patchValue({
+          value: this.format3(receivedValue),
+          fine: this.format3(Number((receivedValue * 0.92).toFixed(2)))
+        });
+        console.log('Pitam to Manager ', res);
+      }
+    });
   } // end of loadMonthlyData
+
+  format3(value: any) {
+    if (value === null || value === undefined || value === '') {
+      return '';
+    }
+    return Number(value).toFixed(3);
+  }
 
 }

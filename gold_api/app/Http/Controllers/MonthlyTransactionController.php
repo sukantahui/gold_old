@@ -17,7 +17,38 @@ class MonthlyTransactionController  extends ApiController
     {
         //
     }
+    public function getMaterialConverted($year, $month, $fromEmployee, $fromRmId, $toRmId)
+    {
+        $result = DB::table('material_transformation_masters as mtm')
+            ->join('material_transformation_details as from_rm', function ($join) use ($fromRmId) {
+                $join->on('mtm.id', '=', 'from_rm.mtm_id')
+                    ->where('from_rm.rm_id', $fromRmId)
+                    ->where('from_rm.tr_type', -1);
+            })
+            ->join('material_transformation_details as to_rm', function ($join) use ($toRmId) {
+                $join->on('mtm.id', '=', 'to_rm.mtm_id')
+                    ->where('to_rm.rm_id', $toRmId)
+                    ->where('to_rm.tr_type', 1);
+            })
+            ->where('mtm.employee_id', $fromEmployee)
+            ->whereYear('mtm.created_at', $year)
+            ->whereMonth('mtm.created_at', $month)
+            ->selectRaw('
+            SUM(from_rm.rm_value) as total_from_rm,
+            SUM(to_rm.rm_value) as total_to_rm
+        ')
+            ->first();
 
+        $totalFrom = $result ? $result->total_from_rm : 0;
+        $totalTo   = $result ? $result->total_to_rm : 0;
+
+        $data = [
+            'fromRmTotal' => round($totalFrom, 3),
+            'toRmTotal'   => round($totalTo, 3),
+        ];
+
+        return $this->successResponse($data, "Conversion total fetched");
+    }
     public function getMaterialMonthlySend($year, $month, $fromEmployee, $toEmployee,$rmId)
     {
         $total = DB::table('mat_between_employee_details as sender')
@@ -34,8 +65,10 @@ class MonthlyTransactionController  extends ApiController
             ->whereYear('master.created_at', $year)
             ->whereMonth('master.created_at', $month)
             ->sum('sender.outward');
+        $result=array();
+        $result['value']=round($total, 3);
 
-        return $this->successResponse($total,"total fetched");
+        return $this->successResponse($result,"total fetched");
     }
 
     public function monthlyTransactionClosingBalance(Request $request)
