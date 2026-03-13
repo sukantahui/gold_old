@@ -339,6 +339,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::post('/', [MonthlyTransactionController::class, 'store']);
         Route::post('/closing-balance', [MonthlyTransactionController::class, 'monthlyTransactionClosingBalance']);
         Route::get('/transfer/{year}/{month}/{fromEmployee}/{toEmployee}/{rmId}', [MonthlyTransactionController::class, 'getMaterialMonthlySend']);
+        Route::get('/transformation/{year}/{month}/{fromEmployee}/{fromRmId}/{toRmId}', [MonthlyTransactionController::class, 'getMaterialConverted']);
     });
 
 

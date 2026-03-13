@@ -132,9 +132,10 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
           const managertToProductionManager = res.data.value;
           this.NinetyTwoGoldForm.get('row2')?.patchValue({
             value: this.format3(managertToProductionManager),
-            fine: this.format3(Number((managertToProductionManager * 0.92).toFixed(2)))
+            fine: this.format3(Number((managertToProductionManager * 0.92).toFixed(2))),
+            comment: `${this.format3(managertToProductionManager)} gm gini transferred to Pitam`
           });
-          console.log('Manager to Pitam ', res);
+          // console.log('Manager to Pitam ', res);
       }
     });
 
@@ -147,17 +148,40 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
           value: 0,
           fine: 0
         });
-        console.log('No Record Pitam to manager ');
+        // console.log('No Record Pitam to manager ');
         return;
       }else{
         const receivedValue = res.data.value;
         this.NinetyTwoGoldForm.get('row3')?.patchValue({
           value: this.format3(receivedValue),
-          fine: this.format3(Number((receivedValue * 0.92).toFixed(2)))
+          fine: this.format3(Number((receivedValue * 0.92).toFixed(2))),
+          comment: `${this.format3(receivedValue)} gm gini received from Pitam`
         });
-        console.log('Pitam to Manager ', res);
+        // console.log('Pitam to Manager ', res);
       }
     });
+
+    // from fine to gini by manager
+    this.managerService.getMonthlyTotalFineToGiniByManager(
+        {fromRmId: 36, toRmId: 48, recordYear: this.selectedYear, recordMonth: this.selectedMonth})
+        .subscribe((res: any) => {
+          if (!res?.data){
+            // no record found
+            this.NinetyTwoGoldForm.get('row4')?.patchValue({
+              value: this.format3(0),
+              fine: this.format3(0),
+              comment: 'No conversion record'
+            });
+          }else{
+            // record found
+            this.NinetyTwoGoldForm.get('row4')?.patchValue({
+              value: this.format3(res.data.toRmTotal),
+              fine: this.format3(res.data.fromRmTotal),
+              comment: `${this.format3(res.data.toRmTotal)} gm gini converted from ${this.format3(res.data.fromRmTotal)} gm fine gold`
+            });
+          }
+    });
+
   } // end of loadMonthlyData
 
   format3(value: any) {

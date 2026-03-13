@@ -41,10 +41,12 @@ class MonthlyTransactionController  extends ApiController
 
         $totalFrom = $result ? $result->total_from_rm : 0;
         $totalTo   = $result ? $result->total_to_rm : 0;
+        $conversionComment = $result? "Converted ".$result->total_from_rm." to ".$result->total_to_rm : "No Converion record";
 
         $data = [
             'fromRmTotal' => round($totalFrom, 3),
             'toRmTotal'   => round($totalTo, 3),
+            'conversionComment' => $conversionComment
         ];
 
         return $this->successResponse($data, "Conversion total fetched");
