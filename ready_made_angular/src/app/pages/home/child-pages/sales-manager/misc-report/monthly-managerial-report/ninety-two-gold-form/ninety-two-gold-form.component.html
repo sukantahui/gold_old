@@ -18,10 +18,10 @@
 
         <tbody>
 
-        <!-- Row 1 -->
-        <tr formGroupName="row1">
+        <!-- Row 1 Opening Balance from previous month-->
+        <tr formGroupName="closingBalanceOfPreviousMonth">
             <td class="text-end">1</td>
-            <td>Opening Balance</td>
+            <td>Opening Balance(Closing of Prev. month) </td>
             <td class="text-end">
                 <input type="number"
                        class="form-control text-end"
@@ -40,10 +40,10 @@
             </td>
         </tr>
 
-        <!-- Row 2 -->
-        <tr formGroupName="row2">
+        <!-- Row 2 Transferred to Production -->
+        <tr formGroupName="transferredToProduction">
             <td class="text-end">2</td>
-            <td class="text-danger fw-semibold">Less: Transferred to Pitam</td>
+            <td class="text-danger fw-semibold" [ngClass]="getTrTypeClass('transferredToProduction')">{{ getTrTypeLabel('fromGiniToFine') }}: Transferred to Pitam</td>
             <td class="text-end">
                 <input type="number"
                        class="form-control text-end"
@@ -61,10 +61,10 @@
             </td>
         </tr>
 
-        <!-- Row 3 -->
-        <tr formGroupName="row3">
+        <!-- Row 3 Returnded from Production -->
+        <tr formGroupName="returnedFromProduction">
             <td class="text-end">3</td>
-            <td class="text-success fw-semibold">Add: Returned from Pitam</td>
+            <td class="text-success fw-semibold" [ngClass]="getTrTypeClass('returnedFromProduction')">{{ getTrTypeLabel('returnedFromProduction') }}: Returned from Pitam</td>
             <td class="text-end">
                 <input type="number"
                        class="form-control text-end"
@@ -82,10 +82,10 @@
             </td>
         </tr>
 
-        <!-- Row 4 -->
-        <tr formGroupName="row4">
+        <!-- Row 4 Fine to 92 -->
+        <tr formGroupName="fineToGini">
             <td class="text-end">4</td>
-            <td class="text-success fw-semibold">Add: From Fine converted to 92</td>
+            <td class="text-success fw-semibold" [ngClass]="getTrTypeClass('fineToGini')">{{ getTrTypeLabel('fineToGini') }}: From Fine converted to 92</td>
             <td class="text-end">
                 <input type="number"
                        class="form-control text-end"
@@ -103,9 +103,101 @@
             </td>
         </tr>
 
-        </tbody>
+        <!-- Row 5 ,  92 to Fine -->
+        <tr formGroupName="fromGiniToFine">
+            <td class="text-end">5</td>
+            <td class="text-success fw-semibold" [ngClass]="getTrTypeClass('fromGiniToFine')">
+<!--                 the less or add should be dynamic if the property of trType of fromGiniToFine is -1 then less, if 1 then add-->
+                {{ getTrTypeLabel('fromGiniToFine') }}: From 92 to Fine Converted
+            </td>
+            <td class="text-end">
+                <input type="number"
+                       class="form-control text-end"
+                       formControlName="value" step="0.001">
+            </td>
+            <td class="text-end">
+                <input type="number"
+                       class="form-control text-end"
+                       formControlName="fine" step="0.001">
+            </td>
+            <td>
+                <input type="text"
+                       class="form-control"
+                       formControlName="comment">
+            </td>
+        </tr>
 
+        <!-- Row 6 ,  Loss of 92 Gini lossOfGini -->
+        <tr formGroupName="lossOfGini">
+            <td class="text-end">6</td>
+            <td class="text-success fw-semibold" [ngClass]="getTrTypeClass('lossOfGini')">
+                <!--                 the less or add should be dynamic if the property of trType of fromGiniToFine is -1 then less, if 1 then add-->
+                {{ getTrTypeLabel('lossOfGini') }}: Loss of 92 Gold
+            </td>
+            <td class="text-end">
+                <input type="number"
+                       class="form-control text-end"
+                       formControlName="value" step="0.001">
+            </td>
+            <td class="text-end">
+                <input type="number"
+                       class="form-control text-end"
+                       formControlName="fine" step="0.001">
+            </td>
+            <td>
+                <input type="text"
+                       class="form-control"
+                       formControlName="comment">
+            </td>
+        </tr>
+
+        <!-- Row 7 ,  Excess of 92 Gini lossOfGini -->
+        <tr formGroupName="excessOfGini">
+            <td class="text-end">7</td>
+            <td class="text-success fw-semibold" [ngClass]="getTrTypeClass('excessOfGini')">
+                <!--                 the less or add should be dynamic if the property of trType of fromGiniToFine is -1 then less, if 1 then add-->
+                {{ getTrTypeLabel('excessOfGini') }}: Excess of 92 Gold
+            </td>
+            <td class="text-end">
+                <input type="number"
+                       class="form-control text-end"
+                       formControlName="value" step="0.001">
+            </td>
+            <td class="text-end">
+                <input type="number"
+                       class="form-control text-end"
+                       formControlName="fine" step="0.001">
+            </td>
+            <td>
+                <input type="text"
+                       class="form-control"
+                       formControlName="comment">
+            </td>
+        </tr>
+        </tbody>
         <tfoot>
+        <tr formGroupName="closingBalance" class="table-dark fw-bold">
+            <td class="text-end">#</td>
+            <td class="fw-semibold">
+                <!--                 the less or add should be dynamic if the property of trType of fromGiniToFine is -1 then less, if 1 then add-->
+                Closing Balance of 92 Gold
+            </td>
+            <td class="text-end">
+                <input type="number"
+                       class="form-control text-end"
+                       formControlName="value" step="0.001">
+            </td>
+            <td class="text-end">
+                <input type="number"
+                       class="form-control text-end"
+                       formControlName="fine" step="0.001">
+            </td>
+            <td>
+                <input type="text"
+                       class="form-control"
+                       formControlName="comment">
+            </td>
+        </tr>
         <tr>
             <th colspan="4" class="text-end">
                 <button type="button"
@@ -116,9 +208,19 @@
                 </button>
             </th>
         </tr>
+
+
         </tfoot>
 
     </table>
 
 </form>
 <!-- Reactive Form Ends -->
+<!-- 🔧 Developer Debug Panel -->
+<div *ngIf="isDev" class="mt-4 p-3 border rounded bg-light">
+    <h6 class="fw-bold text-secondary">🚀 API Payload Preview</h6>
+
+    <pre style="max-height: 300px; overflow: auto; font-size: 12px;">
+{{ getPayloadPreview() | json }}
+    </pre>
+</div>
