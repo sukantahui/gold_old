@@ -36,29 +36,30 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
 
   initializeForm(): void {
     this.NinetyTwoGoldForm = this.fb.group({
-      closingBalanceOfPreviousMonth: this.createRow(1, 1),   // closing balance
+      closingBalanceOfPreviousMonth: this.createRow(1, 1, 'Opening Balance'),   // closing balance
       // row2: this.createRow(2, -1),  // Opening Balance
       transferredToProduction: this.createRow(3, -1),  // Trnasfer to Pitam
       returnedFromProduction: this.createRow(4, 1),   // Returned from Pitam
       fineToGini: this.createRow(5, 1),  // From Fine to 92
       fromGiniToFine: this.createRow(6, -1),  // From 92 to Fine
-      lossOfGini: this.createRow(7, -1),  // Loss of Gini
-      excessOfGini: this.createRow(8, 1),  // Loss of Gini
+      lossOfGini: this.createRow(7, -1, 'Manual Entry'),  // Loss of Gini
+      excessOfGini: this.createRow(8, 1, 'Manual Entry'),  // Loss of Gini
       closingBalance: this.fb.group({
-        transaction_particular_id: [2],
+        transaction_particular_id: [1],
         value: [{ value: 0, disabled: true }],
         fine: [{ value: 0, disabled: true }],
         cash: [0],
         rm_id: [48],
-        comment: ['Auto calculated'],
+        comment: ['Closing Balance (Auto calculated)'],
         tr_date: [new Date().toISOString().substring(0, 10)],
-        tr_type: [0]
+        tr_type: [1]
       })
     });
 
   }
 
-  createRow(transactionParticularId: number, trType: number): FormGroup {
+  createRow(transactionParticularId: number, trType: number, comment = ''): FormGroup {
+
 
     const group = this.fb.group({
       transaction_particular_id: [transactionParticularId],
@@ -66,7 +67,7 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
       fine: [{ value: 0, disabled: true }],
       cash: [0],
       rm_id: [48],
-      comment: [''],
+      comment: [comment],
       tr_date: [new Date().toISOString().substring(0, 10)],
       tr_type: [trType]
     });
@@ -274,7 +275,7 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
     const formData = this.NinetyTwoGoldForm.getRawValue();
 
     return {
-      records: Object.values(formData).map((row: any) => ({
+      records: Object.values(formData).filter((row: any) => row && row.transaction_particular_id !== 1).map((row: any) => ({
         ...row,
         record_year: this.selectedYear,
         record_month: this.selectedMonth
