@@ -1,8 +1,20 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { forkJoin } from 'rxjs';
 import {ManagerService} from '../../../../../../../services/manager.service';
 import { environment } from 'src/environments/environment';
+interface ApiResponse<T> {
+  status: boolean;
+  message: string;
+  data: T;
+}
+
+interface ClosingData {
+  value: number;
+  fine: number;
+}
+
 @Component({
   selector: 'app-ninety-two-gold-form',
   templateUrl: './ninety-two-gold-form.component.html',
@@ -15,6 +27,8 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
   private rmId = 48;
   isDev = environment.production === false;
   NinetyTwoGoldForm!: FormGroup;
+  showDevPanel = false;
+  isLoading = false;
 
   constructor(
       private fb: FormBuilder,
@@ -28,10 +42,13 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
     });
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.selectedYear && this.selectedMonth) {
+    if (
+        (changes.selectedYear || changes.selectedMonth) &&
+        this.selectedYear &&
+        this.selectedMonth
+    ) {
       this.loadMonthlyData();
     }
-
   }
 
   initializeForm(): void {
@@ -115,113 +132,76 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
     });
   }
 
-  loadMonthlyData(): void {
-    // fetching closing Balance of Previous month for Opening of Current Month
-    this.managerService.getMonthlyTransactionClosingBalance(
-        {rmId: this.rmId, recordYear: this.selectedYear, recordMonth: this.selectedMonth}
-    ).subscribe((res: any) => {
-      if (!res?.data) {
-        // reset opening balance
-        this.NinetyTwoGoldForm.get('closingBalanceOfPreviousMonth')?.patchValue({
-          value: 0,
-          fine: 0
-        });
-        return;
-      }
-      // Update Opening Balance (closingBalanceOfPreviousMonth)
-      const closingBalance = res.data.value;
-      this.NinetyTwoGoldForm.get('closingBalanceOfPreviousMonth')?.patchValue({
-        value: this.format3(closingBalance),
-        fine: this.format3( Number((closingBalance * 0.92).toFixed(2)))
-      });
 
+
+loadMonthlyData(): void {
+  this.isLoading = true;
+  const payload = {
+    rmId: this.rmId,
+    recordYear: this.selectedYear,
+    recordMonth: this.selectedMonth
+  };
+
+  forkJoin({
+  closing: this.managerService.getMonthlyTransactionClosingBalance(payload),
+  transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload),
+  return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload),
+  fineToGini: this.managerService.getMonthlyTotalFineToGiniByManager({
+    fromRmId: 36, toRmId: 48, ...payload
+  }),
+  giniToFine: this.managerService.getMonthlyTotalFineToGiniByManager({
+    fromRmId: 48, toRmId: 36, ...payload
+  })
+}).subscribe({
+  next: (res) => {
+
+    console.log('✅ All APIs loaded:', res);
+
+    // 1️⃣ Opening Balance
+    const closing = (res.closing as any)?.data?.value || 0;
+    this.NinetyTwoGoldForm.get('closingBalanceOfPreviousMonth')?.patchValue({
+      value: this.format3(closing),
+      fine: this.format3(closing * 0.92)
     });
 
-    // fetching gini to pitam, transferredToProduction
-    // tslint:disable-next-line:max-line-length
-    this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager({rmId: this.rmId, recordYear: this.selectedYear, recordMonth: this.selectedMonth}).subscribe((res: any) => {
-        if (!res?.data) {
-        // reset manager to production manager
-          this.NinetyTwoGoldForm.get('transferredToProduction')?.patchValue({
-            value: 0,
-            fine: 0
-          });
-          return;
-      }else{
-          const managertToProductionManager = res.data.value;
-          this.NinetyTwoGoldForm.get('transferredToProduction')?.patchValue({
-            value: this.format3(managertToProductionManager),
-            fine: this.format3(Number((managertToProductionManager * 0.92).toFixed(2))),
-            comment: `${this.format3(managertToProductionManager)} gm gini transferred to Pitam`
-          });
-      }
+    // 2️⃣ Transfer
+    const transfer = res.transfer?.data?.value || 0;
+    this.NinetyTwoGoldForm.get('transferredToProduction')?.patchValue({
+      value: this.format3(transfer),
+      fine: this.format3(transfer * 0.92)
     });
 
-    // from production manager to manager, returnedFromProduction
-    // tslint:disable-next-line:max-line-length
-    this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager({rmId: this.rmId, recordYear: this.selectedYear, recordMonth: this.selectedMonth}).subscribe((res: any) => {
-      if (!res?.data) {
-        // reset manager to production manager
-        this.NinetyTwoGoldForm.get('returnedFromProduction')?.patchValue({
-          value: 0,
-          fine: 0
-        });
-        // console.log('No Record Pitam to manager ');
-        return;
-      }else{
-        const receivedValue = res.data.value;
-        this.NinetyTwoGoldForm.get('returnedFromProduction')?.patchValue({
-          value: this.format3(receivedValue),
-          fine: this.format3(Number((receivedValue * 0.92).toFixed(2))),
-          comment: `${this.format3(receivedValue)} gm gini received from Pitam`
-        });
-        // console.log('Pitam to Manager ', res);
-      }
+    // 3️⃣ Return
+    const returned = res.return?.data?.value || 0;
+    this.NinetyTwoGoldForm.get('returnedFromProduction')?.patchValue({
+      value: this.format3(returned),
+      fine: this.format3(returned * 0.92)
     });
 
-    // from fine to gini by manager, fineToGini
-    this.managerService.getMonthlyTotalFineToGiniByManager(
-        {fromRmId: 36, toRmId: 48, recordYear: this.selectedYear, recordMonth: this.selectedMonth})
-        .subscribe((res: any) => {
-          if (!res?.data){
-            // no record found
-            this.NinetyTwoGoldForm.get('fineToGini')?.patchValue({
-              value: this.format3(0),
-              fine: this.format3(0),
-              comment: 'No conversion record'
-            });
-          }else{
-            // record found
-            this.NinetyTwoGoldForm.get('fineToGini')?.patchValue({
-              value: this.format3(res.data.toRmTotal),
-              fine: this.format3(res.data.fromRmTotal),
-              comment: `${this.format3(res.data.toRmTotal)} gm gini converted from ${this.format3(res.data.fromRmTotal)} gm fine gold`
-            });
-          }
+    // 4️⃣ Fine → Gini
+    this.NinetyTwoGoldForm.get('fineToGini')?.patchValue({
+      value: this.format3(res.fineToGini?.data?.toRmTotal || 0),
+      fine: this.format3(res.fineToGini?.data?.fromRmTotal || 0)
     });
 
-    // from 92 to Fine by manager, fromGiniToFine
-    this.managerService.getMonthlyTotalFineToGiniByManager(
-        {fromRmId: 48, toRmId: 36, recordYear: this.selectedYear, recordMonth: this.selectedMonth})
-        .subscribe((res: any) => {
-          if (!res?.data){
-            // no record found
-            this.NinetyTwoGoldForm.get('fromGiniToFine')?.patchValue({
-              value: this.format3(0),
-              fine: this.format3(0),
-              comment: 'No conversion record'
-            });
-          }else{
-            // record found
-            this.NinetyTwoGoldForm.get('fromGiniToFine')?.patchValue({
-              value: this.format3(res.data.toRmTotal),
-              fine: this.format3(res.data.fromRmTotal),
-              comment: `${this.format3(res.data.toRmTotal)} gm gini converted from ${this.format3(res.data.fromRmTotal)} gm fine gold`
-            });
-          }
-        });
+    // 5️⃣ Gini → Fine
+    this.NinetyTwoGoldForm.get('fromGiniToFine')?.patchValue({
+      value: this.format3(res.giniToFine?.data?.toRmTotal || 0),
+      fine: this.format3(res.giniToFine?.data?.fromRmTotal || 0)
+    });
 
-  } // end of loadMonthlyData
+    // ✅ Now safe to calculate
+    this.calculateClosingBalance();
+  },
+
+  error: (err) => {
+    console.error('❌ API Error:', err);
+    Swal.fire('Error', 'Failed to load monthly data', 'error');
+  }
+});
+}
+
+
   // helper methods
   format3(value: any) {
     if (value === null || value === undefined || value === '') {
@@ -268,7 +248,9 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
       fine: this.format3(totalFine)
     }, { emitEvent: false });
   }
-
+  toggleDevPanel() {
+    this.showDevPanel = !this.showDevPanel;
+  }
   getPayloadPreview() {
     if (!this.NinetyTwoGoldForm) { return {}; }
 
@@ -281,5 +263,33 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
         record_month: this.selectedMonth
       }))
     };
+  }
+
+  copyPayload() {
+    const payload = this.getPayloadPreview();
+
+    const text = JSON.stringify(payload, null, 2);
+
+    navigator.clipboard.writeText(text).then(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Copied!',
+        text: 'Payload copied to clipboard',
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }).catch(() => {
+      Swal.fire('Error', 'Failed to copy', 'error');
+    });
+  }
+
+  getMonthName(month: number): string {
+    const months = [
+      'January', 'February', 'March', 'April',
+      'May', 'June', 'July', 'August',
+      'September', 'October', 'November', 'December'
+    ];
+
+    return months[month - 1] || '';
   }
 }

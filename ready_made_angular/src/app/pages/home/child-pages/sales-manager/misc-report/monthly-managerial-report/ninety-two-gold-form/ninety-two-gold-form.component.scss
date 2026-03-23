@@ -1,0 +1,75 @@
+.header-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+.custom-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.custom-table thead {
+  background: linear-gradient(45deg, #4e73df, #1cc88a);
+  color: white;
+}
+
+.custom-table tbody tr:hover {
+  background: #f8f9fc;
+  transform: scale(1.002);
+}
+
+.input-modern {
+  background: #f8f9fc;
+  border-radius: 8px;
+  border: none;
+}
+
+.input-modern:focus {
+  background: white;
+  box-shadow: 0 0 0 2px rgba(78, 115, 223, 0.2);
+}
+
+/* Row colors */
+.row-add {
+  background: #ecfdf5;
+}
+
+.row-less {
+  background: #fef2f2;
+}
+
+/* Closing row */
+.closing-row {
+  background: linear-gradient(45deg, #1cc88a, #36b9cc);
+  color: white;
+}
+
+.closing-row input {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: none;
+}
+
+/* Button */
+.save-btn {
+  background: linear-gradient(45deg, #4e73df, #1cc88a);
+  color: white;
+  border: none;
+  transition: 0.3s;
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Dev box */
+.dev-box {
+  background: #f7c475;   // soft light background
+  color: #e4e5d7;        // normal readable text
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #e3e6f0;
+  font-size: 13px;
+}
