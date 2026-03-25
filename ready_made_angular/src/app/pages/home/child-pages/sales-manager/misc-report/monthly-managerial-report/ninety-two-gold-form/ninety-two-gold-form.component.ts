@@ -53,14 +53,14 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
 
   initializeForm(): void {
     this.NinetyTwoGoldForm = this.fb.group({
-      closingBalanceOfPreviousMonth: this.createRow(1, 1, 'Opening Balance'),   // closing balance
+      closingBalanceOfPreviousMonth: this.createRow(2, 1, 0, 'Opening Balance'),   // closing balance
       // row2: this.createRow(2, -1),  // Opening Balance
-      transferredToProduction: this.createRow(3, -1),  // Trnasfer to Pitam
-      returnedFromProduction: this.createRow(4, 1),   // Returned from Pitam
-      fineToGini: this.createRow(5, 1),  // From Fine to 92
-      fromGiniToFine: this.createRow(6, -1),  // From 92 to Fine
-      lossOfGini: this.createRow(7, -1, 'Manual Entry'),  // Loss of Gini
-      excessOfGini: this.createRow(8, 1, 'Manual Entry'),  // Loss of Gini
+      transferredToProduction: this.createRow(3, -1, 10),  // Trnasfer to Pitam
+      returnedFromProduction: this.createRow(4, 1, 20),   // Returned from Pitam
+      fineToGini: this.createRow(5, 1, 30),  // From Fine to 92
+      fromGiniToFine: this.createRow(6, -1, 40),  // From 92 to Fine
+      lossOfGini: this.createRow(7, -1, 50, 'Manual Entry'),  // Loss of Gini
+      excessOfGini: this.createRow(8, 1, 60, 'Manual Entry'),  // Loss of Gini
       closingBalance: this.fb.group({
         transaction_particular_id: [1],
         value: [{ value: 0, disabled: true }],
@@ -69,13 +69,14 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
         rm_id: [48],
         comment: ['Closing Balance (Auto calculated)'],
         tr_date: [new Date().toISOString().substring(0, 10)],
-        tr_type: [1]
+        tr_type: [1],
+        order_no: [70]
       })
     });
 
   }
 
-  createRow(transactionParticularId: number, trType: number, comment = ''): FormGroup {
+  createRow(transactionParticularId: number, trType: number, order_no: number ,comment = ''): FormGroup {
 
 
     const group = this.fb.group({
@@ -86,7 +87,8 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
       rm_id: [48],
       comment: [comment],
       tr_date: [new Date().toISOString().substring(0, 10)],
-      tr_type: [trType]
+      tr_type: [trType],
+      order_no: [order_no]
     });
 
     group.get('value')?.valueChanges.subscribe(val => {
@@ -257,7 +259,7 @@ loadMonthlyData(): void {
     const formData = this.NinetyTwoGoldForm.getRawValue();
 
     return {
-      records: Object.values(formData).filter((row: any) => row && row.transaction_particular_id !== 1).map((row: any) => ({
+      records: Object.values(formData).filter((row: any) => row && row.transaction_particular_id !== 2).map((row: any) => ({
         ...row,
         record_year: this.selectedYear,
         record_month: this.selectedMonth

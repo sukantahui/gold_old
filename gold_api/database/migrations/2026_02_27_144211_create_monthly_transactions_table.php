@@ -31,7 +31,7 @@ class CreateMonthlyTransactionsTable extends Migration
 
             $table->integer('record_year');
             $table->integer('record_month');
-
+            $table->integer('order_no')->comment("only to maintain the order");
             $table->timestamps();
 
             $table->foreign('transaction_particular_id')

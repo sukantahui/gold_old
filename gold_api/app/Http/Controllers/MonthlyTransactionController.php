@@ -17,6 +17,44 @@ class MonthlyTransactionController  extends ApiController
     {
         //
     }
+    public function getMonthlySavedTransaction($year, $month, $rmId)
+    {
+        $transactions = DB::table('monthly_transactions as mt')
+            ->join('transaction_particulars as tp', 'mt.transaction_particular_id', '=', 'tp.id')
+            ->where('mt.record_year', $year)
+            ->where('mt.record_month', $month)
+            ->where('mt.rm_id', $rmId)
+            ->select(
+                'mt.id',
+                'tp.transaction_particular',
+                'mt.value',
+                'mt.fine',
+                'mt.cash',
+                'mt.tr_type',
+                'mt.comment',
+                'mt.tr_date',
+                'mt.order_no'
+            )
+            ->orderBy('mt.order_no') // ✅ THIS is the key change
+            ->get();
+
+        $summary = DB::table('monthly_transactions')
+            ->where('record_year', $year)
+            ->where('record_month', $month)
+            ->where('rm_id', $rmId)
+            ->selectRaw('
+            SUM(value) as total_value,
+            SUM(fine) as total_fine,
+            SUM(cash) as total_cash
+        ')
+            ->first();
+
+        return response()->json([
+            'status' => true,
+            'data' => $transactions,
+            'summary' => $summary
+        ]);
+    }
     public function getMaterialConverted($year, $month, $fromEmployee, $fromRmId, $toRmId)
     {
         $result = DB::table('material_transformation_masters as mtm')
