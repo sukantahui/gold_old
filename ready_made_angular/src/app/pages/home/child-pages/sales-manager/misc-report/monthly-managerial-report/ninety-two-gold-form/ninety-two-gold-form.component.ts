@@ -29,6 +29,8 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
   NinetyTwoGoldForm!: FormGroup;
   showDevPanel = false;
   isLoading = false;
+  savedData: any[];
+  summary: string | HTMLElement;
 
   constructor(
       private fb: FormBuilder,
@@ -76,7 +78,7 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
 
   }
 
-  createRow(transactionParticularId: number, trType: number, order_no: number ,comment = ''): FormGroup {
+  createRow(transactionParticularId: number, trType: number, order_no: number , comment = ''): FormGroup {
 
 
     const group = this.fb.group({
@@ -114,23 +116,36 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
       return;
     }
 
-    const formData = this.NinetyTwoGoldForm.getRawValue();
+    const payload = this.getPayloadPreview();
 
-    const payload = {
-      records: Object.values(formData).map((row: any) => ({
-        ...row,
-        record_year: this.selectedYear,
-        record_month: this.selectedMonth
-      }))
-    };
+    // 🔔 Confirmation dialog
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to submit this monthly data?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, submit it!',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33'
+    }).then((result) => {
 
-    this.managerService.saveMonthlyTransactions(payload).subscribe({
-      next: (res: any) => {
-        Swal.fire('Success', res.message || 'Saved successfully', 'success');
-      },
-      error: () => {
-        Swal.fire('Error', 'Something went wrong', 'error');
+      if (result.isConfirmed) {
+
+        // @ts-ignore
+        this.managerService.saveMonthlyTransactions(payload).subscribe({
+          next: (res: any) => {
+            Swal.fire('Success', res.message || 'Saved successfully', 'success');
+            this.loadSavedData();
+          },
+          error: (res: any) => {
+            console.log('error ', res);
+            Swal.fire('Error', 'Something went wrong', 'error');
+          }
+        });
+
       }
+
     });
   }
 
@@ -293,5 +308,25 @@ loadMonthlyData(): void {
     ];
 
     return months[month - 1] || '';
+  }
+
+  loadSavedData() {
+    this.isLoading = true;
+    const payload = {
+      rmId: this.rmId,
+      recordYear: this.selectedYear,
+      recordMonth: this.selectedMonth
+    };
+    this.managerService.getMonthlySavedTransactions(payload).subscribe({
+      next: (res: any) => {
+        this.savedData = res.data || [];
+        this.summary = res.summary || null;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+        Swal.fire('Error', 'Failed to load saved data', 'error');
+      }
+    });
   }
 }

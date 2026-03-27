@@ -16,6 +16,13 @@ export class ManagerService {
 
   constructor(private commonService: CommonService, private  http: HttpClient , private  errorService: ErrorService) {
   }
+  getMonthlySavedTransactions(data: { rmId: number;  recordYear: number; recordMonth: number }){
+    return this.http.get<any>(
+        // tslint:disable-next-line:max-line-length
+        this.commonService.getAPI() + '/monthly-transactions/saved/' + data.recordYear + '/' + data.recordMonth + '/' + data.rmId
+    )
+        .pipe(catchError(this.errorService.serverError));
+  }
   getMonthlyTotalGiniToFineByManager(data: { fromRmId: number; toRmId: number; recordYear: number; recordMonth: number }){
     return this.http.get<any>(
         // tslint:disable-next-line:max-line-length

@@ -19,6 +19,36 @@ class MonthlyTransactionController  extends ApiController
     }
     public function getMonthlySavedTransaction($year, $month, $rmId)
     {
+        // 🧮 Step 1: Calculate previous month
+        $prevMonth = $month - 1;
+        $prevYear = $year;
+
+        if ($prevMonth == 0) {
+            $prevMonth = 12;
+            $prevYear = $year - 1;
+        }
+
+        // 📦 Step 2: Fetch previous closing balance (id = 1)
+        $previousClosing = DB::table('monthly_transactions as mt')
+            ->join('transaction_particulars as tp', 'mt.transaction_particular_id', '=', 'tp.id')
+            ->where('mt.record_year', $prevYear)
+            ->where('mt.record_month', $prevMonth)
+            ->where('mt.rm_id', $rmId)
+            ->where('mt.transaction_particular_id', 1)
+            ->select(
+                'mt.id', // optional
+                'tp.transaction_particular',
+                'mt.value',
+                'mt.fine',
+                'mt.cash',
+                'mt.tr_type',
+                DB::raw("'Opening Balance' as comment"),
+                'mt.tr_date',
+                DB::raw('0 as order_no') // 🔥 force it to top
+            )
+            ->first();
+
+        // 📄 Step 3: Current month transactions
         $transactions = DB::table('monthly_transactions as mt')
             ->join('transaction_particulars as tp', 'mt.transaction_particular_id', '=', 'tp.id')
             ->where('mt.record_year', $year)
@@ -35,9 +65,17 @@ class MonthlyTransactionController  extends ApiController
                 'mt.tr_date',
                 'mt.order_no'
             )
-            ->orderBy('mt.order_no') // ✅ THIS is the key change
             ->get();
 
+        // 🧩 Step 4: Merge previous + current
+        if ($previousClosing) {
+            $transactions->prepend($previousClosing); // add at top
+        }
+
+        // 🔽 Step 5: Sort again (important if mixing data)
+        $transactions = $transactions->sortBy('order_no')->values();
+
+        // 📊 Summary (current month only — usually correct)
         $summary = DB::table('monthly_transactions')
             ->where('record_year', $year)
             ->where('record_month', $month)

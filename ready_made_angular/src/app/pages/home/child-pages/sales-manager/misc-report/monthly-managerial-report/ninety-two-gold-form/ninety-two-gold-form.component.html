@@ -108,15 +108,27 @@
                 </table>
             </div>
             <div class="card-header ledger-header d-flex justify-content-between align-items-center">
+
                 <div>
                     <small>
                         Year: {{selectedYear}} | Month: {{ getMonthName(selectedMonth) }}
                     </small>
                 </div>
 
-                <button type="button" class="btn btn-light btn-sm px-4" (click)="submit()">
-                    💾 Save
-                </button>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary btn-sm"
+                            [disabled]="isLoading"
+                            (click)="loadSavedData()">
+                        📥 View Saved
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-light btn-sm px-4"
+                            (click)="submit()">
+                        💾 Save
+                    </button>
+                </div>
+
             </div>
         </div>
 
