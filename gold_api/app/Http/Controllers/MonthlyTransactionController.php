@@ -28,15 +28,15 @@ class MonthlyTransactionController  extends ApiController
             $prevYear = $year - 1;
         }
 
-        // 📦 Step 2: Fetch previous closing balance (id = 1)
+        // 📦 Step 2: Previous month closing → Opening balance
         $previousClosing = DB::table('monthly_transactions as mt')
             ->join('transaction_particulars as tp', 'mt.transaction_particular_id', '=', 'tp.id')
             ->where('mt.record_year', $prevYear)
             ->where('mt.record_month', $prevMonth)
             ->where('mt.rm_id', $rmId)
-            ->where('mt.transaction_particular_id', 1)
+            ->where('mt.transaction_particular_id', 1) // closing balance
             ->select(
-                'mt.id', // optional
+                'mt.id',
                 'tp.transaction_particular',
                 'mt.value',
                 'mt.fine',
@@ -44,7 +44,7 @@ class MonthlyTransactionController  extends ApiController
                 'mt.tr_type',
                 DB::raw("'Opening Balance' as comment"),
                 'mt.tr_date',
-                DB::raw('0 as order_no') // 🔥 force it to top
+                DB::raw('0 as order_no')
             )
             ->first();
 
@@ -63,34 +63,45 @@ class MonthlyTransactionController  extends ApiController
                 'mt.tr_type',
                 'mt.comment',
                 'mt.tr_date',
-                'mt.order_no'
+                'mt.order_no',
+                'mt.transaction_particular_id'
             )
             ->get();
 
-        // 🧩 Step 4: Merge previous + current
+        // ❌ Step 4: Remove closing balance from list
+        $transactions = $transactions->filter(function ($item) {
+            return $item->transaction_particular_id != 1;
+        })->values();
+
+        // 🧩 Step 5: Add opening balance at top
         if ($previousClosing) {
-            $transactions->prepend($previousClosing); // add at top
+            $transactions->prepend($previousClosing);
         }
 
-        // 🔽 Step 5: Sort again (important if mixing data)
+        // 🔽 Step 6: Sort properly
         $transactions = $transactions->sortBy('order_no')->values();
 
-        // 📊 Summary (current month only — usually correct)
-        $summary = DB::table('monthly_transactions')
-            ->where('record_year', $year)
-            ->where('record_month', $month)
-            ->where('rm_id', $rmId)
-            ->selectRaw('
-            SUM(value) as total_value,
-            SUM(fine) as total_fine,
-            SUM(cash) as total_cash
-        ')
+        // 📊 Step 7: Get current month closing balance (FINAL SUMMARY)
+        $closingBalance = DB::table('monthly_transactions as mt')
+            ->join('transaction_particulars as tp', 'mt.transaction_particular_id', '=', 'tp.id')
+            ->where('mt.record_year', $year)
+            ->where('mt.record_month', $month)
+            ->where('mt.rm_id', $rmId)
+            ->where('mt.transaction_particular_id', 1)
+            ->select(
+                'mt.value',
+                'mt.fine',
+                'mt.cash',
+                'mt.comment',
+                'mt.tr_date'
+            )
             ->first();
 
+        // 📤 Final Response
         return response()->json([
             'status' => true,
             'data' => $transactions,
-            'summary' => $summary
+            'closing_balance' => $closingBalance
         ]);
     }
     public function getMaterialConverted($year, $month, $fromEmployee, $fromRmId, $toRmId)

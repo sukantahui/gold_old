@@ -30,7 +30,7 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
   showDevPanel = false;
   isLoading = false;
   savedData: any[];
-  summary: string | HTMLElement;
+  closingBalance: any;
 
   constructor(
       private fb: FormBuilder,
@@ -320,8 +320,9 @@ loadMonthlyData(): void {
     this.managerService.getMonthlySavedTransactions(payload).subscribe({
       next: (res: any) => {
         this.savedData = res.data || [];
-        this.summary = res.summary || null;
+        this.closingBalance = res.closing_balance || null;
         this.isLoading = false;
+        console.log(this.savedData);
       },
       error: () => {
         this.isLoading = false;

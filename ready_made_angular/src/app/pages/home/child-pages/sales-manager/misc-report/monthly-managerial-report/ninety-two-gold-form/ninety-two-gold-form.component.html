@@ -117,7 +117,6 @@
 
                 <div class="d-flex gap-2">
                     <button class="btn btn-outline-primary btn-sm"
-                            [disabled]="isLoading"
                             (click)="loadSavedData()">
                         📥 View Saved
                     </button>
@@ -135,7 +134,100 @@
     </form>
 
 <!--    here i like to show the saved data in a different div for the month of year-->
-    <div id="saved-gini-entry">
+    <div id="saved-gini-entry" class="mt-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+                <h6 class="mb-0">📊 Saved Transactions</h6>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm mb-0">
+
+                    <!-- HEADER -->
+                    <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Particular</th>
+                        <th class="text-end">Value</th>
+                        <th class="text-end">Fine</th>
+                        <th>Comment</th>
+                    </tr>
+                    </thead>
+
+                    <!-- BODY -->
+                    <tbody>
+
+                    <tr *ngFor="let item of savedData; let i = index"
+                        [class.table-primary]="item.comment === 'Opening Balance'">
+
+                        <td>{{ i + 1 }}</td>
+
+                        <td>
+                        <span [ngClass]="item.tr_type == -1 ? 'text-danger' : 'text-success'">
+
+                            <!-- Arrow -->
+                            {{ item.tr_type == -1 ? '↘' : '↗' }}
+
+                            <!-- Special label for opening -->
+                            {{ item.comment === 'Opening Balance'
+                            ? 'Opening Balance'
+                            : item.transaction_particular
+                            }}
+                        </span>
+                        </td>
+
+                        <td class="text-end">
+                            {{ item.value | number:'1.3-3' }}
+                        </td>
+
+                        <td class="text-end">
+                            {{ item.fine | number:'1.3-3' }}
+                        </td>
+
+                        <td>
+                            {{ item.comment || '-' }}
+                        </td>
+
+                    </tr>
+
+                    <!-- EMPTY -->
+                    <tr *ngIf="!savedData || savedData.length === 0">
+                        <td colspan="5" class="text-center text-muted">
+                            No data found
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+                    <!-- FOOTER (CLOSING BALANCE) -->
+                    <tfoot *ngIf="closingBalance">
+                    <tr class="table-dark fw-bold">
+
+                        <td colspan="2">
+                            🔒 Closing Balance
+                        </td>
+
+                        <td class="text-end">
+                            {{ closingBalance?.value | number:'1.3-3' }}
+                        </td>
+
+                        <td class="text-end">
+                            {{ closingBalance?.fine | number:'1.3-3' }}
+                        </td>
+
+                        <td>
+                            {{ closingBalance?.comment }}
+                        </td>
+
+                    </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+
+        </div>
 
     </div>
     <!-- DEBUG PANEL -->
