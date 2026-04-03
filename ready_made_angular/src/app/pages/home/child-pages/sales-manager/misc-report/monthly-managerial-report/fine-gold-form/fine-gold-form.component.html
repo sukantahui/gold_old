@@ -1,0 +1,119 @@
+<div class="container mt-4">
+
+    <form [formGroup]="FineGoldForm">
+
+        <div class="card ledger-card shadow-sm border-0">
+
+            <div class="table-responsive">
+                <table class="table ledger-table mb-0">
+
+                    <thead>
+                    <tr class="table-title">
+                        <th colspan="5">Fine Gold Transactions</th>
+                    </tr>
+
+                    <tr class="table-head">
+                        <th>#</th>
+                        <th>Particulars</th>
+                        <th class="text-end">Value</th>
+                        <th class="text-end">Fine</th>
+                        <th>Comment</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <!-- 1 -->
+                    <tr formGroupName="closingBalanceOfPreviousMonth">
+                        <td>1</td>
+                        <td class="fw-semibold">Opening Balance</td>
+                        <td><input type="number" class="form-control text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 2 -->
+                    <tr formGroupName="transferredToProduction">
+                        <td>2</td>
+                        <td class="text-danger">↘ Transferred to Production</td>
+                        <td><input type="number" class="form-control text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 3 -->
+                    <tr formGroupName="returnedFromProduction">
+                        <td>3</td>
+                        <td class="text-success">↗ Returned from Production</td>
+                        <td><input type="number" class="form-control text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 4 -->
+                    <tr formGroupName="fineToGini">
+                        <td>4</td>
+                        <td class="text-success">↗ Fine → 92</td>
+                        <td><input type="number" class="form-control text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 5 -->
+                    <tr formGroupName="fromGiniToFine">
+                        <td>5</td>
+                        <td class="text-danger">↘ 92 → Fine</td>
+                        <td><input type="number" class="form-control text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 6 -->
+                    <tr formGroupName="lossOfFine">
+                        <td>6</td>
+                        <td class="text-danger">↘ Loss</td>
+                        <td><input type="number" class="form-control text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 7 -->
+                    <tr formGroupName="excessOfFine">
+                        <td>7</td>
+                        <td class="text-success">↗ Excess</td>
+                        <td><input type="number" class="form-control text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control" formControlName="comment"></td>
+                    </tr>
+
+                    </tbody>
+
+                    <tfoot>
+                    <tr formGroupName="closingBalance">
+                        <td>#</td>
+                        <td class="fw-bold">Closing Balance</td>
+                        <td><input type="number" class="form-control text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control" formControlName="comment"></td>
+                    </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+
+            <!-- HEADER -->
+            <div class="card-header d-flex justify-content-between">
+                <small>
+                    Year: {{selectedYear}} | Month: {{selectedMonth}}
+                </small>
+
+                <button type="button" class="btn btn-primary btn-sm">
+                    Save
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

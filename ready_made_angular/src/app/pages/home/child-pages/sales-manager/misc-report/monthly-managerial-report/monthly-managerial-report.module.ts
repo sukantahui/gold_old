@@ -5,6 +5,7 @@ import { MonthlyManagerialReportRoutingModule } from './monthly-managerial-repor
 import { MonthlyManagerialReportComponent } from './monthly-managerial-report.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NinetyTwoGoldFormComponent } from './ninety-two-gold-form/ninety-two-gold-form.component';
+import {FineGoldFormModule} from './fine-gold-form/fine-gold-form.module';
 
 
 @NgModule({
@@ -12,11 +13,12 @@ import { NinetyTwoGoldFormComponent } from './ninety-two-gold-form/ninety-two-go
     MonthlyManagerialReportComponent,
     NinetyTwoGoldFormComponent
   ],
-  imports: [
-    CommonModule,
-    MonthlyManagerialReportRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        MonthlyManagerialReportRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        FineGoldFormModule
+    ]
 })
 export class MonthlyManagerialReportModule { }

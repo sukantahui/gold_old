@@ -91,6 +91,8 @@ const routes: Routes = [
 
   { path: 'DeveloperHome', loadChildren: () => import('./pages/home/child-pages/developer/developer-home/developer-home.module').then(m => m.DeveloperHomeModule) },
 
+  { path: 'FineGoldForm', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-managerial-report/fine-gold-form/fine-gold-form.module').then(m => m.FineGoldFormModule) },
+
 
 
 
