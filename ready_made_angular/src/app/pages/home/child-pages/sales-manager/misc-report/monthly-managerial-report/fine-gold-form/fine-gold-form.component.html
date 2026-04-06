@@ -1,4 +1,6 @@
+<!--fine-gold-form-component.ts-->
 <div class="container mt-4">
+
 
     <form [formGroup]="FineGoldForm">
 
@@ -53,7 +55,7 @@
                     <!-- 4 -->
                     <tr formGroupName="fineToGini">
                         <td>4</td>
-                        <td class="text-success">↗ Fine → 92</td>
+                        <td class="text-danger">↗ Fine → 92</td>
                         <td><input type="number" class="form-control text-end" formControlName="value"></td>
                         <td><input type="number" class="form-control text-end" formControlName="fine"></td>
                         <td><input type="text" class="form-control" formControlName="comment"></td>
@@ -62,7 +64,7 @@
                     <!-- 5 -->
                     <tr formGroupName="fromGiniToFine">
                         <td>5</td>
-                        <td class="text-danger">↘ 92 → Fine</td>
+                        <td class="text-success">↘ 92 → Fine</td>
                         <td><input type="number" class="form-control text-end" formControlName="value"></td>
                         <td><input type="number" class="form-control text-end" formControlName="fine"></td>
                         <td><input type="text" class="form-control" formControlName="comment"></td>
@@ -107,8 +109,16 @@
                     Year: {{selectedYear}} | Month: {{selectedMonth}}
                 </small>
 
-                <button type="button" class="btn btn-primary btn-sm">
-                    Save
+
+
+                <button class="btn btn-outline-primary btn-sm"
+                        (click)="loadSavedData()">
+                    📥 View Saved
+                </button>
+                <button type="button"
+                        class="btn btn-light btn-sm px-4"
+                        (click)="submit()">
+                    💾 Save
                 </button>
             </div>
 
