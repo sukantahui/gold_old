@@ -11,6 +11,13 @@ class Maxtable extends Model
     protected $table = 'maxtable';
     protected $primaryKey = 'table_id'; // or null
     public $timestamps = false;
+    protected $fillable = [
+        'table_name',
+        'mainfield',
+        'prefix',
+        'suffix',
+        'financial_year'
+    ];
     /**
      * @var mixed|string
      */

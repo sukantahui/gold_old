@@ -1,10 +1,9 @@
-// fine-gold-form-component.ts
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {environment} from '../../../../../../../../environments/environment';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { environment } from '../../../../../../../../environments/environment';
 import Swal from 'sweetalert2';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {ManagerService} from '../../../../../../../services/manager.service';
-import {forkJoin} from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ManagerService } from '../../../../../../../services/manager.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-fine-gold-form',
@@ -14,6 +13,7 @@ import {forkJoin} from 'rxjs';
 export class FineGoldFormComponent implements OnInit, OnChanges {
   @Input() selectedYear!: number;
   @Input() selectedMonth!: number;
+
   private rmId = 36;
   isDev = environment.production === false;
   FineGoldForm: FormGroup;
@@ -26,13 +26,10 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
       private managerService: ManagerService
   ) {}
 
-  createRow(transactionParticularId: number, trType: number, order_no: number , comment = ''): FormGroup {
-
-
-    const group = this.fb.group({
+  createRow(transactionParticularId: number, trType: number, order_no: number, comment = ''): FormGroup {
+    return this.fb.group({
       transaction_particular_id: [transactionParticularId],
-      value: [0],
-      fine: [{ value: 0, disabled: true }],
+      fine: [0],
       cash: [0],
       rm_id: [this.rmId],
       comment: [comment],
@@ -40,21 +37,6 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
       tr_type: [trType],
       order_no: [order_no]
     });
-
-    group.get('value')?.valueChanges.subscribe(val => {
-
-      const value = Number(val) || 0;
-
-      const fineValue = value * 0.92;
-
-      group.get('fine')?.setValue(
-          this.format3(fineValue),
-          { emitEvent: false }
-      );
-
-    });
-
-    return group;
   }
 
   ngOnInit(): void {
@@ -77,30 +59,29 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
 
   initializeForm(): void {
     this.FineGoldForm = this.fb.group({
-      closingBalanceOfPreviousMonth: this.createRow(2, 1, 0, 'Opening Balance'),   // closing balance
-      // row2: this.createRow(2, -1),  // Opening Balance
-      transferredToProduction: this.createRow(3, -1, 10),  // Trnasfer to Pitam
-      returnedFromProduction: this.createRow(4, 1, 20),   // Returned from Pitam
-      fineToGini: this.createRow(5, -1, 30),  // From Fine to 92
-      fromGiniToFine: this.createRow(6, 1, 40),  // From 92 to Fine
-      lossOfFine: this.createRow(7, -1, 50, 'Manual Entry'),  // Loss of Gini
-      excessOfFine: this.createRow(8, 1, 60, 'Manual Entry'),  // Loss of Gini
+      closingBalanceOfPreviousMonth: this.createRow(2, 1, 0, 'Opening Balance'),
+      transferredToProduction: this.createRow(3, -1, 10),
+      returnedFromProduction: this.createRow(4, 1, 20),
+      fineToGini: this.createRow(5, -1, 30),
+      fromGiniToFine: this.createRow(6, 1, 40),
+      withdrawByOwner: this.createRow(9, -1, 50),
+      submitByOwner: this.createRow(10, 1, 60),
+      lossOfFine: this.createRow(7, -1, 70, 'Manual Entry'),
+      excessOfFine: this.createRow(8, 1, 80, 'Manual Entry'),
+
       closingBalance: this.fb.group({
         transaction_particular_id: [1],
-        value: [{ value: 0, disabled: true }],
         fine: [{ value: 0, disabled: true }],
         cash: [0],
         rm_id: [36],
         comment: ['Closing Balance (Auto calculated)'],
         tr_date: [new Date().toISOString().substring(0, 10)],
         tr_type: [1],
-        order_no: [70]
+        order_no: [200]
       })
     });
-
   }
 
-  // helper methods
   format3(value: any) {
     if (value === null || value === undefined || value === '') {
       return '';
@@ -110,6 +91,7 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
 
   loadMonthlyFineData(): void {
     this.isLoading = true;
+
     const payload = {
       rmId: this.rmId,
       recordYear: this.selectedYear,
@@ -125,56 +107,81 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
       }),
       giniToFine: this.managerService.getMonthlyTotalGiniToFineByManager({
         fromRmId: 48, toRmId: 36, ...payload
-      })
+      }),
+      withdrawByOwner: this.managerService.getMonthlyTotalMaterialFromManagerToOwner(payload),
+      submitByOwner: this.managerService.getMonthlyTotalMaterialFromownerToManager(payload),
     }).subscribe({
       next: (res) => {
 
-        console.log('✅ All APIs loaded:', res);
-
-        // 1️⃣ Opening Balance
         const closing = (res.closing as any)?.data?.value || 0;
         this.FineGoldForm.get('closingBalanceOfPreviousMonth')?.patchValue({
-          value: this.format3(closing),
-          fine: this.format3(closing * 1)
+          fine: this.format3(closing)
         });
 
-        // 2️⃣ Transfer
         const transfer = res.transfer?.data?.value || 0;
         this.FineGoldForm.get('transferredToProduction')?.patchValue({
-          value: this.format3(transfer),
-          fine: this.format3(transfer * 1)
+          fine: this.format3(transfer)
         });
 
-        // 3️⃣ Return
         const returned = res.return?.data?.value || 0;
         this.FineGoldForm.get('returnedFromProduction')?.patchValue({
-          value: this.format3(returned),
-          fine: this.format3(returned * 1)
+          fine: this.format3(returned)
         });
 
-        // 4️⃣ Fine → Gini
         this.FineGoldForm.get('fineToGini')?.patchValue({
-          value: this.format3(res.fineToGini?.data?.fromRmTotal || 0),
           fine: this.format3(res.fineToGini?.data?.fromRmTotal || 0),
           comment: res.fineToGini?.data?.conversionComment
         });
 
-        // 5️⃣ Gini → Fine
         this.FineGoldForm.get('fromGiniToFine')?.patchValue({
-          value: this.format3(res.giniToFine?.data?.toRmTotal || 0),
           fine: this.format3(res.giniToFine?.data?.toRmTotal || 0),
           comment: res.giniToFine?.data?.conversionComment
         });
 
-        // ✅ Now safe to calculate
-        //this.calculateClosingBalance();
-      },
+        // withdrawn by owner
+        const withdrawValue = res.withdrawByOwner?.data?.value || 0;
+        this.FineGoldForm.get('withdrawByOwner')?.patchValue({
+          fine: this.format3(withdrawValue),
+          comment: withdrawValue === 0
+              ? 'Nothing withdrawn by owner'
+              : 'Withdraw by owner'
+        });
+        // submit by owner
+        const ownerValue = res.submitByOwner?.data?.value || 0;
+        this.FineGoldForm.get('submitByOwner')?.patchValue({
+          fine: this.format3(ownerValue),
+          comment: ownerValue === 0
+              ? 'Nothing submitted by owner'
+              : 'Submit by owner'
+        });
 
-      error: (err) => {
-        console.error('❌ API Error:', err);
+      },
+      error: () => {
         Swal.fire('Error', 'Failed to load monthly data', 'error');
       }
     });
+  }
+
+  calculateClosingBalance() {
+    let totalFine = 0;
+
+    Object.keys(this.FineGoldForm.controls).forEach(key => {
+
+      if (key === 'closingBalance') { return; }
+
+      const group = this.FineGoldForm.get(key);
+      if (!group) { return; }
+
+      const trType = group.get('tr_type')?.value;
+      if (trType === 0) { return; }
+
+      const fine = Number(group.get('fine')?.value) || 0;
+      totalFine += fine * trType;
+    });
+
+    this.FineGoldForm.get('closingBalance')?.patchValue({
+      fine: this.format3(totalFine)
+    }, { emitEvent: false });
   }
 
   submit(): void {
@@ -222,35 +229,6 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
             record_month: this.selectedMonth
           }))
     };
-  }
-
-
-  calculateClosingBalance() {
-    let totalValue = 0;
-    let totalFine = 0;
-
-    Object.keys(this.FineGoldForm.controls).forEach(key => {
-
-      if (key === 'closingBalance') { return; }
-
-      const group = this.FineGoldForm.get(key);
-      if (!group) { return; }
-
-      const trType = group.get('tr_type')?.value;
-
-      if (trType === 0) { return; }
-
-      const value = Number(group.get('value')?.value) || 0;
-      const fine = Number(group.get('fine')?.value) || 0;
-
-      totalValue += value * trType;
-      totalFine += fine * trType;
-    });
-
-    this.FineGoldForm.get('closingBalance')?.patchValue({
-      value: this.format3(totalValue),
-      fine: this.format3(totalFine)
-    }, { emitEvent: false });
   }
 
   loadSavedData() {

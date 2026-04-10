@@ -37,7 +37,29 @@ export class ManagerService {
     )
         .pipe(catchError(this.errorService.serverError));
   }
-  
+
+  // to owner
+  getMonthlyTotalMaterialFromManagerToOwner(data: { rmId: number; recordYear: number; recordMonth: number }){
+    // '/transfer/{year}/{month}/{fromEmployee}/{toEmployee}/{rmId}'
+    // manager is 72 , sender
+    // owner is 28 , receiver
+    return this.http.get<any>(
+        this.commonService.getAPI() + '/monthly-transactions/transfer/' + data.recordYear + '/' + data.recordMonth + '/72/28/' + data.rmId
+    )
+        .pipe(catchError(this.errorService.serverError));
+  }
+
+  // from owner
+  getMonthlyTotalMaterialFromownerToManager(data: { rmId: number; recordYear: number; recordMonth: number }){
+    // '/transfer/{year}/{month}/{fromEmployee}/{toEmployee}/{rmId}'
+    // manager is 72 , receiver
+    // owner is 28 , sender
+    return this.http.get<any>(
+        this.commonService.getAPI() + '/monthly-transactions/transfer/' + data.recordYear + '/' + data.recordMonth + '/28/72/' + data.rmId
+    )
+        .pipe(catchError(this.errorService.serverError));
+  }
+
   getMonthlyTotalMaterialFromManagerToProductionManager(data: { rmId: number; recordYear: number; recordMonth: number }){
     return this.http.get<any>(
         this.commonService.getAPI() + '/monthly-transactions/transfer/' + data.recordYear + '/' + data.recordMonth + '/72/70/' + data.rmId
@@ -133,5 +155,6 @@ export class ManagerService {
         })
     );
   }
+
 
 }
