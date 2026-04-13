@@ -199,13 +199,15 @@ loadMonthlyData(): void {
     // 4️⃣ Fine → Gini
     this.NinetyTwoGoldForm.get('fineToGini')?.patchValue({
       value: this.format3(res.fineToGini?.data?.toRmTotal || 0),
-      fine: this.format3(res.fineToGini?.data?.fromRmTotal || 0)
+      fine: this.format3(res.fineToGini?.data?.fromRmTotal || 0),
+      comment: res.fineToGini?.data?.conversionComment
     });
 
     // 5️⃣ Gini → Fine
     this.NinetyTwoGoldForm.get('fromGiniToFine')?.patchValue({
       value: this.format3(res.giniToFine?.data?.toRmTotal || 0),
-      fine: this.format3(res.giniToFine?.data?.fromRmTotal || 0)
+      fine: this.format3(res.giniToFine?.data?.fromRmTotal || 0),
+      comment: res.giniToFine?.data?.conversionComment
     });
 
     // ✅ Now safe to calculate
