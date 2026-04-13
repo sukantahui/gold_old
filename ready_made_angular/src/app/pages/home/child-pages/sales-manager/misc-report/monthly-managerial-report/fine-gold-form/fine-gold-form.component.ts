@@ -64,10 +64,11 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
       returnedFromProduction: this.createRow(4, 1, 20),
       fineToGini: this.createRow(5, -1, 30),
       fromGiniToFine: this.createRow(6, 1, 40),
-      withdrawByOwner: this.createRow(9, -1, 50),
-      submitByOwner: this.createRow(10, 1, 60),
-      lossOfFine: this.createRow(7, -1, 70, 'Manual Entry'),
-      excessOfFine: this.createRow(8, 1, 80, 'Manual Entry'),
+      nitricToFine: this.createRow(11, 1, 50),
+      withdrawByOwner: this.createRow(9, -1, 60),
+      submitByOwner: this.createRow(10, 1, 70),
+      lossOfFine: this.createRow(7, -1, 80, 'Manual Entry'),
+      excessOfFine: this.createRow(8, 1, 90, 'Manual Entry'),
 
       closingBalance: this.fb.group({
         transaction_particular_id: [1],
@@ -108,6 +109,9 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
       giniToFine: this.managerService.getMonthlyTotalGiniToFineByManager({
         fromRmId: 48, toRmId: 36, ...payload
       }),
+      nitricToFine: this.managerService.getMonthlyTotalNitricToFineByManager({
+        fromRmId: 45, toRmId: 36, ...payload
+      }),
       withdrawByOwner: this.managerService.getMonthlyTotalMaterialFromManagerToOwner(payload),
       submitByOwner: this.managerService.getMonthlyTotalMaterialFromownerToManager(payload),
     }).subscribe({
@@ -135,6 +139,10 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
 
         this.FineGoldForm.get('fromGiniToFine')?.patchValue({
           fine: this.format3(res.giniToFine?.data?.toRmTotal || 0),
+          comment: res.giniToFine?.data?.conversionComment
+        });
+        this.FineGoldForm.get('nitricToFine')?.patchValue({
+          fine: this.format3(res.nitricToFine?.data?.toRmTotal || 0),
           comment: res.giniToFine?.data?.conversionComment
         });
 

@@ -23,6 +23,13 @@ export class ManagerService {
     )
         .pipe(catchError(this.errorService.serverError));
   }
+  getMonthlyTotalNitricToFineByManager(data: { fromRmId: number; toRmId: number; recordYear: number; recordMonth: number }){
+    return this.http.get<any>(
+        // tslint:disable-next-line:max-line-length
+        this.commonService.getAPI() + '/monthly-transactions/transformation/' + data.recordYear + '/' + data.recordMonth + '/72/' + data.fromRmId + '/' + data.toRmId
+    )
+        .pipe(catchError(this.errorService.serverError));
+  }
   getMonthlyTotalGiniToFineByManager(data: { fromRmId: number; toRmId: number; recordYear: number; recordMonth: number }){
     return this.http.get<any>(
         // tslint:disable-next-line:max-line-length

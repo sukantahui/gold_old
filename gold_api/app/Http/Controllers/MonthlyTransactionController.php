@@ -117,23 +117,33 @@ class MonthlyTransactionController  extends ApiController
                     ->where('to_rm.rm_id', $toRmId)
                     ->where('to_rm.tr_type', 1);
             })
+            ->leftJoin('rm_master as from_rms', 'from_rms.rm_ID', '=', 'from_rm.rm_id')
+            ->leftJoin('rm_master as to_rms', 'to_rms.rm_ID', '=', 'to_rm.rm_id')
             ->where('mtm.employee_id', $fromEmployee)
             ->whereYear('mtm.created_at', $year)
             ->whereMonth('mtm.created_at', $month)
             ->selectRaw('
             SUM(from_rm.rm_value) as total_from_rm,
-            SUM(to_rm.rm_value) as total_to_rm
+            SUM(to_rm.rm_value) as total_to_rm,
+            MAX(from_rms.rm_name) as from_rm_name,
+            MAX(to_rms.rm_name) as to_rm_name
         ')
             ->first();
 
         $totalFrom = $result ? $result->total_from_rm : 0;
         $totalTo   = $result ? $result->total_to_rm : 0;
-        $conversionComment = $result? "Converted ".$result->total_from_rm." to ".$result->total_to_rm : "No Converion record";
+
+        $fromName = isset($result->from_rm_name) ? $result->from_rm_name : '';
+        $toName   = isset($result->to_rm_name) ? $result->to_rm_name : '';
+
+        $conversionComment = ($totalFrom && $totalTo)
+            ? "Converted {$totalFrom} {$fromName} to {$totalTo} {$toName}"
+            : "No Conversion recorded";
 
         $data = [
             'fromRmTotal' => round($totalFrom, 3),
             'toRmTotal'   => round($totalTo, 3),
-            'conversionComment' => $conversionComment=="Converted  to "?"Nothing converted": $conversionComment
+            'conversionComment' => $conversionComment
         ];
 
         return $this->successResponse($data, "Conversion total fetched");
