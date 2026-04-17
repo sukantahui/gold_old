@@ -50,10 +50,25 @@
             [selectedYear]="selectedYear"
             [selectedMonth]="selectedMonth">
     </app-ninety-two-gold-form>
+    <hr>
+    <h4>92 Gold Segment End</h4>
+    <hr>
     <app-fine-gold-form
         *ngIf="loadComponent"
         [selectedYear]="selectedYear"
         [selectedMonth]="selectedMonth">
     </app-fine-gold-form>
+    <!--    for nitric gold-->
+    <hr>
+    <h4>Fine Gold Segment End</h4>
+    <hr>
+    <app-nitric-gold-form
+            *ngIf="loadComponent"
+            [selectedYear]="selectedYear"
+            [selectedMonth]="selectedMonth">
+    </app-nitric-gold-form>
+    <hr>
+    <h4>Nitric Gold Segment End</h4>
+    <hr>
 
 </div>

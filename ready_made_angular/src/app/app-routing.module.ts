@@ -93,6 +93,8 @@ const routes: Routes = [
 
   { path: 'FineGoldForm', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-managerial-report/fine-gold-form/fine-gold-form.module').then(m => m.FineGoldFormModule) },
 
+  { path: 'NitricGoldForm', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-managerial-report/nitric-gold-form/nitric-gold-form.module').then(m => m.NitricGoldFormModule) },
+
 
 
 

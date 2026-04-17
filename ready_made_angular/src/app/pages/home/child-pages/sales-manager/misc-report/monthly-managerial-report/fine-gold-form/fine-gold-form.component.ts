@@ -20,6 +20,7 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
   private isLoading = false;
   savedData: any[] = [];
   closingBalance: any;
+  showDevPanel = false;
 
   constructor(
       private fb: FormBuilder,
@@ -256,4 +257,13 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
       }
     });
   }
+
+  copyPayload() {
+
+  }
+
+  toggleDevPanel() {
+    this.showDevPanel = !this.showDevPanel;
+  }
+
 }

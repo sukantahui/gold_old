@@ -1,0 +1,211 @@
+<div class="container mt-4">
+
+    <form [formGroup]="nitricGoldForm">
+
+        <div class="card ledger-card shadow-sm border-0">
+
+            <!-- TABLE -->
+            <div class="table-responsive">
+                <table class="table ledger-table mb-0">
+
+                    <!-- THEAD -->
+                    <thead>
+                    <tr class="table-title">
+                        <th colspan="5">Nitric Gold Transactions</th>
+                    </tr>
+
+                    <tr class="table-head">
+                        <th>#</th>
+                        <th>Particulars</th>
+                        <th class="text-end">Value</th>
+                        <th class="text-end">Fine</th>
+                        <th>Comment</th>
+                    </tr>
+                    </thead>
+
+                    <!-- TBODY -->
+                    <tbody>
+
+                    <!-- 1 -->
+                    <tr formGroupName="closingBalanceOfPreviousMonth" class="row-opening">
+                        <td>1</td>
+                        <td class="fw-semibold">Opening Balance</td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 2 -->
+                    <tr formGroupName="transferredToProduction" class="row-less">
+                        <td>2</td>
+                        <td class="text-danger">↘ Transferred to Pitam</td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 3 -->
+                    <tr formGroupName="returnedFromProduction" class="row-add">
+                        <td>3</td>
+                        <td class="text-success">↗ Returned from Pitam</td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 4 -->
+                    <tr formGroupName="fineToNitric" class="row-add">
+                        <td>4</td>
+                        <td class="text-success">↗ Fine → Nitric</td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 5 -->
+                    <tr formGroupName="nitricToFine" class="row-less">
+                        <td>5</td>
+                        <td class="text-danger">↘ Nitric → Fine</td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 6 -->
+                    <tr formGroupName="lossOfNitric" class="row-less">
+                        <td>6</td>
+                        <td class="text-danger">↘ Loss</td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                    </tr>
+
+                    <!-- 7 -->
+                    <tr formGroupName="excessOfNitric" class="row-add">
+                        <td>7</td>
+                        <td class="text-success">↗ Excess</td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                    </tr>
+
+                    </tbody>
+
+                    <!-- TFOOT -->
+                    <tfoot>
+                    <tr formGroupName="closingBalance" class="row-closing">
+                        <td>#</td>
+                        <td class="fw-bold">Closing Balance</td>
+                        <td><input type="number" class="form-control form-control-sm text-end" formControlName="value"></td>
+                        <td><input type="number" class="form-control form-control-sm text-end" formControlName="fine"></td>
+                        <td><input type="text" class="form-control form-control-sm" formControlName="comment"></td>
+                    </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+
+            <!-- HEADER / ACTIONS -->
+            <div class="card-header ledger-header d-flex justify-content-between align-items-center">
+
+                <div>
+                    <small>
+                        Year: {{selectedYear}} | Month: {{ getMonthName(selectedMonth) }}
+                    </small>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary btn-sm"
+                            (click)="loadSavedData()">
+                        📥 View Saved
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-light btn-sm px-4"
+                            (click)="submit()">
+                        💾 Save
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+    <!-- SAVED DATA -->
+    <div class="mt-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+                <h6 class="mb-0">📊 Saved Transactions</h6>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm mb-0">
+
+                    <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Particular</th>
+                        <th class="text-end">Value</th>
+                        <th class="text-end">Fine</th>
+                        <th>Comment</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <tr *ngFor="let item of savedData; let i = index"
+                        [class.table-primary]="item.comment === 'Opening Balance'">
+
+                        <td>{{ i + 1 }}</td>
+
+                        <td>
+              <span [ngClass]="item.tr_type == -1 ? 'text-danger' : 'text-success'">
+                {{ item.tr_type == -1 ? '↘' : '↗' }}
+                  {{ item.comment === 'Opening Balance'
+                  ? 'Opening Balance'
+                  : item.transaction_particular }}
+              </span>
+                        </td>
+
+                        <td class="text-end">
+                            {{ item.value | number:'1.3-3' }}
+                        </td>
+
+                        <td class="text-end">
+                            {{ item.fine | number:'1.3-3' }}
+                        </td>
+
+                        <td>
+                            {{ item.comment || '-' }}
+                        </td>
+
+                    </tr>
+
+                    <tr *ngIf="!savedData || savedData.length === 0">
+                        <td colspan="5" class="text-center text-muted">
+                            No data found
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+                    <tfoot *ngIf="closingBalance">
+                    <tr class="table-dark fw-bold">
+                        <td colspan="2">🔒 Closing Balance</td>
+                        <td class="text-end">{{ closingBalance?.value | number:'1.3-3' }}</td>
+                        <td class="text-end">{{ closingBalance?.fine | number:'1.3-3' }}</td>
+                        <td>{{ closingBalance?.comment }}</td>
+                    </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
