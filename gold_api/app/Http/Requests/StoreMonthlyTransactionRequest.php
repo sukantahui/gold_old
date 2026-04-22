@@ -39,7 +39,7 @@ class StoreMonthlyTransactionRequest extends FormRequest
             'records.*.tr_type' => 'required|integer|in:-1,0,1',
             'records.*.record_year' => 'required|integer|min:2026',
             'records.*.record_month' => 'required|integer|min:1|max:12',
-            'records.*.order_no' => 'integer|min:1|max:100',
+            'records.*.order_no' => 'integer|min:1|max:300',
         ];
 
     }

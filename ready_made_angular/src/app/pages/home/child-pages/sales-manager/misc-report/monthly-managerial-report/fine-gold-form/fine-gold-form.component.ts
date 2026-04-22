@@ -21,6 +21,7 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
   savedData: any[] = [];
   closingBalance: any;
   showDevPanel = false;
+  shoSavedData = false;
 
   constructor(
       private fb: FormBuilder,
@@ -234,13 +235,17 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
           .filter((row: any) => row && row.transaction_particular_id !== 2)
           .map((row: any) => ({
             ...row,
-            record_year: this.selectedYear,
-            record_month: this.selectedMonth
+            value: Number(row.fine) || 0,   // same as fine
+            fine: Number(row.fine) || 0,
+            cash: Number(row.cash) || 0,
+            record_year: Number(this.selectedYear),
+            record_month: Number(this.selectedMonth)
           }))
     };
   }
 
   loadSavedData() {
+    this.shoSavedData = true;
     const payload = {
       rmId: this.rmId,
       recordYear: this.selectedYear,
@@ -251,6 +256,7 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
       next: (res: any) => {
         this.savedData = res.data || [];
         this.closingBalance = res.closing_balance || null;
+
       },
       error: () => {
         Swal.fire('Error', 'Failed to load saved data', 'error');

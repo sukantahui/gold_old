@@ -325,7 +325,6 @@ loadMonthlyData(): void {
         this.savedData = res.data || [];
         this.closingBalance = res.closing_balance || null;
         this.isLoading = false;
-        console.log(this.savedData);
       },
       error: () => {
         this.isLoading = false;
