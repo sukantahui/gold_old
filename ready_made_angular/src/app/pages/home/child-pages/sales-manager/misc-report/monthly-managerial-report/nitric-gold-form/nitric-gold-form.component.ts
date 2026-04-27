@@ -183,9 +183,58 @@ export class NitricGoldFormComponent implements OnInit, OnChanges {
     if (value === null || value === undefined || value === '') { return ''; }
     return Number(value).toFixed(3);
   }
+  // under construction
+  getPayloadPreview() {
+    if (!this.nitricGoldForm) { return {}; }
 
-  submit() {
+    const formData = this.nitricGoldForm.getRawValue();
 
+    return {
+      records: Object.values(formData).filter((row: any) => row && row.transaction_particular_id !== 2).map((row: any) => ({
+        ...row,
+        record_year: this.selectedYear,
+        record_month: this.selectedMonth
+      }))
+    };
+  }
+  submit(): void {
+
+    if (!this.selectedYear || !this.selectedMonth) {
+      Swal.fire('Warning', 'Please select year and month', 'warning');
+      return;
+    }
+
+    const payload = this.getPayloadPreview();
+
+    // 🔔 Confirmation dialog
+    Swal.fire({
+      title: 'Save Nitric Data',
+      text: 'Do you want to submit this monthly data?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, submit it!',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33'
+    }).then((result) => {
+
+      if (result.isConfirmed) {
+
+        // @ts-ignore
+        this.managerService.saveMonthlyTransactions(payload).subscribe({
+          next: (res: any) => {
+            Swal.fire('Success', res.message || 'Saved successfully', 'success');
+            this.loadSavedData();
+          },
+          error: (res: any) => {
+            console.log('error ', res);
+            Swal.fire('Error', 'Something went wrong', 'error');
+          }
+        });
+
+      }
+
+    });
   }
 
   loadSavedData() {
