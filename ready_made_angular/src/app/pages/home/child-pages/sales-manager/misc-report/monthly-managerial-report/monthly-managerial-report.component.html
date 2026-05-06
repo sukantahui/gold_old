@@ -44,7 +44,7 @@
         </div>
 
     </div>
-
+    <h2>1. 92 Gold Opening Balance and others</h2>
     <app-ninety-two-gold-form
             *ngIf="loadComponent"
             [selectedYear]="selectedYear"
@@ -53,6 +53,8 @@
     <hr>
     <h4>92 Gold Segment End</h4>
     <hr>
+
+    <h2>2. Fine Gold Opening Balance and others</h2>
     <app-fine-gold-form
         *ngIf="loadComponent"
         [selectedYear]="selectedYear"
@@ -62,6 +64,8 @@
     <hr>
     <h4>Fine Gold Segment End</h4>
     <hr>
+
+    <h2>3. Nitric Gold Opening Balance and others</h2>
     <app-nitric-gold-form
             *ngIf="loadComponent"
             [selectedYear]="selectedYear"
@@ -70,5 +74,16 @@
     <hr>
     <h4>Nitric Gold Segment End</h4>
     <hr>
+
+    <h2>4. Pan Opening Balance and others</h2>
+    <app-pan-gold-form
+            *ngIf="loadComponent"
+            [selectedYear]="selectedYear"
+            [selectedMonth]="selectedMonth">
+    </app-pan-gold-form>
+    <hr>
+    <h4>Pan Gold Segment End</h4>
+    <hr>
+
 
 </div>

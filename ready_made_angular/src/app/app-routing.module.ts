@@ -95,6 +95,8 @@ const routes: Routes = [
 
   { path: 'NitricGoldForm', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-managerial-report/nitric-gold-form/nitric-gold-form.module').then(m => m.NitricGoldFormModule) },
 
+  { path: 'PanGoldForm', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-managerial-report/pan-gold-form/pan-gold-form.module').then(m => m.PanGoldFormModule) },
+
 
 
 

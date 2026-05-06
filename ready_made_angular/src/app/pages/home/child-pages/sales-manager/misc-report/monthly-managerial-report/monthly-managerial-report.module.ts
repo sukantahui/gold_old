@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NinetyTwoGoldFormComponent } from './ninety-two-gold-form/ninety-two-gold-form.component';
 import {FineGoldFormModule} from './fine-gold-form/fine-gold-form.module';
 import {NitricGoldFormModule} from './nitric-gold-form/nitric-gold-form.module';
+import {PanGoldFormModule} from './pan-gold-form/pan-gold-form.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {NitricGoldFormModule} from './nitric-gold-form/nitric-gold-form.module';
         FormsModule,
         ReactiveFormsModule,
         FineGoldFormModule,
-        NitricGoldFormModule
+        NitricGoldFormModule,
+        PanGoldFormModule
     ]
 })
 export class MonthlyManagerialReportModule { }
