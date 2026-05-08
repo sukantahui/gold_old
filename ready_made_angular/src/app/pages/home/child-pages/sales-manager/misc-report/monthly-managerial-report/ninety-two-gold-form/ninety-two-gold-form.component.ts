@@ -62,6 +62,7 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
       returnedFromProduction: this.createRow(4, 1, 20),   // Returned from Pitam
       fineToGini: this.createRow(5, 1, 30),  // From Fine to 92
       fromGiniToFine: this.createRow(6, -1, 40),  // From 92 to Fine
+      fromNinetyTwoToPan: this.createRow(12, -1, 45),  // From 92 to pan
       lossOfGini: this.createRow(7, -1, 50, 'Manual Entry'),  // Loss of Gini
       excessOfGini: this.createRow(8, 1, 60, 'Manual Entry'),  // Loss of Gini
       closingBalance: this.fb.group({
@@ -169,6 +170,9 @@ loadMonthlyData(): void {
   }),
   giniToFine: this.managerService.getMonthlyTotalFineToGiniByManager({
     fromRmId: 48, toRmId: 36, ...payload
+  }),
+  ninetyTwoToPan: this.managerService.getMonthlyTotalFineToGiniByManager({
+     fromRmId: this.rmId, toRmId: 31, ...payload
   })
 }).subscribe({
   next: (res) => {
@@ -208,6 +212,13 @@ loadMonthlyData(): void {
       value: this.format3(res.giniToFine?.data?.toRmTotal || 0),
       fine: this.format3(res.giniToFine?.data?.fromRmTotal || 0),
       comment: res.giniToFine?.data?.conversionComment
+    });
+
+    // 6️⃣ 92 → Pan
+    this.NinetyTwoGoldForm.get('fromNinetyTwoToPan')?.patchValue({
+      value: this.format3(res.ninetyTwoToPan?.data?.toRmTotal || 0),
+      fine: this.format3(res.ninetyTwoToPan?.data?.fromRmTotal || 0),
+      comment: res.ninetyTwoToPan?.data?.conversionComment
     });
 
     // ✅ Now safe to calculate

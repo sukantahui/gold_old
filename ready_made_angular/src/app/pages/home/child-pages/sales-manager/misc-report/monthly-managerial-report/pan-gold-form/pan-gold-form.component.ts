@@ -74,9 +74,9 @@ export class PanGoldFormComponent implements OnInit, OnChanges {
           20
       ),
 
-      panToFine: this.createRow(
-          11,
-          -1,
+      ninetyTwoToPan: this.createRow(
+          12,
+          1,
           40
       ),
 
@@ -165,9 +165,9 @@ export class PanGoldFormComponent implements OnInit, OnChanges {
 
       return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload),
 
-      panToFine: this.managerService.getMonthlyTotalFineToGiniByManager({
-        fromRmId: 31,
-        toRmId: 36,
+      ninetyTwoToPan: this.managerService.getMonthlyTotalFineToGiniByManager({
+        fromRmId: 48,
+        toRmId: this.rmId,
         ...payload
       })
 
@@ -188,17 +188,17 @@ export class PanGoldFormComponent implements OnInit, OnChanges {
           value: this.format3(transferredToProduction),
           fine: this.format3(transferredToProduction * this.conversionValue)
         });
-
+        // 3️⃣ Return from Production
         const returned = res.return?.data?.value || 0;
         this.panGoldForm.get('returnedFromProduction')?.patchValue({
           value: this.format3(returned),
           fine: this.format3(returned * this.conversionValue)
         });
 
-        this.panGoldForm.get('panToFine')?.patchValue({
-          value: this.format3(res.panToFine?.data?.toRmTotal || 0),
-          fine: this.format3(res.panToFine?.data?.fromRmTotal || 0),
-          comment: res.panToFine?.data?.conversionComment
+        this.panGoldForm.get('ninetyTwoToPan')?.patchValue({
+          value: this.format3(res.ninetyTwoToPan?.data?.toRmTotal || 0),
+          fine: this.format3(res.ninetyTwoToPan?.data?.fromRmTotal || 0),
+          comment: res.ninetyTwoToPan?.data?.conversionComment
         });
 
         this.calculateClosingBalance();
@@ -382,7 +382,9 @@ export class PanGoldFormComponent implements OnInit, OnChanges {
     });
 
   }
+  copyPayload() {
 
+  }
   getMonthName(month: number): string {
 
     const months = [
@@ -394,5 +396,7 @@ export class PanGoldFormComponent implements OnInit, OnChanges {
     return months[month - 1] || '';
 
   }
-
+  toggleDevPanel() {
+    this.showDevPanel = !this.showDevPanel;
+  }
 }
