@@ -64,6 +64,7 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
       closingBalanceOfPreviousMonth: this.createRow(2, 1, 0, 'Opening Balance'),
       transferredToProduction: this.createRow(3, -1, 10),
       returnedFromProduction: this.createRow(4, 1, 20),
+      returnedFromEmployee: this.createRow(15, 1, 25),
       fineToGini: this.createRow(5, -1, 30),
       fromGiniToFine: this.createRow(6, 1, 40),
       nitricToFine: this.createRow(11, 1, 50),
@@ -105,6 +106,7 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
       closing: this.managerService.getMonthlyTransactionClosingBalance(payload),
       transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload),
       return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload),
+      returnFromEmployee: this.managerService.getMonthlyTotalMaterialFromEmployeeToManager(payload),
       fineToGini: this.managerService.getMonthlyTotalFineToGiniByManager({
         fromRmId: 36, toRmId: 48, ...payload
       }),
@@ -132,6 +134,11 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
         const returned = res.return?.data?.value || 0;
         this.FineGoldForm.get('returnedFromProduction')?.patchValue({
           fine: this.format3(returned)
+        });
+
+        const fetchedValue = res.returnFromEmployee?.data?.value || 0;
+        this.FineGoldForm.get('returnedFromEmployee')?.patchValue({
+          fine: this.format3(fetchedValue)
         });
 
         this.FineGoldForm.get('fineToGini')?.patchValue({
@@ -174,7 +181,6 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
 
   calculateClosingBalance() {
     let totalFine = 0;
-
     Object.keys(this.FineGoldForm.controls).forEach(key => {
 
       if (key === 'closingBalance') { return; }
@@ -186,9 +192,8 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
       if (trType === 0) { return; }
 
       const fine = Number(group.get('fine')?.value) || 0;
-      totalFine += fine * trType;
+      totalFine = totalFine + (fine * trType);
     });
-
     this.FineGoldForm.get('closingBalance')?.patchValue({
       fine: this.format3(totalFine)
     }, { emitEvent: false });

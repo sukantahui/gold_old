@@ -97,6 +97,8 @@ const routes: Routes = [
 
   { path: 'PanGoldForm', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-managerial-report/pan-gold-form/pan-gold-form.module').then(m => m.PanGoldFormModule) },
 
+  { path: 'DalForm', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-managerial-report/dal-form/dal-form.module').then(m => m.DalFormModule) },
+
 
 
 
