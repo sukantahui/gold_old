@@ -140,8 +140,8 @@ export class NitricGoldFormComponent implements OnInit, OnChanges {
         });
 
         this.nitricGoldForm.get('nitricToFine')?.patchValue({
-          value: this.format3(res.nitricToFine?.data?.toRmTotal || 0),
-          fine: this.format3(res.nitricToFine?.data?.fromRmTotal || 0),
+          value: this.format3(res.nitricToFine?.data?.fromRmTotal || 0),
+          fine: this.format3(res.nitricToFine?.data?.toRmTotal || 0),
           comment: res.nitricToFine?.data?.conversionComment
         });
 
