@@ -99,6 +99,8 @@ const routes: Routes = [
 
   { path: 'DalForm', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-managerial-report/dal-form/dal-form.module').then(m => m.DalFormModule) },
 
+  { path: 'SilverForm', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-managerial-report/silver-form/silver-form.module').then(m => m.SilverFormModule) },
+
 
 
 
