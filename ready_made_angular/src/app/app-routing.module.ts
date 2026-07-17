@@ -101,6 +101,8 @@ const routes: Routes = [
 
   { path: 'SilverForm', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-managerial-report/silver-form/silver-form.module').then(m => m.SilverFormModule) },
 
+  { path: 'MonthlyPlossReport', loadChildren: () => import('./pages/home/child-pages/sales-manager/misc-report/monthly-ploss-report/monthly-ploss-report.module').then(m => m.MonthlyPlossReportModule) },
+
 
 
 

@@ -24,6 +24,118 @@ use App\Models\RawMaterial;
 use App\Models\CashTransactionBetweenEmployee;
 class ReportController extends ApiController
 {
+    public function monthlyPloss($fromDate, $toDate)
+    {
+        $from = $fromDate . ' 00:00:00';
+        $to   = $toDate . ' 23:59:59';
+
+        $report = DB::table('bill_master as bm')
+            ->join('bill_details as bd', 'bm.bill_no', '=', 'bd.bill_no')
+            ->join('job_master as jm', 'jm.job_id', '=', 'bd.job_id')
+            ->where('bm.cust_id', '<>', 's287')
+            ->whereBetween('bm.tr_time', [$from, $to])
+            ->selectRaw("
+            SUM(jm.pieces) AS qty,
+            ROUND(SUM(jm.p_loss * jm.pieces), 3) AS total_ploss,
+            ROUND(SUM(jm.p_loss * jm.pieces) * 0.92, 3) AS total_ploss_fine
+        ")
+            ->first();
+
+        return $this->successResponse($report);
+    }
+    public function readymadePlossBillwise($fromDate, $toDate)
+    {
+        $from = $fromDate . ' 00:00:00';
+        $to   = $toDate . ' 23:59:59';
+
+        $report = DB::table('bill_master as bm')
+            ->join('bill_details as bd', 'bd.bill_no', '=', 'bm.bill_no')
+            ->join('item_stock_ready_made as isrm', 'isrm.tag', '=', 'bd.tag')
+            ->leftJoin('job_master as jm', 'jm.job_id', '=', 'isrm.job_id')
+            ->where('bm.cust_id', '<>', 's287')
+            ->where('bm.comments', '<>', 'NONE')
+            ->whereBetween('bm.tr_time', [$from, $to])
+            ->select(
+                DB::raw('DATE(bm.tr_time) AS bill_date'),
+                'bm.bill_no',
+                'bd.tag',
+                'isrm.job_id',
+                'bd.qty',
+                'jm.p_loss'
+            )
+            ->selectRaw("
+            ROUND(COALESCE(bd.qty * jm.p_loss, 0), 3) AS total_ploss,
+            ROUND(COALESCE(bd.qty * jm.p_loss, 0) * 0.92, 3) AS total_ploss_fine
+        ")
+            ->orderBy('bm.tr_time')
+            ->orderBy('bm.bill_no')
+            ->orderByDesc('isrm.job_id')
+            ->get();
+
+        return $this->successResponse($report);
+    }
+    public function monthlyPlossBillwise($fromDate, $toDate)
+    {
+        $from = $fromDate . ' 00:00:00';
+        $to   = $toDate . ' 23:59:59';
+        $report = DB::table('bill_master as bm')
+            ->join('bill_details as bd', 'bm.bill_no', '=', 'bd.bill_no')
+            ->join('job_master as jm', 'jm.job_id', '=', 'bd.job_id')
+            ->join('customer_master as cm', 'cm.cust_id', '=', 'bm.cust_id')
+            ->where('bm.cust_id', '<>', 's287')
+            ->whereBetween('bm.tr_time', [$from, $to])
+            ->groupBy(
+                DB::raw('DATE(bm.tr_time)'),
+                'bm.bill_no',
+                'cm.cust_name'
+            )
+            ->orderBy('bm.tr_time')
+            ->selectRaw("
+            DATE(bm.tr_time) as bill_date,
+            bm.bill_no,
+            cm.cust_name,
+            SUM(jm.pieces) as qty,
+            ROUND(SUM(jm.p_loss * jm.pieces),3) as total_ploss,
+            ROUND(SUM(jm.p_loss * jm.pieces) * 0.92,3) as total_ploss_fine
+        ")
+            ->get();
+
+        return $this->successResponse($report);
+    }
+    public function monthlyReadyMadeOutsideItemsPlossPriceBillwise($fromDate, $toDate)
+    {
+        $from = $fromDate . ' 00:00:00';
+        $to   = $toDate . ' 23:59:59';
+
+        $report = DB::table('bill_master as bm')
+            ->join('bill_details as bd', 'bd.bill_no', '=', 'bm.bill_no')
+            ->join('item_stock_ready_made as isrm', 'isrm.tag', '=', 'bd.tag')
+            ->leftJoin('job_master as jm', 'jm.job_id', '=', 'isrm.job_id')
+            ->join('product_master as pm', 'pm.product_code', '=', 'bd.model_no')
+            ->join('price_master as pr', 'pr.price_code', '=', 'pm.price_code')
+            ->where('bm.cust_id', '<>', 's287')
+            ->where('bm.comments', '<>', 'NONE')
+            ->whereNull('jm.job_id')
+            ->where('pr.price_cat', 1)
+            ->whereBetween('bm.tr_time', [$from, $to])
+            ->select(
+                DB::raw('DATE(bm.tr_time) AS bill_date'),
+                'bm.bill_no',
+                'bd.tag',
+                'bd.model_no',
+                'bd.qty',
+                'pr.p_loss'
+            )
+            ->selectRaw("
+            ROUND(bd.qty * pr.p_loss,3) AS total_ploss,
+            ROUND((bd.qty * pr.p_loss) * 0.92,3) AS total_ploss_fine
+        ")
+            ->orderBy('bm.tr_time')
+            ->orderBy('bm.bill_no')
+            ->get();
+
+        return $this->successResponse($report);
+    }
     public function getTotalPlossReport(){
         $total_pLoss = JobMaster::where('status', 9)
             ->select([

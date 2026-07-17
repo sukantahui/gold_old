@@ -16,6 +16,50 @@ export class ManagerService {
 
   constructor(private commonService: CommonService, private  http: HttpClient , private  errorService: ErrorService) {
   }
+
+  getMonthlyReadyMadeOutsideItemsPlossBySale(
+      data: { dateFrom: string, dateTo: string }
+  ) {
+    return this.http.get<any>(
+        this.commonService.getAPI() +
+        '/reports/monthly-readymade-outside-items-ploss-billwise/' +
+        data.dateFrom +
+        '/' +
+        data.dateTo
+    ).pipe(
+        catchError(this.errorService.serverError)
+    );
+  }
+  getMonthlyBillwisePlossBySale(data: { dateFrom: string, dateTo: string }) {
+    return this.http.get<any>(
+        this.commonService.getAPI() +
+        '/reports/monthly-ploss-billwise/' +
+        data.dateFrom +
+        '/' +
+        data.dateTo
+    ).pipe(
+        catchError(this.errorService.serverError)
+    );
+  }
+
+  getMonthlyReadyMadeBillwisePlossBySale(data: { dateFrom: string, dateTo: string }) {
+    return this.http.get<any>(
+        this.commonService.getAPI() +
+        '/reports/monthly-readymade-ploss-billwise/' +
+        data.dateFrom +
+        '/' +
+        data.dateTo
+    ).pipe(
+        catchError(this.errorService.serverError)
+    );
+  }
+  getMonthlyPlossBySale(data: { dateFrom: string, dateTo: string }){
+    return this.http.get<any>(
+        // tslint:disable-next-line:max-line-length
+        this.commonService.getAPI() + '/reports/monthly-ploss/' + data.dateFrom + '/' + data.dateTo
+    )
+        .pipe(catchError(this.errorService.serverError));
+  }
   getMonthlySavedTransactions(data: { rmId: number;  recordYear: number; recordMonth: number }){
     return this.http.get<any>(
         // tslint:disable-next-line:max-line-length

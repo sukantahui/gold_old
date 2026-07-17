@@ -325,6 +325,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get('/total-ploss', [ReportController::class,'getTotalPlossReport']);
     Route::post('/ploss-withdraw', [PlossWithdrawController::class,'store']);
+    Route::get('/reports/monthly-ploss/{fromDate}/{toDate}', [ReportController::class, 'monthlyPloss']);
+    Route::get('/reports/monthly-ploss-billwise/{fromDate}/{toDate}', [ReportController::class, 'monthlyPlossBillwise']);
+    Route::get('/reports/monthly-readymade-ploss-billwise/{fromDate}/{toDate}', [ReportController::class, 'readymadePlossBillwise']);
+    Route::get('/reports/monthly-readymade-outside-items-ploss-billwise/{fromDate}/{toDate}', [ReportController::class, 'monthlyReadyMadeOutsideItemsPlossPriceBillwise']);
 
 
 

@@ -16,6 +16,10 @@ const routes: Routes = [
         // tslint:disable-next-line:max-line-length
         , loadChildren: () => import('./monthly-managerial-report/monthly-managerial-report.module').then(m => m.MonthlyManagerialReportModule)
       },
+      { path: 'MonthlyPlossReport'
+        // tslint:disable-next-line:max-line-length
+        , loadChildren: () => import('./monthly-ploss-report/monthly-ploss-report.module').then(m => m.MonthlyPlossReportModule)
+      },
 
 
     ]
