@@ -43,37 +43,7 @@ class ReportController extends ApiController
 
         return $this->successResponse($report);
     }
-    public function readymadePlossBillwise($fromDate, $toDate)
-    {
-        $from = $fromDate . ' 00:00:00';
-        $to   = $toDate . ' 23:59:59';
-
-        $report = DB::table('bill_master as bm')
-            ->join('bill_details as bd', 'bd.bill_no', '=', 'bm.bill_no')
-            ->join('item_stock_ready_made as isrm', 'isrm.tag', '=', 'bd.tag')
-            ->leftJoin('job_master as jm', 'jm.job_id', '=', 'isrm.job_id')
-            ->where('bm.cust_id', '<>', 's287')
-            ->where('bm.comments', '<>', 'NONE')
-            ->whereBetween('bm.tr_time', [$from, $to])
-            ->select(
-                DB::raw('DATE(bm.tr_time) AS bill_date'),
-                'bm.bill_no',
-                'bd.tag',
-                'isrm.job_id',
-                'bd.qty',
-                'jm.p_loss'
-            )
-            ->selectRaw("
-            ROUND(COALESCE(bd.qty * jm.p_loss, 0), 3) AS total_ploss,
-            ROUND(COALESCE(bd.qty * jm.p_loss, 0) * 0.92, 3) AS total_ploss_fine
-        ")
-            ->orderBy('bm.tr_time')
-            ->orderBy('bm.bill_no')
-            ->orderByDesc('isrm.job_id')
-            ->get();
-
-        return $this->successResponse($report);
-    }
+    //this is for order item
     public function monthlyPlossBillwise($fromDate, $toDate)
     {
         $from = $fromDate . ' 00:00:00';
@@ -102,6 +72,41 @@ class ReportController extends ApiController
 
         return $this->successResponse($report);
     }
+
+    //this is for readymade
+    public function readymadePlossBillwise($fromDate, $toDate)
+    {
+        $from = $fromDate . ' 00:00:00';
+        $to   = $toDate . ' 23:59:59';
+
+        $report = DB::table('bill_master as bm')
+            ->join('bill_details as bd', 'bd.bill_no', '=', 'bm.bill_no')
+            ->join('item_stock_ready_made as isrm', 'isrm.tag', '=', 'bd.tag')
+            ->leftJoin('job_master as jm', 'jm.job_id', '=', 'isrm.job_id')
+            ->where('bm.cust_id', '<>', 's287')
+            ->where('bm.comments', '<>', 'NONE')
+            ->whereBetween('bm.tr_time', [$from, $to])
+            ->whereNotNull('jm.job_id')
+            ->select(
+                DB::raw('DATE(bm.tr_time) AS bill_date'),
+                'bm.bill_no',
+                'bd.tag',
+                'isrm.job_id',
+                'bd.qty',
+                'jm.p_loss'
+            )
+            ->selectRaw("
+            ROUND(COALESCE(bd.qty * jm.p_loss, 0), 3) AS total_ploss,
+            ROUND(COALESCE(bd.qty * jm.p_loss, 0) * 0.92, 3) AS total_ploss_fine
+        ")
+            ->orderBy('bm.tr_time')
+            ->orderBy('bm.bill_no')
+            ->orderByDesc('isrm.job_id')
+            ->get();
+
+        return $this->successResponse($report);
+    }
+    //this is for outside
     public function monthlyReadyMadeOutsideItemsPlossPriceBillwise($fromDate, $toDate)
     {
         $from = $fromDate . ' 00:00:00';

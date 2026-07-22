@@ -327,7 +327,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/ploss-withdraw', [PlossWithdrawController::class,'store']);
     Route::get('/reports/monthly-ploss/{fromDate}/{toDate}', [ReportController::class, 'monthlyPloss']);
     Route::get('/reports/monthly-ploss-billwise/{fromDate}/{toDate}', [ReportController::class, 'monthlyPlossBillwise']);
+    //this is for readymade
     Route::get('/reports/monthly-readymade-ploss-billwise/{fromDate}/{toDate}', [ReportController::class, 'readymadePlossBillwise']);
+    //for items added from outside to readymade
     Route::get('/reports/monthly-readymade-outside-items-ploss-billwise/{fromDate}/{toDate}', [ReportController::class, 'monthlyReadyMadeOutsideItemsPlossPriceBillwise']);
 
 
