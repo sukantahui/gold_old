@@ -2,7 +2,8 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import {ManagerService} from '../../../../../../../services/manager.service';
 import { environment } from 'src/environments/environment';
 interface ApiResponse<T> {
@@ -29,9 +30,10 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
   isDev = environment.production === false;
   NinetyTwoGoldForm!: FormGroup;
   showDevPanel = false;
+  showSavedData = false;
   isLoading = false;
-  savedData: any[];
-  closingBalance: any;
+  savedData: any[] = [];
+  closingBalance: any = null;
 
   constructor(
       private fb: FormBuilder,
@@ -99,12 +101,12 @@ export class NinetyTwoGoldFormComponent implements OnInit, OnChanges {
 
       const value = Number(val) || 0;
 
-      const fineValue = value * 0.92;
+      const fineControl = group.get('fine');
 
-      group.get('fine')?.setValue(
-          this.format3(fineValue),
-          { emitEvent: false }
-      );
+      // 🔥 Task: 92 gold contains 92% fine
+      const fineValue = (value * 0.92).toFixed(3);
+
+      fineControl?.setValue(+fineValue, { emitEvent: false });
 
     });
 
@@ -157,79 +159,79 @@ loadMonthlyData(): void {
   this.isLoading = true;
   const payload = {
     rmId: this.rmId,
-    recordYear: this.selectedYear,
-    recordMonth: this.selectedMonth
+    recordYear: Number(this.selectedYear),
+    recordMonth: Number(this.selectedMonth)
   };
 
   forkJoin({
-  closing: this.managerService.getMonthlyTransactionClosingBalance(payload),
-  transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload),
-  return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload),
-  fineToGini: this.managerService.getMonthlyTotalFineToGiniByManager({
-    fromRmId: 36, toRmId: 48, ...payload
-  }),
-  giniToFine: this.managerService.getMonthlyTotalFineToGiniByManager({
-    fromRmId: 48, toRmId: 36, ...payload
-  }),
-  ninetyTwoToPan: this.managerService.getMonthlyTotalFineToGiniByManager({
-     fromRmId: this.rmId, toRmId: 31, ...payload
-  })
-}).subscribe({
-  next: (res) => {
+    closing: this.managerService.getMonthlyTransactionClosingBalance(payload).pipe(catchError(err => { console.warn('92 Gold closing balance error', err); return of({ status: false, data: null }); })),
+    transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload).pipe(catchError(err => { console.warn('92 Gold transfer error', err); return of({ status: false, data: null }); })),
+    return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload).pipe(catchError(err => { console.warn('92 Gold return error', err); return of({ status: false, data: null }); })),
+    fineToGini: this.managerService.getMonthlyTotalFineToGiniByManager({
+      fromRmId: 36, toRmId: 48, ...payload
+    }).pipe(catchError(err => { console.warn('92 Gold fineToGini error', err); return of({ status: false, data: null }); })),
+    giniToFine: this.managerService.getMonthlyTotalFineToGiniByManager({
+      fromRmId: 48, toRmId: 36, ...payload
+    }).pipe(catchError(err => { console.warn('92 Gold giniToFine error', err); return of({ status: false, data: null }); })),
+    ninetyTwoToPan: this.managerService.getMonthlyTotalFineToGiniByManager({
+       fromRmId: this.rmId, toRmId: 31, ...payload
+    }).pipe(catchError(err => { console.warn('92 Gold ninetyTwoToPan error', err); return of({ status: false, data: null }); }))
+  }).subscribe({
+    next: (res) => {
 
-    console.log('✅ All APIs loaded:', res);
+      // 1️⃣ Opening Balance
+      const closing = (res.closing as any)?.data?.value || 0;
+      this.NinetyTwoGoldForm.get('closingBalanceOfPreviousMonth')?.patchValue({
+        value: this.format3(closing),
+        fine: this.format3(closing * 0.92)
+      });
 
-    // 1️⃣ Opening Balance
-    const closing = (res.closing as any)?.data?.value || 0;
-    this.NinetyTwoGoldForm.get('closingBalanceOfPreviousMonth')?.patchValue({
-      value: this.format3(closing),
-      fine: this.format3(closing * 0.92)
-    });
+      // 2️⃣ Transfer
+      const transfer = res.transfer?.data?.value || 0;
+      this.NinetyTwoGoldForm.get('transferredToProduction')?.patchValue({
+        value: this.format3(transfer),
+        fine: this.format3(transfer * 0.92)
+      });
 
-    // 2️⃣ Transfer
-    const transfer = res.transfer?.data?.value || 0;
-    this.NinetyTwoGoldForm.get('transferredToProduction')?.patchValue({
-      value: this.format3(transfer),
-      fine: this.format3(transfer * 0.92)
-    });
+      // 3️⃣ Return
+      const returned = res.return?.data?.value || 0;
+      this.NinetyTwoGoldForm.get('returnedFromProduction')?.patchValue({
+        value: this.format3(returned),
+        fine: this.format3(returned * 0.92)
+      });
 
-    // 3️⃣ Return
-    const returned = res.return?.data?.value || 0;
-    this.NinetyTwoGoldForm.get('returnedFromProduction')?.patchValue({
-      value: this.format3(returned),
-      fine: this.format3(returned * 0.92)
-    });
+      // 4️⃣ Fine → Gini
+      this.NinetyTwoGoldForm.get('fineToGini')?.patchValue({
+        value: this.format3(res.fineToGini?.data?.toRmTotal || 0),
+        fine: this.format3(res.fineToGini?.data?.fromRmTotal || 0),
+        comment: res.fineToGini?.data?.conversionComment
+      });
 
-    // 4️⃣ Fine → Gini
-    this.NinetyTwoGoldForm.get('fineToGini')?.patchValue({
-      value: this.format3(res.fineToGini?.data?.toRmTotal || 0),
-      fine: this.format3(res.fineToGini?.data?.fromRmTotal || 0),
-      comment: res.fineToGini?.data?.conversionComment
-    });
+      // 5️⃣ Gini → Fine
+      this.NinetyTwoGoldForm.get('fromGiniToFine')?.patchValue({
+        value: this.format3(res.giniToFine?.data?.toRmTotal || 0),
+        fine: this.format3(res.giniToFine?.data?.fromRmTotal || 0),
+        comment: res.giniToFine?.data?.conversionComment
+      });
 
-    // 5️⃣ Gini → Fine
-    this.NinetyTwoGoldForm.get('fromGiniToFine')?.patchValue({
-      value: this.format3(res.giniToFine?.data?.toRmTotal || 0),
-      fine: this.format3(res.giniToFine?.data?.fromRmTotal || 0),
-      comment: res.giniToFine?.data?.conversionComment
-    });
+      // 6️⃣ 92 → Pan
+      this.NinetyTwoGoldForm.get('fromNinetyTwoToPan')?.patchValue({
+        value: this.format3(res.ninetyTwoToPan?.data?.toRmTotal || 0),
+        fine: this.format3(res.ninetyTwoToPan?.data?.fromRmTotal || 0),
+        comment: res.ninetyTwoToPan?.data?.conversionComment
+      });
 
-    // 6️⃣ 92 → Pan
-    this.NinetyTwoGoldForm.get('fromNinetyTwoToPan')?.patchValue({
-      value: this.format3(res.ninetyTwoToPan?.data?.toRmTotal || 0),
-      fine: this.format3(res.ninetyTwoToPan?.data?.fromRmTotal || 0),
-      comment: res.ninetyTwoToPan?.data?.conversionComment
-    });
+      // ✅ Now safe to calculate
+      this.calculateClosingBalance();
+      this.isLoading = false;
+    },
 
-    // ✅ Now safe to calculate
-    this.calculateClosingBalance();
-  },
-
-  error: (err) => {
-    console.error('❌ API Error:', err);
-    Swal.fire('Error', 'Failed to load monthly data', 'error');
-  }
-});
+    error: (err) => {
+      this.isLoading = false;
+      console.error('❌ 92 Gold API Error:', err);
+      Swal.fire('Error', 'Failed to load 92 Gold monthly data', 'error');
+    }
+  });
 }
 
 
@@ -335,6 +337,7 @@ loadMonthlyData(): void {
       next: (res: any) => {
         this.savedData = res.data || [];
         this.closingBalance = res.closing_balance || null;
+        this.showSavedData = true;
         this.isLoading = false;
       },
       error: () => {
@@ -343,4 +346,29 @@ loadMonthlyData(): void {
       }
     });
   }
+
+  toggleSavedData() {
+    if (!this.showSavedData && (!this.savedData || this.savedData.length === 0)) {
+      this.loadSavedData();
+    } else {
+      this.showSavedData = !this.showSavedData;
+    }
+  }
+
+  get openingValue(): number {
+    return Number(this.NinetyTwoGoldForm?.get('closingBalanceOfPreviousMonth')?.get('value')?.value) || 0;
+  }
+
+  get openingFine(): number {
+    return Number(this.NinetyTwoGoldForm?.get('closingBalanceOfPreviousMonth')?.get('fine')?.value) || 0;
+  }
+
+  get liveClosingValue(): number {
+    return Number(this.NinetyTwoGoldForm?.get('closingBalance')?.get('value')?.value) || 0;
+  }
+
+  get liveClosingFine(): number {
+    return Number(this.NinetyTwoGoldForm?.get('closingBalance')?.get('fine')?.value) || 0;
+  }
 }
+

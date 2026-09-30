@@ -1,0 +1,65 @@
+.ledger-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+.table-title th {
+  background: linear-gradient(135deg, #059669, #047857);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 10px 14px;
+}
+
+.table-head th {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  color: #475569;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  transition: all 0.2s ease;
+  font-size: 13px;
+}
+
+.form-control:focus {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+.ledger-table tbody tr {
+  transition: all 0.15s ease-in-out;
+}
+
+.ledger-table tbody tr:hover {
+  background: #f8f9ff;
+}
+
+.row-opening { background-color: #f0fdf4; }
+.row-less { background-color: #fef2f2; }
+.row-add { background-color: #ecfdf5; }
+.row-closing { background-color: #f8fafc; font-weight: 600; }
+
+.text-danger {
+  color: #dc2626 !important;
+  font-weight: 500;
+}
+
+.text-success {
+  color: #16a34a !important;
+  font-weight: 500;
+}
+
+.dev-box {
+  background: #f8fafc;
+  color: #334155;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  font-size: 13px;
+}

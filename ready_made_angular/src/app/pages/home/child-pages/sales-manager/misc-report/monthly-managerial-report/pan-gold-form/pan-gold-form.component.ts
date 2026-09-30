@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ManagerService } from '../../../../../../../services/manager.service';
 import { environment } from 'src/environments/environment';
 
@@ -153,23 +154,23 @@ export class PanGoldFormComponent implements OnInit, OnChanges {
 
     const payload = {
       rmId: this.rmId,
-      recordYear: this.selectedYear,
-      recordMonth: this.selectedMonth
+      recordYear: Number(this.selectedYear),
+      recordMonth: Number(this.selectedMonth)
     };
 
     forkJoin({
 
-      closing: this.managerService.getMonthlyTransactionClosingBalance(payload),
+      closing: this.managerService.getMonthlyTransactionClosingBalance(payload).pipe(catchError(err => { console.warn('Pan Gold closing balance error', err); return of({ status: false, data: null }); })),
 
-      transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload),
+      transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload).pipe(catchError(err => { console.warn('Pan Gold transfer error', err); return of({ status: false, data: null }); })),
 
-      return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload),
+      return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload).pipe(catchError(err => { console.warn('Pan Gold return error', err); return of({ status: false, data: null }); })),
 
       ninetyTwoToPan: this.managerService.getMonthlyTotalFineToGiniByManager({
         fromRmId: 48,
         toRmId: this.rmId,
         ...payload
-      })
+      }).pipe(catchError(err => { console.warn('Pan Gold ninetyTwoToPan error', err); return of({ status: false, data: null }); }))
 
     }).subscribe({
 
@@ -202,11 +203,14 @@ export class PanGoldFormComponent implements OnInit, OnChanges {
         });
 
         this.calculateClosingBalance();
+        this.isLoading = false;
 
       },
 
-      error: () => {
-        Swal.fire('Error', 'Failed to load monthly data', 'error');
+      error: (err) => {
+        this.isLoading = false;
+        console.error('❌ Pan Gold API Error:', err);
+        Swal.fire('Error', 'Failed to load Pan Gold monthly data', 'error');
       }
 
     });

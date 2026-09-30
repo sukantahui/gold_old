@@ -1,6 +1,6 @@
 <div class="container-fluid py-3">
-
-    <div class="card shadow-lg border-0">
+    <div class="no-print">
+        <div class="card shadow-lg border-0">
 
         <div class="card-header bg-primary text-white">
             <h4 class="mb-0">
@@ -77,437 +77,461 @@
                 </div>
 
             </div>
+            <button
+                    class="btn btn-success"
+                    ngxPrint
+                    printSectionId="print-section"
+                    [useExistingCss]="true">
 
+                <i class="fa fa-print"></i>
+                Print Report
+            </button>
         </div>
 
     </div>
-    <!--    here-->
-    <div class="row mt-4" *ngIf="report.length || readyMadeReport.length">
-
-        <div class="col-md-2">
-            <div class="card border-dark shadow-sm">
-                <div class="card-body text-center">
-                    <h6>Total Records</h6>
-                    <h3>
-                        {{ report.length + readyMadeReport.length }}
-                    </h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card border-info shadow-sm">
-                <div class="card-body text-center">
-                    <h6>Total Qty</h6>
-                    <h3>{{ consolidatedQty }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card border-warning shadow-sm">
-                <div class="card-body text-center">
-                    <h6>Total P-Loss</h6>
-                    <h3>
-                        {{ consolidatedPloss | number:'1.3-3' }}
-                    </h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card border-danger shadow-sm">
-                <div class="card-body text-center">
-                    <h6>Total Fine</h6>
-                    <h3>
-                        {{ consolidatedFine | number:'1.3-3' }}
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-    </div>
-    <!-- ======================================================= -->
-    <!-- Manufactured Items -->
-    <!-- ======================================================= -->
-
-    <div class="card mt-4 shadow">
-
-        <div class="card-header bg-primary text-white">
-
-            <h5 class="mb-0">
-
-                Manufactured Items P-Loss
-
-            </h5>
-
-        </div>
-
-        <div class="card-body">
-
-
-
-            <div class="table-responsive">
-
-                <table class="table table-bordered table-hover table-striped table-sm">
-
-                    <thead class="table-dark">
-
-                    <tr>
-
-                        <th>#</th>
-
-                        <th>Date</th>
-
-                        <th>Bill No</th>
-
-                        <th>Customer</th>
-
-                        <th class="text-end">Qty</th>
-
-                        <th class="text-end">P-Loss</th>
-
-                        <th class="text-end">Fine</th>
-
-                    </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                    <tr *ngFor="let row of report; let i=index">
-
-                        <td>{{ i + 1 }}</td>
-
-                        <td>{{ row.bill_date | date:'dd-MM-yyyy' }}</td>
-
-                        <td>{{ row.bill_no }}</td>
-
-                        <td>{{ row.cust_name }}</td>
-
-                        <td class="text-end">
-
-                            {{ row.qty }}
-
-                        </td>
-
-                        <td class="text-end">
-
-                            {{ row.total_ploss | number:'1.3-3' }}
-
-                        </td>
-
-                        <td class="text-end">
-
-                            {{ row.total_ploss_fine | number:'1.3-3' }}
-
-                        </td>
-
-                    </tr>
-
-                    </tbody>
-
-                    <tfoot *ngIf="report.length">
-
-                    <tr class="table-warning font-weight-bold">
-
-                        <td colspan="4" class="text-end">
-
-                            Grand Total
-
-                        </td>
-
-                        <td class="text-end">
-
-                            {{ totalQty }}
-
-                        </td>
-
-                        <td class="text-end">
-
-                            {{ totalPloss | number:'1.3-3' }}
-
-                        </td>
-
-                        <td class="text-end">
-
-                            {{ totalFine | number:'1.3-3' }}
-
-                        </td>
-
-                    </tr>
-
-                    </tfoot>
-
-                </table>
-
-            </div>
-
-        </div>
-
     </div>
 
-    <!-- ======================================================= -->
-    <!-- Ready Made Items -->
-    <!-- ======================================================= -->
 
-    <div class="card mt-4 shadow">
 
-        <div class="card-header bg-success text-white">
+    <div id="print-section">
+        <div class="text-center mb-4">
 
-            <h5 class="mb-0">
+            <h2>Monthly P-Loss Report</h2>
 
-                Ready-Made Stock P-Loss
+            <h5>SBJW</h5>
 
-            </h5>
+            <p>
+                From {{ dateFrom | date:'dd-MM-yyyy' }}
+                To {{ dateTo | date:'dd-MM-yyyy' }}
+            </p>
 
         </div>
+        <div class="row mt-4 mb-4" *ngIf="report.length || readyMadeReport.length">
 
-        <div class="card-body">
+            <div class="col-3">
+                <div class="card border-dark shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <h6 class="mb-2">Total Records</h6>
+                        <h3 class="mb-0">
+                            {{ report.length + readyMadeReport.length + outsideItemsReport.length }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="card border-info shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <h6 class="mb-2">Total Qty</h6>
+                        <h3 class="mb-0">
+                            {{ consolidatedQty }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="card border-warning shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <h6 class="mb-2">Total P-Loss</h6>
+                        <h3 class="mb-0">
+                            {{ consolidatedPloss | number:'1.3-3' }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="card border-danger shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <h6 class="mb-2">Total Fine</h6>
+                        <h3 class="mb-0">
+                            {{ consolidatedFine | number:'1.3-3' }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- ======================================================= -->
+        <!-- Manufactured Items -->
+        <!-- ======================================================= -->
+
+        <div class="card mt-4 shadow">
+
+            <div class="card-header bg-primary text-white">
+
+                <h5 class="mb-0">
+
+                    Manufactured Items P-Loss
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
 
 
 
-            <div class="table-responsive">
+                <div class="table-responsive">
 
-                <table class="table table-bordered table-hover table-striped table-sm">
+                    <table class="table table-bordered table-hover table-striped table-sm">
 
-                    <thead class="table-dark">
+                        <thead class="table-dark">
 
-                    <tr>
+                        <tr>
 
-                        <th>#</th>
+                            <th>#</th>
 
-                        <th>Date</th>
+                            <th>Date</th>
 
-                        <th>Bill No</th>
+                            <th>Bill No</th>
 
-                        <th>Tag</th>
+                            <th>Customer</th>
 
-                        <th>Job</th>
+                            <th class="text-end">Qty</th>
 
-                        <th class="text-end">Qty</th>
+                            <th class="text-end">P-Loss</th>
 
-                        <th class="text-end">P-Loss</th>
+                            <th class="text-end">Fine</th>
 
-                        <th class="text-end">Total P-Loss</th>
-                        <th class="text-end">Fine</th>
+                        </tr>
 
-                    </tr>
+                        </thead>
 
-                    </thead>
+                        <tbody>
 
-                    <tbody>
+                        <tr *ngFor="let row of report; let i=index">
 
-                    <tr *ngFor="let row of readyMadeReport; let i=index">
+                            <td>{{ i + 1 }}</td>
 
-                        <td>{{ i + 1 }}</td>
+                            <td>{{ row.bill_date | date:'dd-MM-yyyy' }}</td>
 
-                        <td>{{ row.bill_date | date:'dd-MM-yyyy' }}</td>
+                            <td>{{ row.bill_no }}</td>
 
-                        <td>{{ row.bill_no }}</td>
+                            <td>{{ row.cust_name }}</td>
 
-                        <td>{{ row.tag }}</td>
+                            <td class="text-end">
 
-                        <td>{{ row.job_id }}</td>
+                                {{ row.qty }}
 
-                        <td class="text-end">
+                            </td>
 
-                            {{ row.qty }}
+                            <td class="text-end">
 
-                        </td>
+                                {{ row.total_ploss | number:'1.3-3' }}
 
-                        <td class="text-end">
+                            </td>
 
-                            {{ row.p_loss | number:'1.3-3' }}
+                            <td class="text-end">
 
-                        </td>
+                                {{ row.total_ploss_fine | number:'1.3-3' }}
 
-                        <td class="text-end">
+                            </td>
 
-                            {{ row.total_ploss | number:'1.3-3' }}
+                        </tr>
 
-                        </td>
-                        <td class="text-end">
-                            {{ row.total_ploss_fine | number:'1.3-3' }}
-                        </td>
+                        </tbody>
 
-                    </tr>
+                        <tfoot *ngIf="report.length">
 
-                    </tbody>
+                        <tr class="table-warning font-weight-bold">
 
-                    <tfoot *ngIf="readyMadeReport.length">
+                            <td colspan="4" class="text-end">
 
-                    <tr class="table-warning font-weight-bold">
+                                Grand Total
 
-                        <td colspan="5" class="text-end">
+                            </td>
 
-                            Grand Total
+                            <td class="text-end">
 
-                        </td>
+                                {{ totalQty }}
 
-                        <td class="text-end">
+                            </td>
 
-                            {{ readyMadeTotalQty }}
+                            <td class="text-end">
 
-                        </td>
+                                {{ totalPloss | number:'1.3-3' }}
 
-                        <td></td>
+                            </td>
 
-                        <td class="text-end">
+                            <td class="text-end">
 
-                            {{ readyMadeTotalPloss | number:'1.3-3' }}
+                                {{ totalFine | number:'1.3-3' }}
 
-                        </td>
-                        <td class="text-end">
+                            </td>
 
-                            {{ readyMadeTotalFine | number:'1.3-3' }}
+                        </tr>
 
-                        </td>
+                        </tfoot>
 
-                    </tr>
+                    </table>
 
-                    </tfoot>
-
-                </table>
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+        <!-- ======================================================= -->
+        <!-- Ready Made Items -->
+        <!-- ======================================================= -->
 
-    <!-- ======================================================= -->
-    <!-- Ready Made Outside Items -->
-    <!-- ======================================================= -->
+        <div class="card mt-4 shadow">
 
-    <div class="card mt-4 shadow">
+            <div class="card-header bg-success text-white">
 
-        <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
 
-            <h5 class="mb-0">
+                    Ready-Made Stock P-Loss
 
-                Ready-Made Outside Items P-Loss
+                </h5>
 
-            </h5>
+            </div>
 
-        </div>
+            <div class="card-body">
 
-        <div class="card-body">
 
-            <div class="table-responsive">
 
-                <table class="table table-bordered table-hover table-striped table-sm">
+                <div class="table-responsive">
 
-                    <thead class="table-dark">
+                    <table class="table table-bordered table-hover table-striped table-sm">
 
-                    <tr>
+                        <thead class="table-dark">
 
-                        <th>#</th>
+                        <tr>
 
-                        <th>Date</th>
+                            <th>#</th>
 
-                        <th>Bill No</th>
+                            <th>Date</th>
 
-                        <th>Tag</th>
+                            <th>Bill No</th>
 
-                        <th>Model</th>
+                            <th>Tag</th>
 
-                        <th class="text-end">Qty</th>
+                            <th>Job</th>
 
-                        <th class="text-end">P-Loss</th>
+                            <th class="text-end">Qty</th>
 
-                        <th class="text-end">Total P-Loss</th>
+                            <th class="text-end">P-Loss</th>
 
-                        <th class="text-end">Fine</th>
+                            <th class="text-end">Total P-Loss</th>
+                            <th class="text-end">Fine</th>
 
-                    </tr>
+                        </tr>
 
-                    </thead>
+                        </thead>
 
-                    <tbody>
+                        <tbody>
 
-                    <tr *ngFor="let row of outsideItemsReport; let i = index">
+                        <tr *ngFor="let row of readyMadeReport; let i=index">
 
-                        <td>{{ i + 1 }}</td>
+                            <td>{{ i + 1 }}</td>
 
-                        <td>{{ row.bill_date | date:'dd-MM-yyyy' }}</td>
+                            <td>{{ row.bill_date | date:'dd-MM-yyyy' }}</td>
 
-                        <td>{{ row.bill_no }}</td>
+                            <td>{{ row.bill_no }}</td>
 
-                        <td>{{ row.tag }}</td>
+                            <td>{{ row.tag }}</td>
 
-                        <td>{{ row.model_no }}</td>
+                            <td>{{ row.job_id }}</td>
 
-                        <td class="text-end">
+                            <td class="text-end">
 
-                            {{ row.qty }}
+                                {{ row.qty }}
 
-                        </td>
+                            </td>
 
-                        <td class="text-end">
+                            <td class="text-end">
 
-                            {{ row.p_loss | number:'1.3-3' }}
+                                {{ row.p_loss | number:'1.3-3' }}
 
-                        </td>
+                            </td>
 
-                        <td class="text-end">
+                            <td class="text-end">
 
-                            {{ row.total_ploss | number:'1.3-3' }}
+                                {{ row.total_ploss | number:'1.3-3' }}
 
-                        </td>
+                            </td>
+                            <td class="text-end">
+                                {{ row.total_ploss_fine | number:'1.3-3' }}
+                            </td>
 
-                        <td class="text-end">
+                        </tr>
 
-                            {{ row.total_ploss_fine | number:'1.3-3' }}
+                        </tbody>
 
-                        </td>
+                        <tfoot *ngIf="readyMadeReport.length">
 
-                    </tr>
+                        <tr class="table-warning font-weight-bold">
 
-                    </tbody>
+                            <td colspan="5" class="text-end">
 
-                    <tfoot *ngIf="outsideItemsReport.length">
+                                Grand Total
 
-                    <tr class="table-warning font-weight-bold">
+                            </td>
 
-                        <td colspan="5" class="text-end">
+                            <td class="text-end">
 
-                            Grand Total
+                                {{ readyMadeTotalQty }}
 
-                        </td>
+                            </td>
 
-                        <td class="text-end">
-                            {{ outsideItemsTotalQty }}
-                        </td>
+                            <td></td>
 
-                        <td class="text-center">
-                            -
-                        </td>
-                        <td class="text-end">
+                            <td class="text-end">
 
-                            {{ outsideItemsTotalPloss | number:'1.3-3' }}
+                                {{ readyMadeTotalPloss | number:'1.3-3' }}
 
-                        </td>
+                            </td>
+                            <td class="text-end">
 
-                        <td class="text-end">
+                                {{ readyMadeTotalFine | number:'1.3-3' }}
 
-                            {{ outsideItemsTotalFine | number:'1.3-3' }}
+                            </td>
 
-                        </td>
+                        </tr>
 
-                    </tr>
+                        </tfoot>
 
-                    </tfoot>
+                    </table>
 
-                </table>
+                </div>
 
             </div>
 
         </div>
 
+        <!-- ======================================================= -->
+        <!-- Ready Made Outside Items -->
+        <!-- ======================================================= -->
+
+        <div class="card mt-4 shadow">
+
+            <div class="card-header bg-secondary text-white">
+
+                <h5 class="mb-0">
+
+                    Ready-Made Outside Items P-Loss
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover table-striped table-sm">
+
+                        <thead class="table-dark">
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Date</th>
+
+                            <th>Bill No</th>
+
+                            <th>Tag</th>
+
+                            <th>Model</th>
+
+                            <th class="text-end">Qty</th>
+
+                            <th class="text-end">P-Loss</th>
+
+                            <th class="text-end">Total P-Loss</th>
+
+                            <th class="text-end">Fine</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        <tr *ngFor="let row of outsideItemsReport; let i = index">
+
+                            <td>{{ i + 1 }}</td>
+
+                            <td>{{ row.bill_date | date:'dd-MM-yyyy' }}</td>
+
+                            <td>{{ row.bill_no }}</td>
+
+                            <td>{{ row.tag }}</td>
+
+                            <td>{{ row.model_no }}</td>
+
+                            <td class="text-end">
+
+                                {{ row.qty }}
+
+                            </td>
+
+                            <td class="text-end">
+
+                                {{ row.p_loss | number:'1.3-3' }}
+
+                            </td>
+
+                            <td class="text-end">
+
+                                {{ row.total_ploss | number:'1.3-3' }}
+
+                            </td>
+
+                            <td class="text-end">
+
+                                {{ row.total_ploss_fine | number:'1.3-3' }}
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                        <tfoot *ngIf="outsideItemsReport.length">
+
+                        <tr class="table-warning font-weight-bold">
+
+                            <td colspan="5" class="text-end">
+
+                                Grand Total
+
+                            </td>
+
+                            <td class="text-end">
+                                {{ outsideItemsTotalQty }}
+                            </td>
+
+                            <td class="text-center">
+                                -
+                            </td>
+                            <td class="text-end">
+
+                                {{ outsideItemsTotalPloss | number:'1.3-3' }}
+
+                            </td>
+
+                            <td class="text-end">
+
+                                {{ outsideItemsTotalFine | number:'1.3-3' }}
+
+                            </td>
+
+                        </tr>
+
+                        </tfoot>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
 </div>

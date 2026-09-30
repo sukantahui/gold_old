@@ -1,169 +1,465 @@
-<!--ninety-two-gold-form.component.html-->
-<div class="container mt-4">
+<!-- ninety-two-gold-form.component.html -->
+<div class="ninety-two-container mt-3">
 
+    <!-- TOP KPI SUMMARY BAR -->
+    <div class="kpi-summary-grid mb-3">
+        <div class="kpi-card kpi-opening">
+            <div class="kpi-icon">📦</div>
+            <div class="kpi-content">
+                <span class="kpi-label">Opening Balance</span>
+                <div class="kpi-value-row">
+                    <span class="kpi-val">{{ openingValue | number:'1.3-3' }} <small>g</small></span>
+                    <span class="kpi-fine-badge">Fine: {{ openingFine | number:'1.3-3' }} g</span>
+                </div>
+            </div>
+        </div>
 
+        <div class="kpi-card kpi-purity">
+            <div class="kpi-icon">🪙</div>
+            <div class="kpi-content">
+                <span class="kpi-label">Purity Standard</span>
+                <div class="kpi-value-row">
+                    <span class="kpi-val text-amber">92.00%</span>
+                    <span class="kpi-sub-text">22K Gini Factor (×0.92)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="kpi-card kpi-closing" [class.kpi-negative]="liveClosingValue < 0">
+            <div class="kpi-icon">🔒</div>
+            <div class="kpi-content">
+                <span class="kpi-label">Current Closing Balance</span>
+                <div class="kpi-value-row">
+                    <span class="kpi-val highlight">{{ liveClosingValue | number:'1.3-3' }} <small>g</small></span>
+                    <span class="kpi-fine-badge fine-gold">Fine: {{ liveClosingFine | number:'1.3-3' }} g</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN FORM CARD -->
     <form [formGroup]="NinetyTwoGoldForm">
 
         <div class="card ledger-card shadow-sm border-0">
 
-            <!-- HEADER -->
+            <!-- CARD HEADER & ACTIONS -->
+            <div class="card-header ledger-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="gold-avatar">92</div>
+                    <div>
+                        <h5 class="mb-0 fw-bold ledger-title">
+                            92 Gold Transactions Ledger
+                        </h5>
+                        <small class="ledger-period">
+                            📅 {{ getMonthName(selectedMonth) }} {{ selectedYear }}
+                            <span class="mx-1">•</span>
+                            <span class="badge bg-gold-subtle text-gold">RM-48 (Gini)</span>
+                        </small>
+                    </div>
+                </div>
 
+                <div class="d-flex align-items-center gap-2">
+                    <button type="button"
+                            class="btn btn-sm btn-outline-saved d-flex align-items-center gap-1"
+                            [class.active]="showSavedData"
+                            (click)="toggleSavedData()"
+                            [disabled]="isLoading">
+                        <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+                        <span *ngIf="!isLoading">📊</span>
+                        <span>{{ showSavedData ? 'Hide Saved' : 'View Saved' }}</span>
+                        <span *ngIf="savedData && savedData.length > 0" class="badge bg-secondary ms-1">{{ savedData.length }}</span>
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-sm btn-save-gold d-flex align-items-center gap-1 shadow-sm"
+                            (click)="submit()"
+                            [disabled]="isLoading">
+                        <span>💾</span>
+                        <span class="fw-semibold">Save 92 Gold</span>
+                    </button>
+
+                    <button *ngIf="isDev"
+                            type="button"
+                            class="btn btn-sm btn-outline-dev"
+                            (click)="toggleDevPanel()"
+                            title="Toggle Developer Debug Preview">
+                        {{ showDevPanel ? '🙈' : '🐞' }}
+                    </button>
+                </div>
+            </div>
 
             <!-- TABLE -->
             <div class="table-responsive">
-                <table class="table ledger-table mb-0">
+                <table class="table ledger-table mb-0 align-middle">
 
                     <!-- THEAD -->
                     <thead>
-                    <tr class="table-title">
-                        <th colspan="5">92 Gold Transactions</th>
-                    </tr>
-
                     <tr class="table-head">
-                        <th>#</th>
-                        <th>Particulars</th>
-                        <th class="text-end">Value</th>
-                        <th class="text-end">Fine</th>
-                        <th>Comment</th>
+                        <th style="width: 50px;" class="text-center">#</th>
+                        <th style="min-width: 240px;">Particulars & Flow</th>
+                        <th style="width: 170px;" class="text-end">Gross Value (g)</th>
+                        <th style="width: 170px;" class="text-end">Fine (92%) (g)</th>
+                        <th style="min-width: 200px;">Reference / Note</th>
                     </tr>
                     </thead>
 
                     <!-- TBODY -->
                     <tbody>
 
-                    <!-- 1 -->
+                    <!-- 1: Opening Balance -->
                     <tr formGroupName="closingBalanceOfPreviousMonth" class="row-opening">
-                        <td>1</td>
-                        <td class="fw-semibold">Opening Balance</td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
-                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                        <td class="text-center text-muted fw-bold">1</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="flow-pill pill-neutral">🔷 Initial</span>
+                                <span class="fw-semibold text-dark">Opening Balance</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-clean"
+                                       placeholder="0.000"
+                                       formControlName="value">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-fine readonly-look"
+                                       placeholder="0.000"
+                                       formControlName="fine">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   class="form-control form-control-sm input-clean input-comment"
+                                   placeholder="Opening Balance note"
+                                   formControlName="comment">
+                        </td>
                     </tr>
 
-                    <!-- 2 -->
+                    <!-- 2: Transferred to Pitam -->
                     <tr formGroupName="transferredToProduction" class="row-less">
-                        <td>2</td>
-                        <td class="text-danger">↘ Transferred to Pitam</td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
-                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                        <td class="text-center text-muted fw-bold">2</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="flow-pill pill-outward">↘ Outward</span>
+                                <span class="text-danger fw-medium">Transferred to Pitam</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-clean"
+                                       placeholder="0.000"
+                                       formControlName="value">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-fine readonly-look"
+                                       placeholder="0.000"
+                                       formControlName="fine">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   class="form-control form-control-sm input-clean input-comment"
+                                   placeholder="Transfer remarks..."
+                                   formControlName="comment">
+                        </td>
                     </tr>
 
-                    <!-- 3 -->
+                    <!-- 3: Returned from Pitam -->
                     <tr formGroupName="returnedFromProduction" class="row-add">
-                        <td>3</td>
-                        <td class="text-success">↗ Returned from Pitam</td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
-                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                        <td class="text-center text-muted fw-bold">3</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="flow-pill pill-inward">↗ Inward</span>
+                                <span class="text-success fw-medium">Returned from Pitam</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-clean"
+                                       placeholder="0.000"
+                                       formControlName="value">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-fine readonly-look"
+                                       placeholder="0.000"
+                                       formControlName="fine">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   class="form-control form-control-sm input-clean input-comment"
+                                   placeholder="Return remarks..."
+                                   formControlName="comment">
+                        </td>
                     </tr>
 
-                    <!-- 4 -->
+                    <!-- 4: Fine -> 92 -->
                     <tr formGroupName="fineToGini" class="row-add">
-                        <td>4</td>
-                        <td class="text-success">↗ Fine → 92</td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
-                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                        <td class="text-center text-muted fw-bold">4</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="flow-pill pill-inward">↗ Inward</span>
+                                <span class="text-success fw-medium">Fine Gold → 92 Gold</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-clean"
+                                       placeholder="0.000"
+                                       formControlName="value">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-fine readonly-look"
+                                       placeholder="0.000"
+                                       formControlName="fine">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   class="form-control form-control-sm input-clean input-comment"
+                                   placeholder="Conversion note..."
+                                   formControlName="comment">
+                        </td>
                     </tr>
 
-                    <!-- 5 -->
+                    <!-- 5: 92 -> Fine -->
                     <tr formGroupName="fromGiniToFine" class="row-less">
-                        <td>5</td>
-                        <td class="text-danger">↘ 92 → Fine</td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
-                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                        <td class="text-center text-muted fw-bold">5</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="flow-pill pill-outward">↘ Outward</span>
+                                <span class="text-danger fw-medium">92 Gold → Fine Gold</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-clean"
+                                       placeholder="0.000"
+                                       formControlName="value">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-fine readonly-look"
+                                       placeholder="0.000"
+                                       formControlName="fine">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   class="form-control form-control-sm input-clean input-comment"
+                                   placeholder="Conversion note..."
+                                   formControlName="comment">
+                        </td>
                     </tr>
 
-                    <!-- 6 -->
+                    <!-- 6: 92 -> Pan -->
                     <tr formGroupName="fromNinetyTwoToPan" class="row-less">
-                        <td>6</td>
-                        <td class="text-danger">↘ 92 → Pan</td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
-                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                        <td class="text-center text-muted fw-bold">6</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="flow-pill pill-outward">↘ Outward</span>
+                                <span class="text-danger fw-medium">92 Gold → Pan Gold</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-clean"
+                                       placeholder="0.000"
+                                       formControlName="value">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-fine readonly-look"
+                                       placeholder="0.000"
+                                       formControlName="fine">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   class="form-control form-control-sm input-clean input-comment"
+                                   placeholder="Pan conversion note..."
+                                   formControlName="comment">
+                        </td>
                     </tr>
 
-                    <!-- 7 -->
+                    <!-- 7: Loss of Gini -->
                     <tr formGroupName="lossOfGini" class="row-less">
-                        <td>7</td>
-                        <td class="text-danger">↘ Loss</td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
-                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                        <td class="text-center text-muted fw-bold">7</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="flow-pill pill-manual-loss">⚙ Loss</span>
+                                <span class="text-danger fw-medium">Loss of 92 Gold (Manual)</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-clean text-danger"
+                                       placeholder="0.000"
+                                       formControlName="value">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-fine readonly-look"
+                                       placeholder="0.000"
+                                       formControlName="fine">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   class="form-control form-control-sm input-clean input-comment"
+                                   placeholder="Reason for loss..."
+                                   formControlName="comment">
+                        </td>
                     </tr>
 
-                    <!-- 8 -->
+                    <!-- 8: Excess of Gini -->
                     <tr formGroupName="excessOfGini" class="row-add">
-                        <td>8</td>
-                        <td class="text-success">↗ Excess</td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="value"></td>
-                        <td><input type="number" class="form-control form-control-sm input-clean text-end" formControlName="fine"></td>
-                        <td><input type="text" class="form-control form-control-sm input-clean" formControlName="comment"></td>
+                        <td class="text-center text-muted fw-bold">8</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="flow-pill pill-manual-gain">⚙ Excess</span>
+                                <span class="text-success fw-medium">Excess of 92 Gold (Manual)</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-clean text-success"
+                                       placeholder="0.000"
+                                       formControlName="value">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number" step="0.001"
+                                       class="form-control form-control-sm text-end input-fine readonly-look"
+                                       placeholder="0.000"
+                                       formControlName="fine">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   class="form-control form-control-sm input-clean input-comment"
+                                   placeholder="Reason for excess..."
+                                   formControlName="comment">
+                        </td>
                     </tr>
 
                     </tbody>
 
-                    <!-- TFOOT -->
+                    <!-- TFOOT (CLOSING BALANCE) -->
                     <tfoot>
                     <tr formGroupName="closingBalance" class="row-closing">
-                        <td>#</td>
-                        <td class="fw-bold">Closing Balance</td>
-                        <td><input type="number" class="form-control form-control-sm text-end" formControlName="value"></td>
-                        <td><input type="number" class="form-control form-control-sm text-end" formControlName="fine"></td>
-                        <td><input type="text" class="form-control form-control-sm" formControlName="comment"></td>
+                        <td class="text-center">🔒</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-bold text-dark fs-6">Closing Balance</span>
+                                <span class="badge bg-dark-subtle text-dark">Auto Computed</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number"
+                                       class="form-control form-control-sm text-end fw-bold input-closing"
+                                       formControlName="value"
+                                       readonly>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-with-unit">
+                                <input type="number"
+                                       class="form-control form-control-sm text-end fw-bold input-closing input-closing-fine"
+                                       formControlName="fine"
+                                       readonly>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   class="form-control form-control-sm input-clean text-muted"
+                                   formControlName="comment"
+                                   readonly>
+                        </td>
                     </tr>
                     </tfoot>
 
                 </table>
             </div>
-            <div class="card-header ledger-header d-flex justify-content-between align-items-center">
 
-                <div>
-                    <small>
-                        Year: {{selectedYear}} | Month: {{ getMonthName(selectedMonth) }}
-                    </small>
+            <!-- CARD FOOTER SUMMARY -->
+            <div class="card-footer ledger-footer d-flex flex-wrap justify-content-between align-items-center py-2 px-3">
+                <div class="text-muted small">
+                    💡 <em>Tip: Gross Value automatically calculates 92% Fine Gold weight. Adjust Loss/Excess manually if needed.</em>
                 </div>
 
                 <div class="d-flex gap-2">
-                    <button class="btn btn-outline-primary btn-sm"
-                            (click)="loadSavedData()">
-                        📥 View Saved
-                    </button>
-
                     <button type="button"
-                            class="btn btn-light btn-sm px-4"
-                            (click)="submit()">
-                        💾 Save
+                            class="btn btn-save-gold btn-sm px-4 shadow-sm"
+                            (click)="submit()"
+                            [disabled]="isLoading">
+                        💾 Save 92 Gold Data
                     </button>
                 </div>
-
             </div>
+
         </div>
 
     </form>
 
-<!--    here i like to show the saved data in a different div for the month of year-->
-    <div id="saved-gini-entry" class="mt-4">
+    <!-- SAVED TRANSACTIONS PANEL -->
+    <div *ngIf="showSavedData" id="saved-gini-entry" class="saved-panel mt-4">
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm border-0 saved-card">
 
-            <div class="card-header">
-                <h6 class="mb-0">📊 Saved Transactions</h6>
+            <div class="card-header saved-header d-flex justify-content-between align-items-center py-2 px-3">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fs-5">📊</span>
+                    <h6 class="mb-0 fw-bold text-dark">
+                        Saved 92 Gold Records — {{ getMonthName(selectedMonth) }} {{ selectedYear }}
+                    </h6>
+                    <span *ngIf="savedData" class="badge bg-primary-subtle text-primary">{{ savedData.length }} records</span>
+                </div>
+
+                <button class="btn btn-sm btn-close-saved" (click)="showSavedData = false">
+                    ✕ Close
+                </button>
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered table-sm mb-0">
+                <table class="table table-hover table-sm mb-0 align-middle">
 
                     <!-- HEADER -->
-                    <thead class="table-light">
+                    <thead class="saved-table-head">
                     <tr>
-                        <th>#</th>
+                        <th class="text-center" style="width: 50px;">#</th>
                         <th>Particular</th>
-                        <th class="text-end">Value</th>
-                        <th class="text-end">Fine</th>
-                        <th>Comment</th>
+                        <th class="text-end" style="width: 160px;">Value (g)</th>
+                        <th class="text-end" style="width: 160px;">Fine (g)</th>
+                        <th>Comment / Reference</th>
                     </tr>
                     </thead>
 
@@ -171,67 +467,67 @@
                     <tbody>
 
                     <tr *ngFor="let item of savedData; let i = index"
-                        [class.table-primary]="item.comment === 'Opening Balance'">
+                        [class.table-light-primary]="item.comment === 'Opening Balance'">
 
-                        <td>{{ i + 1 }}</td>
+                        <td class="text-center text-muted">{{ i + 1 }}</td>
 
                         <td>
-                        <span [ngClass]="item.tr_type == -1 ? 'text-danger' : 'text-success'">
-
-                            <!-- Arrow -->
-                            {{ item.tr_type == -1 ? '↘' : '↗' }}
-
-                            <!-- Special label for opening -->
-                            {{ item.comment === 'Opening Balance'
-                            ? 'Opening Balance'
-                            : item.transaction_particular
-                            }}
-                        </span>
+                            <span class="d-inline-flex align-items-center gap-1 fw-medium"
+                                  [ngClass]="item.tr_type == -1 ? 'text-danger' : 'text-success'">
+                                <span>{{ item.tr_type == -1 ? '↘' : '↗' }}</span>
+                                <span>
+                                    {{ item.comment === 'Opening Balance'
+                                    ? 'Opening Balance'
+                                    : (item.transaction_particular || item.comment || 'Transaction')
+                                    }}
+                                </span>
+                            </span>
                         </td>
 
-                        <td class="text-end">
+                        <td class="text-end font-monospace fw-medium">
                             {{ item.value | number:'1.3-3' }}
                         </td>
 
-                        <td class="text-end">
+                        <td class="text-end font-monospace fw-medium text-amber">
                             {{ item.fine | number:'1.3-3' }}
                         </td>
 
-                        <td>
+                        <td class="text-muted small">
                             {{ item.comment || '-' }}
                         </td>
 
                     </tr>
 
-                    <!-- EMPTY -->
+                    <!-- EMPTY STATE -->
                     <tr *ngIf="!savedData || savedData.length === 0">
-                        <td colspan="5" class="text-center text-muted">
-                            No data found
+                        <td colspan="5" class="text-center py-4 text-muted">
+                            <div class="empty-saved-icon">📭</div>
+                            <div class="fw-medium">No saved records found for {{ getMonthName(selectedMonth) }} {{ selectedYear }}</div>
+                            <small class="text-secondary">Click "Save 92 Gold" above to record this month's transactions.</small>
                         </td>
                     </tr>
 
                     </tbody>
 
-                    <!-- FOOTER (CLOSING BALANCE) -->
+                    <!-- FOOTER (SAVED CLOSING BALANCE) -->
                     <tfoot *ngIf="closingBalance">
-                    <tr class="table-dark fw-bold">
-
-                        <td colspan="2">
-                            🔒 Closing Balance
+                    <tr class="saved-closing-row">
+                        <td class="text-center">🔒</td>
+                        <td class="fw-bold">
+                            Saved Closing Balance
                         </td>
 
-                        <td class="text-end">
+                        <td class="text-end font-monospace fw-bold">
                             {{ closingBalance?.value | number:'1.3-3' }}
                         </td>
 
-                        <td class="text-end">
+                        <td class="text-end font-monospace fw-bold text-amber">
                             {{ closingBalance?.fine | number:'1.3-3' }}
                         </td>
 
-                        <td>
-                            {{ closingBalance?.comment }}
+                        <td class="small">
+                            {{ closingBalance?.comment || 'Closing Balance' }}
                         </td>
-
                     </tr>
                     </tfoot>
 
@@ -241,38 +537,26 @@
         </div>
 
     </div>
-    <!-- DEBUG PANEL -->
-    <div *ngIf="isDev" class="mb-2 text-end mt-3">
-        <button class="btn btn-sm btn-outline-secondary" (click)="toggleDevPanel()">
-            {{ showDevPanel ? '🙈 Hide Debug' : '🐞 Show Debug' }}
-        </button>
-    </div>
 
+    <!-- DEV DEBUG PANEL -->
     <div *ngIf="isDev && showDevPanel" class="dev-box mt-3 shadow-sm">
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <h6 class="fw-bold text-primary mb-0">📦 Payload Preview</h6>
+            <div class="d-flex align-items-center gap-2">
+                <span class="fs-5">📦</span>
+                <h6 class="fw-bold text-primary mb-0">Payload Preview (92 Gold)</h6>
+            </div>
 
-            <button class="btn btn-sm btn-outline-primary" (click)="copyPayload()">
-                📋 Copy
-            </button>
+            <div class="d-flex gap-2">
+                <button class="btn btn-sm btn-outline-primary" (click)="copyPayload()">
+                    📋 Copy JSON
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" (click)="showDevPanel = false">
+                    ✕
+                </button>
+            </div>
         </div>
 
-        <pre>{{ getPayloadPreview() | json }}</pre>
+        <pre class="dev-json-view mb-0">{{ getPayloadPreview() | json }}</pre>
     </div>
 
-</div>
-
-<!-- Debug -->
-<div *ngIf="isDev && showDevPanel" class="dev-box mt-4 shadow-sm">
-
-    <div class="d-flex justify-content-between align-items-center mb-2">
-        <h6 class="fw-bold text-primary mb-0">📦 Payload Preview</h6>
-
-        <button class="btn btn-sm btn-outline-primary"
-                (click)="copyPayload()">
-            📋 Copy
-        </button>
-    </div>
-
-    <pre>{{ getPayloadPreview() | json }}</pre>
 </div>

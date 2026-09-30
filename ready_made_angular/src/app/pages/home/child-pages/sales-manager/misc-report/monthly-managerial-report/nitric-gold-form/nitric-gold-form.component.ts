@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ManagerService } from '../../../../../../../services/manager.service';
 import { environment } from 'src/environments/environment';
 
@@ -21,8 +22,9 @@ export class NitricGoldFormComponent implements OnInit, OnChanges {
   nitricGoldForm!: FormGroup;
   showDevPanel = false;
   isLoading = false;
-  savedData: any[];
+  savedData: any[] = [];
   closingBalance: any;
+
   conversionValue = 0.875;
 
   constructor(
@@ -68,7 +70,7 @@ export class NitricGoldFormComponent implements OnInit, OnChanges {
         comment: ['Closing Balance (Auto calculated)'],
         tr_date: [new Date().toISOString().substring(0, 10)],
         tr_type: [1],
-        order_no: [200]
+        order_no: [70]
       })
     });
   }
@@ -107,20 +109,20 @@ export class NitricGoldFormComponent implements OnInit, OnChanges {
 
     const payload = {
       rmId: this.rmId,
-      recordYear: this.selectedYear,
-      recordMonth: this.selectedMonth
+      recordYear: Number(this.selectedYear),
+      recordMonth: Number(this.selectedMonth)
     };
 
     forkJoin({
-      closing: this.managerService.getMonthlyTransactionClosingBalance(payload),
-      transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload),
-      return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload),
+      closing: this.managerService.getMonthlyTransactionClosingBalance(payload).pipe(catchError(err => { console.warn('Nitric Gold closing balance error', err); return of({ status: false, data: null }); })),
+      transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload).pipe(catchError(err => { console.warn('Nitric Gold transfer error', err); return of({ status: false, data: null }); })),
+      return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload).pipe(catchError(err => { console.warn('Nitric Gold return error', err); return of({ status: false, data: null }); })),
 
       nitricToFine: this.managerService.getMonthlyTotalFineToGiniByManager({
         fromRmId: 45,
         toRmId: 36,
         ...payload
-      })
+      }).pipe(catchError(err => { console.warn('Nitric Gold nitricToFine error', err); return of({ status: false, data: null }); }))
 
     }).subscribe({
       next: (res) => {
@@ -139,6 +141,12 @@ export class NitricGoldFormComponent implements OnInit, OnChanges {
           fine: this.format3(returned * this.conversionValue)
         });
 
+        const transfer = res.transfer?.data?.value || 0;
+        this.nitricGoldForm.get('transferredToProduction')?.patchValue({
+          value: this.format3(transfer),
+          fine: this.format3(transfer * this.conversionValue)
+        });
+
         this.nitricGoldForm.get('nitricToFine')?.patchValue({
           value: this.format3(res.nitricToFine?.data?.fromRmTotal || 0),
           fine: this.format3(res.nitricToFine?.data?.toRmTotal || 0),
@@ -146,9 +154,12 @@ export class NitricGoldFormComponent implements OnInit, OnChanges {
         });
 
         this.calculateClosingBalance();
+        this.isLoading = false;
       },
-      error: () => {
-        Swal.fire('Error', 'Failed to load monthly data', 'error');
+      error: (err) => {
+        this.isLoading = false;
+        console.error('❌ Nitric Gold API Error:', err);
+        Swal.fire('Error', 'Failed to load Nitric Gold monthly data', 'error');
       }
     });
   }

@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ManagerService } from '../../../../../../../services/manager.service';
 import { environment } from 'src/environments/environment';
 
@@ -78,23 +79,18 @@ export class SilverFormComponent implements OnInit, OnChanges {
       // Task: 4
       silverToDal: this.createRow(
           13,
-          1,
+          -1,
           40
       ),
-      dalToPan: this.createRow(
-          14,
-          -1,
-          45
-      ),
 
-      lossOfDal: this.createRow(
+      lossOfSilver: this.createRow(
           7,
           -1,
           50,
           'Manual Entry'
       ),
 
-      excessOfDal: this.createRow(
+      excessOfSilver: this.createRow(
           8,
           1,
           60,
@@ -163,23 +159,23 @@ export class SilverFormComponent implements OnInit, OnChanges {
 
     const payload = {
       rmId: this.rmId,
-      recordYear: this.selectedYear,
-      recordMonth: this.selectedMonth
+      recordYear: Number(this.selectedYear),
+      recordMonth: Number(this.selectedMonth)
     };
 
     forkJoin({
 
-      closing: this.managerService.getMonthlyTransactionClosingBalance(payload),
+      closing: this.managerService.getMonthlyTransactionClosingBalance(payload).pipe(catchError(err => { console.warn('Silver closing balance error', err); return of({ status: false, data: null }); })),
 
-      transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload),
+      transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload).pipe(catchError(err => { console.warn('Silver transfer error', err); return of({ status: false, data: null }); })),
 
-      return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload),
+      return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload).pipe(catchError(err => { console.warn('Silver return error', err); return of({ status: false, data: null }); })),
 
       silverToDal: this.managerService.getMonthlyTotalSilverToDalByManager({
-        fromRmId: 38,
-        toRmId: this.rmId,
+        fromRmId: this.rmId,
+        toRmId: 33,
         ...payload
-      })
+      }).pipe(catchError(err => { console.warn('Silver silverToDal error', err); return of({ status: false, data: null }); }))
 
     }).subscribe({
 
@@ -209,23 +205,20 @@ export class SilverFormComponent implements OnInit, OnChanges {
         });
 
         this.silverForm.get('silverToDal')?.patchValue({
-          value: this.format3(res.silverToDal?.data?.toRmTotal || 0),
-          fine: this.format3(res.silverToDal?.data?.toRmTotal * this.conversionValue || 0),
+          value: this.format3(res.silverToDal?.data?.fromRmTotal || 0),
+          fine: this.format3((res.silverToDal?.data?.fromRmTotal || 0) * this.conversionValue),
           comment: res.silverToDal?.data?.conversionComment
         });
 
         this.calculateClosingBalance();
+        this.isLoading = false;
 
       },
 
-      error: () => {
-
-        Swal.fire(
-            'Error',
-            'Failed to load monthly data',
-            'error'
-        );
-
+      error: (err) => {
+        this.isLoading = false;
+        console.error('❌ Silver API Error:', err);
+        Swal.fire('Error', 'Failed to load Silver monthly data', 'error');
       }
 
     });
@@ -401,7 +394,22 @@ export class SilverFormComponent implements OnInit, OnChanges {
 
   }
 
-  copyPayload() {}
+  copyPayload() {
+    const payload = this.getPayloadPreview();
+    const text = JSON.stringify(payload, null, 2);
+
+    navigator.clipboard.writeText(text).then(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Copied!',
+        text: 'Payload copied to clipboard',
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }).catch(() => {
+      Swal.fire('Error', 'Failed to copy', 'error');
+    });
+  }
 
   getMonthName(month: number): string {
 

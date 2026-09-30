@@ -3,7 +3,8 @@ import { environment } from '../../../../../../../../environments/environment';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ManagerService } from '../../../../../../../services/manager.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-fine-gold-form',
@@ -98,26 +99,26 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
 
     const payload = {
       rmId: this.rmId,
-      recordYear: this.selectedYear,
-      recordMonth: this.selectedMonth
+      recordYear: Number(this.selectedYear),
+      recordMonth: Number(this.selectedMonth)
     };
 
     forkJoin({
-      closing: this.managerService.getMonthlyTransactionClosingBalance(payload),
-      transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload),
-      return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload),
-      returnFromEmployee: this.managerService.getMonthlyTotalMaterialFromEmployeeToManager(payload),
+      closing: this.managerService.getMonthlyTransactionClosingBalance(payload).pipe(catchError(err => { console.warn('Fine Gold closing balance error', err); return of({ status: false, data: null }); })),
+      transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload).pipe(catchError(err => { console.warn('Fine Gold transfer error', err); return of({ status: false, data: null }); })),
+      return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload).pipe(catchError(err => { console.warn('Fine Gold return error', err); return of({ status: false, data: null }); })),
+      returnFromEmployee: this.managerService.getMonthlyTotalMaterialFromEmployeeToManager(payload).pipe(catchError(err => { console.warn('Fine Gold returnFromEmployee error', err); return of({ status: false, data: null }); })),
       fineToGini: this.managerService.getMonthlyTotalFineToGiniByManager({
         fromRmId: 36, toRmId: 48, ...payload
-      }),
+      }).pipe(catchError(err => { console.warn('Fine Gold fineToGini error', err); return of({ status: false, data: null }); })),
       giniToFine: this.managerService.getMonthlyTotalGiniToFineByManager({
         fromRmId: 48, toRmId: 36, ...payload
-      }),
+      }).pipe(catchError(err => { console.warn('Fine Gold giniToFine error', err); return of({ status: false, data: null }); })),
       nitricToFine: this.managerService.getMonthlyTotalNitricToFineByManager({
         fromRmId: 45, toRmId: 36, ...payload
-      }),
-      withdrawByOwner: this.managerService.getMonthlyTotalMaterialFromManagerToOwner(payload),
-      submitByOwner: this.managerService.getMonthlyTotalMaterialFromownerToManager(payload),
+      }).pipe(catchError(err => { console.warn('Fine Gold nitricToFine error', err); return of({ status: false, data: null }); })),
+      withdrawByOwner: this.managerService.getMonthlyTotalMaterialFromManagerToOwner(payload).pipe(catchError(err => { console.warn('Fine Gold withdrawByOwner error', err); return of({ status: false, data: null }); })),
+      submitByOwner: this.managerService.getMonthlyTotalMaterialFromownerToManager(payload).pipe(catchError(err => { console.warn('Fine Gold submitByOwner error', err); return of({ status: false, data: null }); })),
     }).subscribe({
       next: (res) => {
 
@@ -152,7 +153,7 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
         });
         this.FineGoldForm.get('nitricToFine')?.patchValue({
           fine: this.format3(res.nitricToFine?.data?.toRmTotal || 0),
-          comment: res.giniToFine?.data?.conversionComment
+          comment: res.nitricToFine?.data?.conversionComment
         });
 
         // withdrawn by owner
@@ -172,9 +173,13 @@ export class FineGoldFormComponent implements OnInit, OnChanges {
               : 'Submit by owner'
         });
 
+        this.calculateClosingBalance();
+        this.isLoading = false;
       },
-      error: () => {
-        Swal.fire('Error', 'Failed to load monthly data', 'error');
+      error: (err) => {
+        this.isLoading = false;
+        console.error('❌ Fine Gold API Error:', err);
+        Swal.fire('Error', 'Failed to load Fine Gold monthly data', 'error');
       }
     });
   }

@@ -1,96 +1,314 @@
-<div class="table-container">
+<div class="managerial-report-wrapper">
 
-    <!-- Selection Row -->
-    <div class="row mb-3 align-items-end">
+    <!-- HERO / DASHBOARD CONTROLS -->
+    <div class="report-header-card shadow-sm mb-4">
+        <div class="row align-items-center g-3">
+            
+            <!-- Title & Subtitle -->
+            <div class="col-lg-5 col-md-12">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="header-icon-box">
+                        <span class="fs-3">📑</span>
+                    </div>
+                    <div>
+                        <h4 class="mb-1 text-slate-800 fw-bold header-title">
+                            Monthly Managerial Report
+                        </h4>
+                        <p class="mb-0 text-muted small">
+                            Material ledger, transformation balance & production transfers
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Year Selection -->
-        <div class="col-md-3">
-            <label class="form-label fw-semibold">
-                Select Year
-            </label>
+            <!-- Controls (Year, Month, Load) -->
+            <div class="col-lg-7 col-md-12">
+                <div class="filter-controls-container d-flex flex-wrap align-items-center justify-content-lg-end gap-2">
+                    
+                    <!-- Year Picker -->
+                    <div class="control-group">
+                        <label class="control-label">Year</label>
+                        <select class="form-select form-select-sm modern-select"
+                                [(ngModel)]="selectedYear"
+                                (ngModelChange)="onSelectionChange()"
+                                name="year">
+                            <option [ngValue]="null">-- Select Year --</option>
+                            <option *ngFor="let year of years" [ngValue]="year">
+                                {{ year }}
+                            </option>
+                        </select>
+                    </div>
 
-            <select class="form-select"
-                    [(ngModel)]="selectedYear"
-                    name="year">
-                <option value="">-- Select Year --</option>
-                <option *ngFor="let year of years"
-                        [value]="year">
-                    {{ year }}
-                </option>
-            </select>
+                    <!-- Month Picker -->
+                    <div class="control-group">
+                        <label class="control-label">Month</label>
+                        <select class="form-select form-select-sm modern-select"
+                                [(ngModel)]="selectedMonth"
+                                (ngModelChange)="onSelectionChange()"
+                                name="month">
+                            <option [ngValue]="null">-- Select Month --</option>
+                            <option *ngFor="let month of months" [ngValue]="month.value">
+                                {{ month.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="d-flex align-items-end gap-2 pt-3 pt-md-0">
+                        <button type="button"
+                                class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
+                                title="Set to Current Month"
+                                (click)="selectCurrentMonth()">
+                            <span>⚡</span>
+                            <span class="d-none d-sm-inline">This Month</span>
+                        </button>
+
+                        <button type="button"
+                                class="btn btn-sm btn-primary modern-btn-load d-flex align-items-center gap-2"
+                                [disabled]="!selectedYear || !selectedMonth"
+                                (click)="reloadComponent()">
+                            <span>🔄</span>
+                            <span class="fw-semibold">Load Report</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
-        <!-- Month Selection -->
-        <div class="col-md-3">
-            <label class="form-label fw-semibold">
-                Select Month
-            </label>
+        <!-- Selected Period Status Banner -->
+        <div class="period-banner mt-3 pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2"
+             *ngIf="selectedYear && selectedMonth">
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-indigo-subtle text-indigo border border-indigo-subtle px-2 py-1 rounded-pill">
+                    🗓️ {{ getMonthName(selectedMonth) }} {{ selectedYear }}
+                </span>
+                <span class="text-muted small" *ngIf="loadComponent">
+                    • 6 Material ledgers loaded
+                </span>
+            </div>
 
-            <select class="form-select"
-                    [(ngModel)]="selectedMonth"
-                    name="month">
-                <option value="">-- Select Month --</option>
-                <option *ngFor="let month of months"
-                        [value]="month.value">
-                    {{ month.name }}
-                </option>
-            </select>
+            <!-- Quick Navigation Pills -->
+            <div class="segment-tabs-container d-flex flex-wrap gap-1" *ngIf="loadComponent">
+                <button class="btn btn-sm tab-pill"
+                        [class.active]="activeTab === 'all'"
+                        (click)="setActiveTab('all')">
+                    📋 All (Master)
+                </button>
+                <button *ngFor="let seg of segments"
+                        class="btn btn-sm tab-pill"
+                        [class.active]="activeTab === seg.id"
+                        (click)="setActiveTab(seg.id)">
+                    {{ seg.icon }} {{ seg.name }}
+                </button>
+            </div>
         </div>
-        <!-- Button -->
-        <div class="col-md-2">
-            <button class="btn btn-primary" (click)="reloadComponent()">
-                Load
-            </button>
+    </div>
+
+    <!-- WELCOME / PROMPT STATE (When not loaded) -->
+    <div *ngIf="!loadComponent" class="welcome-card shadow-sm text-center py-5 px-4 mb-4">
+        <div class="welcome-icon mb-3">
+            <span class="display-5">📊</span>
         </div>
+        <h5 class="fw-bold text-slate-800 mb-2">Select Period to View Managerial Ledgers</h5>
+        <p class="text-muted mx-auto mb-4" style="max-width: 580px;">
+            Choose a Year and Month from the top panel and click <strong>"Load Report"</strong> to calculate and review stock balances, transformation records, and production receipts for all 6 raw material segments.
+        </p>
+
+        <!-- Segment Preview Badges -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+            <div *ngFor="let seg of segments" class="segment-preview-tag">
+                <span class="me-1">{{ seg.icon }}</span>
+                <strong>{{ seg.name }}</strong>
+                <span class="badge bg-light text-secondary ms-1">RM-{{ seg.rmId }}</span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary px-4 py-2"
+                [disabled]="!selectedYear || !selectedMonth"
+                (click)="reloadComponent()">
+            🚀 Load {{ getMonthName(selectedMonth) || 'Selected' }} {{ selectedYear || '' }} Report
+        </button>
+    </div>
+
+    <!-- REPORT SECTIONS CONTAINER -->
+    <div *ngIf="loadComponent" class="report-content-container">
+
+        <!-- 1. 92 GOLD SEGMENT -->
+        <section id="segment-92-gold"
+                 class="segment-section mb-4"
+                 [hidden]="activeTab !== 'all' && activeTab !== '92-gold'">
+            <div class="segment-section-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="segment-icon-badge gold-bg">🥇</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">1. 92 Gold Ledger</h5>
+                        <small class="text-muted">Purity: 92% • RM ID: 48</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-warning text-dark border">92.0% Gold</span>
+                    <button class="btn btn-link btn-sm text-decoration-none"
+                            *ngIf="activeTab === 'all'"
+                            (click)="setActiveTab('92-gold')">
+                        Focus View ↗
+                    </button>
+                </div>
+            </div>
+            <div class="segment-body">
+                <app-ninety-two-gold-form
+                        [selectedYear]="selectedYear"
+                        [selectedMonth]="selectedMonth">
+                </app-ninety-two-gold-form>
+            </div>
+        </section>
+
+        <!-- 2. FINE GOLD SEGMENT -->
+        <section id="segment-fine-gold"
+                 class="segment-section mb-4"
+                 [hidden]="activeTab !== 'all' && activeTab !== 'fine-gold'">
+            <div class="segment-section-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="segment-icon-badge fine-bg">✨</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">2. Fine Gold Ledger</h5>
+                        <small class="text-muted">Purity: 100% (24K Pure) • RM ID: 36</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-primary-subtle text-primary border">100% Fine</span>
+                    <button class="btn btn-link btn-sm text-decoration-none"
+                            *ngIf="activeTab === 'all'"
+                            (click)="setActiveTab('fine-gold')">
+                        Focus View ↗
+                    </button>
+                </div>
+            </div>
+            <div class="segment-body">
+                <app-fine-gold-form
+                        [selectedYear]="selectedYear"
+                        [selectedMonth]="selectedMonth">
+                </app-fine-gold-form>
+            </div>
+        </section>
+
+        <!-- 3. NITRIC GOLD SEGMENT -->
+        <section id="segment-nitric-gold"
+                 class="segment-section mb-4"
+                 [hidden]="activeTab !== 'all' && activeTab !== 'nitric-gold'">
+            <div class="segment-section-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="segment-icon-badge nitric-bg">🧪</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">3. Nitric Gold Ledger</h5>
+                        <small class="text-muted">Conversion: 87.5% • RM ID: 45</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-success-subtle text-success border">87.5% Fine</span>
+                    <button class="btn btn-link btn-sm text-decoration-none"
+                            *ngIf="activeTab === 'all'"
+                            (click)="setActiveTab('nitric-gold')">
+                        Focus View ↗
+                    </button>
+                </div>
+            </div>
+            <div class="segment-body">
+                <app-nitric-gold-form
+                        [selectedYear]="selectedYear"
+                        [selectedMonth]="selectedMonth">
+                </app-nitric-gold-form>
+            </div>
+        </section>
+
+        <!-- 4. PAN GOLD SEGMENT -->
+        <section id="segment-pan-gold"
+                 class="segment-section mb-4"
+                 [hidden]="activeTab !== 'all' && activeTab !== 'pan-gold'">
+            <div class="segment-section-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="segment-icon-badge pan-bg">🪞</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">4. Pan Gold Ledger</h5>
+                        <small class="text-muted">Conversion: 40.0% • RM ID: 31</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-info-subtle text-info border">40.0% Fine</span>
+                    <button class="btn btn-link btn-sm text-decoration-none"
+                            *ngIf="activeTab === 'all'"
+                            (click)="setActiveTab('pan-gold')">
+                        Focus View ↗
+                    </button>
+                </div>
+            </div>
+            <div class="segment-body">
+                <app-pan-gold-form
+                        [selectedYear]="selectedYear"
+                        [selectedMonth]="selectedMonth">
+                </app-pan-gold-form>
+            </div>
+        </section>
+
+        <!-- 5. DAL SEGMENT -->
+        <section id="segment-dal"
+                 class="segment-section mb-4"
+                 [hidden]="activeTab !== 'all' && activeTab !== 'dal'">
+            <div class="segment-section-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="segment-icon-badge dal-bg">🥣</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">5. Dal Ledger</h5>
+                        <small class="text-muted">Silver Material Conversion • RM ID: 33</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-secondary-subtle text-secondary border">Dal Material</span>
+                    <button class="btn btn-link btn-sm text-decoration-none"
+                            *ngIf="activeTab === 'all'"
+                            (click)="setActiveTab('dal')">
+                        Focus View ↗
+                    </button>
+                </div>
+            </div>
+            <div class="segment-body">
+                <app-dal-form
+                        [selectedYear]="selectedYear"
+                        [selectedMonth]="selectedMonth">
+                </app-dal-form>
+            </div>
+        </section>
+
+        <!-- 6. SILVER SEGMENT -->
+        <section id="segment-silver"
+                 class="segment-section mb-4"
+                 [hidden]="activeTab !== 'all' && activeTab !== 'silver'">
+            <div class="segment-section-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="segment-icon-badge silver-bg">🥈</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">6. Silver Ledger</h5>
+                        <small class="text-muted">Pure Silver Material • RM ID: 38</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-dark-subtle text-dark border">Pure Silver</span>
+                    <button class="btn btn-link btn-sm text-decoration-none"
+                            *ngIf="activeTab === 'all'"
+                            (click)="setActiveTab('silver')">
+                        Focus View ↗
+                    </button>
+                </div>
+            </div>
+            <div class="segment-body">
+                <app-silver-form
+                        [selectedYear]="selectedYear"
+                        [selectedMonth]="selectedMonth">
+                </app-silver-form>
+            </div>
+        </section>
 
     </div>
-    <h2>1. 92 Gold Opening Balance and others</h2>
-    <app-ninety-two-gold-form
-            *ngIf="loadComponent"
-            [selectedYear]="selectedYear"
-            [selectedMonth]="selectedMonth">
-    </app-ninety-two-gold-form>
-    <hr>
-    <h4>92 Gold Segment End</h4>
-    <hr>
-
-    <h2>2. Fine Gold Opening Balance and others</h2>
-    <app-fine-gold-form
-        *ngIf="loadComponent"
-        [selectedYear]="selectedYear"
-        [selectedMonth]="selectedMonth">
-    </app-fine-gold-form>
-    <!--    for nitric gold-->
-    <hr>
-    <h4>Fine Gold Segment End</h4>
-    <hr>
-
-    <h2>3. Nitric Gold Opening Balance and others</h2>
-    <app-nitric-gold-form
-            *ngIf="loadComponent"
-            [selectedYear]="selectedYear"
-            [selectedMonth]="selectedMonth">
-    </app-nitric-gold-form>
-    <hr>
-    <h4>Nitric Gold Segment End</h4>
-    <hr>
-
-    <h2>4. Pan Opening Balance and others</h2>
-    <app-pan-gold-form
-            *ngIf="loadComponent"
-            [selectedYear]="selectedYear"
-            [selectedMonth]="selectedMonth">
-    </app-pan-gold-form>
-    <hr>
-    <h4>Pan Gold Segment End</h4>
-    <hr>
-    <h2>5. Dal Opening Balance and others</h2>
-    <app-dal-form
-            *ngIf="loadComponent"
-            [selectedYear]="selectedYear"
-            [selectedMonth]="selectedMonth">
-    </app-dal-form>
-    <app-silver-form></app-silver-form>
-
 
 </div>

@@ -1,0 +1,77 @@
+.ledger-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.table-title th {
+  background: linear-gradient(135deg, #708090, #4a5568);
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.table-head th {
+  background: linear-gradient(135deg, #f5f7fa, #e4e8f0);
+  color: #444;
+}
+
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #708090;
+  box-shadow: 0 0 6px rgba(112, 128, 144, 0.4);
+}
+
+.ledger-table tbody tr {
+  transition: all 0.2s ease-in-out;
+}
+
+.ledger-table tbody tr:hover {
+  background: linear-gradient(135deg, #f8f9ff, #eef1ff);
+  box-shadow: inset 0 0 0 9999px rgba(255, 255, 255, 0.1);
+}
+
+.row-opening {
+  background-color: #f0fdf4;
+}
+
+.row-less {
+  background-color: #fef2f2;
+}
+
+.row-add {
+  background-color: #ecfdf5;
+}
+
+.row-closing {
+  background-color: #f8fafc;
+  font-weight: 600;
+}
+
+.text-danger {
+  background: linear-gradient(45deg, #ff4d4d, #ff1a1a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-success {
+  background: linear-gradient(45deg, #00c853, #64dd17);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dev-box {
+  background: #f8fafc;
+  color: #334155;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  font-size: 13px;
+}

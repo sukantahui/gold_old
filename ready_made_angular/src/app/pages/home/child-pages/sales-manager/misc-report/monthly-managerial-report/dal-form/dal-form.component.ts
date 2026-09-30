@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ManagerService } from '../../../../../../../services/manager.service';
 import { environment } from 'src/environments/environment';
 
@@ -163,23 +164,23 @@ export class DalFormComponent implements OnInit, OnChanges {
 
     const payload = {
       rmId: this.rmId,
-      recordYear: this.selectedYear,
-      recordMonth: this.selectedMonth
+      recordYear: Number(this.selectedYear),
+      recordMonth: Number(this.selectedMonth)
     };
 
     forkJoin({
 
-      closing: this.managerService.getMonthlyTransactionClosingBalance(payload),
+      closing: this.managerService.getMonthlyTransactionClosingBalance(payload).pipe(catchError(err => { console.warn('Dal closing balance error', err); return of({ status: false, data: null }); })),
 
-      transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload),
+      transfer: this.managerService.getMonthlyTotalMaterialFromManagerToProductionManager(payload).pipe(catchError(err => { console.warn('Dal transfer error', err); return of({ status: false, data: null }); })),
 
-      return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload),
+      return: this.managerService.getMonthlyTotalMaterialFromProductionManagerToManager(payload).pipe(catchError(err => { console.warn('Dal return error', err); return of({ status: false, data: null }); })),
 
       silverToDal: this.managerService.getMonthlyTotalSilverToDalByManager({
         fromRmId: 38,
         toRmId: this.rmId,
         ...payload
-      })
+      }).pipe(catchError(err => { console.warn('Dal silverToDal error', err); return of({ status: false, data: null }); }))
 
     }).subscribe({
 
@@ -210,22 +211,19 @@ export class DalFormComponent implements OnInit, OnChanges {
 
         this.dalForm.get('silverToDal')?.patchValue({
           value: this.format3(res.silverToDal?.data?.toRmTotal || 0),
-          fine: this.format3(res.silverToDal?.data?.toRmTotal * this.conversionValue || 0),
+          fine: this.format3((res.silverToDal?.data?.toRmTotal || 0) * this.conversionValue),
           comment: res.silverToDal?.data?.conversionComment
         });
 
         this.calculateClosingBalance();
+        this.isLoading = false;
 
       },
 
-      error: () => {
-
-        Swal.fire(
-            'Error',
-            'Failed to load monthly data',
-            'error'
-        );
-
+      error: (err) => {
+        this.isLoading = false;
+        console.error('❌ Dal API Error:', err);
+        Swal.fire('Error', 'Failed to load Dal monthly data', 'error');
       }
 
     });
