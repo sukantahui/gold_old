@@ -1,4 +1,5 @@
 {
+    "enabled": true,
     "projectHeading" : "Bangle Management Project",
     "contact" : "bangle312@gmail.com",
     "fineToNinetyTwoRatio": {"fine": 100,"copper": 9.170},

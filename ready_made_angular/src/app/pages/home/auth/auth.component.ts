@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import Swal from 'sweetalert2';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ErrorService} from '../../../services/error.service';
+import projectDetails from '../../../../assets/projectDetails.json';
 
 @Component({
   selector: 'app-auth',
@@ -36,6 +37,24 @@ export class AuthComponent implements OnInit {
   }
 
   loginUser(){
+        if (!projectDetails.enabled) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: true
+            });
+            swalWithBootstrapButtons.fire({
+                title: 'Login Disabled',
+                text: 'Login is currently not permitted',
+                icon: 'warning',
+                confirmButtonColor: '#1661a0',
+                background: 'rgba(38,39,47,0.95)'
+            });
+            return;
+        }
+
         // converting password to MD5
         const md5 = new Md5();
         const passwordMd5 = md5.appendStr(this.loginForm.value.password).end();
